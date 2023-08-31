@@ -1,0 +1,107 @@
+//sass --watch src/scss/style.scss:src/css/style.css
+
+.c-home{
+    background-color: #1C2433;
+    min-height: 100vh;
+    align-items: center;
+    display: flex;
+
+    .container{
+        max-width: 100%;
+        padding-left: 64px;    
+    }
+
+    .col-content{
+        background-color: #fff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0px 32px;
+
+        svg{
+            width: 200px;
+        }
+    }
+    .col-img{
+        background: url('../img/home/img-inicial.png');
+        background-size: cover;
+        padding-bottom: 16px;
+
+        a{
+            position: relative;
+            
+            &:hover{
+                transition: ease-in-out 0.3s;
+                &::before{
+                    content: "Acesse o site da FutFanatics";
+                    left: -250px;
+                    background: #606267;
+                    position: absolute;
+                    top: -59%;
+                    padding: 9px 25px;
+                    border-radius: 2px;
+                    color: #D9D9D9;
+                    font-weight: 700;
+                }
+            }
+            
+        }
+    }
+
+}
+.c-instruction{
+    .box-img{
+        svg{
+            height: 70px;
+        }
+    }
+
+    .c-header{
+        display: flex;
+        padding: 40px 0px;
+        align-items: center;
+        .box-img{
+            svg{
+            height: 60px;
+            }
+            
+        }
+    }
+    .box-question{
+        background-color: #fff;
+        border-radius: 20px;
+        position: relative;
+        padding: 30px 20px;
+
+        svg{
+            width: 50px;
+            height: 50px;
+        }
+        .box-text{
+
+        }
+    }
+}
+.c-order{
+    .c-header{
+        display: flex;
+        padding: 40px 0px;
+        align-items: center;
+        .box-img{
+            svg{
+            height: 60px;
+            }
+            
+        }
+    }
+}
+
+.c-footer{
+    padding: 20px 0px;
+    
+    svg{
+        height: 70px;
+    }
+}

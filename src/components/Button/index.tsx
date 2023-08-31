@@ -3,16 +3,42 @@ import styled from "styled-components";
 
 interface IButton {
     path?: string;
+    typeButton?: string;
     children: React.ReactNode;
 }
 
-const SButton = styled.button`
-    background-color: #0B3B60;
-    border-radius: 8px;
+interface SButtonProps {
+    typeButton?: string;
+}
+
+const SButton = styled.button<SButtonProps>`
+    background-color: #192C53;
+    border-radius: 50px;
     color: #FFF;
+    font-weight: 500;
+    border: none; 
+    width: 320px;
+    height: 55px;
+    font-size: 16px;
+    padding: 0px 16px 0px 32px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'gotham';
+    align-items: center;
+
+    ${props => props.typeButton === 'next' && `
+        width: 200px;
+        height: 50px;
+        border-radius: 10px;
+        margin-top: 32px;
+        justify-content:center;
+        padding:0px;
+        font-size:17px;
+        margin-bottom:32px;
+    `}
 `
 
-export default function Button({ children, path = ""}: IButton) {
+export default function Button({ children, path = "", typeButton=""}: IButton) {
 
     const navigate = useNavigate();
 
@@ -24,7 +50,40 @@ export default function Button({ children, path = ""}: IButton) {
     };
 
     return (
-        <SButton onClick={handleClick}>{ children }</SButton>
+        <SButton onClick={handleClick} typeButton={typeButton}>{ children }</SButton>
     )
 
 }
+
+export const ButtonTroque=styled.div`
+    background-color: #222222;
+    border-radius: 50px;
+    font-family: 'gotham';
+    color: #FFF;
+    font-weight: 500;
+    border: none; 
+    width: 320px;
+    height: 55px;
+    padding: 0px 16px 0px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+`
+
+
+export const ButtonNext=styled.div`
+    background-color: #192C53;
+    border-radius: 10px;
+    font-family: 'gotham';
+    color: #FFF;
+    font-weight: 500;
+    border: none; 
+    width: 200px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+    margin-bottom: 16px;
+`
