@@ -80,4 +80,39 @@
   height: 70px;
 }
 
+.c-data .c-header {
+  display: flex;
+  padding: 40px 0px;
+  align-items: center;
+}
+.c-data .c-header .box-img svg {
+  height: 60px;
+}
+.c-data .line {
+  position: relative;
+}
+.c-data .line::before {
+  content: "";
+  position: absolute;
+  height: 2px;
+  background-color: #000;
+  width: 100%;
+  top: 50%;
+}
+.c-data .boxform {
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  margin-bottom: 32px;
+}
+.c-data .boxform input {
+  width: 100%;
+  border: none;
+}
+.c-data .boxform input::placeholder {
+  font-weight: 600;
+  color: #d9d9d9;
+}
+
 /*# sourceMappingURL=style.css.map */

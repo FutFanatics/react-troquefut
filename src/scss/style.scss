@@ -105,3 +105,46 @@
         height: 70px;
     }
 }
+
+.c-data{
+    .c-header{
+        display: flex;
+        padding: 40px 0px;
+        align-items: center;
+        .box-img{
+            svg{
+            height: 60px;
+            }
+            
+        }
+    }
+    .line{
+        position: relative;
+        &::before{
+            content: "";
+            position: absolute;
+            height: 2px;
+            background-color: #000;
+            width: 100%;
+            top:50%;
+        }
+    }
+
+    .boxform{
+        padding: 20px;
+        border:1px solid rgba(00,00,00,0.3);
+        border-radius: 20px;
+        box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+        margin-bottom: 32px;
+
+        input{
+            width: 100%;
+            border: none;
+
+            &::placeholder{
+                font-weight: 600;
+                color: #d9d9d9;
+            }
+        }
+    }
+}

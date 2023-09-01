@@ -3,7 +3,7 @@ import { RotaPrivate } from "./utils/RotaPrivate";
 import Instructions from "./pages/Instructions";
 import Home from "./pages/Home";
 import Order from "./pages/Order";
-import Data from "./pages/Data";
+import Data from "./pages/Data/personal";
 import Shipping from "./pages/Shipping";
 
 function AppRoutes() {

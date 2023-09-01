@@ -5,6 +5,9 @@ import styled from "styled-components";
 interface SBox {
     typeBox?: string;
 }
+interface SBoxIconFut {
+    typeBoxIcon?: string;
+}
 
 export const BoxIcon = styled.div`
     background-color: #FFF;
@@ -22,7 +25,7 @@ export const BoxIcon = styled.div`
     }
 `
 
-export const BoxIconFut = styled.div`
+export const SBoxIconFut = styled.div<SBoxIconFut>`
     background-color: #192C53;
     border-radius: 50px;
     color: #FFF;
@@ -35,6 +38,18 @@ export const BoxIconFut = styled.div`
     svg{
         width: 30px;
     }
+    ${props => props.typeBoxIcon === 'icondata' && `
+        width:40px;
+        height:40px;
+
+        span{
+            font-size: 24px;
+            font-weight: 700;
+            color: #d9d9d9;
+        }
+    `}
+
+    
 `
 
 export const BoxTextFooter = styled.div`
@@ -105,4 +120,5 @@ export const SBox = styled.div<SBox>`
             padding:0px;
             background-color:transparent;
      `}
+     
 `

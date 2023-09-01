@@ -2,7 +2,7 @@ import Button, { ButtonTroque } from "../../components/Button";
 import 'bootstrap/dist/css/bootstrap.css';
 import './../../css/style.css';
 import IconDevolucao from "../../img/icon/inicie.png"
-import { BoxIcon, BoxIconFut } from "../../components/Box";
+import { BoxIcon, SBoxIconFut } from "../../components/Box";
 import { STextParagraph, STitle } from "../../components/Text"; 
 import IconFut from "../../components/icon";
 import LogoFut from "../../components/icon/LogoFut";
@@ -25,9 +25,9 @@ export default function Home() {
                     </div>
                     <div className="col-md-6 col-img d-flex justify-content-end align-items-end">
                         <a href="www.futfanatics.com.br">
-                            <BoxIconFut>
+                            <SBoxIconFut>
                             <IconFut></IconFut>
-                            </BoxIconFut>
+                            </SBoxIconFut>
                         </a>
                         
                     </div>

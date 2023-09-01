@@ -41,6 +41,14 @@ export const STitle =styled.h1<STitleProps>`
         font-weight:500;
         padding-top:16px;
       `}
+    ${props => props.typeTitle === 'dados' && `
+        font-size: 18px;
+        color:#000;
+        font-weight:500;
+        padding-top:0px;
+        padding-bottom:0px;
+        padding-left:8px;
+      `}  
  `
 
  export const STextParagraph=styled.p<STextParagraph>`
@@ -70,5 +78,8 @@ export const STitle =styled.h1<STitleProps>`
 
       ${props => props.typeOption === 'inative' && `
         color:#777777;
+    `}
+     ${props => props.typeOption === 'nameForms' && `
+        color:#000;
     `}
  `
