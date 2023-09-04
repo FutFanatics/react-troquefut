@@ -31,6 +31,14 @@ export const STitle =styled.h1<STitleProps>`
         text-align:center;
         margin-bottom:0px;
     `}
+    ${props => props.typeTitle === 'instructionminor' &&`
+        text-transform:uppercase;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+        margin-bottom:-15px;
+    `}
      ${props => props.typeTitle === 'sublinhado' && `
         color:#192C53;
         text-align:center;
@@ -48,7 +56,15 @@ export const STitle =styled.h1<STitleProps>`
         padding-top:0px;
         padding-bottom:0px;
         padding-left:8px;
-      `}  
+      `} 
+    ${props => props.typeTitle === 'inative' && `
+        font-size: 18px;
+        color:#a8a8a8;
+        font-weight:500;
+        padding-top:0px;
+        padding-bottom:0px;
+        padding-left:8px;
+      `} 
  `
 
  export const STextParagraph=styled.p<STextParagraph>`
@@ -67,6 +83,15 @@ export const STitle =styled.h1<STitleProps>`
         font-weight:350;
         font-size:16px;
         padding-bottom:0px;
+    `}
+    ${props => props.typeParagraph === 'paragraphenvio' && `
+        font-weight:500;
+        font-size:16px;
+    `}
+    ${props => props.typeParagraph === 'paragraphclique' && `
+        font-weight:500;
+        font-size:16px;
+        padding-bottom:16px;
     `}
  `
 

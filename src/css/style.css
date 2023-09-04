@@ -66,7 +66,7 @@
 }
 .c-order .c-header {
   display: flex;
-  padding: 40px 0px;
+  padding: 40px 0px 0px 0px;
   align-items: center;
 }
 .c-order .c-header .box-img svg {
@@ -82,7 +82,7 @@
 
 .c-data .c-header {
   display: flex;
-  padding: 40px 0px;
+  padding: 40px 0px 0px 0px;
   align-items: center;
 }
 .c-data .c-header .box-img svg {
@@ -113,6 +113,65 @@
 .c-data .boxform input::placeholder {
   font-weight: 600;
   color: #d9d9d9;
+}
+.c-data .next-form {
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  margin-top: 32px;
+  justify-content: center;
+  padding: 0px;
+  font-size: 17px;
+  margin-bottom: 32px;
+  background-color: #192C53;
+  color: #FFF;
+  font-weight: 500;
+  border: none;
+  align-items: center;
+}
+
+.c-shipping .box-img {
+  margin-bottom: 32px;
+}
+.c-shipping .box-text_envio {
+  height: 200px;
+}
+.c-shipping .img-envio {
+  height: 120px;
+  width: auto;
+}
+.c-shipping .select-envio {
+  background-color: #192C53;
+  border-radius: 10px;
+  font-family: "gotham";
+  color: #FFF;
+  font-weight: 500;
+  border: none;
+  width: 200px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+.c-shipping .c-clique .video-clique {
+  background: url("../img/cliquebg.png");
+  width: 100%;
+  height: 80vh;
+  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.c-header {
+  display: flex;
+  padding: 40px 0px 0px 0px;
+  align-items: center;
+}
+.c-header .box-img svg {
+  height: 60px;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -48,6 +48,17 @@ export const SBoxIconFut = styled.div<SBoxIconFut>`
             color: #d9d9d9;
         }
     `}
+    ${props => props.typeBoxIcon === 'icondata-checked' && `
+        width:40px;
+        height:40px;
+        background-color:#15B124;
+
+        svg{
+            width:20px;
+            color:#FFF;
+            height:20px;
+        }
+    `}
 
     
 `
@@ -120,5 +131,28 @@ export const SBox = styled.div<SBox>`
             padding:0px;
             background-color:transparent;
      `}
+     ${props => props.typeBox === 'envio' && `
+            margin: 30px 24px;
+            width: 30%;
+            padding:40px 40px;
+            min-height:30rem;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            border-radius:20px;
+            border:1px solid rgba(00,00,00,0.4);
+            background-color:transparent;
+            box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+     `}
+     ${props => props.typeBox === 'option-envio' && `
+            margin: 12px 0px;
+            width: 100%;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            background-color:transparent;
+     `}
+     
      
 `

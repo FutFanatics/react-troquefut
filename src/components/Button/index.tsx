@@ -26,6 +26,17 @@ const SButton = styled.button<SButtonProps>`
     font-family: 'gotham';
     align-items: center;
 
+    a{
+        color: #fff;
+        text-decoration: none;
+        width: 100%;
+        text-align: center;
+
+        &:hover{
+            color: #fff;
+        }
+    }
+
     ${props => props.typeButton === 'next' && `
         width: 200px;
         height: 50px;
@@ -84,6 +95,6 @@ export const ButtonNext=styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 16px;
+    margin-top: 8px;
     margin-bottom: 16px;
 `
