@@ -6,7 +6,8 @@ import LogoFut from "../../components/icon/LogoFut";
 import Correios from '../../img/icon/correios.png';
 import Cliqueretire from '../../img/icon/cliqueretire.png';
 import React, { useState } from 'react';
-
+import IconFilter from "../../components/icon/IconFilter";
+import Locker from "../../img/locker.png";
 
 export default function Shipping() {
     const [selectedContent, setSelectedContent] = useState('');
@@ -94,30 +95,111 @@ export default function Shipping() {
                         <STitle typeTitle='sublinhado'>Escolha&nbsp;</STitle>
                         em que locker deseja retirar
                         </STitle>
+
+                        <div className="container">
+                            <div className="row justify-content-center mt-4 mb-5">
+                                <div className="box-locker col-md-10 d-flex justify-content-center">
+                                    <div className="col-md-6">
+                                    <div className="d-flex">
+                                        <SBox typeBox="boxforms">
+                                            <input type='text' placeholder="Informe o CEP"></input>
+                                        </SBox>
+                                        <ButtonNext typeButtonNext="filter"><IconFilter></IconFilter><span>Filtro</span></ButtonNext>
+                                    </div>
+                                    <SBox typeBox="boxlocker">
+                                        <div className="box-content">
+                                        <STitle typeTitle="locker">
+                                            Shopping Tambore
+                                        </STitle>
+                                        <div><span className="type">e-Box:</span> <span className="describe">CR00115</span></div> 
+                                        <div><span className="type">Av.Piracema,699</span></div> 
+                                        <div><span className="type">Tamboré</span></div> <div className="d-flex justify-content-between">
+                                            <div>
+                                              <span className="type">CEP:</span> <span className="describe">06460-030</span>   
+                                            </div>
+                                            <ButtonNext typeButtonNext="more">
+                                                Saiba mais
+                                            </ButtonNext>
+                                        </div>  
+                                        </div>
+                                        <div className="box-img_locker">
+                                            <img src={Locker}/>
+                                        </div>
+                                        
+                                    </SBox>
+                                    <SBox typeBox="boxlocker">
+                                        <div className="box-content">
+                                        <STitle typeTitle="locker">
+                                            Shopping Tambore
+                                        </STitle>
+                                        <div><span className="type">e-Box:</span> <span className="describe">CR00115</span></div> 
+                                        <div><span className="type">Av.Piracema,699</span></div> 
+                                        <div><span className="type">Tamboré</span></div> <div className="d-flex justify-content-between">
+                                            <div>
+                                              <span className="type">CEP:</span> <span className="describe">06460-030</span>   
+                                            </div>
+                                            <ButtonNext typeButtonNext="more">
+                                                Saiba mais
+                                            </ButtonNext>
+                                        </div>  
+                                        </div>
+                                        <div className="box-img_locker">
+                                            <img src={Locker}/>
+                                        </div>
+                                        
+                                    </SBox>
+                                    <SBox typeBox="boxlocker">
+                                        <div className="box-content">
+                                        <STitle typeTitle="locker">
+                                            Shopping Tambore
+                                        </STitle>
+                                        <div><span className="type">e-Box:</span> <span className="describe">CR00115</span></div> 
+                                        <div><span className="type">Av.Piracema,699</span></div> 
+                                        <div><span className="type">Tamboré</span></div> <div className="d-flex justify-content-between">
+                                            <div>
+                                              <span className="type">CEP:</span> <span className="describe">06460-030</span>   
+                                            </div>
+                                            <ButtonNext typeButtonNext="more">
+                                                Saiba mais
+                                            </ButtonNext>
+                                        </div>  
+                                        </div>
+                                        <div className="box-img_locker">
+                                            <img src={Locker}/>
+                                        </div>
+                                        
+                                    </SBox>
+                                    </div>
+                                    <div className="col-md-5 maps">
+                                        <SBox typeBox="boxmaps">
+
+                                        </SBox>
+
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div className="w-100 d-flex justify-content-end">
+                            <Button typeButton="next">Avançar</Button>
+                        </div>
+                        </div>
+
+                        
                     </div>
                   
                 )}
                 {selectedContent === 'content2' && (
-                    <div className="manoela">
-                    <p>Conteúdo da Div 2</p>
+                    <div className="container">
+                        <div className="w-100 d-flex justify-content-end">
+                            <Button typeButton="next">Avançar</Button>
+                        </div>
                     </div>
+                    
                 )}
                 <div className="container">
                     <Footer></Footer>
                 </div>
-                            
-            
-            
-
-
-            <div>
-                <h1>Escolha sua forma de Envio</h1>
-                <Button><a href="https://www.futfanatics.com.br/">Concluir Solicitação </a></Button>                        <Button path="/">Voltar Página Inicial</Button>
-                </div>
         </section>
-
-
-        
     )
 
 }

@@ -169,10 +169,11 @@
         margin-bottom: 32px;
     }
     .box-text_envio{
-        height: 200px;
+        height: 150px;
+        margin-bottom: 64px;
     }
     .img-envio{
-         height: 120px;
+         height: 100px;
         width: auto;
     }
 
@@ -203,6 +204,9 @@
             align-items: center;
         }
     }
+    .maps{
+        margin-left: 16px;
+    }
 }
 
 .c-header{
@@ -214,5 +218,27 @@
         height: 60px;
         }
         
+    }
+}
+
+.item-options{
+    padding: 30px;
+    border: rgba(00,00,00,0.4) 1px solid;
+    border-radius: 40px;
+    width: 100%;
+    min-height: 20vh;
+    box-shadow: 1px 1px 2px 1px rgba(00,00,00,0.3);
+
+    .img-options{
+        width: 40%;
+        img{
+            width: 100%;
+        }
+    }
+    .text-options{
+        margin-left: 16px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
     }
 }

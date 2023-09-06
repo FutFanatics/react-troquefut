@@ -2,10 +2,13 @@ import { SBox } from "../../components/Box";
 import Button from "../../components/Button";
 import Footer from "../../components/Footer";
 import { STitle, STitleHeader } from "../../components/Text";
+import CustomSelect from "../../components/customselect";
 import LogoFut from "../../components/icon/LogoFut";
+import { useState } from 'react';
+
+
 
 export default function Order() {
-
     return (
         <section className="c-order">
            <div className="container">
@@ -37,11 +40,10 @@ export default function Order() {
                     O pedido que deseja <STitle typeTitle="sublinhado">&nbsp;devolver</STitle>
                 </STitle>
 
-                <select>
-                    <option value="someoption">Escolhe ai</option>
-                    <option value="someoption">Escolhe ai</option>
-                </select>
-
+                <div className="d-flex justify-content-center">
+                        <CustomSelect></CustomSelect>
+                </div>
+            
             
                 <div className="row justify-content-end">
                         <Button path="/data" typeButton="next" >Avançar</Button>

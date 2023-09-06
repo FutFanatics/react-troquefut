@@ -65,6 +65,27 @@ export const STitle =styled.h1<STitleProps>`
         padding-bottom:0px;
         padding-left:8px;
       `} 
+
+    ${props => props.typeTitle === 'locker' && `
+            font-size: 16px;
+            color:#000;
+            font-weight:500;
+            text-align:start;
+            padding-top:0px;
+            margin-top:0px;
+            margin-bottom:0px;
+            padding-bottom:6px;
+        `}
+    ${props => props.typeTitle === 'dadosPedido' && `
+            font-size: 16px;
+            color:#000;
+            font-weight:500;
+            text-align:start;
+            padding-top:0px;
+            margin-top:0px;
+            margin-bottom:0px;
+            padding-bottom:6px;
+        `}
  `
 
  export const STextParagraph=styled.p<STextParagraph>`
@@ -92,6 +113,17 @@ export const STitle =styled.h1<STitleProps>`
         font-weight:500;
         font-size:16px;
         padding-bottom:16px;
+    `}
+    ${props => props.typeParagraph === 'paragraphpedido' && `
+        text-align:start;
+        font-weight:350;
+        margin-bottom:0px;
+        padding-bottom:8px;
+        font-size:14px;
+
+        &:last-child{
+            padding-bottom:0px;
+        }
     `}
  `
 

@@ -11,6 +11,10 @@ interface SButtonProps {
     typeButton?: string;
 }
 
+interface ButtonNextProps {
+    typeButtonNext?: string;
+}
+
 const SButton = styled.button<SButtonProps>`
     background-color: #192C53;
     border-radius: 50px;
@@ -83,7 +87,7 @@ export const ButtonTroque=styled.div`
 `
 
 
-export const ButtonNext=styled.div`
+export const ButtonNext=styled.div<ButtonNextProps>`
     background-color: #192C53;
     border-radius: 10px;
     font-family: 'gotham';
@@ -97,4 +101,35 @@ export const ButtonNext=styled.div`
     align-items: center;
     margin-top: 8px;
     margin-bottom: 16px;
+
+    ${props => props.typeButtonNext === 'filter' && `
+        margin-top:0px;
+        border-radius:40px;
+        width:25%;
+        height:50px;
+        margin-left:10px;
+
+        svg{
+            width:28px;
+            fill:#FFF;
+        }
+
+        span{
+            padding-left:8px
+            font-size:17px; 
+        }
+    `}
+    ${props => props.typeButtonNext === 'more' && `
+        margin-top:0px;
+        border-radius:8px;
+        width:120px;
+        height:40px;
+        margin-left:10px;
+        font-size:14px;
+    `}
+    ${props => props.typeButtonNext === 'order' && `
+        width:170px;
+        height:50px;
+        margin-bottom:0px;
+    `}
 `

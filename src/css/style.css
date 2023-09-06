@@ -134,10 +134,11 @@
   margin-bottom: 32px;
 }
 .c-shipping .box-text_envio {
-  height: 200px;
+  height: 150px;
+  margin-bottom: 64px;
 }
 .c-shipping .img-envio {
-  height: 120px;
+  height: 100px;
   width: auto;
 }
 .c-shipping .select-envio {
@@ -164,6 +165,9 @@
   justify-content: center;
   align-items: center;
 }
+.c-shipping .maps {
+  margin-left: 16px;
+}
 
 .c-header {
   display: flex;
@@ -172,6 +176,27 @@
 }
 .c-header .box-img svg {
   height: 60px;
+}
+
+.item-options {
+  padding: 30px;
+  border: rgba(0, 0, 0, 0.4) 1px solid;
+  border-radius: 40px;
+  width: 100%;
+  min-height: 20vh;
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
+}
+.item-options .img-options {
+  width: 40%;
+}
+.item-options .img-options img {
+  width: 100%;
+}
+.item-options .text-options {
+  margin-left: 16px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 /*# sourceMappingURL=style.css.map */

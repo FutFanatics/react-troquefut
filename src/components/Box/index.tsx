@@ -133,9 +133,9 @@ export const SBox = styled.div<SBox>`
      `}
      ${props => props.typeBox === 'envio' && `
             margin: 30px 24px;
-            width: 30%;
+            width: 28%;
             padding:40px 40px;
-            min-height:30rem;
+            min-height:28rem;
             display:flex;
             flex-direction:column;
             align-items:center;
@@ -153,6 +153,108 @@ export const SBox = styled.div<SBox>`
             align-items:center;
             background-color:transparent;
      `}
-     
-     
+     ${props => props.typeBox === 'boxforms' && `
+            padding:10px 20px;
+            border-radius:40px;
+            width: 75%;
+            border:1px solid rgba(00,00,00,0.3);
+            box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+            margin-bottom:32px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background-color:transparent;
+
+            select{
+                margin-top:4px;
+                margin-bottom:4px;
+                font-size:18px;
+                width:100%;
+                border:none;
+
+                option{
+                    background-color:#fff;
+                    color:#000;
+
+                    &:hover{
+                        background-color:#f0f0f0;
+                    }
+                }
+
+                option:checked{
+                    background-color: #d9d9d9;
+                    color: #000;
+                }
+
+                &:focus{
+                    outline:none;
+                }
+            }
+
+            input{
+                width:100%;
+                border:none;
+
+                &::placeholder{
+                    font-weight:600;
+                    color:#000
+                }
+
+                &:focus{
+                    outline:none;
+                }
+            }
+     `}
+     ${props => props.typeBox === 'boxlocker' && `
+            padding:30px 20px 20px 20px;
+            border-radius:30px;
+            width: 100%;
+            border:1px solid rgba(00,00,00,0.3);
+            box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+            margin-bottom:32px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background-color:transparent;
+
+            
+            .type{
+                font-weight:700;
+                font-size:15px;
+            }
+            .describe{
+                font-weight:350;
+                font-size:15px;
+            }
+
+            .box-content{
+                width:65%;
+                margin-right:16px;
+            }
+
+            .box-img_locker{
+                width:30%;
+                 img{
+                    width:100%;
+                 }
+            }
+
+            &:last-child{
+                margin-bottom:0px;
+            }
+     `}  
+     ${props => props.typeBox === 'boxmaps' && `
+            padding:30px 20px 20px 20px;
+            border-radius:30px;
+            width: 100%;
+            border:1px solid rgba(00,00,00,0.3);
+            box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+            margin-bottom:32px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background-color:transparent;
+            height:100%;
+     `}     
+
 `
