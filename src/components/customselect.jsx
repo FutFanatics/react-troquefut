@@ -5,29 +5,35 @@ import { STextParagraph, STitle } from './Text';
 import ImgText from '../img/imgproduto.png'
 import { ButtonNext } from './Button';
 
-const optionsData = {
-  opcao1: 
-  <div className='item-options d-flex justify-content-between align-items-end'>
-        <div className='col-md-6 d-flex align-items-center'>
-            <div className='img-options'><img src={ImgText}/></div>
-            <div className='text-options'>
-                <STitle typeTitle='dadosPedido'>Camisa são paulo</STitle>
-                <STextParagraph typeParagraph='paragraphpedido'><strong>Código:</strong>xxx</STextParagraph>
-                <STextParagraph typeParagraph='paragraphpedido'><strong>Variação:</strong>xxx</STextParagraph>
-                <STextParagraph typeParagraph='paragraphpedido'><strong>Preço:</strong>xxx</STextParagraph>
-                <STextParagraph typeParagraph='paragraphpedido'><strong>Link:</strong>xxx</STextParagraph>
-            </div>
-        </div>
-        <div className='col-md-3 d-flex justify-content-center'>
-          <ButtonNext typeButtonNext='order'>Selecionar</ButtonNext>
-        </div>
-  </div>,
-  opcao2: 'Conteúdo para Opção 2',
-  opcao3: 'Conteúdo para Opção 3',
-};
+
+const ItemOption = ItemOption.div`
+  padding: 30px;
+  border-radius: 40px;
+  width: 100%;
+  box-shadow: 1px 1px 2px 1px rgba(00,00,00,0.3);
+  min-height: 20vh;
+  background-color: ${(props) => props.backgroundColor};
+  border: 1px solid ${(props) => props.borderColor};
+
+  .img-options{
+        width: 40%;
+        img{
+            width: 100%;
+        }
+    }
+    .text-options{
+        margin-left: 16px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+
+`;
+
 
 export default function CustomSelect() {
-  const[isDivActive, setDivActive] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [contentToShow, setContentToShow] = useState('');
 
@@ -40,15 +46,34 @@ export default function CustomSelect() {
     setContentToShow(content);
   };
 
-  function toggleDivColors(){
-    setDivActive((prevActive)=>!prevActive);
+  function toggleDivColors() {
+    setIsActive((prevActive) => !prevActive);
   }
 
-  const divStyles = {
-    backgroundColor: isDivActive ? '#EEE' : '#FFF',
-    border: isDivActive ? '1px solid rgba(00,00,00,0.4)' : '2px solid #4CAF50',
-  };
+  const backgroundColor = isActive  ? '#EEE' : '#FFF';
+  const borderColor = isActive ? '2px solid #4CAF50 1px' : '1px solid rgba(00,00,00,0.4)';
 
+  const optionsData = {
+    opcao1: 
+    <ItemOption backgroundColor={backgroundColor} borderColor={borderColor}>
+          <div className='col-md-6 d-flex align-items-center' >
+              <div className='img-options'><img src={ImgText}/></div>
+              <div className='text-options'>
+                  <STitle typeTitle='dadosPedido'>Camisa são paulo</STitle>
+                  <STextParagraph typeParagraph='paragraphpedido'><strong>Código:</strong>xxx</STextParagraph>
+                  <STextParagraph typeParagraph='paragraphpedido'><strong>Variação:</strong>xxx</STextParagraph>
+                  <STextParagraph typeParagraph='paragraphpedido'><strong>Preço:</strong>xxx</STextParagraph>
+                  <STextParagraph typeParagraph='paragraphpedido'><strong>Link:</strong>xxx</STextParagraph>
+              </div>
+          </div>
+          <div className='col-md-3 d-flex justify-content-center'>
+            <ButtonNext typeButtonNext='order' onClick={toggleDivColors}>Selecionar</ButtonNext>
+          </div>
+    </ItemOption>,
+    opcao2: 'Conteúdo para Opção 2',
+    opcao3: 'Conteúdo para Opção 3',
+  };
+  
   return (
     <div className='container-order w-100 d-flex flex-column align-items-center'>
         <SBox typeBox="boxforms">
