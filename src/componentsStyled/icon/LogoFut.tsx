@@ -1,5 +1,10 @@
-const LogoFut = () =>(
-    <svg width="281" height="106" viewBox="0 0 281 106" fill="none" xmlns="http://www.w3.org/2000/svg">
+import React from 'react';
+interface LogoFutProps{
+    className?:string;
+}
+
+const LogoFut: React.FC<LogoFutProps> = ({ className }) =>(
+    <svg className={className} width="281" height="106" viewBox="0 0 281 106" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_111_3808)">
     <path d="M38.3978 105.863H27.4717L52.4456 79.0508H63.684L68.6788 105.863H58.0648L57.4404 101.498H45.2656L51.8212 94.639H56.1917C56.1917 94.3272 56.1917 93.7037 56.1917 93.0801C56.1917 92.4566 55.8795 91.8331 55.8795 91.5213C55.8795 90.8977 55.5673 90.2743 55.5673 89.6507C55.5673 89.0271 55.2551 88.4036 55.2551 87.78L38.3977 105.862L38.3978 105.863Z" fill="#192C53"/>
     <path d="M87.097 87.7801L80.5413 105.551H71.4883L81.1657 79.0508H95.5258L103.642 96.8214L110.198 79.0508H119.251L109.261 105.863H94.9015L87.0971 87.7802L87.097 87.7801Z" fill="#192C53"/>

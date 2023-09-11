@@ -125,6 +125,15 @@ export const STitle =styled.h1<STitleProps>`
             padding-bottom:0px;
         }
     `}
+    ${props => props.typeParagraph === 'paragraphfooter' && `
+        padding-bottom:0px;
+        font-size:11px;
+        color:#192C53;
+        font-weight:500;
+        line-height:1rem;
+        margin-bottom:0px;
+    `}
+
  `
 
 

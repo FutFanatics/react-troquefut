@@ -1,9 +1,9 @@
-import {  SBox, SBoxIconFut } from "../../components/Box";
-import Button from "../../components/Button";
-import Footer from "../../components/Footer";
-import { STitle, STitleHeader } from "../../components/Text";
-import IconCheck from "../../components/icon/Iconcheck";
-import LogoFut from "../../components/icon/LogoFut";
+import {  SBox, SBoxIconFut } from "../../componentsStyled/Box";
+import Button from "../../componentsStyled/Button";
+import Footer from "../../components/footer";
+import { STitle, STitleHeader } from "../../componentsStyled/Text";
+import IconCheck from "../../componentsStyled/icon/Iconcheck";
+import LogoFut from "../../componentsStyled/icon/LogoFut";
 import React, { useState } from 'react';
 
 export default function Data() {

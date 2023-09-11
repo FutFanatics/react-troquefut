@@ -1,11 +1,11 @@
-import { BoxVideo, SBox } from "../../components/Box";
-import Button, { ButtonNext } from "../../components/Button";
-import Footer from "../../components/Footer";
-import { STextParagraph, STitle, STitleHeader } from "../../components/Text";
-import IconCamera from "../../components/icon/Iconcamera";
-import IconCheck from "../../components/icon/Iconcheck";
-import IconMotivos from "../../components/icon/Iconmotivos";
-import LogoFut from "../../components/icon/LogoFut";
+import { BoxVideo, SBox } from "../../componentsStyled/Box";
+import Button, { ButtonNext } from "../../componentsStyled/Button";
+import Footer from "../../components/footer";
+import { STextParagraph, STitle, STitleHeader } from "../../componentsStyled/Text";
+import IconCamera from "../../componentsStyled/icon/Iconcamera";
+import IconCheck from "../../componentsStyled/icon/Iconcheck";
+import IconMotivos from "../../componentsStyled/icon/Iconmotivos";
+import LogoFut from "../../componentsStyled/icon/LogoFut";
 
 export default function Instructions() {
 

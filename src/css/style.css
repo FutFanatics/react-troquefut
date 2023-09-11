@@ -1,3 +1,30 @@
+.c-header {
+  height: 5rem;
+  background-color: #F4F5F8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.c-header .logo-header {
+  width: 100px;
+}
+
+.c-footer {
+  background-color: #F4F5F8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 6rem;
+}
+.c-footer .footer-logo {
+  width: 100px;
+  height: 50px;
+}
+.c-footer .footer-box {
+  width: 60%;
+  margin-left: 16px;
+}
+
 .c-home {
   background-color: #1C2433;
   min-height: 100vh;
@@ -71,13 +98,6 @@
 }
 .c-order .c-header .box-img svg {
   height: 60px;
-}
-
-.c-footer {
-  padding: 20px 0px;
-}
-.c-footer svg {
-  height: 70px;
 }
 
 .c-data .c-header {
@@ -167,15 +187,6 @@
 }
 .c-shipping .maps {
   margin-left: 16px;
-}
-
-.c-header {
-  display: flex;
-  padding: 40px 0px 0px 0px;
-  align-items: center;
-}
-.c-header .box-img svg {
-  height: 60px;
 }
 
 .item-options {

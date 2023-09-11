@@ -1,10 +1,39 @@
 //sass --watch src/scss/style.scss:src/css/style.css
 
+.c-header{
+    height: 5rem;
+    background-color:#F4F5F8 ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .logo-header{
+        width: 100px;
+    }
+}
+.c-footer{
+    background-color: #F4F5F8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 6rem;
+
+    .footer{
+        &-logo{
+            width: 100px;
+            height: 50px;
+        }
+        &-box{
+            width: 60%;
+            margin-left: 16px;
+        }
+    }
+}
 .c-home{
     background-color: #1C2433;
     min-height: 100vh;
     align-items: center;
-    display: flex;
+    display: flex; 
 
     .container{
         max-width: 100%;
@@ -95,14 +124,6 @@
             }
             
         }
-    }
-}
-
-.c-footer{
-    padding: 20px 0px;
-    
-    svg{
-        height: 70px;
     }
 }
 
@@ -209,17 +230,7 @@
     }
 }
 
-.c-header{
-    display: flex;
-    padding: 40px 0px 0px 0px;
-    align-items: center;
-    .box-img{
-        svg{
-        height: 60px;
-        }
-        
-    }
-}
+
 
 .item-options{
     padding: 30px;

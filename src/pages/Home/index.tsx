@@ -1,15 +1,19 @@
-import Button, { ButtonTroque } from "../../components/Button";
+import Button, { ButtonTroque } from "../../componentsStyled/Button";
 import 'bootstrap/dist/css/bootstrap.css';
 import './../../css/style.css';
 import IconDevolucao from "../../img/icon/inicie.png"
-import { BoxIcon, SBoxIconFut } from "../../components/Box";
-import { STextParagraph, STitle } from "../../components/Text"; 
-import IconFut from "../../components/icon";
-import LogoFut from "../../components/icon/LogoFut";
-import IconAcompanhe from "../../components/icon/Iconacompanhe";
+import { BoxIcon, SBoxIconFut } from "../../componentsStyled/Box";
+import { STextParagraph, STitle } from "../../componentsStyled/Text"; 
+import IconFut from "../../componentsStyled/icon";
+import LogoFut from "../../componentsStyled/icon/LogoFut";
+import IconAcompanhe from "../../componentsStyled/icon/Iconacompanhe";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
 
 export default function Home() {
     return (
+        <>
+        <Header></Header>
         <section className="c-home">
             <div className="container">
                 <div className="row">
@@ -35,6 +39,8 @@ export default function Home() {
             </div>
             
         </section>
+        <Footer></Footer>
+        </>
     )
 
 }

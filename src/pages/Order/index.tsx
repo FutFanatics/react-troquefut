@@ -1,9 +1,9 @@
-import { SBox } from "../../components/Box";
-import Button from "../../components/Button";
-import Footer from "../../components/Footer";
-import { STitle, STitleHeader } from "../../components/Text";
-import CustomSelect from "../../components/customselect";
-import LogoFut from "../../components/icon/LogoFut";
+import { SBox } from "../../componentsStyled/Box";
+import Button from "../../componentsStyled/Button";
+import Footer from "../../components/footer";
+import { STitle, STitleHeader } from "../../componentsStyled/Text";
+import CustomSelect from "../../componentsStyled/customselect";
+import LogoFut from "../../componentsStyled/icon/LogoFut";
 import { useState } from 'react';
 
 
@@ -41,7 +41,6 @@ export default function Order() {
                 </STitle>
 
                 <div className="d-flex justify-content-center">
-                        <CustomSelect></CustomSelect>
                 </div>
             
             

@@ -1,12 +1,12 @@
-import { SBox } from "../../components/Box";
-import Button, { ButtonNext } from "../../components/Button";
-import Footer from "../../components/Footer";
-import { STextParagraph, STitle, STitleHeader } from "../../components/Text";
-import LogoFut from "../../components/icon/LogoFut";
+import { SBox } from "../../componentsStyled/Box";
+import Button, { ButtonNext } from "../../componentsStyled/Button";
+import Footer from "../../components/footer";
+import { STextParagraph, STitle, STitleHeader } from "../../componentsStyled/Text";
+import LogoFut from "../../componentsStyled/icon/LogoFut";
 import Correios from '../../img/icon/correios.png';
 import Cliqueretire from '../../img/icon/cliqueretire.png';
 import React, { useState } from 'react';
-import IconFilter from "../../components/icon/IconFilter";
+import IconFilter from "../../componentsStyled/icon/IconFilter";
 import Locker from "../../img/locker.png";
 
 export default function Shipping() {
@@ -196,9 +196,7 @@ export default function Shipping() {
                     </div>
                     
                 )}
-                <div className="container">
-                    <Footer></Footer>
-                </div>
+                <Footer></Footer>
         </section>
     )
 
