@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SBox } from './Box';
-import { STextParagraph, STitle } from './Text';
+import { STextParagraph, SH1 } from './Text';
 
 import ImgText from '../img/imgproduto.png'
 import { ButtonNext } from './Button';
@@ -59,7 +59,7 @@ export default function CustomSelect() {
           <div className='col-md-6 d-flex align-items-center' >
               <div className='img-options'><img src={ImgText}/></div>
               <div className='text-options'>
-                  <STitle typeTitle='dadosPedido'>Camisa são paulo</STitle>
+                  <SH1 typeTitle='dadosPedido'>Camisa são paulo</SH1>
                   <STextParagraph typeParagraph='paragraphpedido'><strong>Código:</strong>xxx</STextParagraph>
                   <STextParagraph typeParagraph='paragraphpedido'><strong>Variação:</strong>xxx</STextParagraph>
                   <STextParagraph typeParagraph='paragraphpedido'><strong>Preço:</strong>xxx</STextParagraph>

@@ -2,35 +2,36 @@ import { useNavigate } from "react-router-dom"
 import styled from "styled-components";
 
 
-interface STitleProps{
+interface SH1Props{
    typeTitle?:string;
+   fontSize?: string;
+   margin?: string;
+   textTransform?: string;
+   fontWeight?: number;
 }
 
 interface STextParagraph{
    typeParagraph?:string;
+   fontWeight?: number;
+   color?: string;
+   margin?: string;
+   fontSize?: string;
+   padding?: string;
 }
 
-interface STitleHeader{
+interface SspanText{
    typeOption?:string;
 }
 
-export const STitle =styled.h1<STitleProps>`
-    font-size: 42px;
+export const SH1 =styled.h1<SH1Props>`
+    font-size: ${(props) => props.fontSize || '30px'};
     color: #000;
-    font-weight: 700;
-    margin-bottom: 16px;
+    font-weight: ${(props) => props.fontWeight || 700};
     text-align: center;
-    margin-top: 16px;
+    margin: ${(props) => props.margin || '16px 0px'};
     font-family: 'Gotham';
+    text-transform: ${(props) => props.textTransform || 'none'};
 
-    ${props => props.typeTitle === 'instruction' && `
-        text-transform:uppercase;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        text-align:center;
-        margin-bottom:0px;
-    `}
     ${props => props.typeTitle === 'instructionminor' &&`
         text-transform:uppercase;
         display:flex;
@@ -39,10 +40,7 @@ export const STitle =styled.h1<STitleProps>`
         text-align:center;
         margin-bottom:-15px;
     `}
-     ${props => props.typeTitle === 'sublinhado' && `
-        color:#192C53;
-        text-align:center;
-    `}
+
     ${props => props.typeTitle === 'duvida' && `
         font-size: 18px;
         color:#000;
@@ -89,22 +87,16 @@ export const STitle =styled.h1<STitleProps>`
  `
 
  export const STextParagraph=styled.p<STextParagraph>`
-    font-size: 20px;
-    color: #000;
-    font-weight: 350;
+    font-size: ${(props) => props.fontSize || '18px'};
+    line-height: 1.3rem;
+    font-weight: ${(props) => props.fontWeight || 350};
+    color: ${(props) => props.color || '#000'};
     font-family: 'Gotham';
     text-align: center;
-    padding-bottom:32px;
+    margin: ${(props) => props.margin || '0px'};
+    padding: ${(props) => props.padding || '0px'};
+    
 
-    ${props => props.typeParagraph === 'paragraphinstruction' && `
-        font-weight:500;
-        font-size:18px;
-    `}
-    ${props => props.typeParagraph === 'paragraphduvida' && `
-        font-weight:350;
-        font-size:16px;
-        padding-bottom:0px;
-    `}
     ${props => props.typeParagraph === 'paragraphenvio' && `
         font-weight:500;
         font-size:16px;
@@ -127,7 +119,8 @@ export const STitle =styled.h1<STitleProps>`
     `}
     ${props => props.typeParagraph === 'paragraphfooter' && `
         padding-bottom:0px;
-        font-size:11px;
+        font-size:10px;
+        padding-top:0px;
         color:#192C53;
         font-weight:500;
         line-height:1rem;
@@ -137,14 +130,17 @@ export const STitle =styled.h1<STitleProps>`
  `
 
 
- export const STitleHeader = styled.span<STitleHeader>`
+ export const SspanText = styled.span<SspanText>`
       font-size: 18px;
       font-family: 'gotham';
-      font-weight: 500;
+      font-weight:350;
 
       ${props => props.typeOption === 'inative' && `
         color:#777777;
-    `}
+        `}
+        ${props => props.typeOption === 'active' && `
+        color:#000;
+        `}
      ${props => props.typeOption === 'nameForms' && `
         color:#000;
     `}

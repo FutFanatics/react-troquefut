@@ -1,7 +1,7 @@
 import { SBox } from "../../componentsStyled/Box";
 import Button, { ButtonNext } from "../../componentsStyled/Button";
 import Footer from "../../components/footer";
-import { STextParagraph, STitle, STitleHeader } from "../../componentsStyled/Text";
+import { STextParagraph, SH1, SspanText } from "../../componentsStyled/Text";
 import LogoFut from "../../componentsStyled/icon/LogoFut";
 import Correios from '../../img/icon/correios.png';
 import Cliqueretire from '../../img/icon/cliqueretire.png';
@@ -30,26 +30,26 @@ export default function Shipping() {
                     <div className="box-text d-flex justify-content-center">
                     <SBox typeBox="optionmenu-inative"
                     >
-                        <STitleHeader typeOption="inative">Instruções do Pedido</STitleHeader>
+                        <SspanText typeOption="inative">Instruções do Pedido</SspanText>
                     </SBox>
                     <SBox typeBox="optionmenu-inative"
                     >
-                        <STitleHeader typeOption="inative">Pedido</STitleHeader>
+                        <SspanText typeOption="inative">Pedido</SspanText>
                     </SBox>
                     <SBox typeBox="optionmenu-inative"
                     >
-                        <STitleHeader typeOption="inative">Dados</STitleHeader>
+                        <SspanText typeOption="inative">Dados</SspanText>
                     </SBox>
                     <SBox typeBox="optionmenu"
                     >
-                        <STitleHeader>Formas de envio</STitleHeader>
+                        <SspanText>Formas de envio</SspanText>
                     </SBox>
 
                     </div>
                 </div>
-                <STitle typeTitle="instruction">
-                    <STitle typeTitle="sublinhado">Selecione&nbsp;</STitle>A FORMA DE ENVIO
-                </STitle>
+                <SH1 typeTitle="instruction">
+                    <SH1 typeTitle="sublinhado">Selecione&nbsp;</SH1>A FORMA DE ENVIO
+                </SH1>
 
                 <div className="row justify-content-center">
                     <SBox typeBox="envio">
@@ -87,14 +87,14 @@ export default function Shipping() {
 
                 {selectedContent == 'content1' &&(
                     <div className="c-clique">
-                        <STitle typeTitle="instructionminor">como funciona o <STitle typeTitle='sublinhado'>&nbsp;Cliqueretire?</STitle></STitle>
+                        <SH1 typeTitle="instructionminor">como funciona o <SH1 typeTitle='sublinhado'>&nbsp;Cliqueretire?</SH1></SH1>
                         <STextParagraph typeParagraph='paragraphclique'>Veja o vídeo logo abaixo para entender o funcionamento do clique retire</STextParagraph>
                         <div className="video-clique mb-4">
                         </div>
-                        <STitle typeTitle="instruction">
-                        <STitle typeTitle='sublinhado'>Escolha&nbsp;</STitle>
+                        <SH1 typeTitle="instruction">
+                        <SH1 typeTitle='sublinhado'>Escolha&nbsp;</SH1>
                         em que locker deseja retirar
-                        </STitle>
+                        </SH1>
 
                         <div className="container">
                             <div className="row justify-content-center mt-4 mb-5">
@@ -108,9 +108,9 @@ export default function Shipping() {
                                     </div>
                                     <SBox typeBox="boxlocker">
                                         <div className="box-content">
-                                        <STitle typeTitle="locker">
+                                        <SH1 typeTitle="locker">
                                             Shopping Tambore
-                                        </STitle>
+                                        </SH1>
                                         <div><span className="type">e-Box:</span> <span className="describe">CR00115</span></div> 
                                         <div><span className="type">Av.Piracema,699</span></div> 
                                         <div><span className="type">Tamboré</span></div> <div className="d-flex justify-content-between">
@@ -129,9 +129,9 @@ export default function Shipping() {
                                     </SBox>
                                     <SBox typeBox="boxlocker">
                                         <div className="box-content">
-                                        <STitle typeTitle="locker">
+                                        <SH1 typeTitle="locker">
                                             Shopping Tambore
-                                        </STitle>
+                                        </SH1>
                                         <div><span className="type">e-Box:</span> <span className="describe">CR00115</span></div> 
                                         <div><span className="type">Av.Piracema,699</span></div> 
                                         <div><span className="type">Tamboré</span></div> <div className="d-flex justify-content-between">
@@ -150,9 +150,9 @@ export default function Shipping() {
                                     </SBox>
                                     <SBox typeBox="boxlocker">
                                         <div className="box-content">
-                                        <STitle typeTitle="locker">
+                                        <SH1 typeTitle="locker">
                                             Shopping Tambore
-                                        </STitle>
+                                        </SH1>
                                         <div><span className="type">e-Box:</span> <span className="describe">CR00115</span></div> 
                                         <div><span className="type">Av.Piracema,699</span></div> 
                                         <div><span className="type">Tamboré</span></div> <div className="d-flex justify-content-between">

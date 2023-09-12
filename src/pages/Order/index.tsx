@@ -1,7 +1,7 @@
 import { SBox } from "../../componentsStyled/Box";
 import Button from "../../componentsStyled/Button";
 import Footer from "../../components/footer";
-import { STitle, STitleHeader } from "../../componentsStyled/Text";
+import { SH1, SspanText } from "../../componentsStyled/Text";
 import CustomSelect from "../../componentsStyled/customselect";
 import LogoFut from "../../componentsStyled/icon/LogoFut";
 import { useState } from 'react';
@@ -17,28 +17,28 @@ export default function Order() {
                     <div className="box-text d-flex justify-content-center">
                     <SBox typeBox="optionmenu-inative"
                     >
-                        <STitleHeader typeOption="inative">Instruções do Pedido</STitleHeader>
+                        <SspanText typeOption="inative">Instruções do Pedido</SspanText>
                     </SBox>
                     <SBox typeBox="optionmenu"
                     >
-                        <STitleHeader >Pedido</STitleHeader>
+                        <SspanText >Pedido</SspanText>
                     </SBox>
                     <SBox typeBox="optionmenu-inative"
                     >
-                        <STitleHeader>Dados</STitleHeader>
+                        <SspanText>Dados</SspanText>
                     </SBox>
                     <SBox typeBox="optionmenu-inative"
                     >
-                        <STitleHeader>Formas de envio</STitleHeader>
+                        <SspanText>Formas de envio</SspanText>
                     </SBox>
 
                     </div>
                 </div>
 
-                <STitle typeTitle="instruction">
-                    <STitle typeTitle="sublinhado">Selecione&nbsp;</STitle>
-                    O pedido que deseja <STitle typeTitle="sublinhado">&nbsp;devolver</STitle>
-                </STitle>
+                <SH1 typeTitle="instruction">
+                    <SH1 typeTitle="sublinhado">Selecione&nbsp;</SH1>
+                    O pedido que deseja <SH1 typeTitle="sublinhado">&nbsp;devolver</SH1>
+                </SH1>
 
                 <div className="d-flex justify-content-center">
                 </div>

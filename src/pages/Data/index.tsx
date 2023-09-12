@@ -1,7 +1,7 @@
 import {  SBox, SBoxIconFut } from "../../componentsStyled/Box";
 import Button from "../../componentsStyled/Button";
 import Footer from "../../components/footer";
-import { STitle, STitleHeader } from "../../componentsStyled/Text";
+import { SH1, SspanText } from "../../componentsStyled/Text";
 import IconCheck from "../../componentsStyled/icon/Iconcheck";
 import LogoFut from "../../componentsStyled/icon/LogoFut";
 import React, { useState } from 'react';
@@ -26,56 +26,56 @@ export default function Data() {
                     <div className="box-text d-flex justify-content-center">
                     <SBox typeBox="optionmenu-inative"
                     >
-                        <STitleHeader typeOption="inative">Instruções do Pedido</STitleHeader>
+                        <SspanText typeOption="inative">Instruções do Pedido</SspanText>
                     </SBox>
                     <SBox typeBox="optionmenu-inative"
                     >
-                        <STitleHeader typeOption="inative">Pedido</STitleHeader>
+                        <SspanText typeOption="inative">Pedido</SspanText>
                     </SBox>
                     <SBox typeBox="optionmenu"
                     >
-                        <STitleHeader>Dados</STitleHeader>
+                        <SspanText>Dados</SspanText>
                     </SBox>
                     <SBox typeBox="optionmenu-inative"
                     >
-                        <STitleHeader>Formas de envio</STitleHeader>
+                        <SspanText>Formas de envio</SspanText>
                     </SBox>
 
                     </div>
                 </div>
 
-                <STitle typeTitle="instruction">
+                <SH1 typeTitle="instruction">
                     Confirme seus dados
-                </STitle>
+                </SH1>
                 
                 {elementoAtivo === 'elemento1' && (
                 <section className="personal-forms">
                     <div className="row justify-content-center mt-3 mb-3">
                         <div className="col-md-3 d-flex align-items-center justify-content-center">
                             <SBoxIconFut typeBoxIcon = 'icondata'><span>1</span></SBoxIconFut>
-                            <STitle typeTitle='dados'>
+                            <SH1 typeTitle='dados'>
                                 Informações pessoais
-                            </STitle>
+                            </SH1>
                         </div>
                         <div className="line col-md-1"></div>
                         <div className="col-md-3 d-flex align-items-center justify-content-center">
                         <SBoxIconFut typeBoxIcon = 'icondata'><span>2</span></SBoxIconFut>
-                            <STitle typeTitle='dados'>
+                            <SH1 typeTitle='dados'>
                                 Confirme o seu endereço
-                            </STitle>
+                            </SH1>
                         </div>
                         <div className="line col-md-1"></div>
                         <div className="col-md-3 d-flex align-items-center justify-content-center">
                         <SBoxIconFut typeBoxIcon = 'icondata'><span>3</span></SBoxIconFut>
-                            <STitle typeTitle='dados'>
+                            <SH1 typeTitle='dados'>
                                 Insira os Dados Bancários
-                            </STitle>
+                            </SH1>
                         </div>
                     </div>
                     <div className="row justify-content-center mt-5 mb-3">
                         <div className="col-md-8 boxform d-flex justify-content-between">
                             <div className="col-md-3">
-                                <STitleHeader typeOption="nameForms">Nome Completo</STitleHeader>
+                                <SspanText typeOption="nameForms">Nome Completo</SspanText>
                             </div>
                             <div className="col-md-8 col-input">
                                 <input type="text"></input>
@@ -83,7 +83,7 @@ export default function Data() {
                         </div>
                         <div className="col-md-8 boxform d-flex justify-content-between">
                             <div className="col-md-3">
-                                <STitleHeader typeOption="nameForms">Telefone</STitleHeader>
+                                <SspanText typeOption="nameForms">Telefone</SspanText>
                             </div>
                             <div className="col-md-8 col-input">
                                 <input type="text" placeholder="(xx) xxxx - xxxx "></input>
@@ -91,7 +91,7 @@ export default function Data() {
                         </div>
                         <div className="col-md-8 boxform d-flex justify-content-between">
                             <div className="col-md-3">
-                                <STitleHeader typeOption="nameForms">Celular</STitleHeader>
+                                <SspanText typeOption="nameForms">Celular</SspanText>
                             </div>
                             <div className="col-md-8 col-input">
                                 <input type="text" placeholder="(xx) xxxxx - xxxx "></input>
@@ -99,7 +99,7 @@ export default function Data() {
                         </div>
                         <div className="col-md-8 boxform d-flex justify-content-between">
                             <div className="col-md-3">
-                                <STitleHeader typeOption="nameForms">Email</STitleHeader>
+                                <SspanText typeOption="nameForms">Email</SspanText>
                             </div>
                             <div className="col-md-8 col-input">
                                 <input type="text" placeholder="xxxxxxx@xxxx.com"></input>
@@ -107,7 +107,7 @@ export default function Data() {
                         </div>
                         <div className="col-md-8 boxform d-flex justify-content-between">
                             <div className="col-md-3">
-                                <STitleHeader typeOption="nameForms">Confirme Email</STitleHeader>
+                                <SspanText typeOption="nameForms">Confirme Email</SspanText>
                             </div>
                             <div className="col-md-8 col-input">
                                 <input type="text" placeholder="xxxxxxx@xxxx.com"></input>
@@ -121,29 +121,29 @@ export default function Data() {
                     <div className="row justify-content-center mt-3 mb-3">
                     <div className="col-md-3 d-flex align-items-center justify-content-center">
                         <SBoxIconFut typeBoxIcon = 'icondata-checked'><IconCheck></IconCheck></SBoxIconFut>
-                        <STitle typeTitle='inative'>
+                        <SH1 typeTitle='inative'>
                             Informações pessoais
-                        </STitle>
+                        </SH1>
                     </div>
                     <div className="line col-md-1"></div>
                     <div className="col-md-3 d-flex align-items-center justify-content-center">
                     <SBoxIconFut typeBoxIcon = 'icondata'><span>2</span></SBoxIconFut>
-                        <STitle typeTitle='dados'>
+                        <SH1 typeTitle='dados'>
                             Confirme o seu endereço
-                        </STitle>
+                        </SH1>
                     </div>
                     <div className="line col-md-1"></div>
                     <div className="col-md-3 d-flex align-items-center justify-content-center">
                     <SBoxIconFut typeBoxIcon = 'icondata'><span>3</span></SBoxIconFut>
-                        <STitle typeTitle='dados'>
+                        <SH1 typeTitle='dados'>
                             Insira os Dados Bancários
-                        </STitle>
+                        </SH1>
                     </div>
                     </div>
                     <div className="row justify-content-center mt-5 mb-3">
                     <div className="col-md-8 boxform d-flex justify-content-between">
                         <div className="col-md-3">
-                            <STitleHeader typeOption="nameForms">Confirme seu CEP</STitleHeader>
+                            <SspanText typeOption="nameForms">Confirme seu CEP</SspanText>
                         </div>
                         <div className="col-md-8 col-input">
                             <input type="text" placeholder="xxxxx-xxx"></input>
@@ -151,7 +151,7 @@ export default function Data() {
                     </div>
                     <div className="col-md-8 boxform d-flex justify-content-between">
                         <div className="col-md-3">
-                            <STitleHeader typeOption="nameForms">Estado</STitleHeader>
+                            <SspanText typeOption="nameForms">Estado</SspanText>
                         </div>
                         <div className="col-md-8 col-input">
                             <input type="text"></input>
@@ -159,7 +159,7 @@ export default function Data() {
                     </div>
                     <div className="col-md-8 boxform d-flex justify-content-between">
                         <div className="col-md-3">
-                            <STitleHeader typeOption="nameForms">Cidade</STitleHeader>
+                            <SspanText typeOption="nameForms">Cidade</SspanText>
                         </div>
                         <div className="col-md-8 col-input">
                             <input type="text" placeholder="xxxxxxx"></input>
@@ -167,7 +167,7 @@ export default function Data() {
                     </div>
                     <div className="col-md-8 boxform d-flex justify-content-between">
                         <div className="col-md-3">
-                            <STitleHeader typeOption="nameForms">Bairro</STitleHeader>
+                            <SspanText typeOption="nameForms">Bairro</SspanText>
                         </div>
                         <div className="col-md-8 col-input">
                             <input type="text" placeholder="xxxxxxx"></input>
@@ -175,7 +175,7 @@ export default function Data() {
                     </div>
                     <div className="col-md-8 boxform d-flex justify-content-between">
                         <div className="col-md-3">
-                            <STitleHeader typeOption="nameForms">Endereço</STitleHeader>
+                            <SspanText typeOption="nameForms">Endereço</SspanText>
                         </div>
                         <div className="col-md-8 col-input">
                             <input type="text" placeholder="xxxxxxxxx xxxxxxx"></input>
@@ -183,7 +183,7 @@ export default function Data() {
                     </div>
                     <div className="col-md-8 boxform d-flex justify-content-between">
                         <div className="col-md-3">
-                            <STitleHeader typeOption="nameForms">Número</STitleHeader>
+                            <SspanText typeOption="nameForms">Número</SspanText>
                         </div>
                         <div className="col-md-8 col-input">
                             <input type="text" placeholder="xxxx"></input>
@@ -191,7 +191,7 @@ export default function Data() {
                     </div>
                     <div className="col-md-8 boxform d-flex justify-content-between">
                         <div className="col-md-3">
-                            <STitleHeader typeOption="nameForms">Complemento</STitleHeader>
+                            <SspanText typeOption="nameForms">Complemento</SspanText>
                         </div>
                         <div className="col-md-8 col-input">
                             <input type="text" placeholder="xxxxxxxxxxx"></input>
@@ -205,29 +205,29 @@ export default function Data() {
                     <div className="row justify-content-center mt-3 mb-3">
                     <div className="col-md-3 d-flex align-items-center justify-content-center">
                         <SBoxIconFut typeBoxIcon = 'icondata-checked'><IconCheck></IconCheck></SBoxIconFut>
-                        <STitle typeTitle='inative'>
+                        <SH1 typeTitle='inative'>
                             Informações pessoais
-                        </STitle>
+                        </SH1>
                     </div>
                     <div className="line col-md-1"></div>
                     <div className="col-md-3 d-flex align-items-center justify-content-center">
                     <SBoxIconFut typeBoxIcon = 'icondata-checked'><IconCheck></IconCheck></SBoxIconFut>
-                        <STitle typeTitle='inative'>
+                        <SH1 typeTitle='inative'>
                             Confirme o seu endereço
-                        </STitle>
+                        </SH1>
                     </div>
                     <div className="line col-md-1"></div>
                     <div className="col-md-3 d-flex align-items-center justify-content-center">
                     <SBoxIconFut typeBoxIcon = 'icondata'><span>3</span></SBoxIconFut>
-                        <STitle typeTitle='dados'>
+                        <SH1 typeTitle='dados'>
                             Insira os Dados Bancários
-                        </STitle>
+                        </SH1>
                     </div>
                     </div>
                     <div className="row justify-content-center mt-5 mb-3">
                         <div className="col-md-8 boxform d-flex justify-content-between">
                             <div className="col-md-3">
-                                <STitleHeader typeOption="nameForms">Nome Completo</STitleHeader>
+                                <SspanText typeOption="nameForms">Nome Completo</SspanText>
                             </div>
                             <div className="col-md-8 col-input">
                                 <input type="text"></input>
@@ -235,7 +235,7 @@ export default function Data() {
                         </div>
                         <div className="col-md-8 boxform d-flex justify-content-between">
                             <div className="col-md-3">
-                                <STitleHeader typeOption="nameForms">Nome do titular</STitleHeader>
+                                <SspanText typeOption="nameForms">Nome do titular</SspanText>
                             </div>
                             <div className="col-md-8 col-input">
                                 <input type="text" placeholder="xxxxx xxxxxx"></input>

@@ -3,12 +3,14 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './../../css/style.css';
 import IconDevolucao from "../../img/icon/inicie.png"
 import { BoxIcon, SBoxIconFut } from "../../componentsStyled/Box";
-import { STextParagraph, STitle } from "../../componentsStyled/Text"; 
+import { STextParagraph, SspanText } from "../../componentsStyled/Text"; 
 import IconFut from "../../componentsStyled/icon";
 import LogoFut from "../../componentsStyled/icon/LogoFut";
 import IconAcompanhe from "../../componentsStyled/icon/Iconacompanhe";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
+import TroqueFut from "../../componentsStyled/icon/LogoTroqueFut";
+import IconDoor from "../../componentsStyled/icon/Icondoor";
 
 export default function Home() {
     return (
@@ -18,14 +20,27 @@ export default function Home() {
             <div className="container">
                 <div className="row">
                     <div className="col-md-6 col-content">
-                        <LogoFut></LogoFut>
-                        <STitle>Troque fut</STitle>
-                        <STextParagraph>
+                        <TroqueFut width={280} ></TroqueFut>
+                        <STextParagraph padding="64px 0px 56px 0px">
                             O TroqueFut é uma plataforma de devoluções da empresa FutFanatics, onde você consegue realizar suas trocas sem  dificuldades e com tecnologias intuitivas.
                         </STextParagraph>
-                        <Button path="/instructions" >Iniciar Devolução <BoxIcon><img src={IconDevolucao}/></BoxIcon></Button>
-                        <ButtonTroque>Acompanhar sua Devolução <BoxIcon><IconAcompanhe/> </BoxIcon></ButtonTroque>
-                        
+                        <Button path="/instructions" >
+                            <IconDoor 
+                                fill="white" 
+                                width={20}></IconDoor>
+                            <span>
+                                Solicite uma Devolução  
+                            </span> 
+                        </Button>
+                        <div className="d-flex align-items-center">
+                            <hr/>
+                                <SspanText>ou</SspanText>
+                            <hr/>
+                        </div>
+                        <Button typeButton="devolucao"><IconAcompanhe width={25}/> 
+                        <span>
+                        Acompanhar sua Devolução
+                        </span> </Button> 
                     </div>
                     <div className="col-md-6 col-img d-flex justify-content-end align-items-end">
                         <a href="www.futfanatics.com.br">

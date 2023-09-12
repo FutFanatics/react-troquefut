@@ -5,10 +5,19 @@ interface IButton {
     path?: string;
     typeButton?: string;
     children: React.ReactNode;
+    margin?: string;
+    border?:string;
+    color?:string;
+    background?: string; 
+    
 }
 
 interface SButtonProps {
     typeButton?: string;
+    background?: string; 
+    margin?: string;
+    border?:string;
+    color?:string;
 }
 
 interface ButtonNextProps {
@@ -16,24 +25,29 @@ interface ButtonNextProps {
 }
 
 const SButton = styled.button<SButtonProps>`
-    background-color: #192C53;
+    background: ${(props) => props.background || '#192C53'};
     border-radius: 50px;
-    color: #FFF;
-    font-weight: 500;
-    border: none; 
-    width: 320px;
-    height: 55px;
+    color: ${(props) => props.color || '#FFF'};
+    font-weight: 350;
+    border: ${(props) => props.border || 'none'}; 
+    width: 380px;
+    height: 45px;
     font-size: 16px;
-    padding: 0px 16px 0px 32px;
+    justify-content: center;
     display: flex;
-    justify-content: space-between;
     font-family: 'gotham';
     align-items: center;
+    margin: ${(props) => props.margin || '0px 0px 16px 0px'};
+
+    &:last-child{
+        margin-bottom: 0px;
+    }
 
     a{
         color: #fff;
         text-decoration: none;
         width: 100%;
+        
         text-align: center;
 
         &:hover{
@@ -41,15 +55,13 @@ const SButton = styled.button<SButtonProps>`
         }
     }
 
-    ${props => props.typeButton === 'next' && `
-        width: 200px;
-        height: 50px;
-        border-radius: 10px;
-        margin-top: 32px;
-        justify-content:center;
-        padding:0px;
-        font-size:17px;
-        margin-bottom:32px;
+    span{
+        padding-left: 8px;
+    }
+
+    ${props => props.typeButton === 'devolucao' && `
+        background-color: #222222;
+        margin-top:16px;
     `}
 `
 

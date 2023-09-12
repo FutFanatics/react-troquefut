@@ -16,7 +16,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 6rem;
+    height: 5rem;
 
     .footer{
         &-logo{
@@ -24,38 +24,44 @@
             height: 50px;
         }
         &-box{
-            width: 60%;
+            width: 55%;
             margin-left: 16px;
         }
     }
 }
-.c-home{
-    background-color: #1C2433;
-    min-height: 100vh;
-    align-items: center;
-    display: flex; 
 
+.c-menu{
+    padding: 20px 0px;
+
+    .c-container-options{ 
+        margin: 0px auto;
+    }
+}
+
+.c-home{
     .container{
-        max-width: 100%;
-        padding-left: 64px;    
+        max-width: 100%;  
     }
 
     .col-content{
-        background-color: #fff;
-        min-height: 100vh;
+        min-height: 78.5vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 0px 32px;
+        padding: 0px 64px;
 
-        svg{
-            width: 200px;
+        hr{
+            color: #000;
+            height: 3px;
+            width: 30px;
+            margin: 6px 8px 0px 8px;
         }
     }
     .col-img{
         background: url('../img/home/img-inicial.png');
         background-size: cover;
+        background-position: center;
         padding-bottom: 16px;
 
         a{
@@ -80,6 +86,13 @@
     }
 
 }
+.c-question{
+    background-color:rgba(25, 44, 83, 0.92) ;
+    padding:80px 0px;
+    border-radius: 0px 150px 150px 0px;
+    width: 90%;
+}
+
 .c-instruction{
     .box-img{
         svg{

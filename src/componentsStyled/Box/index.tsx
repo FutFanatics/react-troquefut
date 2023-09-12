@@ -4,9 +4,14 @@ import styled from "styled-components";
 
 interface SBox {
     typeBox?: string;
+    
 }
 interface SBoxIconFut {
     typeBoxIcon?: string;
+}
+interface Box{
+    typeBox?:string;
+    margin?: string;
 }
 
 export const BoxIcon = styled.div`
@@ -106,31 +111,7 @@ export const SBox = styled.div<SBox>`
         transform: translate(-50%);
         
     `}
-     ${props => props.typeBox === 'optionmenu' && `
-            margin: 0px 12px;
-            width: auto;
-            border-radius:none;
-            background-color:transparent;
-            position:relative;
-            padding:0px;
-
-            &::before{
-                content: '';
-                    position: absolute;
-                    bottom:-3px;
-                    background-color:#192C53 ;
-                    width: 100%;
-                    height: 3px;
-                    border-radius: 2px;
-            }
-     `}
-     ${props => props.typeBox === 'optionmenu-inative' && `
-            margin: 0px 12px;
-            width: auto;
-            border-radius:none;
-            padding:0px;
-            background-color:transparent;
-     `}
+     
      ${props => props.typeBox === 'envio' && `
             margin: 30px 24px;
             width: 28%;
@@ -257,4 +238,46 @@ export const SBox = styled.div<SBox>`
             height:100%;
      `}     
 
+`
+
+export const Box = styled.div<Box>`
+    margin: ${(props) => props.margin || '0px 16px'};
+    
+    ${props => props.typeBox === 'active' && `
+        position:relative;
+
+        &&:before{
+            position:absolute;
+            content:'';
+            height:3px;
+            width:100%;
+            background:#192c53;
+            bottom:0px;
+            border-radius:2px
+        }
+    `}
+    ${props => props.typeBox === 'inative' && `
+        
+    `}
+    ${props => props.typeBox === 'card-question' && `
+        background:#fff;
+        border-radius:20px;
+        position: relative;
+        padding: 30px 20px;
+    `}
+    ${props => props.typeBox === 'icon' && `
+        width:80px;
+        height:80px;
+        border-radius:100px;
+        position: absolute;
+        top: -20%;
+        margin:0px;
+        left: 50%;
+        transform:translate(-50%);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:#F1F1F1;
+        box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+    `}
 `
