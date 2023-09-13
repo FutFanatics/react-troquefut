@@ -29,7 +29,11 @@ export default function Order() {
                 <SH1 textTransform="uppercase">
                     Selecione O pedido que deseja devolver
                 </SH1>
-                <ListaProdutos></ListaProdutos>                
+                <ListaProdutos></ListaProdutos>  
+                <SH1 fontSize="20px" fontWeight={500} margin="0px">Preencha a seguir as informações</SH1>          
+                <SH1 fontSize="20px" fontWeight={500} margin="0px">dos produto que deseja devolver:</SH1>
+                
+
                 <Button margin="0 auto" path="/data" typeButton="next" >Avançar</Button>                
             </div>
         </section>

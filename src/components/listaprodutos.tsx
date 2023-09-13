@@ -2,7 +2,7 @@ import Lista from "./lista"
 
 const ListaProdutos = () => {
     return(
-        <section className="c-lista">
+        <section className="c-list">
             <Lista></Lista>
         </section>
     )

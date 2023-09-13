@@ -43,6 +43,8 @@ export default function Shipping() {
                     <SH1 typeTitle="sublinhado">Selecione&nbsp;</SH1>A FORMA DE ENVIO
                 </SH1>
                 <Lista></Lista>
+
+                <SH1 fontSize="22px">Preencha a seguir as informações dos produto que deseja devolver:</SH1>
                 <div className="row justify-content-center">
                     <SBox typeBox="envio">
                         <div className="box-img">
