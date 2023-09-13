@@ -8,6 +8,8 @@ interface SH1Props{
    margin?: string;
    textTransform?: string;
    fontWeight?: number;
+   textAlign?:string;
+   color?:string;
 }
 
 interface STextParagraph{
@@ -21,25 +23,18 @@ interface STextParagraph{
 
 interface SspanText{
    typeOption?:string;
+   fontWeight?: number;
+   fontSize?:string;
 }
 
 export const SH1 =styled.h1<SH1Props>`
     font-size: ${(props) => props.fontSize || '30px'};
-    color: #000;
+    color: ${(props) => props.color || '#000'};
     font-weight: ${(props) => props.fontWeight || 700};
-    text-align: center;
+    text-align: ${(props) => props.textAlign || 'center'};
     margin: ${(props) => props.margin || '16px 0px'};
     font-family: 'Gotham';
     text-transform: ${(props) => props.textTransform || 'none'};
-
-    ${props => props.typeTitle === 'instructionminor' &&`
-        text-transform:uppercase;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        text-align:center;
-        margin-bottom:-15px;
-    `}
 
     ${props => props.typeTitle === 'duvida' && `
         font-size: 18px;
@@ -131,9 +126,9 @@ export const SH1 =styled.h1<SH1Props>`
 
 
  export const SspanText = styled.span<SspanText>`
-      font-size: 18px;
+      font-size: ${(props) => props.fontSize || '18px'};
       font-family: 'gotham';
-      font-weight:350;
+      font-weight: ${(props) => props.fontWeight || 350};
 
       ${props => props.typeOption === 'inative' && `
         color:#777777;
@@ -141,7 +136,11 @@ export const SH1 =styled.h1<SH1Props>`
         ${props => props.typeOption === 'active' && `
         color:#000;
         `}
-     ${props => props.typeOption === 'nameForms' && `
-        color:#000;
-    `}
+        ${props => props.typeOption === 'nameForms' && `
+            color:#000;
+        `}
+        ${props => props.typeOption === 'namProduct' && `
+            color:#49454F;
+            
+        `}
  `

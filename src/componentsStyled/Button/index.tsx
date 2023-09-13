@@ -65,7 +65,7 @@ const SButton = styled.button<SButtonProps>`
     `}
 `
 
-export default function Button({ children, path = "", typeButton=""}: IButton) {
+export default function Button({ children, path = "", typeButton="", background="", border="", color="", margin=""}: IButton) {
 
     const navigate = useNavigate();
 
@@ -77,7 +77,7 @@ export default function Button({ children, path = "", typeButton=""}: IButton) {
     };
 
     return (
-        <SButton onClick={handleClick} typeButton={typeButton}>{ children }</SButton>
+        <SButton onClick={handleClick} typeButton={typeButton} background={background} border={border} color={color} margin={margin}>{ children }</SButton>
     )
 
 }

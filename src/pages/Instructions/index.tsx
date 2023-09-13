@@ -1,11 +1,7 @@
-import { BoxVideo, SBox } from "../../componentsStyled/Box";
-import Button, { ButtonNext } from "../../componentsStyled/Button";
+import { BoxVideo } from "../../componentsStyled/Box";
+import Button from "../../componentsStyled/Button";
 import Footer from "../../components/footer";
 import { STextParagraph, SH1, SspanText } from "../../componentsStyled/Text";
-import IconCamera from "../../componentsStyled/icon/Iconcamera";
-import IconCheck from "../../componentsStyled/icon/Iconcheck";
-import IconMotivos from "../../componentsStyled/icon/Iconmotivos";
-import LogoFut from "../../componentsStyled/icon/LogoFut";
 import Header from "../../components/header";
 import Menu from "../../components/menu";
 import Options from "../../components/options";
@@ -21,7 +17,7 @@ export default function Instructions() {
                 { text: 'Instruções do Pedido', path: '/instructions' },
                 { text: 'Pedido', path: '/order' },
                 { text: 'Dados', path: '/data' },
-                { text: 'Formas de envio', path: '/Shipping' },
+                { text: 'Formas de envio', path: '/shipping' },
             ]}/>
         </Menu>
         <section className="c-instruction">
@@ -33,17 +29,14 @@ export default function Instructions() {
                 </STextParagraph>
             <Question></Question>
 
-                <div className="container">
-                    <div className="row justify-content-end">
-                            <Button color="#192C53" background="transparent" border="1px solid #192c53" path="/order" >Avançar</Button>
-                    </div>
-                    <Footer></Footer>
+                <div className="d-flex justify-content-center mb-5 mt-5">
+                <Button color="#192C53" background="transparent" border="1px solid #192c53"
+                path="/order" >Avançar</Button>
+                    
                 </div>
-
         </section>
-        
-        </>
-        
+        <Footer></Footer> 
+        </>    
     )
 
 }

@@ -5,8 +5,14 @@ import { SH1, SspanText } from "../../componentsStyled/Text";
 import IconCheck from "../../componentsStyled/icon/Iconcheck";
 import LogoFut from "../../componentsStyled/icon/LogoFut";
 import React, { useState } from 'react';
+import Header from "../../components/header";
+
+import Options from "../../components/options";
+import Menu from "../../components/menu";
 
 export default function Data() {
+
+    
 
     const [elementoAtivo, setElementoAtivo] = useState('elemento1');
     const alternarElemento = () => {
@@ -19,31 +25,18 @@ export default function Data() {
     }
   };
     return (
+        <>
+        <Header></Header>
+        <Menu typeOption="active">
+            <Options options={[
+                { text: 'Instruções do Pedido', path: '/instructions' },
+                { text: 'Pedido', path: '/order' },
+                { text: 'Dados', path: '/data' },
+                { text: 'Formas de envio', path: '/shipping' },
+            ]}/>
+        </Menu>
         <section className="c-data">
             <div className="container">
-                <div className="c-header w-100">
-                    <div className="box-img"><LogoFut></LogoFut></div>
-                    <div className="box-text d-flex justify-content-center">
-                    <SBox typeBox="optionmenu-inative"
-                    >
-                        <SspanText typeOption="inative">Instruções do Pedido</SspanText>
-                    </SBox>
-                    <SBox typeBox="optionmenu-inative"
-                    >
-                        <SspanText typeOption="inative">Pedido</SspanText>
-                    </SBox>
-                    <SBox typeBox="optionmenu"
-                    >
-                        <SspanText>Dados</SspanText>
-                    </SBox>
-                    <SBox typeBox="optionmenu-inative"
-                    >
-                        <SspanText>Formas de envio</SspanText>
-                    </SBox>
-
-                    </div>
-                </div>
-
                 <SH1 typeTitle="instruction">
                     Confirme seus dados
                 </SH1>
@@ -254,10 +247,10 @@ export default function Data() {
                     )}
                         
                 </div>
-                <Footer></Footer>
-            
             </div>
         </section>
+        <Footer></Footer>
+        </>
     )
 
 }

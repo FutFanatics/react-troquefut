@@ -8,6 +8,10 @@ import Cliqueretire from '../../img/icon/cliqueretire.png';
 import React, { useState } from 'react';
 import IconFilter from "../../componentsStyled/icon/IconFilter";
 import Locker from "../../img/locker.png";
+import Header from "../../components/header";
+import Menu from "../../components/menu";
+import Options from "../../components/options";
+import Lista from "../../components/lista";
 
 export default function Shipping() {
     const [selectedContent, setSelectedContent] = useState('');
@@ -23,34 +27,22 @@ export default function Shipping() {
         setSelectedContent('');
       };
     return (
+        <>
+        <Header></Header>
+        <Menu typeOption="active">
+            <Options options={[
+                { text: 'Instruções do Pedido', path: '/instructions' },
+                { text: 'Pedido', path: '/order' },
+                { text: 'Dados', path: '/data' },
+                { text: 'Formas de envio', path: '/shipping' },
+            ]}/>
+        </Menu>
         <section className="c-shipping">
             <div className="container">
-                <div className="c-header w-100">
-                    <div className="box-img"><LogoFut></LogoFut></div>
-                    <div className="box-text d-flex justify-content-center">
-                    <SBox typeBox="optionmenu-inative"
-                    >
-                        <SspanText typeOption="inative">Instruções do Pedido</SspanText>
-                    </SBox>
-                    <SBox typeBox="optionmenu-inative"
-                    >
-                        <SspanText typeOption="inative">Pedido</SspanText>
-                    </SBox>
-                    <SBox typeBox="optionmenu-inative"
-                    >
-                        <SspanText typeOption="inative">Dados</SspanText>
-                    </SBox>
-                    <SBox typeBox="optionmenu"
-                    >
-                        <SspanText>Formas de envio</SspanText>
-                    </SBox>
-
-                    </div>
-                </div>
                 <SH1 typeTitle="instruction">
                     <SH1 typeTitle="sublinhado">Selecione&nbsp;</SH1>A FORMA DE ENVIO
                 </SH1>
-
+                <Lista></Lista>
                 <div className="row justify-content-center">
                     <SBox typeBox="envio">
                         <div className="box-img">
@@ -198,6 +190,7 @@ export default function Shipping() {
                 )}
                 <Footer></Footer>
         </section>
+        </>
     )
 
 }

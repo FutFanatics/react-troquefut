@@ -92,6 +92,27 @@
     border-radius: 0px 150px 150px 0px;
     width: 90%;
 }
+.lista-content{
+    padding: 40px 0px;
+}
+.c-produto{
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+    .produto-box_img{
+        img{
+            height: 150px;
+            width: 150px;
+            object-fit: cover;
+        }
+    }
+}
+
+
+
+
+
 
 .c-instruction{
     .box-img{
