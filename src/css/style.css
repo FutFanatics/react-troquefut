@@ -80,6 +80,13 @@
   width: 90%;
 }
 
+.c-lista_suspensa .lista-select {
+  border-radius: 20px;
+  padding: 10px;
+  border: 1px rgba(0, 0, 0, 0.5) solid;
+  margin: 48px 0px;
+}
+
 .lista-content {
   padding: 40px 0px;
 }

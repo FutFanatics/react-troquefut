@@ -9,9 +9,15 @@ import Header from "../../components/header";
 
 import Options from "../../components/options";
 import Menu from "../../components/menu";
+import Formulario from "../../components/formulario";
+import CampoTexto from "../../components/campotexto";
+import FormularioPessoal from "../../components/formulario";
 
 export default function Data() {
-
+    const [nome, setNome] = useState("");
+    const [telefone, setTelefone] = useState(""); 
+    const [celular, setCelular] = useState(""); 
+    const [email, setEmail] = useState(""); 
     
 
     const [elementoAtivo, setElementoAtivo] = useState('elemento1');
@@ -37,11 +43,13 @@ export default function Data() {
         </Menu>
         <section className="c-data">
             <div className="container">
-                <SH1 typeTitle="instruction">
-                    Confirme seus dados
+                <SH1 fontSize="28px" textTransform="uppercase">
+                    Preencha seus dados
                 </SH1>
                 
                 {elementoAtivo === 'elemento1' && (
+                <>
+                <FormularioPessoal></FormularioPessoal>
                 <section className="personal-forms">
                     <div className="row justify-content-center mt-3 mb-3">
                         <div className="col-md-3 d-flex align-items-center justify-content-center">
@@ -108,6 +116,7 @@ export default function Data() {
                         </div>
                     </div>
                 </section>
+                </>
                 )}
                 {elementoAtivo === 'elemento2' && (
                     <section className="address-forms">
@@ -133,64 +142,35 @@ export default function Data() {
                         </SH1>
                     </div>
                     </div>
-                    <div className="row justify-content-center mt-5 mb-3">
-                    <div className="col-md-8 boxform d-flex justify-content-between">
-                        <div className="col-md-3">
-                            <SspanText typeOption="nameForms">Confirme seu CEP</SspanText>
-                        </div>
-                        <div className="col-md-8 col-input">
-                            <input type="text" placeholder="xxxxx-xxx"></input>
-                        </div>
-                    </div>
-                    <div className="col-md-8 boxform d-flex justify-content-between">
-                        <div className="col-md-3">
-                            <SspanText typeOption="nameForms">Estado</SspanText>
-                        </div>
-                        <div className="col-md-8 col-input">
-                            <input type="text"></input>
-                        </div>
-                    </div>
-                    <div className="col-md-8 boxform d-flex justify-content-between">
-                        <div className="col-md-3">
-                            <SspanText typeOption="nameForms">Cidade</SspanText>
-                        </div>
-                        <div className="col-md-8 col-input">
-                            <input type="text" placeholder="xxxxxxx"></input>
-                        </div>
-                    </div>
-                    <div className="col-md-8 boxform d-flex justify-content-between">
-                        <div className="col-md-3">
-                            <SspanText typeOption="nameForms">Bairro</SspanText>
-                        </div>
-                        <div className="col-md-8 col-input">
-                            <input type="text" placeholder="xxxxxxx"></input>
-                        </div>
-                    </div>
-                    <div className="col-md-8 boxform d-flex justify-content-between">
-                        <div className="col-md-3">
-                            <SspanText typeOption="nameForms">Endereço</SspanText>
-                        </div>
-                        <div className="col-md-8 col-input">
-                            <input type="text" placeholder="xxxxxxxxx xxxxxxx"></input>
-                        </div>
-                    </div>
-                    <div className="col-md-8 boxform d-flex justify-content-between">
-                        <div className="col-md-3">
-                            <SspanText typeOption="nameForms">Número</SspanText>
-                        </div>
-                        <div className="col-md-8 col-input">
-                            <input type="text" placeholder="xxxx"></input>
-                        </div>
-                    </div>
-                    <div className="col-md-8 boxform d-flex justify-content-between">
-                        <div className="col-md-3">
-                            <SspanText typeOption="nameForms">Complemento</SspanText>
-                        </div>
-                        <div className="col-md-8 col-input">
-                            <input type="text" placeholder="xxxxxxxxxxx"></input>
-                        </div>
-                    </div>
-                </div>
+                    <FormularioPessoal>
+                    <CampoTexto
+                        obrigatorio={true}
+                        placeholder="Digite seu nome"
+                        valor={nome}
+                        aoAlterado={(valor) => setNome(valor)}
+                    />
+
+                    <CampoTexto
+                        obrigatorio={true} 
+                        placeholder="Digite seu telefone" 
+                        valor={telefone}
+                        aoAlterado={(valor) => setTelefone(valor)} 
+                    />
+
+                    <CampoTexto
+                        obrigatorio={true}
+                        placeholder="Digite seu celular" 
+                        valor={celular}
+                        aoAlterado={(valor) => setCelular(valor)} 
+                    />
+
+                    <CampoTexto
+                        obrigatorio={true}
+                        placeholder="Digite seu email" 
+                        valor={email}
+                        aoAlterado={(valor) => setEmail(valor)} 
+                    />
+                </FormularioPessoal>
                     </section>
                 )}
                 {elementoAtivo === 'elemento3' && (
