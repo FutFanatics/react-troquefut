@@ -10,6 +10,7 @@ import Menu from "../../components/menu";
 import Options from "../../components/options";
 import ListaProdutos from "../../components/listaprodutos";
 import ListaSuspensa from "../../components/listasuspensa";
+import ProductSelected from "../../components/produtoselected";
 
 
 
@@ -33,8 +34,8 @@ export default function Order() {
         </Menu>
         <section className="c-order">
            <div className="container">
-                <SH1 textTransform="uppercase">
-                    Selecione O pedido que deseja devolver
+                <SH1 textTransform="uppercase" fontSize="28px" margin="16px 0px 0px 0px">
+                    Selecione O pedido 
                 </SH1>
                 <ListaSuspensa
                     label="Selecione uma opção"
@@ -45,9 +46,6 @@ export default function Order() {
                     className="c-lista-suspensa"  
                 ></ListaSuspensa>
                 <ListaProdutos></ListaProdutos>  
-                <SH1 fontSize="20px" fontWeight={500} margin="0px">Preencha a seguir as informações</SH1>          
-                <SH1 fontSize="20px" fontWeight={500} margin="0px">dos produto que deseja devolver:</SH1>
-                
 
                 <Button margin="0 auto" path="/data" typeButton="next" >Avançar</Button>                
             </div>

@@ -98,7 +98,7 @@
         border-radius: 20px;
         padding: 10px;
         border: 1px rgba(0, 0, 0, 0.5) solid;
-        margin: 48px 0px;
+        margin: 32px 0px 48px 0px;
     }
 }
 
@@ -119,6 +119,32 @@
     }
 }
 
+.c-video_clique{
+    background: url("../img/videocliquebg.png");
+    object-fit: cover;
+    height: 80vh;
+    background-position: center right;
+    position: relative;
+    margin: 64px 0px;
+
+    .icon-video{
+        position: absolute;
+        height: 60px;
+        top: 40px;
+        right: 20px;
+    }
+
+    .icon-pontilhado{
+        height: 30px;
+        bottom: 40px;
+        position: absolute;
+        left: 40px;
+    }
+
+    iframe{
+        border: none;
+    }
+}
 
 
 

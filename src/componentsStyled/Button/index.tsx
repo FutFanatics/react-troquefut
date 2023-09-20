@@ -39,10 +39,6 @@ const SButton = styled.button<SButtonProps>`
     align-items: center;
     margin: ${(props) => props.margin || '0px 0px 16px 0px'};
 
-    &:last-child{
-        margin-bottom: 0px;
-    }
-
     a{
         color: #fff;
         text-decoration: none;

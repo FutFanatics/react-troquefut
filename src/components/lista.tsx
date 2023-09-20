@@ -19,12 +19,12 @@ const Lista : React.FC<ListaProps> = ({ className }) => {
         },
 
         {
-            nome: 'Camisa São Paulo Hype Preta',
-            codigo: 'SP123',
-            preco: 'R$29,99',
+            nome: 'Camisa Flamengo Essay Preta e Vermelha',
+            codigo: '121055',
+            preco: 'R$ 299,90',
             imagem: '../img/img-camisa_sp.png',
             variacao: 'M',
-            url: 'https://www.futfanatics.com.br/camisa-sao-paulo-hype-preta',
+            url: 'https://www.futfanatics.com.br/camisa-flamengo-essay-preta-e-vermelha',
           },
     ];
     

@@ -25,10 +25,11 @@ interface SspanText{
    typeOption?:string;
    fontWeight?: number;
    fontSize?:string;
+   padding?: string;
 }
 
 export const SH1 =styled.h1<SH1Props>`
-    font-size: ${(props) => props.fontSize || '30px'};
+    font-size: ${(props) => props.fontSize || '28px'};
     color: ${(props) => props.color || '#000'};
     font-weight: ${(props) => props.fontWeight || 700};
     text-align: ${(props) => props.textAlign || 'center'};
@@ -101,7 +102,7 @@ export const SH1 =styled.h1<SH1Props>`
         font-size:16px;
         padding-bottom:16px;
     `}
-    ${props => props.typeParagraph === 'paragraphpedido' && `
+    ${props => props.typeParagraph === 'pedido' && `
         text-align:start;
         font-weight:350;
         margin-bottom:0px;
@@ -128,6 +129,7 @@ export const SH1 =styled.h1<SH1Props>`
  export const SspanText = styled.span<SspanText>`
       font-size: ${(props) => props.fontSize || '18px'};
       font-family: 'gotham';
+      padding: ${(props) => props.padding || '0px'};
       font-weight: ${(props) => props.fontWeight || 350};
 
       ${props => props.typeOption === 'inative' && `

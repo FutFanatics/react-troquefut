@@ -1,20 +1,26 @@
 import { SH1, SspanText } from "../componentsStyled/Text";
 import sp from '../img/img-camisa_sp.png';
-interface Produto{
-    nome: string;
-    codigo: string;
-    preco: string;
-    imagem: string;
-    variacao: string;
-    url: string;
-}
+import React, { useState } from 'react';
+import ProductSelected from "./produtoselected";
+import { Produto } from './TypeProduct';
 
 interface ProdutosProps {
     produtos: Produto[];
     className?: string;
   }
 
+
 const Produtos : React.FC<ProdutosProps> = ({ produtos , className }) => {
+    const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(null);
+
+    const handleCheckboxChange = (produto: Produto) => {
+        if (produtoSelecionado && produtoSelecionado.codigo === produto.codigo) {
+          setProdutoSelecionado(null);
+        } else {
+          setProdutoSelecionado(produto);
+        }
+      };
+
     return(
         <>
         {produtos.map((produto, index) => (
@@ -41,9 +47,19 @@ const Produtos : React.FC<ProdutosProps> = ({ produtos , className }) => {
                         </div>
                     </div>
                 </div>
-                <div className="col-1 d-flex align-items-start justify-content-center pt-2"><input type="checkbox"></input></div>
+                <div className="col-1 d-flex align-items-start justify-content-center pt-2">
+                    <input 
+                        type="checkbox"
+                        checked={produto === produtoSelecionado}
+                        onChange={() => handleCheckboxChange(produto)}>
+                        
+                    </input>
+                </div>
             </div>
-         ))}   
+         ))} 
+         {produtoSelecionado && (
+        <ProductSelected produto={produtoSelecionado} />
+      )}
         </>
             
         )

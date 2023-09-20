@@ -84,7 +84,7 @@
   border-radius: 20px;
   padding: 10px;
   border: 1px rgba(0, 0, 0, 0.5) solid;
-  margin: 48px 0px;
+  margin: 32px 0px 48px 0px;
 }
 
 .lista-content {
@@ -101,6 +101,30 @@
   height: 150px;
   width: 150px;
   object-fit: cover;
+}
+
+.c-video_clique {
+  background: url("../img/videocliquebg.png");
+  object-fit: cover;
+  height: 80vh;
+  background-position: center right;
+  position: relative;
+  margin: 64px 0px;
+}
+.c-video_clique .icon-video {
+  position: absolute;
+  height: 60px;
+  top: 40px;
+  right: 20px;
+}
+.c-video_clique .icon-pontilhado {
+  height: 30px;
+  bottom: 40px;
+  position: absolute;
+  left: 40px;
+}
+.c-video_clique iframe {
+  border: none;
 }
 
 .c-instruction .box-img svg {

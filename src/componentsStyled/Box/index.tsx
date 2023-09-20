@@ -12,6 +12,7 @@ interface SBoxIconFut {
 interface Box{
     typeBox?:string;
     margin?: string;
+    className?:string;
 }
 
 export const BoxIcon = styled.div`
@@ -111,29 +112,7 @@ export const SBox = styled.div<SBox>`
         transform: translate(-50%);
         
     `}
-     
-     ${props => props.typeBox === 'envio' && `
-            margin: 30px 24px;
-            width: 28%;
-            padding:40px 40px;
-            min-height:28rem;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            border-radius:20px;
-            border:1px solid rgba(00,00,00,0.4);
-            background-color:transparent;
-            box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);
-     `}
-     ${props => props.typeBox === 'option-envio' && `
-            margin: 12px 0px;
-            width: 100%;
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-            align-items:center;
-            background-color:transparent;
-     `}
+
      ${props => props.typeBox === 'boxforms' && `
             padding:10px 20px;
             border-radius:40px;
@@ -280,4 +259,49 @@ export const Box = styled.div<Box>`
         background:#F1F1F1;
         box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);
     `}
+    ${props => props.typeBox === 'envio' && `
+        margin: 24px 0px 16px 0px;
+        padding:40px 40px;
+        height:27rem;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        border-radius:20px;
+        border:3px solid #192C53;
+        background-color:transparent;
+        box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+
+        .icon{
+            height:75px;
+        }
+
+        .box-text{
+            padding:40px 0px 50px;
+        }
+        li{
+            padding-top:16px;
+        }
+    `}
+    ${props => props.typeBox === 'productselected' && `
+        margin: 48px 0px;
+        padding:40px 40px;
+        display:flex;
+        justify-content:center
+        align-items:center;
+        border-radius:10px;
+        border:1px solid rgba(00,00,00,0.4);
+
+        .icon{
+            height:75px;
+        }
+
+        .box-text{
+            padding:40px 0px 50px;
+        }
+        li{
+            padding-top:16px;
+        }
+    `}
+
+
 `
