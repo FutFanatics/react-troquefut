@@ -283,7 +283,7 @@ export const Box = styled.div<Box>`
         }
     `}
     ${props => props.typeBox === 'productselected' && `
-        margin: 48px 0px;
+        margin: 32px 12px 16px 0px;
         padding:40px 40px;
         display:flex;
         justify-content:center
@@ -301,7 +301,20 @@ export const Box = styled.div<Box>`
         li{
             padding-top:16px;
         }
-    `}
 
+        &:last-child{
+            margin: 32px 0px 16px 0px;
+        }
+    `}
+    ${props => props.typeBox === 'cam' && `
+        width:40px;
+        height:40px;
+        border-radius:100px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        margin:0px 8px 0px 0px;
+        background:#192c53;
+    `}
 
 `

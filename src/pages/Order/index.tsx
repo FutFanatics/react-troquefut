@@ -47,7 +47,7 @@ export default function Order() {
                 ></ListaSuspensa>
                 <ListaProdutos></ListaProdutos>  
 
-                <Button margin="0 auto" path="/data" typeButton="next" >Avançar</Button>                
+                <Button margin="0px auto 32px auto" path="/data" typeButton="next" >Avançar</Button>                
             </div>
         </section>
         <Footer></Footer>

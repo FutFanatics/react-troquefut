@@ -20,7 +20,7 @@ const Question = () =>{
                 </Box>
                 <Box className="col-md-3" typeBox ="card-question">
                     <Box typeBox="icon">
-                    <IconCamera width={40}></IconCamera>
+                    <IconCamera width={40} fill="#1C1B1F"></IconCamera>
                     </Box>
                     <SH1 fontSize="20px" fontWeight={500}margin="32px 0px 20px 0px">Tire uma foto</SH1>
                     <STextParagraph fontSize="16px">

@@ -97,10 +97,11 @@ export const SH1 =styled.h1<SH1Props>`
         font-weight:500;
         font-size:16px;
     `}
-    ${props => props.typeParagraph === 'paragraphclique' && `
-        font-weight:500;
-        font-size:16px;
-        padding-bottom:16px;
+    ${props => props.typeParagraph === 'select' && `
+        color:rgba(56,56,56, 0.7);
+        font-size:14px;
+        text-align:start;
+        font-weight:400px;
     `}
     ${props => props.typeParagraph === 'pedido' && `
         text-align:start;
@@ -113,6 +114,7 @@ export const SH1 =styled.h1<SH1Props>`
             padding-bottom:0px;
         }
     `}
+
     ${props => props.typeParagraph === 'paragraphfooter' && `
         padding-bottom:0px;
         font-size:10px;

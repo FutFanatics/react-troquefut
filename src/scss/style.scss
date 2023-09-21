@@ -118,7 +118,20 @@
         }
     }
 }
-
+.product-selected{
+    &-img{
+        height: 150px;
+        width: auto;
+    }
+}
+.list-select{
+    border:none;
+    width: 100%;
+    border-bottom: 1px solid;
+    color: #192C53;
+    padding-bottom: 4px;
+    margin-bottom: 12px;
+}
 .c-video_clique{
     background: url("../img/videocliquebg.png");
     object-fit: cover;

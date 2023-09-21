@@ -59,6 +59,7 @@ const SButton = styled.button<SButtonProps>`
         background-color: #222222;
         margin-top:16px;
     `}
+    
 `
 
 export default function Button({ children, path = "", typeButton="", background="", border="", color="", margin=""}: IButton) {
