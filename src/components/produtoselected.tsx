@@ -6,7 +6,8 @@ import sp from '../img/img-camisa_sp.png';
 import { Produto } from './Types';
 import ListaSelected from "./listaselected";
 import React, { useState } from 'react';
-
+import ModalCamera from "./modalfoto";
+import Modal from 'react-modal';
 
 interface ProductSelectedProps {
     className?: string;
@@ -14,9 +15,22 @@ interface ProductSelectedProps {
     
   }
 const ProductSelected : React.FC<ProductSelectedProps> = ({ produto }) => {
+
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const openModal = () => {
+        setModalIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
+
     const [tipoReembolso, setTipoReembolso] = useState<string>('');
     const [motivoDevolucao, setMotivoDevolucao] = useState<string>('');
     const [quantidade, setQuantidade] = useState<number | ''>('');
+
+
     if (!produto) {
       return null; 
     }
@@ -56,12 +70,14 @@ const ProductSelected : React.FC<ProductSelectedProps> = ({ produto }) => {
                     <input type="text">
                     </input>
                     <Box className="d-flex align-items-center" margin="12px 0px 0px 0px">
-                        <Box typeBox="cam">
-                            <IconCamera fill="#fff" width={22}></IconCamera>
-                        </Box>
+                        <a onClick={openModal}>
+                            <Box typeBox="cam">
+                                <IconCamera fill="#fff" width={22}></IconCamera>
+                            </Box>
+                        </a>
                         <STextParagraph typeParagraph ='select'> Anexar fotos</STextParagraph>
                     </Box>
-                    
+                    <ModalCamera isOpen={modalIsOpen} onRequestClose={closeModal} />
                 </Box>
             </div>
             

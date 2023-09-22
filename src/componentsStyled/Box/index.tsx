@@ -314,6 +314,7 @@ export const Box = styled.div<Box>`
         justify-content:center;
         align-items:center;
         margin:0px 8px 0px 0px;
+        cursor:pointer;
         background:#192c53;
     `}
 
