@@ -242,6 +242,7 @@ export const Box = styled.div<Box>`
         background:#fff;
         border-radius:20px;
         position: relative;
+        width:250px;
         padding: 30px 20px;
     `}
     ${props => props.typeBox === 'icon' && `

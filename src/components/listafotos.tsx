@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-interface ListaSuspensaProps {
+interface ListaFotosProps {
     obrigatorio?:boolean;
     className?: string;
     label?:string;
@@ -11,7 +11,7 @@ interface ListaSuspensaProps {
   }
 
 
-const ListaSuspensa : React.FC<ListaSuspensaProps> = ({
+const ListaFotos : React.FC<ListaFotosProps> = ({
     className,
     obrigatorio = false,
     label,
@@ -31,7 +31,7 @@ const ListaSuspensa : React.FC<ListaSuspensaProps> = ({
         };
     return(
         <>
-        <div className="c-lista_suspensa row justify-content-center">
+        <div className="c-lista_suspensa row justify-content-center mt-4">
             {label && <label></label>}
             <select required={obrigatorio} value={selectedOption} onChange={handleOptionChange} className='col-md-10 lista-select'>
             <option value="">Selecione uma opção</option>
@@ -47,4 +47,4 @@ const ListaSuspensa : React.FC<ListaSuspensaProps> = ({
             
             )
         }
-    export default ListaSuspensa;
+    export default ListaFotos;

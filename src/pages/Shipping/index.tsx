@@ -5,24 +5,12 @@ import { STextParagraph, SH1, SspanText } from "../../componentsStyled/Text";
 import React, { useState } from 'react';
 import Menu from "../../components/menu";
 import Options from "../../components/options";
-import Lista from "../../components/lista";
 import CliqueRetire from "../../components/cliqueretire";
 import Header from "../../components/header";
 import Correios from "../../components/correios";
 
 export default function Shipping() {
     const [selectedContent, setSelectedContent] = useState('');
-
-    const showContent1 = () => {
-        setSelectedContent('content1');
-      };
-      const showContent2 = () => {
-        setSelectedContent('content2');
-      };
-    
-      const hideContent = () => {
-        setSelectedContent('');
-      };
     return (
         <>
         <Header></Header>

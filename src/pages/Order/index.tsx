@@ -15,12 +15,38 @@ import ProductSelected from "../../components/produtoselected";
 
 
 export default function Order() {
-    const optionsArray = ['Opção 1', 'Opção 2', 'Opção 3', 'Opção de Teste 1', 'Opção de Teste 2'];
+    const produtosData = [
+        {
+          nome: 'Camisa São Paulo Hype Preta',
+          codigo: 'SP123',
+          pedido:'344556',
+          preco: 'R$29,99',
+          imagem: '../img/img-camisa_sp.png',
+          variacao: 'M',
+          url: 'https://www.futfanatics.com.br/camisa-sao-paulo-hype-preta',
+
+        },
+
+        {
+            nome: 'Camisa Flamengo Essay Preta e Vermelha',
+            codigo: '121055',
+            pedido:'344555',
+            preco: 'R$ 299,90',
+            imagem: '../img/img-camisa_sp.png',
+            variacao: 'M',
+            url: 'https://www.futfanatics.com.br/camisa-flamengo-essay-preta-e-vermelha',
+          },
+    ];
     const [selectedOption, setSelectedOption] = useState('');
     const handleOptionChange = (selectedValue: string) => {
         setSelectedOption(selectedValue);
       };
-
+    
+    const pedidoOptions = produtosData.map((produto) => ({
+    value: produto.pedido,
+    label: produto.pedido,
+    }));
+    
     return (
         <>
         <Header></Header>
@@ -40,12 +66,12 @@ export default function Order() {
                 <ListaSuspensa
                     label="Selecione uma opção"
                     valor={selectedOption}
-                    items={optionsArray}
+                    items={pedidoOptions} 
                     obrigatorio={true}
                     onChange={handleOptionChange}
                     className="c-lista-suspensa"  
                 ></ListaSuspensa>
-                <ListaProdutos></ListaProdutos>  
+                <ListaProdutos selectedOption={selectedOption}></ListaProdutos>  
 
                 <Button margin="0px auto 32px auto" path="/data" typeButton="next" >Avançar</Button>                
             </div>

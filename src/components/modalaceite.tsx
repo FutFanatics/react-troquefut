@@ -1,21 +1,20 @@
 import React from 'react';
 import Modal from 'react-modal';
 import IconClose from '../componentsStyled/icon/Iconclose';
-import IconCamera from '../componentsStyled/icon/Iconcamera';
 import { SH1, STextParagraph } from '../componentsStyled/Text';
 import ListaFotos from './listafotos';
 import TipoFotos from './tipofotos';
 
-interface ModalCameraProps {
+interface ModalAceiteProps {
   isOpen: boolean;
+  children?: React.ReactNode;
   onRequestClose: () => void;
 }
 
-const ModalCamera: React.FC<ModalCameraProps> = ({ isOpen, onRequestClose }) => {
+const ModalAceite: React.FC<ModalAceiteProps> = ({ isOpen, onRequestClose }) => {
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="c-modal_foto">
       <div className='container'>
-        <IconCamera width={50} fill='#192C53' className='icon-camera'></IconCamera>  
         <SH1 fontSize='22px' margin='32px 0px 16px 0px'>Anexar Fotos do Produto</SH1>
 
         <STextParagraph fontSize='17px'>
@@ -37,4 +36,4 @@ const ModalCamera: React.FC<ModalCameraProps> = ({ isOpen, onRequestClose }) => 
   );
 };
 
-export default ModalCamera;
+export default ModalAceite;
