@@ -49,11 +49,11 @@ const CliqueRetire : React.FC<CliqueRetireProps> = ({ className }) => {
         <SH1 textTransform="uppercase" fontSize="24px" margin="32px 0px 16px 0px">Escolha o locker em que deseja depositar seu produto</SH1>
 
         <MapClique></MapClique>
-        <ModalAceite isOpen={modalIsOpen} onRequestClose={closeModal}></ModalAceite>
-        <Button path="/" margin="32px auto">
+
+        <Button margin="32px auto" onClick={openModal}>
         Confirmar
         </Button>
-
+        <ModalAceite isOpen={modalIsOpen} onRequestClose={closeModal}> </ModalAceite>
         </>
         
 

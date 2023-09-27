@@ -248,6 +248,31 @@
     }
 }
 
+.c-modal_aceite{
+    position: relative;
+    max-width: 1200px;
+    margin: 0px auto;
+    min-height: 70vh;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    padding: 10px 30px 30px 30px ;
+    border-radius: 15px;
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.2);
+
+    .btn-close{
+        position: absolute;
+        right: 30px;
+        top: 30px;
+        background-color: none;
+        border: none;
+    }
+
+    .check{
+        padding-left: 40px;
+    }
+}
+
 
 
 

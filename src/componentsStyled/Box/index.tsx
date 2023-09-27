@@ -90,134 +90,6 @@ export const BoxVideo = styled.div`
     align-items: center;
 `
 
-export const SBox = styled.div<SBox>`
-    background-color:rgba(25, 44, 83, 0.92) ;
-    padding:60px 0px;
-    border-radius: 0px 80px 80px 0px;
-    width: 90%;
-
-    ${props => props.typeBox === 'boxicon' && `
-        width:80px;
-        height:80px;
-        background:#F1F1F1;
-        padding:0px;
-        border-radius:100px;
-        position: absolute;
-        top: -20%;
-        left: 50%;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);
-        transform: translate(-50%);
-        
-    `}
-
-     ${props => props.typeBox === 'boxforms' && `
-            padding:10px 20px;
-            border-radius:40px;
-            width: 75%;
-            border:1px solid rgba(00,00,00,0.3);
-            box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);
-            margin-bottom:32px;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            background-color:transparent;
-
-            select{
-                margin-top:4px;
-                margin-bottom:4px;
-                font-size:18px;
-                width:100%;
-                border:none;
-
-                option{
-                    background-color:#fff;
-                    color:#000;
-
-                    &:hover{
-                        background-color:#f0f0f0;
-                    }
-                }
-
-                option:checked{
-                    background-color: #d9d9d9;
-                    color: #000;
-                }
-
-                &:focus{
-                    outline:none;
-                }
-            }
-
-            input{
-                width:100%;
-                border:none;
-
-                &::placeholder{
-                    font-weight:600;
-                    color:#000
-                }
-
-                &:focus{
-                    outline:none;
-                }
-            }
-     `}
-     ${props => props.typeBox === 'boxlocker' && `
-            padding:30px 20px 20px 20px;
-            border-radius:30px;
-            width: 100%;
-            border:1px solid rgba(00,00,00,0.3);
-            box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);
-            margin-bottom:32px;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            background-color:transparent;
-
-            
-            .type{
-                font-weight:700;
-                font-size:15px;
-            }
-            .describe{
-                font-weight:350;
-                font-size:15px;
-            }
-
-            .box-content{
-                width:65%;
-                margin-right:16px;
-            }
-
-            .box-img_locker{
-                width:30%;
-                 img{
-                    width:100%;
-                 }
-            }
-
-            &:last-child{
-                margin-bottom:0px;
-            }
-     `}  
-     ${props => props.typeBox === 'boxmaps' && `
-            padding:30px 20px 20px 20px;
-            border-radius:30px;
-            width: 100%;
-            border:1px solid rgba(00,00,00,0.3);
-            box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);
-            margin-bottom:32px;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            background-color:transparent;
-            height:100%;
-     `}     
-
-`
 
 export const Box = styled.div<Box>`
     margin: ${(props) => props.margin || '0px 16px'};
@@ -318,5 +190,36 @@ export const Box = styled.div<Box>`
         cursor:pointer;
         background:#192c53;
     `}
+    
+    ${props => props.typeBox === 'termos' && `
+        border:1px solid rgba(0,0,0,0.5);
+        padding:40px 30px;
+        border-radius:20px;
 
+        .box-content{
+            max-height:300px;
+            overflow:auto;
+            padding:0px 5px;
+            &::-webkit-scrollbar {
+                width: 10px;
+              }
+              
+            &::-webkit-scrollbar-track {
+                background: #D9D9D9;
+                border-radius: 10px;
+            }
+              
+              
+            &::-webkit-scrollbar-thumb {
+               background: #192C53;
+               border-radius: 10px;
+            }
+              
+             
+            &::-webkit-scrollbar-thumb:hover {
+                background: #192C53;
+            }
+        }
+                
+    `}
 `

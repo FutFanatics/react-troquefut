@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Order from "./pages/Order";
 import Data from "./pages/Data";
 import Shipping from "./pages/Shipping";
-import Devolution from "./pages/Shipping";
+import Devolution from "./pages/Devolution";
 
 function AppRoutes() {
     return (

@@ -8,8 +8,11 @@ interface IButton {
     margin?: string;
     border?:string;
     color?:string;
+    onClick?: () => void;
     background?: string; 
-    
+    borderRadius?:string;   
+    width?:string;
+    height?: string; 
 }
 
 interface SButtonProps {
@@ -18,6 +21,9 @@ interface SButtonProps {
     margin?: string;
     border?:string;
     color?:string;
+    borderRadius?:string;
+    width?:string;
+    height?: string; 
 }
 
 interface ButtonNextProps {
@@ -26,12 +32,12 @@ interface ButtonNextProps {
 
 const SButton = styled.button<SButtonProps>`
     background: ${(props) => props.background || '#192C53'};
-    border-radius: 50px;
+    border-radius: ${(props) => props.borderRadius || '50px'};
     color: ${(props) => props.color || '#FFF'};
     font-weight: 350;
     border: ${(props) => props.border || 'none'}; 
-    width: 380px;
-    height: 45px;
+    width: ${(props) => props.width || '380px'}; 
+    height: ${(props) => props.height || '45px'};   
     font-size: 16px;
     justify-content: center;
     display: flex;
@@ -62,7 +68,7 @@ const SButton = styled.button<SButtonProps>`
     
 `
 
-export default function Button({ children, path = "", typeButton="", background="", border="", color="", margin=""}: IButton) {
+export default function Button({ children, path = "", typeButton="", background="", border="", color="", margin="", onClick, borderRadius="", width= "", height=""}: IButton) {
 
     const navigate = useNavigate();
 
@@ -71,10 +77,13 @@ export default function Button({ children, path = "", typeButton="", background=
         if(path) {
             navigate(path);
         }
+        if (onClick) {
+            onClick(); 
+          }
     };
 
     return (
-        <SButton onClick={handleClick} typeButton={typeButton} background={background} border={border} color={color} margin={margin}>{ children }</SButton>
+        <SButton onClick={handleClick} typeButton={typeButton} background={background} border={border} color={color} margin={margin} borderRadius={borderRadius} width={width} height={height}>{ children }</SButton>
     )
 
 }

@@ -1,16 +1,13 @@
-import { SBox } from "../../componentsStyled/Box";
+
 import Button from "../../componentsStyled/Button";
 import Footer from "../../components/footer";
-import { SH1, SspanText } from "../../componentsStyled/Text";
-import CustomSelect from "../../componentsStyled/customselect";
-import LogoFut from "../../componentsStyled/icon/LogoFut";
+import { SH1 } from "../../componentsStyled/Text";
 import { useState } from 'react';
 import Header from "../../components/header";
 import Menu from "../../components/menu";
 import Options from "../../components/options";
 import ListaProdutos from "../../components/listaprodutos";
 import ListaSuspensa from "../../components/listasuspensa";
-import ProductSelected from "../../components/produtoselected";
 
 
 

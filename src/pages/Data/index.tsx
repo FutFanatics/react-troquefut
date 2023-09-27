@@ -1,15 +1,13 @@
-import {  SBox, SBoxIconFut } from "../../componentsStyled/Box";
+import { SBoxIconFut } from "../../componentsStyled/Box";
 import Button from "../../componentsStyled/Button";
 import Footer from "../../components/footer";
 import { SH1, SspanText } from "../../componentsStyled/Text";
 import IconCheck from "../../componentsStyled/icon/Iconcheck";
-import LogoFut from "../../componentsStyled/icon/LogoFut";
 import React, { useState } from 'react';
 import Header from "../../components/header";
 
 import Options from "../../components/options";
 import Menu from "../../components/menu";
-import Formulario from "../../components/formulario";
 import CampoTexto from "../../components/campotexto";
 import FormularioPessoal from "../../components/formulario";
 

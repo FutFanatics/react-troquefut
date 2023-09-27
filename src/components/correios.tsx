@@ -1,11 +1,22 @@
 import { Box } from "../componentsStyled/Box";
 import Button from "../componentsStyled/Button";
-import { STextParagraph } from "../componentsStyled/Text";
 import ImgClique from "../img/icon/correios.png"
+import React, { useState } from 'react';
+import ModalAceite from "./modalaceite";
+
 interface CorreiosProps {
     className?: string;
   }
 const Correios : React.FC<CorreiosProps> = ({ className }) => {
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const openModal = () => {
+        setModalIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
     return(
         <div className="container">
 
@@ -23,9 +34,10 @@ const Correios : React.FC<CorreiosProps> = ({ className }) => {
                     </div>
 
                 </Box>
-                <Button path="/" margin="16px 0px 32px 0px">
+                <Button margin="16px 0px 32px 0px" onClick={openModal}>
                     Avançar
                 </Button>
+                <ModalAceite     isOpen={modalIsOpen} onRequestClose={closeModal}> </ModalAceite>
             </div>
                     
         </div>

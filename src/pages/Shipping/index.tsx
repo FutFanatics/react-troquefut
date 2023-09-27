@@ -1,7 +1,6 @@
-import { SBox } from "../../componentsStyled/Box";
-import Button, { ButtonNext } from "../../componentsStyled/Button";
+
 import Footer from "../../components/footer";
-import { STextParagraph, SH1, SspanText } from "../../componentsStyled/Text";
+import { SH1 } from "../../componentsStyled/Text";
 import React, { useState } from 'react';
 import Menu from "../../components/menu";
 import Options from "../../components/options";
@@ -10,7 +9,7 @@ import Header from "../../components/header";
 import Correios from "../../components/correios";
 
 export default function Shipping() {
-    const [selectedContent, setSelectedContent] = useState('');
+
     return (
         <>
         <Header></Header>

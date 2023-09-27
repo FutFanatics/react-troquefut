@@ -115,6 +115,17 @@ export const SH1 =styled.h1<SH1Props>`
         }
     `}
 
+    ${props => props.typeParagraph === 'termos' && `
+       font-size:14px;
+       text-align:start;
+
+       a{
+        text-decoration:underline;
+        color:#000;
+        
+       }
+    `}
+
     ${props => props.typeParagraph === 'paragraphfooter' && `
         padding-bottom:0px;
         font-size:10px;
