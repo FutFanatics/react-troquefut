@@ -272,6 +272,46 @@
         padding-left: 40px;
     }
 }
+.c-data{
+    form{
+        margin-top: 32px;
+    }
+}
+.c-forms{
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    padding: 60px 30px;
+
+    border-radius: 10px;
+
+    .tel{
+        width: 20%;
+    }
+    .data{
+        &-label{
+            font-size: 14px;
+            font-family: 'gotham';
+            font-weight: 350;
+            margin-bottom: 8px;
+        }
+        &-input{
+            border: none;
+            border-bottom: 1px solid #000;
+            margin-bottom: 32px;
+            color: #192C53;
+            
+        }
+        &-tel{
+            div{
+                width: 49%;
+            }
+        }
+        &-error-message{
+            color: red;
+            margin-top: -32px;
+        }
+    }
+
+}
 
 
 

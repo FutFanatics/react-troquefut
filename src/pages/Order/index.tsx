@@ -2,16 +2,33 @@
 import Button from "../../componentsStyled/Button";
 import Footer from "../../components/footer";
 import { SH1 } from "../../componentsStyled/Text";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from "../../components/header";
 import Menu from "../../components/menu";
 import Options from "../../components/options";
 import ListaProdutos from "../../components/listaprodutos";
 import ListaSuspensa from "../../components/listasuspensa";
-
+import axios from 'axios'; 
 
 
 export default function Order() {
+    const [data, setData] = useState([]);
+
+    useEffect(()=>
+    {
+        axios.get('https://api.troquefuthomologacao.futfanatics.com.br/order/get/14736697' ,{
+            timeout: 10000,
+        })
+    
+        .then(function(response){
+            setData(response.data);
+            console.log(response.data , 'vamos carai')    
+        })
+        .catch(function(error){
+            console.log(error, 'erou')    
+        })
+        
+    }, []);
     const produtosData = [
         {
           nome: 'Camisa São Paulo Hype Preta',

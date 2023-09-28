@@ -12,7 +12,8 @@ interface IButton {
     background?: string; 
     borderRadius?:string;   
     width?:string;
-    height?: string; 
+    height?: string;
+    type?: string; 
 }
 
 interface SButtonProps {
