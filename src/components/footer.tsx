@@ -1,7 +1,10 @@
 import { STextParagraph } from "../componentsStyled/Text";
 import LogoFut from "../componentsStyled/icon/LogoFut";
 
-const Footer = () =>{
+interface FooterProps {
+    className?: string;
+  }
+const Footer : React.FC<FooterProps> = ({ className }) => {
     return(
         <section className="c-footer">
             <LogoFut className="footer-logo"></LogoFut>

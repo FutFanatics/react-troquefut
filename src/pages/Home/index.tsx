@@ -1,4 +1,4 @@
-import Button, { ButtonTroque } from "../../componentsStyled/Button";
+import Button from "../../componentsStyled/Button";
 import 'bootstrap/dist/css/bootstrap.css';
 import './../../css/style.css';
 import IconDevolucao from "../../img/icon/inicie.png"
@@ -42,7 +42,7 @@ export default function Home() {
                         Acompanhar sua Devolução
                         </span> </Button> 
                     </div>
-                    <div className="col-md-6 col-img d-flex justify-content-end align-items-end">
+                    <div className="col-md-6 col-img d-none d-md-flex justify-content-end align-items-end ">
                         <a href="www.futfanatics.com.br">
                             <SBoxIconFut>
                             <IconFut></IconFut>

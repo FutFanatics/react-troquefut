@@ -40,10 +40,10 @@ const ProductSelected : React.FC<ProductSelectedProps> = ({ produto }) => {
             <div className="row">
                 <Box className="flex-column d-flex align-items-center justify-content-center col-4" margin="0px">
                     <a href={produto.url} target="_blank"> 
-                        <img className="product-selected-img" src={sp}/>
+                        <img className="product-selected-img" src={produto.img}/>
                     </a>
-                    <SH1 fontSize="15px" margin="12px 0px 8px 0px" fontWeight={500}>{produto.nome}</SH1>
-                    <SspanText fontSize="16px">Variação: {produto.variacao}</SspanText>
+                    <SH1 fontSize="15px" margin="12px 0px 8px 0px" fontWeight={500}>{produto.name}</SH1>
+                    <SspanText fontSize="16px">Variação: {produto.variant_value}</SspanText>
                 </Box>
                 <Box className="col-md-8" margin="0px">
                     <STextParagraph typeParagraph ='select'>*Tipo de Reembolso</STextParagraph>

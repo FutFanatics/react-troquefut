@@ -10,13 +10,19 @@ import ListaProdutos from "../../components/listaprodutos";
 import ListaSuspensa from "../../components/listasuspensa";
 import axios from 'axios'; 
 
+interface Pedido {
+    id: string;
+    date: string;
+  }
 
 export default function Order() {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<Pedido[]>([]);
+    const [selectedId, setSelectedId] = useState('');
+    
 
     useEffect(()=>
     {
-        axios.get('https://api.troquefuthomologacao.futfanatics.com.br/order/get/14736697' ,{
+        axios.get('https://api.troquefuthomologacao.futfanatics.com.br/order/list/803542389' ,{
             timeout: 10000,
         })
     
@@ -29,38 +35,22 @@ export default function Order() {
         })
         
     }, []);
-    const produtosData = [
-        {
-          nome: 'Camisa São Paulo Hype Preta',
-          codigo: 'SP123',
-          pedido:'344556',
-          preco: 'R$29,99',
-          imagem: '../img/img-camisa_sp.png',
-          variacao: 'M',
-          url: 'https://www.futfanatics.com.br/camisa-sao-paulo-hype-preta',
 
-        },
-
-        {
-            nome: 'Camisa Flamengo Essay Preta e Vermelha',
-            codigo: '121055',
-            pedido:'344555',
-            preco: 'R$ 299,90',
-            imagem: '../img/img-camisa_sp.png',
-            variacao: 'M',
-            url: 'https://www.futfanatics.com.br/camisa-flamengo-essay-preta-e-vermelha',
-          },
-    ];
-    const [selectedOption, setSelectedOption] = useState('');
-    const handleOptionChange = (selectedValue: string) => {
-        setSelectedOption(selectedValue);
-      };
     
-    const pedidoOptions = produtosData.map((produto) => ({
-    value: produto.pedido,
-    label: produto.pedido,
+    const [selectedOption, setSelectedOption] = useState('');
+    
+    const [isProductSelectedVisible, setIsProductSelectedVisible] = useState(true);
+      
+    const pedidoOptions = data.map((pedido) => ({
+    value: pedido.id,
+    label: pedido.id,
     }));
     
+    const handleOptionChange = (selectedValue : string) => {
+        setSelectedId(selectedValue);
+        setIsProductSelectedVisible(false);
+      };
+
     return (
         <>
         <Header></Header>
@@ -79,13 +69,14 @@ export default function Order() {
                 </SH1>
                 <ListaSuspensa
                     label="Selecione uma opção"
-                    valor={selectedOption}
+                    valor={selectedId}
                     items={pedidoOptions} 
                     obrigatorio={true}
                     onChange={handleOptionChange}
                     className="c-lista-suspensa"  
                 ></ListaSuspensa>
-                <ListaProdutos selectedOption={selectedOption}></ListaProdutos>  
+
+                <ListaProdutos selectedId={selectedId}></ListaProdutos>  
 
                 <Button margin="0px auto 32px auto" path="/data" typeButton="next" >Avançar</Button>                
             </div>

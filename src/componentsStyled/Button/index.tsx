@@ -37,7 +37,7 @@ const SButton = styled.button<SButtonProps>`
     color: ${(props) => props.color || '#FFF'};
     font-weight: 350;
     border: ${(props) => props.border || 'none'}; 
-    width: ${(props) => props.width || '380px'}; 
+    width: 380px; 
     height: ${(props) => props.height || '45px'};   
     font-size: 16px;
     justify-content: center;
@@ -45,6 +45,8 @@ const SButton = styled.button<SButtonProps>`
     font-family: 'gotham';
     align-items: center;
     margin: ${(props) => props.margin || '0px 0px 16px 0px'};
+
+    
 
     a{
         color: #fff;
@@ -62,6 +64,10 @@ const SButton = styled.button<SButtonProps>`
         padding-left: 8px;
     }
 
+    @media screen and (max-width: 768px) {
+        width: 300px;
+    }
+
     ${props => props.typeButton === 'devolucao' && `
         background-color: #222222;
         margin-top:16px;
@@ -69,7 +75,7 @@ const SButton = styled.button<SButtonProps>`
     
 `
 
-export default function Button({ children, path = "", typeButton="", background="", border="", color="", margin="", onClick, borderRadius="", width= "", height=""}: IButton) {
+export default function Button({ children, path = "", typeButton="", background="", border="", color="", margin="", onClick, borderRadius="", height=""}: IButton) {
 
     const navigate = useNavigate();
 
@@ -84,26 +90,12 @@ export default function Button({ children, path = "", typeButton="", background=
     };
 
     return (
-        <SButton onClick={handleClick} typeButton={typeButton} background={background} border={border} color={color} margin={margin} borderRadius={borderRadius} width={width} height={height}>{ children }</SButton>
+        <SButton onClick={handleClick} typeButton={typeButton} background={background} border={border} color={color} margin={margin} borderRadius={borderRadius} height={height}>{ children }</SButton>
     )
 
 }
 
-export const ButtonTroque=styled.div`
-    background-color: #222222;
-    border-radius: 50px;
-    font-family: 'gotham';
-    color: #FFF;
-    font-weight: 500;
-    border: none; 
-    width: 320px;
-    height: 55px;
-    padding: 0px 16px 0px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 16px;
-`
+
 
 
 export const ButtonNext=styled.div<ButtonNextProps>`
@@ -121,23 +113,6 @@ export const ButtonNext=styled.div<ButtonNextProps>`
     margin-top: 8px;
     margin-bottom: 16px;
 
-    ${props => props.typeButtonNext === 'filter' && `
-        margin-top:0px;
-        border-radius:40px;
-        width:25%;
-        height:50px;
-        margin-left:10px;
-
-        svg{
-            width:28px;
-            fill:#FFF;
-        }
-
-        span{
-            padding-left:8px
-            font-size:17px; 
-        }
-    `}
     ${props => props.typeButtonNext === 'more' && `
         margin-top:0px;
         border-radius:8px;

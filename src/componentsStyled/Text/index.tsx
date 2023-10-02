@@ -134,6 +134,10 @@ export const SH1 =styled.h1<SH1Props>`
         font-weight:500;
         line-height:1rem;
         margin-bottom:0px;
+
+        @media screen and (max-width: 768px) {
+            padding-top:20px;
+        }
     `}
 
  `

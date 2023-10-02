@@ -31,7 +31,7 @@ const FormularioPessoal: React.FC<FormularioPessoalProps> = ({ className }) => {
       setTelefone('');
       setCelular('');
       setEmail('');
-      alternarElemento();
+    
       
     };
 

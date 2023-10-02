@@ -1,11 +1,10 @@
 export interface Produto {
-    nome: string;
-    codigo: string;
-    pedido?: string;
-    preco: string;
-    imagem: string;
-    variacao: string;
-    url: string;
+    product_id?: string;
+    name?: string;
+    variant_value?: string;
+    price?: string;
+    img?: string;
+    url?: string;
   }
 
 
