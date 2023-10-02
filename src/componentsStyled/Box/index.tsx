@@ -178,6 +178,10 @@ export const Box = styled.div<Box>`
         &:last-child{
             margin: 32px 0px 16px 0px;
         }
+        @media screen and (max-width: 768px) {
+            padding:10px;
+            border:none;
+        }
     `}
     ${props => props.typeBox === 'cam' && `
         width:40px;

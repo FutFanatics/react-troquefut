@@ -38,7 +38,7 @@ const ProductSelected : React.FC<ProductSelectedProps> = ({ produto }) => {
         <>
         <Box typeBox="productselected" className="col-md-5 product-selected" >
             <div className="row">
-                <Box className="flex-column d-flex align-items-center justify-content-center col-4" margin="0px">
+                <Box className="flex-column d-flex align-items-center justify-content-center col-md-4" margin="0px">
                     <a href={produto.url} target="_blank"> 
                         <img className="product-selected-img" src={produto.img}/>
                     </a>

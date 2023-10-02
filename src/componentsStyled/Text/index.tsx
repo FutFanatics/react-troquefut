@@ -80,6 +80,17 @@ export const SH1 =styled.h1<SH1Props>`
             margin-bottom:0px;
             padding-bottom:6px;
         `}
+    ${props => props.typeTitle === 'product' && `
+        font-size: 20px;
+        color:#000;
+        margin:0px;
+        font-weight:500;
+    
+
+        @media screen and (max-width: 768px) {
+           font-size:16px
+        }
+    `}
  `
 
  export const STextParagraph=styled.p<STextParagraph>`

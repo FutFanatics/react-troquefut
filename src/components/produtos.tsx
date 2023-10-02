@@ -59,8 +59,8 @@ interface ProdutosProps {
             ))}
             {produtosSelecionados.length > 0 && (
                 <>
-                    <SH1 fontSize="20px" fontWeight={500} margin="72px 0px 0px 0px ">Preencha a seguir as informações</SH1>
-                    <SH1 fontSize="20px" fontWeight={500} margin="0px 0px 32px 0px">dos produto que deseja devolver:</SH1>
+                    <SH1 typeTitle="product">Preencha a seguir as informações</SH1>
+                    <SH1 typeTitle="product">dos produto que deseja devolver:</SH1>
                     <div className="row justify-content-center">
                         {produtosSelecionados.map((produtoSelecionado, index) => (
                             <ProductSelected key={index} produto={produtoSelecionado} />

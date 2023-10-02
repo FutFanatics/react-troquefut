@@ -193,16 +193,20 @@
     padding: 40px 0px;
 }
 .c-produto{
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 64px;
     .produto-box_img{
         img{
             height: 150px;
             width: 150px;
             object-fit: cover;
         }
+    }
+
+    @include md{
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
     }
 }
 .product-selected{
