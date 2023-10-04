@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { SspanText } from "../componentsStyled/Text";
 import { Box } from '../componentsStyled/Box';
 
+
 interface OptionProps {
   text: string;
   path: string;
@@ -24,6 +25,7 @@ const Options: React.FC<OptionsProps> = ({ options }) => {
       setActiveOption(null);
     }
   }, [options]);
+  
 
   return (
     <div className="c-container-options d-flex">

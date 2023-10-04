@@ -1,7 +1,9 @@
+import { ClassNames } from "@emotion/react";
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components";
 
 interface IButton {
+    className?:string;
     path?: string;
     typeButton?: string;
     children: React.ReactNode;
@@ -24,6 +26,7 @@ interface SButtonProps {
     color?:string;
     borderRadius?:string;
     width?:string;
+    className?:string;
     height?: string; 
 }
 
@@ -72,10 +75,27 @@ const SButton = styled.button<SButtonProps>`
         background-color: #222222;
         margin-top:16px;
     `}
+
+    ${props => props.typeButton === 'payment' && `
+        background-color: transparent;
+        width:auto;
+        padding:0px;
+        font-size:18px;
+        border:none;
+        color:#000;
+        margin:0px 16px;
+
+
+        &.active{
+            color:#192c53;
+            font-weight:600;
+            text-decoration:underline;
+        }
+    `}
     
 `
 
-export default function Button({ children, path = "", typeButton="", background="", border="", color="", margin="", onClick, borderRadius="", height=""}: IButton) {
+export default function Button({ children, path = "", typeButton="", background="", border="", color="", margin="", onClick, borderRadius="", height="", className=""}: IButton) {
 
     const navigate = useNavigate();
 
@@ -90,7 +110,7 @@ export default function Button({ children, path = "", typeButton="", background=
     };
 
     return (
-        <SButton onClick={handleClick} typeButton={typeButton} background={background} border={border} color={color} margin={margin} borderRadius={borderRadius} height={height}>{ children }</SButton>
+        <SButton onClick={handleClick} typeButton={typeButton} background={background} border={border} color={color} margin={margin} borderRadius={borderRadius} height={height} className={className}>{ children }</SButton>
     )
 
 }

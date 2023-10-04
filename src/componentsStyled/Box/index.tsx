@@ -114,7 +114,8 @@ export const Box = styled.div<Box>`
         background:#fff;
         border-radius:20px;
         position: relative;
-        width:250px;
+        width:275px;
+        height:250px;
         padding: 30px 20px;
     `}
     ${props => props.typeBox === 'icon' && `
@@ -204,6 +205,7 @@ export const Box = styled.div<Box>`
             max-height:300px;
             overflow:auto;
             padding:0px 5px;
+
             &::-webkit-scrollbar {
                 width: 10px;
               }
@@ -223,7 +225,14 @@ export const Box = styled.div<Box>`
             &::-webkit-scrollbar-thumb:hover {
                 background: #192C53;
             }
+            @media screen and (max-width: 768px) {
+                max-height:350px;
+             }
         }
+        @media screen and (max-width: 768px) {
+            padding:40px 10px;
+            margin:12px 0px 0px 0px;
+         }
                 
     `}
 `

@@ -4,8 +4,7 @@ const YouTube: React.FC<{ videoId: string }> = ({ videoId }) => {
   return (
     <div className="video-container">
       <iframe
-        width="738"
-        height="415"
+        className='video-ytb'
         src={`https://www.youtube.com/embed/${videoId}`}
         title="YouTube video player"
         frameBorder={0}

@@ -66,7 +66,18 @@
     @media (min-width: 1200px) { @content; }
 }
 
-
+.container{
+    padding: 0px 20px;
+    @include md{
+        --bs-gutter-x: 1.5rem;
+        --bs-gutter-y: 0;
+        width: 100%;
+        padding-right: calc(var(--bs-gutter-x) * 0.5);
+        padding-left: calc(var(--bs-gutter-x) * 0.5);
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
 
 .c-header{
     height: 5rem;
@@ -118,6 +129,15 @@
 
     .c-container-options{ 
         margin: 0px auto;
+        overflow: auto;
+        width: 100%;
+
+        @include md{
+            overflow: hidden;
+        }
+        span{
+            
+        }
     }
 }
 
@@ -131,7 +151,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 0px 20px;
+        padding: 30px 20px;
 
         hr{
             color: #000;
@@ -175,9 +195,19 @@
 }
 .c-question{
     background-color:rgba(25, 44, 83, 0.92) ;
-    padding:80px 0px;
-    border-radius: 0px 150px 150px 0px;
-    width: 90%;
+    padding: 50px 0px 60px 0px;
+    width: 100%;
+
+    @include md{
+        width: 90%;
+        border-radius: 0px 150px 150px 0px;
+        padding:80px 0px;   
+    }
+    .item{
+        padding: 50px 0px 0px 0px;
+        display: flex;
+        justify-content: center;
+    }
 }
 
 .c-lista_suspensa{
@@ -248,6 +278,15 @@
     iframe{
         border: none;
     }
+    .video-ytb{
+        width: 350px;
+        height: 190px;
+        @include md{
+            width: 738px;
+            height: 415px;
+        }
+        
+    }
 }
 
 .c-modal_foto{
@@ -279,15 +318,24 @@
 
 .c-modal_aceite{
     position: relative;
-    max-width: 1200px;
+    width: 100%;
     margin: 0px auto;
     min-height: 70vh;
     top: 50%;
     transform: translateY(-50%);
     background-color: #fff;
-    padding: 10px 30px 30px 30px ;
+    padding: 10px 10px 30px 10px ;
     border-radius: 15px;
     box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.2);
+
+    @include md{
+        width: auto;
+        max-width: 1200px;
+        min-height: 70vh;  
+        padding: 10px 30px 30px 30px ;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 
     .btn-close{
         position: absolute;
@@ -298,23 +346,27 @@
     }
 
     .check{
-        padding-left: 40px;
+        @include md{
+            padding-left: 40px;
+        }
+        
     }
 }
+
 .c-data{
     form{
         margin-top: 32px;
     }
 }
 .c-forms{
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    padding: 60px 30px;
+    padding: 20px 0px 30px 0px;
 
-    border-radius: 10px;
-
-    .tel{
-        width: 20%;
+    @include md{
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        padding: 60px 30px;
+        border-radius: 10px;
     }
+
     .data{
         &-label{
             font-size: 14px;
@@ -331,7 +383,9 @@
         }
         &-tel{
             div{
-                width: 49%;
+                @include md{
+                    width: 49%;
+                }
             }
         }
         &-error-message{
@@ -339,7 +393,17 @@
             margin-top: -32px;
         }
     }
+    .box-input_payment{
+        margin: 0px 16px;
 
+        &:first-child{
+            margin-left: 0px;
+        }
+        
+        input{
+           margin-right: 4px;
+        }
+    }
 }
 
 

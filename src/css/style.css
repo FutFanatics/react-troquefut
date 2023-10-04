@@ -38,6 +38,21 @@
   font-weight: 900;
   font-display: swap;
 }
+.container {
+  padding: 0px 20px;
+}
+@media (min-width: 1200px) {
+  .container {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
 .c-header {
   height: 5rem;
   background-color: #F4F5F8;
@@ -88,8 +103,14 @@
 }
 .c-menu .c-container-options {
   margin: 0px auto;
+  overflow: auto;
+  width: 100%;
 }
-
+@media (min-width: 1200px) {
+  .c-menu .c-container-options {
+    overflow: hidden;
+  }
+}
 .c-home .container {
   max-width: 100%;
 }
@@ -98,7 +119,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0px 20px;
+  padding: 30px 20px;
 }
 .c-home .col-content hr {
   color: #000;
@@ -138,9 +159,20 @@
 
 .c-question {
   background-color: rgba(25, 44, 83, 0.92);
-  padding: 80px 0px;
-  border-radius: 0px 150px 150px 0px;
-  width: 90%;
+  padding: 50px 0px 60px 0px;
+  width: 100%;
+}
+@media (min-width: 1200px) {
+  .c-question {
+    width: 90%;
+    border-radius: 0px 150px 150px 0px;
+    padding: 80px 0px;
+  }
+}
+.c-question .item {
+  padding: 50px 0px 0px 0px;
+  display: flex;
+  justify-content: center;
 }
 
 .c-lista_suspensa .lista-select {
@@ -208,6 +240,16 @@
 .c-video_clique iframe {
   border: none;
 }
+.c-video_clique .video-ytb {
+  width: 350px;
+  height: 190px;
+}
+@media (min-width: 1200px) {
+  .c-video_clique .video-ytb {
+    width: 738px;
+    height: 415px;
+  }
+}
 
 .c-modal_foto {
   position: relative;
@@ -236,15 +278,25 @@
 
 .c-modal_aceite {
   position: relative;
-  max-width: 1200px;
+  width: 100%;
   margin: 0px auto;
   min-height: 70vh;
   top: 50%;
   transform: translateY(-50%);
   background-color: #fff;
-  padding: 10px 30px 30px 30px;
+  padding: 10px 10px 30px 10px;
   border-radius: 15px;
   box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.2);
+}
+@media (min-width: 1200px) {
+  .c-modal_aceite {
+    width: auto;
+    max-width: 1200px;
+    min-height: 70vh;
+    padding: 10px 30px 30px 30px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
 .c-modal_aceite .btn-close {
   position: absolute;
@@ -253,8 +305,10 @@
   background-color: none;
   border: none;
 }
-.c-modal_aceite .check {
-  padding-left: 40px;
+@media (min-width: 1200px) {
+  .c-modal_aceite .check {
+    padding-left: 40px;
+  }
 }
 
 .c-data form {
@@ -262,12 +316,14 @@
 }
 
 .c-forms {
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  padding: 60px 30px;
-  border-radius: 10px;
+  padding: 20px 0px 30px 0px;
 }
-.c-forms .tel {
-  width: 20%;
+@media (min-width: 1200px) {
+  .c-forms {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    padding: 60px 30px;
+    border-radius: 10px;
+  }
 }
 .c-forms .data-label {
   font-size: 14px;
@@ -281,12 +337,23 @@
   margin-bottom: 32px;
   color: #192C53;
 }
-.c-forms .data-tel div {
-  width: 49%;
+@media (min-width: 1200px) {
+  .c-forms .data-tel div {
+    width: 49%;
+  }
 }
 .c-forms .data-error-message {
   color: red;
   margin-top: -32px;
+}
+.c-forms .box-input_payment {
+  margin: 0px 16px;
+}
+.c-forms .box-input_payment:first-child {
+  margin-left: 0px;
+}
+.c-forms .box-input_payment input {
+  margin-right: 4px;
 }
 
 .c-instruction .box-img svg {

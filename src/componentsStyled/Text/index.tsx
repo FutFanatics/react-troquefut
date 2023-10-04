@@ -37,6 +37,10 @@ export const SH1 =styled.h1<SH1Props>`
     font-family: 'Gotham';
     text-transform: ${(props) => props.textTransform || 'none'};
 
+    @media screen and (max-width: 768px) {
+        font-size:18px
+     }
+
     ${props => props.typeTitle === 'duvida' && `
         font-size: 18px;
         color:#000;
@@ -60,16 +64,6 @@ export const SH1 =styled.h1<SH1Props>`
         padding-left:8px;
       `} 
 
-    ${props => props.typeTitle === 'locker' && `
-            font-size: 16px;
-            color:#000;
-            font-weight:500;
-            text-align:start;
-            padding-top:0px;
-            margin-top:0px;
-            margin-bottom:0px;
-            padding-bottom:6px;
-        `}
     ${props => props.typeTitle === 'dadosPedido' && `
             font-size: 16px;
             color:#000;

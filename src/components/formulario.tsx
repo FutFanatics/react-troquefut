@@ -5,8 +5,8 @@ import Button from "../componentsStyled/Button";
 interface FormularioPessoalProps {
   className?: string;
   children?: React.ReactNode;
-  onSubmit: (evento: React.FormEvent<HTMLFormElement>) => void;
-  alternarElemento: () => void;
+  onSubmit?: (evento: React.FormEvent<HTMLFormElement>) => void;
+  alternarElemento?: () => void;
 }
 
 const FormularioPessoal: React.FC<FormularioPessoalProps> = ({ className }) => {
@@ -19,7 +19,7 @@ const FormularioPessoal: React.FC<FormularioPessoalProps> = ({ className }) => {
 
   const onSubmit = (evento: React.FormEvent<HTMLFormElement>) => {
     evento.preventDefault();
-  const dados = {
+    const dados = {
         nome,
         telefone,
         celular,
@@ -56,9 +56,8 @@ const FormularioPessoal: React.FC<FormularioPessoalProps> = ({ className }) => {
   console.log(setNome)
   return (
     <>
-      <form onSubmit={onSubmit}>
         <div className="c-forms row justify-content-center">
-          <div className="col-8">
+          <div className="col-md-8">
               <CampoTexto
                 label="Nome Completo"
                 obrigatorio={true}
@@ -67,7 +66,7 @@ const FormularioPessoal: React.FC<FormularioPessoalProps> = ({ className }) => {
                 aoAlterado={(valor) => setNome(valor)}
                 
             />
-            <div className="d-flex justify-content-between data-tel">
+            <div className="d-md-flex justify-content-between data-tel">
             <CampoTexto
                 label="Telefone"
                 obrigatorio={true} 
@@ -108,11 +107,8 @@ const FormularioPessoal: React.FC<FormularioPessoalProps> = ({ className }) => {
             )}
           </div>
         </div>
-        <Button type="submit" margin="32px auto 0px auto">
-          Avançar
-        </Button>
-      </form>    
-  </>
+         
+    </>
   );
 };
 
