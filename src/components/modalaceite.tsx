@@ -70,7 +70,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({ isOpen, onRequestClose }) => 
 
         <div className='d-flex align-items-center mt-4 check'>
           <input type='checkbox' required></input>
-          <STextParagraph fontSize='14px'>Eu declaro que li e concordo com os Termos e Condições </STextParagraph>
+          <STextParagraph fontSize='14px' padding='0px 0px 0px 8px'>Eu declaro que li e concordo com os Termos e Condições </STextParagraph>
         </div>
         
       </div>

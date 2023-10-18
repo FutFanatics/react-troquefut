@@ -2,7 +2,7 @@ import React from 'react';
 
 const MapClique: React.FC = () => {
   return (
-    <div className="container mt-5 mb-5">
+    <div className="container mt-4">
       <iframe
         title="Embedded Map"
         src="https://webview.cliqueretire.com.br/map?tags=MEFDCMG,MEFDC"

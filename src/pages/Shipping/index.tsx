@@ -7,27 +7,46 @@ import Options from "../../components/options";
 import CliqueRetire from "../../components/cliqueretire";
 import Header from "../../components/header";
 import Correios from "../../components/correios";
+import Button from "../../componentsStyled/Button";
+import ModalAceite from "../../components/modalaceite";
 
 export default function Shipping() {
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
 
+
+    const openModal = () => {
+        setModalIsOpen(true);
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
     return (
         <>
         <Header></Header>
         <Menu typeOption="active">
-            <Options options={[
-                { text: 'Instruções do Pedido', path: '/instructions' },
-                { text: 'Pedido', path: '/order' },
-                { text: 'Dados', path: '/data' },
-                { text: 'Formas de envio', path: '/shipping' },
-            ]}/>
         </Menu>
         <section className="c-shipping">
+            <div className="container">
+
+            
             <SH1>
                 FORMA DE ENVIO
             </SH1>
-            <CliqueRetire></CliqueRetire>
-
+            <div className="row justify-content-center">
+                <CliqueRetire></CliqueRetire>
+                <Correios></Correios>
+            </div>
+            
+            <Button margin="32px auto" onClick={openModal}>
+            Confirmar
+            </Button>
+            <ModalAceite isOpen={modalIsOpen} onRequestClose={closeModal}> </ModalAceite>
+            </div>
             <Footer></Footer>
+
         </section>
         </>
     )

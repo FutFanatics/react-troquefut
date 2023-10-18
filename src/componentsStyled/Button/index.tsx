@@ -76,21 +76,14 @@ const SButton = styled.button<SButtonProps>`
         margin-top:16px;
     `}
 
-    ${props => props.typeButton === 'payment' && `
-        background-color: transparent;
-        width:auto;
-        padding:0px;
-        font-size:18px;
-        border:none;
-        color:#000;
-        margin:0px 16px;
-
-
-        &.active{
-            color:#192c53;
-            font-weight:600;
-            text-decoration:underline;
-        }
+    ${props => props.typeButton === 'select' && `
+        width:150px;
+        border-radius:5px;
+        height:45px;
+        background:transparent;
+        color:#192C53;
+        border:1px #192C53 solid;
+        font-weight:400;
     `}
     
 `

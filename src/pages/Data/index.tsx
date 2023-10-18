@@ -1,7 +1,7 @@
-import { SBoxIconFut } from "../../componentsStyled/Box";
+import { Box, SBoxIconFut } from "../../componentsStyled/Box";
 import Button from "../../componentsStyled/Button";
 import Footer from "../../components/footer";
-import { SH1, SspanText } from "../../componentsStyled/Text";
+import { SH1, STextParagraph, SspanText } from "../../componentsStyled/Text";
 import IconCheck from "../../componentsStyled/icon/Iconcheck";
 import React, { useState } from 'react';
 import Header from "../../components/header";
@@ -9,22 +9,13 @@ import Header from "../../components/header";
 import Options from "../../components/options";
 import Menu from "../../components/menu";
 import CampoTexto from "../../components/campotexto";
-import FormularioPessoal from "../../components/formulario";
-import FormularioAdress from "../../components/formularioadress";
-import FormularioBank from "../../components/formulariobank";
+import IconFinance from "../../componentsStyled/icon/IconFinance";
+import Estorno from "../../components/estorno";
+import ValeCompras from "../../components/vale-compras";
+import ValeEstorno from "../../components/ValeEstorno";
 
 export default function Data() {
-    const [screen, setScreen] = React.useState <"personal" | "adress" | "bank"> ("personal");
-
-    const handleNavigateToPersonalScreen = () => {
-        setScreen('personal')
-     }
-    const handleNavigateToAdressScreen = () =>{
-        setScreen('adress')
-    }
-    const handleNavigateToBankScreen = () =>{
-        setScreen('bank')
-    }
+   
 
     
     const onSubmit = (evento: React.FormEvent<HTMLFormElement>) => {
@@ -35,52 +26,30 @@ export default function Data() {
         <>
             <Header></Header>
             <Menu typeOption="active">
-                <Options options={[
-                    { text: 'Instruções do Pedido', path: '/instructions' },
-                    { text: 'Pedido', path: '/order' },
-                    { text: 'Dados', path: '/data' },
-                    { text: 'Formas de envio', path: '/shipping' },
-                ]}/>
             </Menu>
             <section className="c-data">
                 <div className="container">
                     <SH1 textTransform="uppercase">
-                        Preencha seus dados
+                        Informações de reembolso
                     </SH1>
-                    <form onSubmit={onSubmit}>
-                        {screen === "personal" &&(
-                        <>
-                            <FormularioPessoal></FormularioPessoal>
-                            <Button type="submit" margin="32px auto 32px auto" onClick={handleNavigateToAdressScreen}>
-                            Avançar
-                            </Button>
-                        </>
-                        )}
-                        {screen === "adress" &&(
-                            <>
-                            <FormularioAdress>
-                            </FormularioAdress>
-                            <Button type="submit" margin="32px auto 32px auto" onClick={handleNavigateToBankScreen}>
-                            Avançar
-                            </Button>
-                            </>
-                        )}
-                        {screen === "bank" &&(
-                            <>
-                            <FormularioBank>
-                            </FormularioBank>
-                            <Button type="submit" margin="32px auto 32px auto" path="/shipping">
-                            Avançar
-                            </Button>
-                            </>
-                        )}
-                    </form>
-                
-            
-                    
-                    
-                
-                
+                     <div className="row justify-content-center">
+                        <Box typeBox="estorno" className="col-md-10">
+                            <IconFinance width={64}></IconFinance>
+                            <SspanText fontWeight={550} fontSize='20px' padding="20px 0px">Fique de olho!</SspanText>
+                            <ValeCompras></ValeCompras>
+                            <div className="d-flex mt-5 justify-content-start col-md-10">
+                                <input type="checkbox" required></input>
+                                <STextParagraph fontSize="14px" padding="0px 0px 0px 8px">
+                                Ao continuar, você declara que está de acordo com os termos da&nbsp;
+                                <a href="https://www.futfanatics.com.br/politica-de-privacidade" target="_blank">
+                                Política de Privacidade
+                                </a>
+                                 
+                                </STextParagraph>
+                            </div>
+                        </Box>
+                     </div>
+                     <Button margin="32px auto 32px auto" path="/shipping" typeButton="next" >Avançar</Button>
                 </div>
             </section>
             <Footer></Footer>

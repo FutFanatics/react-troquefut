@@ -55,16 +55,11 @@ export default function Order() {
         <>
         <Header></Header>
         <Menu typeOption="active">
-            <Options options={[
-                { text: 'Instruções do Pedido', path: '/instructions' },
-                { text: 'Pedido', path: '/order' },
-                { text: 'Dados', path: '/data' },
-                { text: 'Formas de envio', path: '/shipping' },
-            ]}/>
+            
         </Menu>
         <section className="c-order">
            <div className="container">
-                <SH1 textTransform="uppercase" fontSize="28px" margin="16px 0px 0px 0px">
+                <SH1 textTransform="uppercase" fontSize="22px" margin="16px 0px 0px 0px">
                     Selecione O pedido 
                 </SH1>
                 <ListaSuspensa

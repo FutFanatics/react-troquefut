@@ -161,7 +161,7 @@
         }
 
         @include md{
-            padding: 0px 64px;
+            padding: 0px 84px;
             min-height: 78vh;
         }
     }
@@ -288,7 +288,12 @@
         
     }
 }
-
+.col-vale{
+    margin-top: 1.5rem;
+    @include md{
+        margin: 0px;
+    }
+}
 .c-modal_foto{
     position: relative;
     max-width: 1200px;

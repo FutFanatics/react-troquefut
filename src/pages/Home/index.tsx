@@ -19,12 +19,12 @@ export default function Home() {
         <section className="c-home">
             <div className="container">
                 <div className="row">
-                    <div className="col-md-6 col-content">
+                    <div className="col-md-7 col-content">
                         <TroqueFut width={280} ></TroqueFut>
-                        <STextParagraph padding="64px 0px 56px 0px">
+                        <STextParagraph padding="48px 0px 48px 0px" fontWeight={350}>
                             O TroqueFut é uma plataforma de devoluções da empresa FutFanatics, onde você consegue realizar suas trocas sem  dificuldades e com tecnologias intuitivas.
                         </STextParagraph>
-                        <Button path="/instructions" >
+                        <Button path="/order" >
                             <IconDoor 
                                 fill="white" 
                                 width={20}></IconDoor>
@@ -32,7 +32,7 @@ export default function Home() {
                                 Solicite uma Devolução  
                             </span> 
                         </Button>
-                        <div className="d-flex align-items-center">
+                        <div className="d-flex d-md-none align-items-center">
                             <hr/>
                                 <SspanText>ou</SspanText>
                             <hr/>
@@ -42,7 +42,7 @@ export default function Home() {
                         Acompanhar sua Devolução
                         </span> </Button> 
                     </div>
-                    <div className="col-md-6 col-img d-none d-md-flex justify-content-end align-items-end ">
+                    <div className="col-md-5 col-img d-none d-md-flex justify-content-end align-items-end ">
                         <a href="www.futfanatics.com.br">
                             <SBoxIconFut>
                             <IconFut></IconFut>

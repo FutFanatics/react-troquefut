@@ -32,7 +32,7 @@ export const BoxIcon = styled.div`
 `
 
 export const SBoxIconFut = styled.div<SBoxIconFut>`
-    background-color: #192C53;
+    background-color: rgba(0, 0, 0, 0.57);
     border-radius: 50px;
     color: #FFF;
     width: 50px;
@@ -47,6 +47,7 @@ export const SBoxIconFut = styled.div<SBoxIconFut>`
     ${props => props.typeBoxIcon === 'icondata' && `
         width:40px;
         height:40px;
+        background-color: #192C53;
 
         span{
             font-size: 24px;
@@ -94,21 +95,35 @@ export const BoxVideo = styled.div`
 export const Box = styled.div<Box>`
     margin: ${(props) => props.margin || '0px 16px'};
     
-    ${props => props.typeBox === 'active' && `
-        position:relative;
-
-        &&:before{
-            position:absolute;
-            content:'';
-            height:3px;
-            width:100%;
-            background:#192c53;
-            bottom:0px;
-            border-radius:2px
-        }
+    ${props => props.typeBox === 'estorno' && `
+        border: 1px solid rgba(0, 0, 0, 0.40);
+        display:flex;
+        padding:32px 32px;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        border-radius:10px;
+        margin-bottom:32px;
+        margin-top:32px;
     `}
-    ${props => props.typeBox === 'inative' && `
-        
+    @media screen and (max-width: 768px) {
+        ${props => props.typeBox === 'estorno' && `
+            border:none;
+            padding:32px 8px;
+            margin-top:0px;
+        `}
+    }
+    ${props => props.typeBox === 'estorno-content' && `
+        border-radius: 8px;
+        border: 1px solid #00DF5E;
+        padding:16px 24px;
+        height:250px;
+        margin:8px 0px 0px 0px;
+
+    `}
+    ${props => props.typeBox === 'content' && `
+        width:49%;
+
     `}
     ${props => props.typeBox === 'card-question' && `
         background:#fff;
@@ -134,7 +149,7 @@ export const Box = styled.div<Box>`
         box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);
     `}
     ${props => props.typeBox === 'envio' && `
-        margin: 24px 0px 16px 0px;
+        margin: 24px 16px 16px 16px;
         padding:40px 40px;
         height:27rem;
         display:flex;
@@ -150,7 +165,7 @@ export const Box = styled.div<Box>`
         }
 
         .box-text{
-            padding:40px 0px 50px;
+            padding:40px 0px 30px;
         }
         li{
             padding-top:16px;

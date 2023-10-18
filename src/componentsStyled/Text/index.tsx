@@ -26,10 +26,11 @@ interface SspanText{
    fontWeight?: number;
    fontSize?:string;
    padding?: string;
+   color?:string;
 }
 
 export const SH1 =styled.h1<SH1Props>`
-    font-size: ${(props) => props.fontSize || '28px'};
+    font-size: ${(props) => props.fontSize || '22px'};
     color: ${(props) => props.color || '#000'};
     font-weight: ${(props) => props.fontWeight || 700};
     text-align: ${(props) => props.textAlign || 'center'};
@@ -97,11 +98,18 @@ export const SH1 =styled.h1<SH1Props>`
     margin: ${(props) => props.margin || '0px'};
     padding: ${(props) => props.padding || '0px'};
     
+    a{
+        color:#000
+    }
+        @media screen and (max-width: 768px) {
+            padding:0px
+         }
 
     ${props => props.typeParagraph === 'paragraphenvio' && `
         font-weight:500;
         font-size:16px;
     `}
+    
     ${props => props.typeParagraph === 'select' && `
         color:rgba(56,56,56, 0.7);
         font-size:14px;
@@ -153,10 +161,18 @@ export const SH1 =styled.h1<SH1Props>`
       font-family: 'gotham';
       padding: ${(props) => props.padding || '0px'};
       font-weight: ${(props) => props.fontWeight || 350};
+      color:${(props) => props.color || '#000'};
 
       ${props => props.typeOption === 'inative' && `
         color:#777777;
         `}
+        ${props => props.typeOption === 'reembolso' && `
+        font-size:13px;
+
+        @media screen and (max-width: 768px) {
+            font-size:12px;
+         }
+    `}
         ${props => props.typeOption === 'active' && `
         color:#000;
         `}
