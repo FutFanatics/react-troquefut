@@ -15,7 +15,7 @@ const ModalClique: React.FC<ModalCliqueProps> = ({ isOpen, onRequestClose }) => 
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="c-modal_aceite">
       <MapClique></MapClique>
-      <button onClick={onRequestClose} className='btn-close'></button>
+      <button onClick={onRequestClose} className='btn-close btn-close_clique'></button>
     </Modal>
   );
 };

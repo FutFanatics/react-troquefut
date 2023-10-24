@@ -1,13 +1,11 @@
-import { Box, SBoxIconFut } from "../../componentsStyled/Box";
+import { Box } from "../../componentsStyled/Box";
 import Button from "../../componentsStyled/Button";
 import Footer from "../../components/footer";
 import { SH1, STextParagraph, SspanText } from "../../componentsStyled/Text";
-import IconCheck from "../../componentsStyled/icon/Iconcheck";
 import React, { useState } from 'react';
 import Header from "../../components/header";
 
 import Options from "../../components/options";
-import Menu from "../../components/menu";
 import CampoTexto from "../../components/campotexto";
 import IconFinance from "../../componentsStyled/icon/IconFinance";
 import Estorno from "../../components/estorno";
@@ -25,8 +23,7 @@ export default function Data() {
     return (
         <>
             <Header></Header>
-            <Menu typeOption="active">
-            </Menu>
+
             <section className="c-data">
                 <div className="container">
                     <SH1 textTransform="uppercase">

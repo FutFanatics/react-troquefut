@@ -36,15 +36,15 @@ interface ProdutosProps {
                         <SH1 fontSize="19px" textAlign="start" fontWeight={600} margin="0px 0px 8px 0px" color="#1D1B20">{produto.name}</SH1>
                         <div className="row d-flex justify content-between">
                             <div className="col-4">
-                                <SspanText fontSize="16px" fontWeight={600} typeOption='namProduct'>Código: <SspanText fontSize="16px">{produto.product_id}</SspanText></SspanText>
+                                <SspanText fontSize="16px" fontWeight={600} typeSpan='namProduct'>Código: <SspanText fontSize="16px">{produto.product_id}</SspanText></SspanText>
                             </div>
                             <div className="col-8">
-                                <SspanText fontSize="16px" fontWeight={600} typeOption='namProduct'>Preço: <SspanText fontSize="16px">{produto.price}</SspanText></SspanText>
+                                <SspanText fontSize="16px" fontWeight={600} typeSpan='namProduct'>Preço: <SspanText fontSize="16px">{produto.price}</SspanText></SspanText>
                             </div>
                         </div>
                         <div className="row d-flex justify content-between">
                             <div className="col-4">
-                                <SspanText fontSize="16px" fontWeight={600} typeOption='namProduct'>Variação: <SspanText fontSize="16px"> {produto.variant_value}</SspanText></SspanText>
+                                <SspanText fontSize="16px" fontWeight={600} typeSpan='namProduct'>Variação: <SspanText fontSize="16px"> {produto.variant_value}</SspanText></SspanText>
                             </div>
                         </div>
                     </div>

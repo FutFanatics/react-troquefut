@@ -2,9 +2,9 @@ import Button from "../../componentsStyled/Button";
 import 'bootstrap/dist/css/bootstrap.css';
 import './../../css/style.css';
 import IconDevolucao from "../../img/icon/inicie.png"
-import { BoxIcon, SBoxIconFut } from "../../componentsStyled/Box";
+import { SBoxIconFut } from "../../componentsStyled/Box";
 import { STextParagraph, SspanText } from "../../componentsStyled/Text"; 
-import IconFut from "../../componentsStyled/icon";
+import IconFut from "../../componentsStyled/icon/iconfut";
 import LogoFut from "../../componentsStyled/icon/LogoFut";
 import IconAcompanhe from "../../componentsStyled/icon/Iconacompanhe";
 import Header from "../../components/header";

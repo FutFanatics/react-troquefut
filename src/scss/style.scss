@@ -2,6 +2,7 @@
 
 
 
+
  
 @font-face {
     font-family: 'Gotham';
@@ -123,24 +124,6 @@
         height: 5rem;
     }
 }
-
-.c-menu{
-    padding: 20px 0px;
-
-    .c-container-options{ 
-        margin: 0px auto;
-        overflow: auto;
-        width: 100%;
-
-        @include md{
-            overflow: hidden;
-        }
-        span{
-            
-        }
-    }
-}
-
 .c-home{
     .container{
         max-width: 100%;  
@@ -193,22 +176,6 @@
     }
 
 }
-.c-question{
-    background-color:rgba(25, 44, 83, 0.92) ;
-    padding: 50px 0px 60px 0px;
-    width: 100%;
-
-    @include md{
-        width: 90%;
-        border-radius: 0px 150px 150px 0px;
-        padding:80px 0px;   
-    }
-    .item{
-        padding: 50px 0px 0px 0px;
-        display: flex;
-        justify-content: center;
-    }
-}
 
 .c-lista_suspensa{
     .lista-select{
@@ -221,6 +188,14 @@
 
 .lista-content{
     padding: 40px 0px;
+}
+.list-select{
+    border:none;
+    width: 100%;
+    border-bottom: 1px solid;
+    color: #192C53;
+    padding-bottom: 4px;
+    margin-bottom: 12px;
 }
 .c-produto{
     margin-bottom: 64px;
@@ -245,49 +220,7 @@
         width: auto;
     }
 }
-.list-select{
-    border:none;
-    width: 100%;
-    border-bottom: 1px solid;
-    color: #192C53;
-    padding-bottom: 4px;
-    margin-bottom: 12px;
-}
-.c-video_clique{
-    background: url("../img/videocliquebg.png");
-    object-fit: cover;
-    height: 80vh;
-    background-position: center right;
-    position: relative;
-    margin: 64px 0px;
 
-    .icon-video{
-        position: absolute;
-        height: 60px;
-        top: 40px;
-        right: 20px;
-    }
-
-    .icon-pontilhado{
-        height: 30px;
-        bottom: 40px;
-        position: absolute;
-        left: 40px;
-    }
-
-    iframe{
-        border: none;
-    }
-    .video-ytb{
-        width: 350px;
-        height: 190px;
-        @include md{
-            width: 738px;
-            height: 415px;
-        }
-        
-    }
-}
 .col-vale{
     margin-top: 1.5rem;
     @include md{
@@ -337,7 +270,7 @@
         width: auto;
         max-width: 1200px;
         min-height: 70vh;  
-        padding: 10px 30px 30px 30px ;
+        padding: 20px 30px 30px 30px ;
         top: 50%;
         transform: translateY(-50%);
     }
@@ -348,6 +281,11 @@
         top: 30px;
         background-color: none;
         border: none;
+
+        &_clique{
+            right: 20px;
+            top:20px;
+        }
     }
 
     .check{
@@ -355,167 +293,6 @@
             padding-left: 40px;
         }
         
-    }
-}
-
-.c-data{
-    form{
-        margin-top: 32px;
-    }
-}
-.c-forms{
-    padding: 20px 0px 30px 0px;
-
-    @include md{
-        border: 1px solid rgba(0, 0, 0, 0.5);
-        padding: 60px 30px;
-        border-radius: 10px;
-    }
-
-    .data{
-        &-label{
-            font-size: 14px;
-            font-family: 'gotham';
-            font-weight: 350;
-            margin-bottom: 8px;
-        }
-        &-input{
-            border: none;
-            border-bottom: 1px solid #000;
-            margin-bottom: 32px;
-            color: #192C53;
-            
-        }
-        &-tel{
-            div{
-                @include md{
-                    width: 49%;
-                }
-            }
-        }
-        &-error-message{
-            color: red;
-            margin-top: -32px;
-        }
-    }
-    .box-input_payment{
-        margin: 0px 16px;
-
-        &:first-child{
-            margin-left: 0px;
-        }
-        
-        input{
-           margin-right: 4px;
-        }
-    }
-}
-
-
-
-
-.c-instruction{
-    .box-img{
-        svg{
-            height: 70px;
-        }
-    }
-
-    .c-header{
-        display: flex;
-        padding: 40px 0px;
-        align-items: center;
-        .box-img{
-            svg{
-            height: 60px;
-            }
-            
-        }
-    }
-    .box-question{
-        background-color: #fff;
-        border-radius: 20px;
-        position: relative;
-        padding: 30px 20px;
-
-        svg{
-            width: 50px;
-            height: 50px;
-        }
-        .box-text{
-
-        }
-    }
-}
-.c-order{
-    .c-header{
-        display: flex;
-        padding: 40px 0px 0px 0px;
-        align-items: center;
-        .box-img{
-            svg{
-            height: 60px;
-            }
-            
-        }
-    }
-}
-
-.c-data{
-    .c-header{
-        display: flex;
-        padding: 40px 0px 0px 0px;
-        align-items: center;
-        .box-img{
-            svg{
-            height: 60px;
-            }
-            
-        }
-    }
-    .line{
-        position: relative;
-        &::before{
-            content: "";
-            position: absolute;
-            height: 2px;
-            background-color: #000;
-            width: 100%;
-            top:50%;
-        }
-    }
-
-    .boxform{
-        padding: 20px;
-        border:1px solid rgba(00,00,00,0.3);
-        border-radius: 20px;
-        box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.2);
-        margin-bottom: 32px;
-
-        input{
-            width: 100%;
-            border: none;
-
-            &::placeholder{
-                font-weight: 600;
-                color: #d9d9d9;
-            }
-        }
-    }
-    .next-form{
-        width: 200px;
-        height: 50px;
-        border-radius: 10px;
-        margin-top: 32px;
-        justify-content:center;
-        padding:0px;
-        font-size:17px;
-        margin-bottom:32px;
-        background-color: #192C53;
-        color: #FFF;
-        font-weight: 500;
-        border: none; 
-        align-items: center;
     }
 }
 
@@ -530,60 +307,5 @@
     .img-envio{
          height: 100px;
         width: auto;
-    }
-
-    .select-envio{
-        background-color: #192C53;
-        border-radius: 10px;
-        font-family: 'gotham';
-        color: #FFF;
-        font-weight: 500;
-        border: none; 
-        width: 200px;
-        height: 55px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 8px;
-        margin-bottom: 16px;
-    }
-
-    .c-clique{
-        .video-clique{
-            background: url('../img/cliquebg.png');
-            width: 100%;
-            height: 80vh;
-            object-fit: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    }
-    .maps{
-        margin-left: 16px;
-    }
-}
-
-
-
-.item-options{
-    padding: 30px;
-    border: rgba(00,00,00,0.4) 1px solid;
-    border-radius: 40px;
-    width: 100%;
-    min-height: 20vh;
-    box-shadow: 1px 1px 2px 1px rgba(00,00,00,0.3);
-
-    .img-options{
-        width: 40%;
-        img{
-            width: 100%;
-        }
-    }
-    .text-options{
-        margin-left: 16px;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
     }
 }

@@ -5,7 +5,7 @@ import { STextParagraph, SspanText } from "../componentsStyled/Text";
 import { Box } from "../componentsStyled/Box";
 import IconCart from "../componentsStyled/icon/iconcart";
 import IconPix from "../componentsStyled/icon/iconPix";
-import IconBank from "../componentsStyled/icon/icobank";
+import IconBank from "../componentsStyled/icon/iconbank";
 
 interface CardEstornoProps {
   className?: string;
@@ -21,18 +21,18 @@ const CardEstorno: React.FC<CardEstornoProps> = ({ className }) => {
       <div className="row justify-content-center mt-5 mb-5">
           <Box className="flex-column d-flex align-items-center col-4" margin="0px">
             <IconCart width={50}></IconCart>
-            <SspanText typeOption="reembolso" padding="12px 0px 0px 0px">Em até</SspanText>
-            <SspanText typeOption="reembolso">duas faturas</SspanText>
+            <SspanText typeSpan="reembolso" padding="12px 0px 0px 0px">Em até</SspanText>
+            <SspanText typeSpan="reembolso">duas faturas</SspanText>
           </Box>
           <Box className="flex-column d-flex align-items-center col-4" margin="0px"> 
             <IconPix width={50}></IconPix>
-            <SspanText typeOption="reembolso" padding="12px 0px 0px 0px">Através da</SspanText>
-            <SspanText typeOption="reembolso">mesma chave PIX</SspanText>
+            <SspanText typeSpan="reembolso" padding="12px 0px 0px 0px">Através da</SspanText>
+            <SspanText typeSpan="reembolso">mesma chave PIX</SspanText>
           </Box>
           <Box className="flex-column d-flex align-items-center col-4" margin="0px">
             <IconBank width={50}></IconBank>
-            <SspanText typeOption="reembolso" padding="12px 0px 0px 0px">Transferência</SspanText>
-            <SspanText typeOption="reembolso">Bancária</SspanText>
+            <SspanText typeSpan="reembolso" padding="12px 0px 0px 0px">Transferência</SspanText>
+            <SspanText typeSpan="reembolso">Bancária</SspanText>
           </Box>
       </div>
     </>

@@ -9,9 +9,14 @@ import ModalClique from "./modalclique";
 
 interface CliqueRetireProps {
   className?: string;
+  onSelect: () => void;
+  selected: boolean;
+
 }
-const CliqueRetire: React.FC<CliqueRetireProps> = ({ className }) => {
+const CliqueRetire: React.FC<CliqueRetireProps> = ({ className,  selected, onSelect }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const [buttonText, setButtonText] = useState("Selecionar");
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -20,9 +25,16 @@ const CliqueRetire: React.FC<CliqueRetireProps> = ({ className }) => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+  const handleButtonClick = () => {
+    onSelect();
+    openModal();
+    setButtonText("Selecionado");
+  };
+
   return (
     <>
-      <Box typeBox="envio" className="col-10 col-md-3">
+      <Box typeBox="envio" className={`col-11 col-md-7 ${selected ? "selected-box" : ""}`}>
         <img src={ImgClique} className="icon" />
 
         <div className="box-text">
@@ -33,8 +45,13 @@ const CliqueRetire: React.FC<CliqueRetireProps> = ({ className }) => {
             Assim que aprovado, você receberá um QR Code via e-mail para a devolução.
           </li>
         </div>
-        <Button typeButton="select" margin="0px auto" onClick={openModal}>
-          Selecionar
+        <Button 
+        typeButton="select" 
+        margin="0px auto" 
+        onClick={handleButtonClick}
+        className={selected ? "clicked" : ""}
+        >
+          {buttonText}
         </Button>
         <ModalClique
           isOpen={modalIsOpen}

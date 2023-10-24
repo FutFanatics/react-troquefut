@@ -22,7 +22,7 @@ interface STextParagraph{
 }
 
 interface SspanText{
-   typeOption?:string;
+   typeSpan?:string;
    fontWeight?: number;
    fontSize?:string;
    padding?: string;
@@ -42,39 +42,7 @@ export const SH1 =styled.h1<SH1Props>`
         font-size:18px
      }
 
-    ${props => props.typeTitle === 'duvida' && `
-        font-size: 18px;
-        color:#000;
-        font-weight:500;
-        padding-top:16px;
-      `}
-    ${props => props.typeTitle === 'dados' && `
-        font-size: 18px;
-        color:#000;
-        font-weight:500;
-        padding-top:0px;
-        padding-bottom:0px;
-        padding-left:8px;
-      `} 
-    ${props => props.typeTitle === 'inative' && `
-        font-size: 18px;
-        color:#a8a8a8;
-        font-weight:500;
-        padding-top:0px;
-        padding-bottom:0px;
-        padding-left:8px;
-      `} 
 
-    ${props => props.typeTitle === 'dadosPedido' && `
-            font-size: 16px;
-            color:#000;
-            font-weight:500;
-            text-align:start;
-            padding-top:0px;
-            margin-top:0px;
-            margin-bottom:0px;
-            padding-bottom:6px;
-        `}
     ${props => props.typeTitle === 'product' && `
         font-size: 20px;
         color:#000;
@@ -104,11 +72,6 @@ export const SH1 =styled.h1<SH1Props>`
         @media screen and (max-width: 768px) {
             padding:0px
          }
-
-    ${props => props.typeParagraph === 'paragraphenvio' && `
-        font-weight:500;
-        font-size:16px;
-    `}
     
     ${props => props.typeParagraph === 'select' && `
         color:rgba(56,56,56, 0.7);
@@ -163,23 +126,21 @@ export const SH1 =styled.h1<SH1Props>`
       font-weight: ${(props) => props.fontWeight || 350};
       color:${(props) => props.color || '#000'};
 
-      ${props => props.typeOption === 'inative' && `
+      ${props => props.typeSpan === 'inative' && `
         color:#777777;
         `}
-        ${props => props.typeOption === 'reembolso' && `
+        ${props => props.typeSpan === 'reembolso' && `
         font-size:13px;
 
         @media screen and (max-width: 768px) {
             font-size:12px;
          }
     `}
-        ${props => props.typeOption === 'active' && `
+        ${props => props.typeSpan === 'active' && `
         color:#000;
         `}
-        ${props => props.typeOption === 'nameForms' && `
-            color:#000;
-        `}
-        ${props => props.typeOption === 'namProduct' && `
+        
+        ${props => props.typeSpan === 'namProduct' && `
             color:#49454F;
             
         `}

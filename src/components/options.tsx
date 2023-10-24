@@ -33,7 +33,7 @@ const Options: React.FC<OptionsProps> = ({ options }) => {
         <Box typeBox={option.text === activeOption ? 'active' : 'inative'}>
             <SspanText
                 key={option.text}
-                typeOption={option.text === activeOption ? 'active' : 'inative'}
+                typeSpan={option.text === activeOption ? 'active' : 'inative'}
                 >
                 {option.text}
             </SspanText>

@@ -30,10 +30,6 @@ interface SButtonProps {
     height?: string; 
 }
 
-interface ButtonNextProps {
-    typeButtonNext?: string;
-}
-
 const SButton = styled.button<SButtonProps>`
     background: ${(props) => props.background || '#192C53'};
     border-radius: ${(props) => props.borderRadius || '50px'};
@@ -67,9 +63,11 @@ const SButton = styled.button<SButtonProps>`
         padding-left: 8px;
     }
 
+    
     @media screen and (max-width: 768px) {
         width: 300px;
     }
+
 
     ${props => props.typeButton === 'devolucao' && `
         background-color: #222222;
@@ -77,14 +75,33 @@ const SButton = styled.button<SButtonProps>`
     `}
 
     ${props => props.typeButton === 'select' && `
-        width:150px;
+        width:120px;
         border-radius:5px;
-        height:45px;
+        height:40px;
         background:transparent;
         color:#192C53;
+        font-size:15px;
         border:1px #192C53 solid;
         font-weight:400;
+
+        &.clicked{
+            background:#192C53;
+            color:#fff;
+        }
     `}
+    @media screen and (max-width: 768px) {
+        ${props => props.typeButton === 'select' && `
+            width:120px;
+            height:45px;
+
+            &.clicked{
+                background:#192C53;
+                color:#fff;
+                height:45px;
+                width:120px;
+            }
+        `}
+    }
     
 `
 
@@ -107,36 +124,3 @@ export default function Button({ children, path = "", typeButton="", background=
     )
 
 }
-
-
-
-
-export const ButtonNext=styled.div<ButtonNextProps>`
-    background-color: #192C53;
-    border-radius: 10px;
-    font-family: 'gotham';
-    color: #FFF;
-    font-weight: 500;
-    border: none; 
-    width: 200px;
-    height: 55px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 8px;
-    margin-bottom: 16px;
-
-    ${props => props.typeButtonNext === 'more' && `
-        margin-top:0px;
-        border-radius:8px;
-        width:120px;
-        height:40px;
-        margin-left:10px;
-        font-size:14px;
-    `}
-    ${props => props.typeButtonNext === 'order' && `
-        width:170px;
-        height:50px;
-        margin-bottom:0px;
-    `}
-`

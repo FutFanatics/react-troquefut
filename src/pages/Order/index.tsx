@@ -4,11 +4,11 @@ import Footer from "../../components/footer";
 import { SH1 } from "../../componentsStyled/Text";
 import { useState, useEffect } from 'react';
 import Header from "../../components/header";
-import Menu from "../../components/menu";
 import Options from "../../components/options";
 import ListaProdutos from "../../components/listaprodutos";
 import ListaSuspensa from "../../components/listasuspensa";
 import axios from 'axios'; 
+import Menu from "../../components/menu";
 
 interface Pedido {
     id: string;
@@ -54,9 +54,7 @@ export default function Order() {
     return (
         <>
         <Header></Header>
-        <Menu typeOption="active">
-            
-        </Menu>
+        <Menu typeOption="active"></Menu>
         <section className="c-order">
            <div className="container">
                 <SH1 textTransform="uppercase" fontSize="22px" margin="16px 0px 0px 0px">
