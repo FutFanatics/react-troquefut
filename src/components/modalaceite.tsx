@@ -5,12 +5,6 @@ import { Box } from "../componentsStyled/Box";
 import Button from "../componentsStyled/Button";
 import IconProduct from "../componentsStyled/icon/iconproduct";
 
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { useMediaQuery } from 'react-responsive';
 import SlidesProducts from "./slidesproducts";
 
 

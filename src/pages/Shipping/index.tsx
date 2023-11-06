@@ -8,6 +8,7 @@ import Correios from "../../components/correios";
 import Button from "../../componentsStyled/Button";
 import ModalAceite from "../../components/modalaceite";
 import Slider from "react-slick";
+import Menu from "../../components/menu";
 
 export default function Shipping() {
   const [cliqueRetireSelected, setCliqueRetireSelected] = useState(false);
@@ -54,6 +55,7 @@ export default function Shipping() {
   return (
     <>
       <Header></Header>
+      <Menu typeOption="active"></Menu>
       <section className="c-shipping">
         <div className="container">
           <SH1>FORMA DE ENVIO</SH1>

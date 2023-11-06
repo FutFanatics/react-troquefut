@@ -28,10 +28,10 @@ export default function Order() {
     
         .then(function(response){
             setData(response.data);
-            console.log(response.data , 'vamos carai')    
+            console.log(response.data)    
         })
         .catch(function(error){
-            console.log(error, 'erou')    
+            console.log(error)    
         })
         
     }, []);

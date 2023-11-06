@@ -190,6 +190,41 @@ export const Box = styled.div<Box>`
         }
                 
     `}
+    ${props => props.typeBox === 'product' && `
+        width:220px;
+        padding:20px 20px;
+        display:flex;
+        flex-direction: column;
+        align-items:center; 
+        box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.25);
+        border-radius:15px;
+
+        .produto-box_img{
+            border-radius: 10px;
+            overflow: hidden;
+            width: 160px;
+            height: 160px;
+
+            img{
+                object-fit:cover;
+                width:100%;
+            }
+        }
+        .produto-box_text{
+            width: 100%;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+                
+    `}
+    ${props => props.typeBox === 'active-number' && `
+        width: 35px;
+        background:#192c53;
+        height:35px;
+        border-radius:50px;
+    `}
+
     @media screen and (max-width: 768px) {
         ${props => props.typeBox === 'estorno' && `
             border:none;

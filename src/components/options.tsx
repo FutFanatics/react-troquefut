@@ -28,9 +28,10 @@ const Options: React.FC<OptionsProps> = ({ options }) => {
   
 
   return (
-    <div className="c-container-options d-flex">
+    <div className="c-container-options d-flex justify-content-center">
       {options.map((option) => (
-        <Box typeBox={option.text === activeOption ? 'active' : 'inative'}>
+        <Box typeBox={option.text === activeOption ? 'active' : 'inative'} className='d-flex align-items-center'>
+          <Box typeBox={option.text === activeOption ? 'active-number' : 'inative-number'}></Box>
             <SspanText
                 key={option.text}
                 typeSpan={option.text === activeOption ? 'active' : 'inative'}

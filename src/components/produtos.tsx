@@ -1,75 +1,114 @@
-import { SH1, SspanText } from "../componentsStyled/Text";
-import sp from '../img/img-camisa_sp.png';
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Produto } from "./Types";
+import { SH1 } from "../componentsStyled/Text";  
+import { Box } from "../componentsStyled/Box";  
+import Button from "../componentsStyled/Button";
 import ProductSelected from "./produtoselected";
-import { Produto } from './Types';
+import { Link } from 'react-router-dom';
+
 
 interface ProdutosProps {
-    produtos: Produto[];
-    className?: string;
-    selectedId?: string;
-  }
+  produtos: Produto[];
+  className?: string;
+  selectedId: string;
+  onSelect: () => void;
+  selected?: boolean;
+}
 
+const Produtos: React.FC<ProdutosProps> = ({ produtos, className, selected }) => {
+  const [buttonText, setButtonText] = useState("Selecionar");
+  const [selectedProductIds, setSelectedProductIds] = useState<string[]>([]);
+  const [showSelectedProducts, setShowSelectedProducts] = useState(false);
 
-  const Produtos: React.FC<ProdutosProps> = ({ produtos, className }) => {
-    const [produtosSelecionados, setProdutosSelecionados] = useState<Produto[]>([]);
-
-    const handleCheckboxChange = (produto: Produto) => {
-        if (produtosSelecionados.some((p) => p.product_id === produto.product_id)) {
-            const updatedProdutos = produtosSelecionados.filter((p) => p.product_id !== produto.product_id);
-            setProdutosSelecionados(updatedProdutos);
-        } else {
-            setProdutosSelecionados([...produtosSelecionados, produto]);
-        }
-    };
-
-    return(
-        <>
-            {produtos.map((produto, index) => (
-                <div className="c-produto d-flex col-md-10" key={index}>
-                    <div className="produto-box_img col-md-2">
-                        <a href={produto.url} target="_blank">
-                            <img src={produto.img} alt={produto.name} />
-                        </a>
-                    </div>
-                    <div className="produto-box_text col-md-9 d-flex flex-column justify-content-center">
-                        <SH1 fontSize="19px" textAlign="start" fontWeight={600} margin="0px 0px 8px 0px" color="#1D1B20">{produto.name}</SH1>
-                        <div className="row d-flex justify content-between">
-                            <div className="col-4">
-                                <SspanText fontSize="16px" fontWeight={600} typeSpan='namProduct'>Código: <SspanText fontSize="16px">{produto.product_id}</SspanText></SspanText>
-                            </div>
-                            <div className="col-8">
-                                <SspanText fontSize="16px" fontWeight={600} typeSpan='namProduct'>Preço: <SspanText fontSize="16px">{produto.price}</SspanText></SspanText>
-                            </div>
-                        </div>
-                        <div className="row d-flex justify content-between">
-                            <div className="col-4">
-                                <SspanText fontSize="16px" fontWeight={600} typeSpan='namProduct'>Variação: <SspanText fontSize="16px"> {produto.variant_value}</SspanText></SspanText>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-1 d-flex align-items-start justify-content-center pt-2">
-                        <input
-                            type="checkbox"
-                            checked={produtosSelecionados.some((p) => p.product_id === produto.product_id)}
-                            onChange={() => handleCheckboxChange(produto)}
-                        />
-                    </div>
-                </div>
-            ))}
-            {produtosSelecionados.length > 0 && (
-                <>
-                    <SH1 typeTitle="product">Preencha a seguir as informações</SH1>
-                    <SH1 typeTitle="product">dos produto que deseja devolver:</SH1>
-                    <div className="row justify-content-center">
-                        {produtosSelecionados.map((produtoSelecionado, index) => (
-                            <ProductSelected key={index} produto={produtoSelecionado} />
-                        ))}
-                    </div>
-                </>
-            )}
-        </>
-            
-        )
+  const handleCheckboxChange = (produto: Produto) => {
+    if (selectedProductIds.includes(produto.product_id)) {
+      setSelectedProductIds((prevIds) =>
+        prevIds.filter((id) => id !== produto.product_id)
+      );
+    } else {
+      setSelectedProductIds((prevIds) => [...prevIds, produto.product_id]);
     }
+  };
+
+  const handleButtonClick = (produto: Produto) => {
+    setButtonText("Selecionado");
+  };
+
+  const navigateToSelectedProducts = () => {
+    setShowSelectedProducts(true);
+  };
+
+  return (
+    <>
+      {showSelectedProducts ? (
+        <>
+          <SH1 typeTitle="product">Preencha a seguir as informações</SH1>
+          <SH1 typeTitle="product">dos produtos que deseja devolver:</SH1>
+          <div className="row justify-content-center">
+            {selectedProductIds.map((productId) => {
+              const selectedProduct = produtos.find(
+                (produto) => produto.product_id === productId
+              );
+              if (selectedProduct) {
+                return <ProductSelected productId={productId} produto={selectedProduct} />;
+              }
+              return null;
+            })}
+          </div>
+          <Button onClick={navigateToSelectedProducts}>
+            Ver Produtos Selecionados
+          </Button>
+        </>
+      ) : (
+        <>
+          <SH1>Selecione os produtos a serem devolvidos</SH1>
+          {produtos.map((produto, index) => (
+            <Box typeBox="product" key={index}>
+              <div className="produto-box_img">
+                <a href={produto.url} target="_blank">
+                  <img src={produto.img} alt={produto.name} />
+                </a>
+              </div>
+              <div className="produto-box_text d-flex flex-column justify-content-center">
+                <SH1
+                  typeTitle="title-product"
+                  fontSize="19px"
+                  textAlign="start"
+                  fontWeight={600}
+                  margin="8px 0px 8px 0px"
+                  color="#1D1B20"
+                >
+                  {produto.name}
+                </SH1>
+
+                {/* Resto do código do componente Produtos aqui */}
+
+              </div>
+              <div className="col-1 d-flex align-items-start justify-content-center pt-2">
+                <Button
+                  typeButton="select"
+                  onClick={() => {
+                    handleButtonClick(produto);
+                    handleCheckboxChange(produto);
+                  }}
+                  className={selectedProductIds.includes(produto.product_id) ? "clicked" : ""}
+                >
+                  {selectedProductIds.includes(produto.product_id) ? "Selecionado" : "Selecionar"}
+                </Button>
+              </div>
+            </Box>
+          ))}
+          <div>
+          <Link to={`/objetos/${selectedProductIds[0]}`}>
+            <ProductSelected productId={selectedProductIds[0]} />
+            <Button>Seu Botão</Button>
+          </Link>
+          
+        </div>
+        </>
+      )}
+    </>
+  );
+};
+
 export default Produtos;

@@ -11,6 +11,7 @@ import IconFinance from "../../componentsStyled/icon/IconFinance";
 import Estorno from "../../components/estorno";
 import ValeCompras from "../../components/vale-compras";
 import ValeEstorno from "../../components/ValeEstorno";
+import Menu from "../../components/menu";
 
 export default function Data() {
    
@@ -23,7 +24,13 @@ export default function Data() {
     return (
         <>
             <Header></Header>
-
+            <Menu typeOption="active">
+            </Menu>
+            <Options options={[
+                { text: 'Seu pedido', path: '/order' },
+                { text: 'Reembolso', path: '/data' },
+                { text: 'Envio do Produto', path: '/shipping' },
+            ]}/>
             <section className="c-data">
                 <div className="container">
                     <SH1 textTransform="uppercase">

@@ -54,6 +54,13 @@ export const SH1 =styled.h1<SH1Props>`
            font-size:16px
         }
     `}
+    ${props => props.typeTitle === 'title-product' && `
+        color:#192c53;
+
+        @media screen and (max-width: 768px) {
+           font-size:16px
+        }
+    `}
  `
 
  export const STextParagraph=styled.p<STextParagraph>`
@@ -141,7 +148,8 @@ export const SH1 =styled.h1<SH1Props>`
         `}
         
         ${props => props.typeSpan === 'namProduct' && `
-            color:#49454F;
-            
+            color:#777777;
+            font-size:15px;
+
         `}
  `

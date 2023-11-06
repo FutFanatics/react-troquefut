@@ -10,7 +10,7 @@ interface ListaProdutosProps {
   selectedId?: string;
 }
 interface Produto {
-  product_id?: string;
+  product_id: string;
   name?: string;
   variant_value?: string;
   price?: string;
@@ -88,7 +88,9 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
             </div>
           )}
           <div className="row justify-content-center lista-content">
-            <Produtos produtos={pedido?.Products || []}></Produtos>
+            <Produtos produtos={pedido?.Products || []}
+          selectedId={selectedId || ''} 
+          onSelect={() => {}}/>
           </div>
         </div>
       </section>
