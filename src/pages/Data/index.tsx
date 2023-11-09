@@ -12,7 +12,8 @@ import Estorno from "../../components/estorno";
 import ValeCompras from "../../components/vale-compras";
 import ValeEstorno from "../../components/ValeEstorno";
 import Menu from "../../components/menu";
-import ModalCamera from "../../components/modalfoto";
+import ModalDevolution from "../../components/modaldevolution";
+
 
 export default function Data() {
     const [IsOpen, setModalIsOpen] = useState(false);
@@ -56,12 +57,12 @@ export default function Data() {
                      </div>
                      <Button margin="32px auto 32px auto" path="/shipping" typeButton="next" >Avançar</Button>
                 </div>
-                <Button margin="32px auto" onClick={openModal}>
+                {/* <Button margin="32px auto" onClick={openModal}>
             Clica aqui corno
-          </Button>
-          <ModalCamera isOpen={IsOpen} onRequestClose={closeModal}>
+          </Button> */}
+          <ModalDevolution isOpen={IsOpen} onRequestClose={closeModal}>
             {" "}
-          </ModalCamera>    
+          </ModalDevolution>    
             </section>
             <Footer></Footer>
         </>
