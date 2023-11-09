@@ -19,6 +19,7 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, selected,}) =>
   const [produtosSelecionados, setProdutosSelecionados] = useState<Produto[]>(
     []
   );
+  const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(null);
 
   const handleCheckboxChange = (produto: Produto) => {
     if (produtosSelecionados.some((p) => p.product_id === produto.product_id)) {
@@ -28,14 +29,16 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, selected,}) =>
       setProdutosSelecionados(updatedProdutos);
     } else {
       setProdutosSelecionados([...produtosSelecionados, produto]);
+      setProdutoSelecionado(produto); // Armazene o produto selecionado no estado.
     }
   };
 
   const handleButtonClick = () => {
-    
     setButtonText("Selecionado");
   };
-
+  const onSelectProduto = (produto: Produto) => {
+    setProdutoSelecionado(produto);
+  };
   return (
     <>
       {produtos.map((produto, index) => (
@@ -73,12 +76,19 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, selected,}) =>
             </SspanText>
           </div>
           <div className="col-1 d-flex align-items-start justify-content-center pt-2">
-          <Button 
+          <Button
             typeButton="select"
-            onClick={handleButtonClick}
-            className={selected ? "clicked" : ""}>
-              Selecionar
-            </Button >
+            onClick={() => {
+              // Verifique se um produto foi selecionado antes de continuar.
+              if (produtoSelecionado) {
+                // Passe o produto selecionado como prop para o componente ProductSelected.
+                onSelectProduto(produtoSelecionado);
+              }
+            }}
+            className={selected ? "clicked" : ""}
+          >
+            Continuar
+          </Button>
           </div>
         </Box>
         </>

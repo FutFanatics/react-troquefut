@@ -1,25 +1,76 @@
-import React, { useState } from 'react';
-import { Box } from '../componentsStyled/Box';
+import React, { useState } from "react";
+import { Box } from "../componentsStyled/Box";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { STextParagraph } from "../componentsStyled/Text";
+import IconIntimo from "../componentsStyled/icon/iconintimo";
+import IconExterno from "../componentsStyled/icon/iconexterno";
+import IconKits from "../componentsStyled/icon/iconkits";
+import IconLuz from "../componentsStyled/icon/iconluz";
+import IconSharp from "../componentsStyled/icon/iconsharp";
+import IconDefect from "../componentsStyled/icon/icondefect";
 
 interface TipoFotosProps {
-    obrigatorio?:boolean;
-    className?: string;
-    label?:string;
-    items?: { value: string; label: string }[];
-    valor?: string;
-    onChange?: (selectedOption: string) => void;
-    
-  }
+  className?: string;
 
+}
 
-const TipoFotos : React.FC<TipoFotosProps> = ({className}) => {
-    return(
-        <>
-        <Box className='col-md-2'>
+const TipoFotos: React.FC<TipoFotosProps> = ({ className }) => {
+    const settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        responsive: [
+          {
+            breakpoint: 768, 
+            settings: {
+              slidesToShow: 2,
+            }
+          },
+          {
+            breakpoint: 480, 
+            settings: {
+              slidesToShow: 1,
+            }
+          }
+        ]
+      };
+  return (
+    <>
+      <div className='col-md-8 mt-5 mb-5'>
+      <Slider {...settings} className='slide slide-attetion'>
+          <Box typeBox='item'>
+            <Box typeBox="atention">
+              <IconLuz width={60}></IconLuz>
+              <STextParagraph fontSize="14px">
+              Certifique-se de estar em um ambiente bem iluminado;
+              </STextParagraph>
+            </Box>
+          </Box>
 
-        </Box>
-        </>
-            
-            )
-        }
-    export default TipoFotos;
+          <Box typeBox='item'>
+            <Box typeBox="atention">
+              <IconSharp width={60}></IconSharp>
+              <STextParagraph fontSize="14px">
+              Faça somente o upload de fotos nítidas.
+              </STextParagraph>
+            </Box>
+          </Box>
+
+          <Box typeBox='item'>
+            <Box typeBox="atention">
+              <IconDefect width={60}></IconDefect>
+              <STextParagraph fontSize="14px">
+              Reserve ao menos uma foto para mostrar defeito, caso possua.
+              </STextParagraph>
+            </Box>
+          </Box>
+      </Slider>
+    </div>
+    </>
+  );
+};
+export default TipoFotos;

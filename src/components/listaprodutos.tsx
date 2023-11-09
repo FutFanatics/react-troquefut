@@ -3,6 +3,7 @@ import IconNull from "../componentsStyled/icon/iconNull";
 import Produtos from "./produtos";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import ProductSelected from "./produtoselected";
 
 interface ListaProdutosProps {
   className?: string;
@@ -28,8 +29,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
   selectedId,
 }) => {
   const [pedido, setPedido] = useState<Pedido | null>(null);
-  const [isProductSelectedVisible, setIsProductSelectedVisible] =
-    useState(false);
+  const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(null);
 
   useEffect(() => {
     axios
@@ -47,7 +47,9 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
         console.log(error, "Erro ao obter dados do pedido");
       });
   }, [selectedId]);
-
+  const onSelectProduto = (produto: Produto) => {
+    setProdutoSelecionado(produto);
+  };  
   return (
     <>
       <hr></hr>
@@ -92,6 +94,9 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
           selectedId={selectedId || ''} 
           onSelect={() => {}}/>
           </div>
+          {produtoSelecionado && (
+        <ProductSelected produto={produtoSelecionado} produtosSelecionados={pedido?.Products} />
+      )}
         </div>
       </section>
     </>

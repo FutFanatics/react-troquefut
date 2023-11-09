@@ -224,7 +224,20 @@ export const Box = styled.div<Box>`
         height:35px;
         border-radius:50px;
     `}
+    ${props => props.typeBox === 'upload' && `
+        background: #EBEBEB;
+        border-radius:8px;
+        height:100px;
+        width:100px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
 
+        img{
+            object-fit:cover;
+            width:100%;
+        }
+    `}
     @media screen and (max-width: 768px) {
         ${props => props.typeBox === 'estorno' && `
             border:none;

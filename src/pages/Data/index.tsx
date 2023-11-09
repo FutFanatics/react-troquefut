@@ -12,10 +12,17 @@ import Estorno from "../../components/estorno";
 import ValeCompras from "../../components/vale-compras";
 import ValeEstorno from "../../components/ValeEstorno";
 import Menu from "../../components/menu";
+import ModalCamera from "../../components/modalfoto";
 
 export default function Data() {
-   
-
+    const [IsOpen, setModalIsOpen] = useState(false);
+    const openModal = () => {
+        setModalIsOpen(true);
+      };
+    
+      const closeModal = () => {
+        setModalIsOpen(false);
+      };
     
     const onSubmit = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault();
@@ -24,13 +31,7 @@ export default function Data() {
     return (
         <>
             <Header></Header>
-            <Menu typeOption="active">
-            </Menu>
-            <Options options={[
-                { text: 'Seu pedido', path: '/order' },
-                { text: 'Reembolso', path: '/data' },
-                { text: 'Envio do Produto', path: '/shipping' },
-            ]}/>
+            
             <section className="c-data">
                 <div className="container">
                     <SH1 textTransform="uppercase">
@@ -55,6 +56,12 @@ export default function Data() {
                      </div>
                      <Button margin="32px auto 32px auto" path="/shipping" typeButton="next" >Avançar</Button>
                 </div>
+                <Button margin="32px auto" onClick={openModal}>
+            Clica aqui corno
+          </Button>
+          <ModalCamera isOpen={IsOpen} onRequestClose={closeModal}>
+            {" "}
+          </ModalCamera>    
             </section>
             <Footer></Footer>
         </>
