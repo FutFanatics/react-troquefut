@@ -103,6 +103,20 @@ const SButton = styled.button<SButtonProps>`
             color:#fff;
         }
     `}
+    ${props => props.typeButton === 'back' && `
+        width:80px;
+        border-radius:5px;
+        height:40px;
+        font-size:15px;
+        margin:24px auto 0px auto;
+        border:1px #192C53 solid;
+        font-weight:400;
+
+        &.clicked{
+            background:#192C53;
+            color:#fff;
+        }
+    `}
     @media screen and (max-width: 768px) {
         ${props => props.typeButton === 'select' && `
             width:120px;
@@ -114,6 +128,15 @@ const SButton = styled.button<SButtonProps>`
                 height:45px;
                 width:120px;
             }
+        `}
+        ${props => props.typeButton === 'back' && `
+            width:150px;
+            border-radius:5px;
+            height:40px;
+            font-size:15px;
+            margin:24px auto 0px auto;
+            border:1px #192C53 solid;
+            font-weight:400;
         `}
     }
     

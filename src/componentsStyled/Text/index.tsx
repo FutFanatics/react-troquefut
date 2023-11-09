@@ -61,6 +61,24 @@ export const SH1 =styled.h1<SH1Props>`
            font-size:16px
         }
     `}
+    ${props => props.typeTitle === 'devolution-modal' && `
+        font-size:18px;
+        margin:16px 0px 8px 0px;
+
+        .yellow{
+           color: #E3C10B;
+        }
+        .blue{
+            color:#192c53;
+        }
+        .green{
+            color:#00DF5E;
+        }
+
+        @media screen and (max-width: 768px) {
+           font-size:18px
+        }
+    `}
  `
 
  export const STextParagraph=styled.p<STextParagraph>`
@@ -120,6 +138,25 @@ export const SH1 =styled.h1<SH1Props>`
 
         @media screen and (max-width: 768px) {
             padding-top:20px;
+        }
+    `}
+    ${props => props.typeParagraph === 'paragraphdevolution' && `
+        font-size:13px;
+        font-weight:600;
+        text-align:center;
+
+        strong{
+            color:red;
+        }
+    `}
+    
+    ${props => props.typeParagraph === 'paragraphdescribe' && `
+        font-size:14px;
+        font-weight:400;
+        text-align:center;
+
+        strong{
+            color:black;
         }
     `}
 
