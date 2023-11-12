@@ -61,6 +61,16 @@ export const SH1 =styled.h1<SH1Props>`
            font-size:16px
         }
     `}
+    ${props => props.typeTitle === 'acompanhe' && `
+        color:#777777;
+        font-size:14px;
+        font-weight:400;
+        padding-right:32px;
+
+        @media screen and (max-width: 768px) {
+           font-size:16px
+        }
+    `}
     ${props => props.typeTitle === 'devolution-modal' && `
         font-size:18px;
         margin:16px 0px 8px 0px;

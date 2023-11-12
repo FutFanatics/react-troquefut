@@ -218,6 +218,33 @@ export const Box = styled.div<Box>`
         }
                 
     `}
+    ${props => props.typeBox === 'product-devolution' && `
+        width:220px;
+        padding:20px 20px;
+        box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.25);
+        border-radius:15px;
+
+        img{
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+        }
+        p{
+            text-align:center;
+            margin-bottom:0px;
+            color:#777;
+            font-size:13px;
+            font-family:"gotham";
+            font-weight:350;
+
+            strong{
+                font-weight:600;                
+                color:#192c53;
+                font-size:17px;
+            }
+        }
+                
+    `}
     ${props => props.typeBox === 'active-number' && `
         width: 35px;
         background:#192c53;

@@ -8,3 +8,11 @@ export interface Produto {
   }
 
 
+  export interface Devolution {
+    id: string;
+    created_at?: Date;
+    imgs?: React.ReactNode;
+    url?: string;
+    result?:string;
+    }
+  

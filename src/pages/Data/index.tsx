@@ -70,7 +70,6 @@ export default function Data() {
           </Button>
         </div>
         {/* <Button margin="32px auto" onClick={openModal}>
-          Clica aqui corno
         </Button> */}
         {/*<ModalDevolution
           isOpen={IsOpen}
