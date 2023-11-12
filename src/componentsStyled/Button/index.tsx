@@ -133,6 +133,11 @@ const SButton = styled.button<SButtonProps>`
                 border-bottom:#192c53 solid  1px
             }
     `}
+    ${props => props.typeButton === 'search' && `
+            width:45px;
+            height:45px;
+            border-radius:100px;
+    `}
     @media screen and (max-width: 768px) {
         ${props => props.typeButton === 'select' && `
             width:120px;

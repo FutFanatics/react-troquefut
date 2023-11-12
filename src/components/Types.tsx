@@ -10,7 +10,7 @@ export interface Produto {
 
   export interface Devolution {
     id: string;
-    created_at?: Date;
+    created_at?: string;
     imgs?: React.ReactNode;
     url?: string;
     result?:string;

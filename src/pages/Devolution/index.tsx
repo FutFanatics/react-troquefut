@@ -11,7 +11,6 @@ export default function Devolution() {
         <Header></Header>
         <Menu typeOption="active"></Menu>
         <SH1 textTransform="uppercase">Selecione qual devolução deseja acompanhar</SH1>
-        <DatePicker></DatePicker>
         <div className="container">
           <ListagemDevolucoes></ListagemDevolucoes>  
         </div>

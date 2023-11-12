@@ -243,7 +243,9 @@ export const Box = styled.div<Box>`
                 font-size:17px;
             }
         }
-                
+        .slick-prev:before, .slick-next:before{
+            display:none;
+        }
     `}
     ${props => props.typeBox === 'active-number' && `
         width: 35px;

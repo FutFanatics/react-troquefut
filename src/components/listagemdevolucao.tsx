@@ -1,85 +1,69 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Devolution } from './Types';
-import { Box } from '../componentsStyled/Box';
-import Slider from 'react-slick';
-import { SH1 } from '../componentsStyled/Text';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { SH1 } from "../componentsStyled/Text";
 
-interface DevolutionProps {
-  devolucao?: Devolution[];
-}
+import DatePicker from "./datepicker";
+import { Box } from "../componentsStyled/Box";
+import DevolutionItem from "./devolutionitem";
+import Button from "../componentsStyled/Button";
+import IconSearch from "../componentsStyled/icon/iconsearch";
 
-const ListagemDevolucoes: React.FC<DevolutionProps> = ({ devolucao }) => {
+type Devolution = {
+  id: string;
+  imgs: { url: string }[];
+  created_at: string;
+};
+
+const ListagemDevolucoes: React.FC = () => {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [currentDate, setCurrentDate] = useState<Date | null>(new Date());
   const [devolucoes, setDevolucoes] = useState<Devolution[]>([]);
 
   useEffect(() => {
-    axios
-      .get('http://localhost:5001/devolucoes')
-      .then((response) => {
+    const fetchDevolucoes = async () => {
+      try {
+        const response = await axios.get("http://localhost:5001/devolucoes");
         setDevolucoes(response.data);
-      })
-      .catch((error) => {
-        console.log('Erro ao buscar devoluções:', error);
-      });
-  }, []);
-  const formatarData = (data: Date | undefined): string => {
-    if (data) {
-        const options: Intl.DateTimeFormatOptions = {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-        };
-        return new Date(data).toLocaleDateString('pt-BR', options);
+      } catch (error) {
+        console.error("Erro ao buscar devoluções", error);
       }
-      return '';
     };
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 768, 
-        settings: {
-          slidesToShow: 1,
-        }
-      },
-      {
-        breakpoint: 480, 
-        settings: {
-          slidesToShow: 1,
-        }
-      }
-    ]
+
+    fetchDevolucoes();
+  }, [selectedDate, currentDate]);
+
+  const handleSearch = () => {
+    
+    const filteredDevolucoes = devolucoes.filter((devolucao) => {
+      const createdAtDate = new Date(devolucao.created_at);
+      return (
+        (!selectedDate || createdAtDate >= selectedDate) &&
+        (!currentDate || createdAtDate <= currentDate)
+      );
+    });
+
+    setDevolucoes(filteredDevolucoes);
   };
 
   return (
-    <div className='box-devolution'>
-    <SH1 color='#777' fontSize='16px' fontWeight={350} textAlign='start'>Lista de devoluções</SH1>
-        <Box typeBox='product-devolution'>
-        {devolucoes.map((devolucao) => (
-          <div key={devolucao.id}>
-             <Slider {...settings}>
-            {Array.isArray(devolucao.imgs) &&
-                devolucao.imgs.map((img, index) => (
-                   
-                      <div key={index} className='d-flex justify-content-center'>
-                        <img src={img.url} alt="Devolução" />
-                    </div>  
-                    
-                  
-                ))}
-            </Slider>
-            <div className='mt-3'>
-                <p><strong>ID:</strong> {devolucao.id}</p>
-                <p> {formatarData(devolucao.created_at ? new Date(devolucao.created_at) : undefined)}</p>
-                
-            </div>
-          </div>
-        ))}
-      </Box>
+    <div>
+      <div className="d-flex justify-content-center mt-3 align-items-center box-date">
+      <SH1 typeTitle="acompanhe">Selecione um período:</SH1>
+      <div className="d-flex flex-column container-date"> 
+        <label>Data início:</label>
+        <DatePicker onSelectDate={setSelectedDate} placeholder="Selecione uma data" onChange={setSelectedDate}/>
+
+      </div>
+      <div className="d-flex flex-column container-date"> 
+        <label>Data Final:</label>
+      <DatePicker onSelectDate={setCurrentDate} selected={currentDate} placeholder="Data Atual" onChange={setSelectedDate} />
+      </div>
+      <Button onClick={handleSearch} typeButton="search"><IconSearch width={20}></IconSearch></Button>
+      </div>
+      <SH1 color='#777' fontSize='16px' fontWeight={350} textAlign='start'>Lista de devoluções</SH1>
+      {devolucoes.map((devolucao) => (
+        <DevolutionItem key={devolucao.id} devolucao={devolucao} />
+      ))}
     </div>
   );
 };

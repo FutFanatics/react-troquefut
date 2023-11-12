@@ -347,33 +347,36 @@
     padding: 20px 0px 0px 0px;
 }
 
-.date-picker {
+.box-date{
+    border-top: 1px solid rgba(19, 28, 53, 0.25);
+    border-bottom: 1px solid rgba(19, 28, 53, 0.25);
+    padding:20px 0px;
+}
+.react-datepicker-wrapper{
     font-family: 'gotham';
     color: #000;
     padding: 15px;
-    margin-bottom: 20px;
    }
    
-   .date-picker h3 {
-    margin-bottom: 20px;
-   }
-   
-   .date-picker label {
+   label {
     display: flex;
     flex-direction: column;
-    margin-bottom: 5px;
-    margin: 0px 24px 5px 24px;
-    width: 220px;
+
         span{
           font-size: 13px;   
         }
    }
-   
-   .date-picker input[type="date"] {
+   .container-date{
+    margin: 0px 32px 8px 32px;
+    margin-bottom: 20px;
+   }
+
+    input[type="text"] {
     padding: 8px;
     padding-top: 0px;;
-    margin-bottom: 20px;
+    
     background-color: #ffffff;
+    
     color: #9e9e9e;
     border: none;
     border-bottom:1px #000 solid;
@@ -381,7 +384,7 @@
     outline: none;
    }
    
-   .date-picker input[type="date"]:focus {
+   .react-datepicker-wrapper input[type="text"]:focus {
     border-color: #192c53;
    }
    
@@ -400,6 +403,3 @@
     background-color: #192C53;
    }
 
-   .box-devolution{
-    border-top: 1px solid rgba(19, 28, 53, 0.25);
-   }
