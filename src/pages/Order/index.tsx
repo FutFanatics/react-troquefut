@@ -9,6 +9,7 @@ import ListaProdutos from "../../components/listaprodutos";
 import ListaSuspensa from "../../components/listasuspensa";
 import axios from 'axios'; 
 import Menu from "../../components/menu";
+import { Buffer } from 'buffer';
 
 interface Pedido {
     id: string;
@@ -17,22 +18,35 @@ interface Pedido {
 
 export default function Order() {
     const [data, setData] = useState<Pedido[]>([]);
-    const [selectedId, setSelectedId] = useState('');  
+    const [selectedId, setSelectedId] = useState('');
     
     useEffect(()=>
     {
-        axios.get('https://api.troquefuthomologacao.futfanatics.com.br/api/order/list/335' ,{
-            timeout: 10000,
-        })
+        let auth = localStorage.getItem('auth');
     
-        .then(function(response){
-            setData(response.data);
-            console.log(response.data)    
-        })
-        .catch(function(error){
-            console.log(error)    
-        })
-        
+        if(auth) {
+            const authObj = JSON.parse(auth);
+            console.log(authObj)
+
+            const username = authObj.email;
+            const password = authObj.token;
+            const buffer = Buffer.from(username + ':' + password);
+            const basicAuth = buffer.toString('base64');
+
+            axios.get('https://api.troquefuthomologacao.futfanatics.com.br/api/order/list/' + authObj.customerId, {
+                timeout: 10000,
+                headers: {
+                    'Authorization': 'Basic ' + basicAuth
+                }
+            })
+            .then(function(response){
+                setData(response.data);
+                console.log(response.data)    
+            })
+            .catch(function(error){
+                console.log(error)    
+            })
+        }
     }, []);
 
     

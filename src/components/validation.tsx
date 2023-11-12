@@ -31,14 +31,9 @@ const Validation: React.FC = () => {
      });
  
     if (response.ok) {
-      const { token } = await response.json();
-       
-      const dados: Dados = {
-        customerId: 335
-      };
+      const responseApi = await response.json();
 
-      localStorage.setItem('token', token);
-      localStorage.setItem('dados', JSON.stringify(dados));
+      localStorage.setItem('auth', JSON.stringify(responseApi));
 
       setSuccess(true);
       navigate('/order');
@@ -57,13 +52,12 @@ const Validation: React.FC = () => {
 
 
  return (
-    <form onSubmit={handleSubmit} className='col-md-6'>
-
-      <Box typeBox="login" className="d-flex flex-column" margin='32px 0px'>
+    <form onSubmit={handleSubmit} className="col-md-6">
+      <Box margin="32px 0px " typeBox="login" className="d-flex flex-column">
         <label>Login</label>
         <input type="text" placeholder="Insira seu e-mail ou CPF" value={user.email} onChange={handleChange} />
       </Box>
-      <Box typeBox="login" className="d-flex flex-column" margin='32px 0px'>
+      <Box margin="32px 0px" typeBox="login" className="d-flex flex-column">
         <label>Senha</label>
         <input type="password" placeholder="Insira sua senha" value={user.password} onChange={handleChange}></input>
       </Box>
@@ -78,3 +72,8 @@ const Validation: React.FC = () => {
 };
 
 export default Validation;
+
+/**
+ * 
+ * 
+ */

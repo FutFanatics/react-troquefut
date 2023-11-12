@@ -30,11 +30,11 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
 }) => {
   const [pedido, setPedido] = useState<Pedido | null>(null);
   const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(null);
-
+  //`https://api.troquefuthomologacao.futfanatics.com.br/api/order/get/${selectedId}`,
   useEffect(() => {
     axios
       .get(
-        `https://api.troquefuthomologacao.futfanatics.com.br/api/order/get/${selectedId}`,
+        `https://api.troquefuthomologacao.futfanatics.com.br/api/order/get/200009381`,
         {
           timeout: 10000,
         }
