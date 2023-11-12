@@ -23,7 +23,7 @@ const Validation: React.FC<ValidationProps> = ({ className }) => {
             <input type="text" placeholder="Insira sua senha"></input>
         </Box>
 
-        <Button margin="44px auto 0px auto">Confirmar</Button>
+        <Button margin="44px auto 0px auto" path="/order">Confirmar</Button>
     </div>
     </>
   );
