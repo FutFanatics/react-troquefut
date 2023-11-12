@@ -5,42 +5,36 @@ import { STextParagraph, SspanText } from "../componentsStyled/Text";
 import CardVale from "./cardvale";
 import CardEstorno from "./cardestorno";
 import { Box } from "../componentsStyled/Box";
+import Pix from "./pix";
+import BankData from "./BankData";
 
 interface ValeEstornoProps {
-  className?: string;
-  children?: React.ReactNode;
-  onSubmit?: (evento: React.FormEvent<HTMLFormElement>) => void;
-  alternarElemento?: () => void;
+ className?: string;
+ children?: React.ReactNode;
+ onSubmit?: (evento: React.FormEvent<HTMLFormElement>) => void;
+ alternarElemento?: () => void;
 }
 
 const ValeEstorno: React.FC<ValeEstornoProps> = ({ className }) => {    
-  return (
+ const [activeTab, setActiveTab] = useState("pix");
+
+ const handleClick = (tab: string) => {
+    setActiveTab(tab);
+ };
+
+ return (
     <>
       <div className="col-md-12 d-flex flex-column align-items-center">
-        <div className="col-md-8">
-          <STextParagraph fontSize="16px" fontWeight={400}>
-          O <strong>Estorno</strong> será efetivado através do mesmo método de pagamento utilizado na hora da compra. Já o seu <strong>Estorno</strong>, será enviado diretamente para o e-mail cadastrado na Fut.
-        </STextParagraph>
-        </div>
-      <div className="row justify-content-space-between mt-4">
-      <div className="col-md-6">
-          <SspanText color="#00DF5E" fontSize="15px" fontWeight={500}>Estorno</SspanText>
-          <Box typeBox="estorno-content">
-            <CardEstorno></CardEstorno>
-          </Box>
-        </div>
-        <div className="col-md-6 col-vale" >
-          <SspanText color="#00DF5E" fontSize="15px" fontWeight={500}>Vale compras</SspanText>
-          <Box typeBox="estorno-content">
-            <CardVale></CardVale>
-          </Box>
-        </div>
-        
-      
-      </div>
+        <div className="col-md-10 d-flex justify-content-center">
+          <Button typeButton="select-estorno" className={activeTab === "pix" ? "active" : ""} onClick={() => handleClick("pix")}>Pix</Button>
+          <Button typeButton="select-estorno" className={activeTab === "bankData" ? "active" : ""} onClick={() => handleClick("bankData")}>Dados Bancários</Button>
+         
+        </div> 
+        {activeTab === "pix" && <Pix></Pix>}
+        {activeTab === "bankData" && <BankData></BankData>}
       </div>
     </>
-  );
+ );
 };
 
 export default ValeEstorno;

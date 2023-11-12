@@ -117,6 +117,22 @@ const SButton = styled.button<SButtonProps>`
             color:#fff;
         }
     `}
+    ${props => props.typeButton === 'select-estorno' && `
+            border:none;
+            width:auto;
+            margin-bottom:0px;
+            border-radius:0px;
+            background:transparent;
+            color:#777;
+            height:auto;
+            margin 0px 16px 0px 0px;
+
+            &.active{
+                color:#192c53;
+                font-weight:600;
+                border-bottom:#192c53 solid  1px
+            }
+    `}
     @media screen and (max-width: 768px) {
         ${props => props.typeButton === 'select' && `
             width:120px;
@@ -138,6 +154,7 @@ const SButton = styled.button<SButtonProps>`
             border:1px #192C53 solid;
             font-weight:400;
         `}
+        
     }
     
 `

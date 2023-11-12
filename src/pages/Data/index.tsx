@@ -35,17 +35,14 @@ export default function Data() {
   return (
     <>
       <Header></Header>
-
+      <Menu typeOption="active"></Menu>
       <section className="c-data">
         <div className="container">
           <SH1 textTransform="uppercase">Informações de reembolso</SH1>
           <div className="row justify-content-center">
             <Box typeBox="estorno" className="col-md-10">
               <IconFinance width={64}></IconFinance>
-              <SspanText fontWeight={550} fontSize="20px" padding="20px 0px">
-                Fique de olho!
-              </SspanText>
-              <ValeCompras></ValeCompras>
+              <ValeEstorno></ValeEstorno>
               <div className="d-flex mt-5 justify-content-start col-md-10">
                 <input type="checkbox" required></input>
                 <STextParagraph fontSize="14px" padding="0px 0px 0px 8px">

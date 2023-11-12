@@ -15,11 +15,11 @@ const Validation: React.FC<ValidationProps> = ({ className }) => {
   return (
     <>
     <div className="col-md-6">
-        <Box typeBox="login" className="d-flex flex-column">
+        <Box typeBox="login" className="d-flex flex-column" margin="32px 0px">
             <label>Login</label>
             <input type="text" placeholder="Insira seu e-mail ou CPF"></input>
         </Box>
-        <Box typeBox="login" className="d-flex flex-column">
+        <Box typeBox="login" className="d-flex flex-column" margin="32px 0px">
             <label>Senha</label>
             <input type="text" placeholder="Insira sua senha"></input>
         </Box>

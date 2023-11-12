@@ -266,7 +266,7 @@ export const Box = styled.div<Box>`
         }
     `}
     ${props => props.typeBox === 'login' && `
-        margin:32px 0px;
+        
         label{
             font-size:14px;
             font-family:'gotham';
@@ -276,6 +276,7 @@ export const Box = styled.div<Box>`
         input{
             border:none;
             border-bottom:1px solid #000;
+            width:100%;
 
             &::placeholder{
                 color:#192c53;
@@ -284,6 +285,37 @@ export const Box = styled.div<Box>`
                 font-weight:500;
             }
         }
+        select{
+            color:#192c53;
+            font-size:14px;
+            border:none;
+            opacity:0.5;
+            padding-bottom:8px;
+            border-bottom:1px solid #000;
+            font-weight:500;
+
+        
+        }
+        .box-radios{
+            
+            input{
+                height:20px;
+                width:20px;
+                margin:0px 8px 0px 0px ;
+                
+                &:checked{
+                    Background:red;
+                    color:red;
+                }
+            }
+            &:last-child{
+                margin-left:8px;
+            }
+            input[type="radio"]:checked {
+                background:red;
+              }
+        }
+
         
     `}
     @media screen and (max-width: 768px) {
