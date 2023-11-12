@@ -34,7 +34,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
   useEffect(() => {
     axios
       .get(
-        `https://api.troquefuthomologacao.futfanatics.com.br/order/get/${selectedId}`,
+        `https://api.troquefuthomologacao.futfanatics.com.br/api/order/get/${selectedId}`,
         {
           timeout: 10000,
         }

@@ -17,12 +17,11 @@ interface Pedido {
 
 export default function Order() {
     const [data, setData] = useState<Pedido[]>([]);
-    const [selectedId, setSelectedId] = useState('');
+    const [selectedId, setSelectedId] = useState('');  
     
-
     useEffect(()=>
     {
-        axios.get('https://api.troquefuthomologacao.futfanatics.com.br/order/list/803542389' ,{
+        axios.get('https://api.troquefuthomologacao.futfanatics.com.br/api/order/list/335' ,{
             timeout: 10000,
         })
     
