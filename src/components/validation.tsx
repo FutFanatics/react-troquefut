@@ -57,14 +57,13 @@ const Validation: React.FC = () => {
 
 
  return (
-    <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
+    <form onSubmit={handleSubmit} className='col-md-6'>
 
-      <Box typeBox="login" className="d-flex flex-column">
+      <Box typeBox="login" className="d-flex flex-column" margin='32px 0px'>
         <label>Login</label>
         <input type="text" placeholder="Insira seu e-mail ou CPF" value={user.email} onChange={handleChange} />
       </Box>
-      <Box typeBox="login" className="d-flex flex-column">
+      <Box typeBox="login" className="d-flex flex-column" margin='32px 0px'>
         <label>Senha</label>
         <input type="password" placeholder="Insira sua senha" value={user.password} onChange={handleChange}></input>
       </Box>
