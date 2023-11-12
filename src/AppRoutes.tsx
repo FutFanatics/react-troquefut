@@ -6,12 +6,14 @@ import Order from "./pages/Order";
 import Data from "./pages/Data";
 import Shipping from "./pages/Shipping";
 import Devolution from "./pages/Devolution";
+import Login from "./pages/Login";
 
 function AppRoutes() {
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home />}></Route>
+                <Route path="/login" element={<Login/>}></Route>
                 <Route path="/order" element={<Order />}></Route>
                 <Route path="/data" element={<Data />}></Route>
                 <Route path="/shipping" element={<Shipping />}></Route>

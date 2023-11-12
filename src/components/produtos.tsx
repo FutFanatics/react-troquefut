@@ -29,7 +29,7 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, selected,}) =>
       setProdutosSelecionados(updatedProdutos);
     } else {
       setProdutosSelecionados([...produtosSelecionados, produto]);
-      setProdutoSelecionado(produto); // Armazene o produto selecionado no estado.
+      setProdutoSelecionado(produto); 
     }
   };
 

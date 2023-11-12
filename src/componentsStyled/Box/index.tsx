@@ -265,6 +265,27 @@ export const Box = styled.div<Box>`
             width:100%;
         }
     `}
+    ${props => props.typeBox === 'login' && `
+        margin:32px 0px;
+        label{
+            font-size:14px;
+            font-family:'gotham';
+            font-weight:450;
+            margin-bottom:8px;
+        }
+        input{
+            border:none;
+            border-bottom:1px solid #000;
+
+            &::placeholder{
+                color:#192c53;
+                opacity:0.5;
+                font-size:15px;
+                font-weight:500;
+            }
+        }
+        
+    `}
     @media screen and (max-width: 768px) {
         ${props => props.typeBox === 'estorno' && `
             border:none;

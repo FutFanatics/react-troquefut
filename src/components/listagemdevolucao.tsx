@@ -17,7 +17,6 @@ const ListagemDevolucoes: React.FC<DevolutionProps> = ({ devolucao }) => {
       .get('http://localhost:5001/devolucoes')
       .then((response) => {
         setDevolucoes(response.data);
-        console.log('foda se')
       })
       .catch((error) => {
         console.log('Erro ao buscar devoluções:', error);

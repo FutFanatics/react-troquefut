@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { SH1 } from "../componentsStyled/Text";
+import Button from "../componentsStyled/Button";
 
 
 const DatePicker: React.FC = () => {
@@ -36,6 +37,9 @@ const DatePicker: React.FC = () => {
           onChange={(e) => handleEndDateChange(new Date(e.target.value))}
         />
       </label>
+      <Button >
+        Buscar
+      </Button>
     </div>
   );
 };

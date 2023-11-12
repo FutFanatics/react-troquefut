@@ -24,7 +24,7 @@ export default function Home() {
                         <STextParagraph padding="48px 0px 48px 0px" fontWeight={350}>
                             O TroqueFut é uma plataforma de devoluções da empresa FutFanatics, onde você consegue realizar suas trocas sem  dificuldades e com tecnologias intuitivas.
                         </STextParagraph>
-                        <Button path="/order" >
+                        <Button path="/login" >
                             <IconDoor 
                                 fill="white" 
                                 width={20}></IconDoor>
