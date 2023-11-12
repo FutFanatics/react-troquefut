@@ -37,6 +37,7 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, selected,}) =>
     setButtonText("Selecionado");
   };
   const onSelectProduto = (produto: Produto) => {
+    console.log(produto);
     setProdutoSelecionado(produto);
   };
   return (
@@ -79,11 +80,8 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, selected,}) =>
           <Button
             typeButton="select"
             onClick={() => {
-              // Verifique se um produto foi selecionado antes de continuar.
-              if (produtoSelecionado) {
-                // Passe o produto selecionado como prop para o componente ProductSelected.
-                onSelectProduto(produtoSelecionado);
-              }
+              handleCheckboxChange(produto);
+              console.log(produto)
             }}
             className={selected ? "clicked" : ""}
           >

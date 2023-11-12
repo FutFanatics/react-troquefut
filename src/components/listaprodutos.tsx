@@ -4,6 +4,7 @@ import Produtos from "./produtos";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import ProductSelected from "./produtoselected";
+import { Buffer } from 'buffer';
 
 interface ListaProdutosProps {
   className?: string;
@@ -30,13 +31,26 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
 }) => {
   const [pedido, setPedido] = useState<Pedido | null>(null);
   const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(null);
-  //`https://api.troquefuthomologacao.futfanatics.com.br/api/order/get/${selectedId}`,
+  
   useEffect(() => {
-    axios
-      .get(
-        `https://api.troquefuthomologacao.futfanatics.com.br/api/order/get/200009381`,
+    let auth = localStorage.getItem('auth');
+
+    if(auth) {
+      const authObj = JSON.parse(auth);
+      console.log(authObj)
+
+      const username = authObj.email;
+      const password = authObj.token;
+      const buffer = Buffer.from(username + ':' + password);
+      const basicAuth = buffer.toString('base64');
+
+      axios.get(
+        `https://api.troquefuthomologacao.futfanatics.com.br/api/order/get/${selectedId}`,
         {
           timeout: 10000,
+          headers: {
+            'Authorization': 'Basic ' + basicAuth
+          }
         }
       )
       .then(function (response) {
@@ -46,10 +60,12 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
       .catch(function (error) {
         console.log(error, "Erro ao obter dados do pedido");
       });
+    }
   }, [selectedId]);
   const onSelectProduto = (produto: Produto) => {
     setProdutoSelecionado(produto);
   };  
+  
   return (
     <>
       <hr></hr>
@@ -84,19 +100,20 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
                   selecione um pedido acima 
                   </STextParagraph>
                 </div>
-                
               </div>
-              
             </div>
           )}
           <div className="row justify-content-center lista-content">
             <Produtos produtos={pedido?.Products || []}
-          selectedId={selectedId || ''} 
-          onSelect={() => {}}/>
+              selectedId={selectedId || ''} 
+              onSelect={() => {}}
+              key={1}
+            />
           </div>
+
           {produtoSelecionado && (
-        <ProductSelected produto={produtoSelecionado} produtosSelecionados={pedido?.Products} />
-      )}
+            <ProductSelected produto={produtoSelecionado} produtosSelecionados={pedido?.Products} />
+          )}
         </div>
       </section>
     </>
