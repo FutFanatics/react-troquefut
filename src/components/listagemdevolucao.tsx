@@ -58,7 +58,7 @@ const ListagemDevolucoes: React.FC = () => {
         <label>Data Final:</label>
       <DatePicker onSelectDate={setCurrentDate} selected={currentDate} placeholder="Data Atual" onChange={setSelectedDate} />
       </div>
-      <Button onClick={handleSearch} typeButton="search"><IconSearch width={20}></IconSearch></Button>
+      <Button onClick={handleSearch} typeButton="search"><IconSearch width={18}></IconSearch></Button>
       </div>
       <SH1 color='#777' fontSize='16px' fontWeight={350} textAlign='start'>Lista de devoluções</SH1>
       {devolucoes.map((devolucao) => (

@@ -1,405 +1,381 @@
 //sass --watch src/scss/style.scss:src/css/style.css
 
-
-
-
- 
 @font-face {
-    font-family: 'Gotham';
-    src: url('../fonts/Gotham-Book.eot');
-    src: url('../fonts/Gotham-Book.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/Gotham-Book.woff') format('woff'),
-        url('../fonts/Gotham-Book.ttf') format('truetype'),
-        url('../fonts/Gotham-Book.svg#Gotham') format('svg');
-    font-style: normal;
-    font-weight: normal;
-    font-display: swap;
+  font-family: "Gotham";
+  src: url("../fonts/Gotham-Book.eot");
+  src: url("../fonts/Gotham-Book.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/Gotham-Book.woff") format("woff"),
+    url("../fonts/Gotham-Book.ttf") format("truetype"),
+    url("../fonts/Gotham-Book.svg#Gotham") format("svg");
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Gotham';
-    src: url('../fonts/Gotham-Light.eot');
-    src: url('../fonts/Gotham-Light.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/Gotham-Light.woff') format('woff'),
-        url('../fonts/Gotham-Light.ttf') format('truetype'),
-        url('../fonts/Gotham-Light.svg#Gotham') format('svg');
-    font-style: normal;
-    font-weight: 300;
-    font-display: swap;
+  font-family: "Gotham";
+  src: url("../fonts/Gotham-Light.eot");
+  src: url("../fonts/Gotham-Light.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/Gotham-Light.woff") format("woff"),
+    url("../fonts/Gotham-Light.ttf") format("truetype"),
+    url("../fonts/Gotham-Light.svg#Gotham") format("svg");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Gotham';
-    src: url('../fonts/Gotham-Bold.eot');
-    src: url('../fonts/Gotham-Bold.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/Gotham-Bold.woff') format('woff'),
-        url('../fonts/Gotham-Bold.ttf') format('truetype'),
-        url('../fonts/Gotham-Bold.svg#Gotham') format('svg');
-    font-style: normal;
-    font-weight: bold;
-    font-display: swap;
+  font-family: "Gotham";
+  src: url("../fonts/Gotham-Bold.eot");
+  src: url("../fonts/Gotham-Bold.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/Gotham-Bold.woff") format("woff"),
+    url("../fonts/Gotham-Bold.ttf") format("truetype"),
+    url("../fonts/Gotham-Bold.svg#Gotham") format("svg");
+  font-style: normal;
+  font-weight: bold;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Gotham';
-    src: url('../fonts/Gotham-Medium.eot');
-    src: url('../fonts/Gotham-Medium.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/Gotham-Medium.woff') format('woff'),
-        url('../fonts/Gotham-Medium.ttf') format('truetype'),
-        url('../fonts/Gotham-Medium.svg#Gotham') format('svg');
-    font-style: normal;
-    font-weight:500;
-    font-display: swap;
+  font-family: "Gotham";
+  src: url("../fonts/Gotham-Medium.eot");
+  src: url("../fonts/Gotham-Medium.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/Gotham-Medium.woff") format("woff"),
+    url("../fonts/Gotham-Medium.ttf") format("truetype"),
+    url("../fonts/Gotham-Medium.svg#Gotham") format("svg");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Gotham';
-    src: url('../fonts/Gotham-Black.eot');
-    src: url('../fonts/Gotham-Black.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/Gotham-Black.woff') format('woff'),
-        url('../fonts/Gotham-Black.ttf') format('truetype'),
-        url('../fonts/Gotham-Black.svg#Gotham') format('svg');
-    font-style: normal;
-    font-weight:900;
-    font-display: swap;
+  font-family: "Gotham";
+  src: url("../fonts/Gotham-Black.eot");
+  src: url("../fonts/Gotham-Black.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/Gotham-Black.woff") format("woff"),
+    url("../fonts/Gotham-Black.ttf") format("truetype"),
+    url("../fonts/Gotham-Black.svg#Gotham") format("svg");
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
 }
-@mixin md{
-    @media (min-width: 1200px) { @content; }
-}
-
-.container{
-    padding: 0px 20px;
-    @include md{
-        --bs-gutter-x: 1.5rem;
-        --bs-gutter-y: 0;
-        width: 100%;
-        padding-right: calc(var(--bs-gutter-x) * 0.5);
-        padding-left: calc(var(--bs-gutter-x) * 0.5);
-        margin-right: auto;
-        margin-left: auto;
-    }
+@mixin md {
+  @media (min-width: 1200px) {
+    @content;
+  }
 }
 
-.c-header{
-    height: 5rem;
-    background-color:#F4F5F8 ;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.container {
+  padding: 0px 20px;
+  @include md {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
 
-    .logo-header{
+.c-header {
+  height: 5rem;
+  background-color: #f4f5f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .logo-header {
+    width: 100px;
+  }
+}
+.c-footer {
+  background-color: #f4f5f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0px;
+  flex-direction: column;
+
+  .footer {
+    &-logo {
+      width: auto;
+      height: 30px;
+
+      @include md {
+        height: 50px;
         width: 100px;
+      }
     }
+    &-box {
+      width: 90%;
+
+      @include md {
+        width: 55%;
+        margin-left: 16px;
+      }
+    }
+  }
+  @include md {
+    flex-direction: row;
+    height: 5rem;
+  }
 }
-.c-footer{
-    background-color: #F4F5F8;
+.c-home {
+  .container {
+    max-width: 100%;
+  }
+
+  .col-content {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 30px 0px;
-    flex-direction: column;
+    padding: 30px 20px;
 
-    .footer{
-        &-logo{
-            width:auto;
-            height: 30px;
+    hr {
+      color: #000;
+      height: 3px;
+      width: 30px;
+      margin: 6px 8px 0px 8px;
+    }
 
-            @include md{
-                height: 50px;
-                width: 100px;
-            }
+    @include md {
+      padding: 0px 84px;
+      min-height: 78vh;
+    }
+  }
+  .col-img {
+    background: url("../img/home/img-inicial.png");
+    background-size: cover;
+    background-position: center;
+    padding-bottom: 16px;
+
+    a {
+      position: relative;
+
+      &:hover {
+        transition: ease-in-out 0.3s;
+        &::before {
+          content: "Acesse o site da FutFanatics";
+          left: -250px;
+          background: #606267;
+          position: absolute;
+          top: -59%;
+          padding: 9px 25px;
+          border-radius: 2px;
+          color: #d9d9d9;
+          font-weight: 700;
         }
-        &-box{
-            width: 90%;
-            
-
-            @include md{
-                width: 55%;
-                margin-left: 16px;
-            }
-        }
+      }
     }
-    @include md{
-        flex-direction: row;
-        height: 5rem;
-    }
-}
-.c-home{
-    .container{
-        max-width: 100%;  
-    }
-
-    .col-content{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 30px 20px;
-
-        hr{
-            color: #000;
-            height: 3px;
-            width: 30px;
-            margin: 6px 8px 0px 8px;
-        }
-
-        @include md{
-            padding: 0px 84px;
-            min-height: 78vh;
-        }
-    }
-    .col-img{
-        background: url('../img/home/img-inicial.png');
-        background-size: cover;
-        background-position: center;
-        padding-bottom: 16px;
-
-        a{
-            position: relative;
-            
-            &:hover{
-                transition: ease-in-out 0.3s;
-                &::before{
-                    content: "Acesse o site da FutFanatics";
-                    left: -250px;
-                    background: #606267;
-                    position: absolute;
-                    top: -59%;
-                    padding: 9px 25px;
-                    border-radius: 2px;
-                    color: #D9D9D9;
-                    font-weight: 700;
-                }
-            }
-            
-        }
-    }
-
+  }
 }
 
-.c-lista_suspensa{
-    .lista-select{
-        border-radius: 20px;
-        padding: 10px;
-        border: 1px rgba(0, 0, 0, 0.5) solid;
-        margin: 32px 0px 48px 0px;
-    }
+.c-lista_suspensa {
+  .lista-select {
+    border-radius: 20px;
+    padding: 10px;
+    border: 1px rgba(0, 0, 0, 0.5) solid;
+    margin: 32px 0px 48px 0px;
+  }
 }
 
-.lista-content{
-    padding: 40px 0px;
+.lista-content {
+  padding: 40px 0px;
 }
-.list-select{
-    border:none;
-    width: 100%;
-    border-bottom: 1px solid;
-    color: #192C53;
-    padding-bottom: 4px;
-    margin-bottom: 12px;
+.list-select {
+  border: none;
+  width: 100%;
+  border-bottom: 1px solid;
+  color: #192c53;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
 }
-.c-produto{
-    margin-bottom: 64px;
-    .produto-box_img{
-        img{
-            height: 150px;
-            width: 150px;
-            object-fit: cover;
-        }
+.c-produto {
+  margin-bottom: 64px;
+  .produto-box_img {
+    img {
+      height: 150px;
+      width: 150px;
+      object-fit: cover;
     }
+  }
 
-    @include md{
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        border-radius: 5px;
-        padding: 20px;
-        box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
-    }
+  @include md {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+  }
 }
-.product-selected{
-    &-img{
-        height: 150px;
-        width: auto;
-    }
+.product-selected {
+  &-img {
+    height: 150px;
+    width: auto;
+  }
 }
 
-.col-vale{
-    margin-top: 1.5rem;
-    @include md{
-        margin: 0px;
-    }
+.col-vale {
+  margin-top: 1.5rem;
+  @include md {
+    margin: 0px;
+  }
 }
-.c-modal_foto{
+.c-modal_foto {
+  position: relative;
+  max-width: 1200px;
+  margin: 0px auto;
+  min-height: 70vh;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 30px;
+  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.2);
+
+  .btn-close {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    background-color: none;
+    border: none;
+  }
+
+  .icon-camera {
     position: relative;
+    left: 50%;
+    transform: translate(-50%);
+  }
+}
+
+.c-modal_aceite {
+  position: relative;
+  width: 100%;
+  margin: 0px auto;
+  min-height: 70vh;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  padding: 10px 10px 30px 10px;
+  border-radius: 15px;
+  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.2);
+
+  @include md {
+    width: auto;
     max-width: 1200px;
-    margin: 0px auto;
     min-height: 70vh;
+    padding: 20px 30px 30px 30px;
     top: 50%;
     transform: translateY(-50%);
-    background-color: #fff;
-    padding: 30px ;
-    border-radius: 30px;
-    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.2);
+  }
 
-    .btn-close{
-        position: absolute;
-        right: 30px;
-        top: 30px;
-        background-color: none;
-        border: none;
+  .btn-close {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    background-color: none;
+    border: none;
+
+    &_clique {
+      right: 20px;
+      top: 20px;
     }
-    
-    .icon-camera{
-        position: relative;
-        left: 50%;
-        transform: translate(-50%);
+  }
+
+  .check {
+    @include md {
+      padding-left: 40px;
     }
+  }
 }
+.c-modal_devolution {
+  position: relative;
+  max-width: 400px;
+  margin: 0px 16px;
+  min-height: 40vh;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 30px;
+  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.2);
 
-.c-modal_aceite{
-    position: relative;
-    width: 100%;
+  @include md {
     margin: 0px auto;
-    min-height: 70vh;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #fff;
-    padding: 10px 10px 30px 10px ;
-    border-radius: 15px;
-    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.2);
+  }
 
-    @include md{
-        width: auto;
-        max-width: 1200px;
-        min-height: 70vh;  
-        padding: 20px 30px 30px 30px ;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .btn-close{
-        position: absolute;
-        right: 30px;
-        top: 30px;
-        background-color: none;
-        border: none;
-
-        &_clique{
-            right: 20px;
-            top:20px;
-        }
-    }
-
-    .check{
-        @include md{
-            padding-left: 40px;
-        }
-        
-    }
-}
-.c-modal_devolution{
-    position: relative;
-    max-width: 400px;
-    margin: 0px 16px;
-    min-height: 40vh;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #fff;
-    padding: 30px ;
-    border-radius: 30px;
-    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.2);
-
-    @include md{
-        margin:0px auto;
-    }
-
-
-    .btn-close{
-        position: absolute;
-        right: 30px;
-        top: 30px;
-        background-color: none;
-        border: none;
-    }
-    .devolution{
-      .text{
-        &-subtitle{
-           text-align: justify; 
-        }
-        
-    }  
-    }
-    
-}
-.c-shipping{
-    .box-img{
-        margin-bottom: 32px;
-    }
-    .box-text_envio{
-        height: 150px;
-        margin-bottom: 64px;
-    }
-    .img-envio{
-         height: 100px;
-        width: auto;
-    }
-}
-
-.c-menu{
-    padding: 20px 0px 0px 0px;
-}
-
-.box-date{
-    border-top: 1px solid rgba(19, 28, 53, 0.25);
-    border-bottom: 1px solid rgba(19, 28, 53, 0.25);
-    padding:20px 0px;
-}
-.react-datepicker-wrapper{
-    font-family: 'gotham';
-    color: #000;
-    padding: 15px;
-   }
-   
-   label {
-    display: flex;
-    flex-direction: column;
-
-        span{
-          font-size: 13px;   
-        }
-   }
-   .container-date{
-    margin: 0px 32px 8px 32px;
-    margin-bottom: 20px;
-   }
-
-    input[type="text"] {
-    padding: 8px;
-    padding-top: 0px;;
-    
-    background-color: #ffffff;
-    
-    color: #9e9e9e;
+  .btn-close {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    background-color: none;
     border: none;
-    border-bottom:1px #000 solid;
-    box-shadow: none;
-    outline: none;
-   }
-   
-   .react-datepicker-wrapper input[type="text"]:focus {
-    border-color: #192c53;
-   }
-   
-   .date-picker button {
-    background-color: #192c53;
-    color: #ffffff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    box-shadow: none;
-    outline: none;
-   }
-   
-   .date-picker button:hover {
-    background-color: #192C53;
-   }
+  }
+  .devolution {
+    .text {
+      &-subtitle {
+        text-align: justify;
+      }
+    }
+  }
+}
+.c-shipping {
+  .box-img {
+    margin-bottom: 32px;
+  }
+  .box-text_envio {
+    height: 150px;
+    margin-bottom: 64px;
+  }
+  .img-envio {
+    height: 100px;
+    width: auto;
+  }
+}
+
+.c-menu {
+  padding: 20px 0px 0px 0px;
+}
+
+.box-date {
+  border-top: 1px solid rgba(19, 28, 53, 0.25);
+  border-bottom: 1px solid rgba(19, 28, 53, 0.25);
+  padding: 20px 0px;
+}
+.react-datepicker-wrapper {
+  font-family: "gotham";
+  color: #000;
+  padding: 15px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+
+  span {
+    font-size: 13px;
+  }
+}
+.container-date {
+  margin: 0px 32px 8px 32px;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  padding: 8px;
+  padding-top: 0px;
+
+  background-color: #ffffff;
+
+  color: #9e9e9e;
+  border: none;
+  border-bottom: 1px #000 solid;
+  box-shadow: none;
+  outline: none;
+}
+
+.react-datepicker-wrapper input[type="text"]:focus {
+  border-color: #192c53;
+}
 

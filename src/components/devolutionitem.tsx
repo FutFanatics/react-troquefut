@@ -4,12 +4,16 @@ import { SH1 } from "../componentsStyled/Text";
 import { Box } from "../componentsStyled/Box";
 import { Devolution } from "./Types";
 import Slider from "react-slick";
+import Button from "../componentsStyled/Button";
+import IconArrowRight from "../componentsStyled/icon/Iconarrowright";
+import IconSucess from "../componentsStyled/icon/Iconsucess";
 
 interface DevolutionItemProps {
   devolucao: {
     id: string;
     imgs: { url: string }[];
     created_at: string;
+    result?: string;
   };
 }
 
@@ -35,7 +39,13 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
       },
     ],
   };
-
+  const getStatusStyle = () => {
+    return devolucao.result === "pending" ? "acompanhar" : "concluida";
+  };
+  const getIcon = () => {
+    
+    return devolucao.result === "pending" ? <IconArrowRight width={16} /> : <IconSucess width={16}/>;
+  };
   return (
     <Box typeBox="product-devolution">
       <div key={devolucao.id}>
@@ -52,6 +62,9 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
             <strong>ID:</strong> {devolucao.id}
           </p>
           <p>{devolucao.created_at}</p>
+          <Button typeButton="devolution-status" className={`${getStatusStyle()}`}>
+          {devolucao.result === "pending" ? "Acompanhar" : "Concluída"}{getIcon()} 
+          </Button>
         </div>
       </div>
     </Box>

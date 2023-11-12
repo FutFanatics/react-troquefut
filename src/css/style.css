@@ -55,7 +55,7 @@
 
 .c-header {
   height: 5rem;
-  background-color: #F4F5F8;
+  background-color: #f4f5f8;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,7 +65,7 @@
 }
 
 .c-footer {
-  background-color: #F4F5F8;
+  background-color: #f4f5f8;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -140,7 +140,7 @@
   top: -59%;
   padding: 9px 25px;
   border-radius: 2px;
-  color: #D9D9D9;
+  color: #d9d9d9;
   font-weight: 700;
 }
 
@@ -159,7 +159,7 @@
   border: none;
   width: 100%;
   border-bottom: 1px solid;
-  color: #192C53;
+  color: #192c53;
   padding-bottom: 4px;
   margin-bottom: 12px;
 }
@@ -341,21 +341,6 @@ input[type=text] {
 
 .react-datepicker-wrapper input[type=text]:focus {
   border-color: #192c53;
-}
-
-.date-picker button {
-  background-color: #192c53;
-  color: #ffffff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  box-shadow: none;
-  outline: none;
-}
-
-.date-picker button:hover {
-  background-color: #192C53;
 }
 
 /*# sourceMappingURL=style.css.map */

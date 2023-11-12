@@ -133,9 +133,25 @@ const SButton = styled.button<SButtonProps>`
                 border-bottom:#192c53 solid  1px
             }
     `}
+    ${props => props.typeButton === 'devolution-status' && `
+            width:100%;
+            height:30px;
+            font-size:15px;
+            margin-top:8px;
+            margin-bottom:0px;
+
+            &.concluida{
+                background:transparent;
+                border:1px solid #00DF5E;
+                color:#00DF5E;
+            }
+            svg{
+                margin:0px 8px;
+            }
+    `}
     ${props => props.typeButton === 'search' && `
-            width:45px;
-            height:45px;
+            width:40px;
+            height:40px;
             border-radius:100px;
     `}
     @media screen and (max-width: 768px) {
