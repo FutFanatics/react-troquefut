@@ -8,15 +8,26 @@ export default function usePost() {
     const [success, setSuccess] = useState(false);
     const [resposta, setResposta] = useState('');
 
-    async function cadastrarDados<T>({url, dados}: {url: string, dados: T }) {
+    async function cadastrarDados<T>({url, dados, token = ""}: {url: string, dados: T, token?: string }) {
         try{
-            const response = await fetch(`http://localhost:8080/${url}`, {
+            const request = {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: {},
                 body: JSON.stringify(dados)
-            })
+            };
+
+            if (token) {
+                request.headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                }
+            } else {
+                request.headers = {
+                    'Content-Type': 'application/json',
+                }
+            }
+
+            const response = await fetch(url, request)
             setSuccess(true);
             const respostaConvertida = await response.json();
             setResposta(respostaConvertida.token);
