@@ -49,7 +49,7 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
   return (
     <Box typeBox="product-devolution">
       <div key={devolucao.id}>
-        <Slider {...settings}>
+        <Slider {...settings} >
           {Array.isArray(devolucao.imgs) &&
             devolucao.imgs.map((img, index) => (
               <div key={index} className="d-flex justify-content-center">
@@ -62,7 +62,7 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
             <strong>ID:</strong> {devolucao.id}
           </p>
           <p>{devolucao.created_at}</p>
-          <Button typeButton="devolution-status" className={`${getStatusStyle()}`}>
+          <Button typeButton="devolution-status" className={`${getStatusStyle()}`} path="/follow">
           {devolucao.result === "pending" ? "Acompanhar" : "Concluída"}{getIcon()} 
           </Button>
         </div>

@@ -8,6 +8,7 @@ interface SBoxIconFut {
 }
 interface Box{
     typeBox?:string;
+    padding?:string;
     margin?: string;
     className?:string;
 }
@@ -33,7 +34,7 @@ export const SBoxIconFut = styled.div<SBoxIconFut>`
 
 export const Box = styled.div<Box>`
     margin: ${(props) => props.margin || '0px 16px'};
-    
+    padding: ${(props) => props.padding || '0px 16px'};
     ${props => props.typeBox === 'estorno' && `
         border: 1px solid rgba(0, 0, 0, 0.40);
         display:flex;
@@ -319,6 +320,111 @@ export const Box = styled.div<Box>`
         }
 
         
+    `}
+    ${props => props.typeBox === 'datafollow' && `
+        border: 1px solid rgba(0, 0, 0, 0.40);
+        border-radius:10px;
+        padding:40px 30px 20px 30px;
+        margin:0px;
+        
+        h1{
+            text-align:center;
+            font-size:18px;
+            font-weight:700;
+            color:#000;
+            margin-bottom:16px;
+        }
+        h2{
+            font-size:16px;
+            font-weight:400;
+            color:#474747;
+            margin-bottom:16px;
+        }
+        label{
+            font-size:13px;
+            font-weight:400;
+        }
+        p{
+            color:#192c53;
+            text-transform:capitalize;
+        }
+        .content{
+            width:49%;
+        }
+        h3{
+            font-weight:500;
+            font-size:17px;
+            color:#000;
+        }
+        .content-img{
+            width:30%;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+        }
+        .content-product_describe{
+            width:60%;
+        }
+        h4{
+            font-size:16px;
+            font-weight:500;
+            color:#000;
+
+        }
+        .slide{
+           width: 80%;
+           margin-bottom:16px;
+           
+            img{
+                width:100%;
+                border-radius:20px;
+            }
+        }
+        .status-icons{
+            margin-top:-10px ;
+        }
+        .container-icon{
+            width:200px;
+            align-items:start;
+            height:120px;
+        }
+        .status-icon{
+            width:55px;
+            height:55px;
+            border-radius:100px;
+            display:flex;
+            justify-content:center;
+
+            svg{
+                width:35px;
+            }
+            
+        }
+        .name-status{
+            font-size:13px;
+            margin-top:8px;
+            color:#192c53;
+            font-family:"gotham";   
+        }
+        .name-date{
+            color:#777;
+            font-size:13px;
+        }
+        .line{
+            width:30px;
+            height:1px;
+            background:#000;
+            position:relative;
+            top:-20px;
+            margin:0px 8px;
+            &:last-child{
+                display:none;
+            }
+        }
+    `}
+    ${props => props.typeBox === 'container-devolution' && `
+        padding-left:32px;
+        margin:0px;
     `}
     @media screen and (max-width: 768px) {
         ${props => props.typeBox === 'estorno' && `

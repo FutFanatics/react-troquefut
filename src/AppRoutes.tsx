@@ -7,6 +7,7 @@ import Data from "./pages/Data";
 import Shipping from "./pages/Shipping";
 import Devolution from "./pages/Devolution";
 import Login from "./pages/Login";
+import Follow from "./pages/follow";
 
 function AppRoutes() {
     return (
@@ -18,7 +19,7 @@ function AppRoutes() {
                 <Route path="/data" element={<Data />}></Route>
                 <Route path="/shipping" element={<Shipping />}></Route>
                 <Route path="/devolution" element={<Devolution />}></Route>
-                
+                <Route path="/follow" element={<Follow/>}></Route>
             </Routes>
         </BrowserRouter>
     )

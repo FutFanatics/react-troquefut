@@ -154,6 +154,16 @@ const SButton = styled.button<SButtonProps>`
             height:40px;
             border-radius:100px;
     `}
+    ${props => props.typeButton === 'followdevolution' && `
+        border-radius:5px;
+        border:1px solid #192c53;
+        color:#193c53;
+        background:transparent;
+        width:120px;
+        height:40px;
+        margin:0px auto;
+        font-size:14px;
+    `}
     @media screen and (max-width: 768px) {
         ${props => props.typeButton === 'select' && `
             width:120px;
