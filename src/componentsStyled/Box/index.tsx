@@ -396,7 +396,7 @@ export const Box = styled.div<Box>`
             justify-content:center;
 
             svg{
-                width:35px;
+                width:30px;
             }
             
         }
@@ -405,6 +405,7 @@ export const Box = styled.div<Box>`
             margin-top:8px;
             color:#192c53;
             font-family:"gotham";   
+            text-align:center;
         }
         .name-date{
             color:#777;

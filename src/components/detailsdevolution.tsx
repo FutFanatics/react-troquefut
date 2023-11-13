@@ -3,6 +3,8 @@ import { DataFollow } from "./Types";
 import { Box } from "../componentsStyled/Box";
 import Slider from "react-slick";
 import Button from "../componentsStyled/Button";
+import ModalAnalise from "./modalAnalise";
+import ModalDevolution from "./modaldevolution";
 
 interface DetailsDevolutionProps {
   className?: string;
@@ -10,6 +12,7 @@ interface DetailsDevolutionProps {
 
 const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className }) => {
   const [devolutionData, setDevolutionData] = useState<DataFollow | undefined>(undefined);
+  const [modalType, setModalType] = useState("");
 
   const settings = {
     dots: false,
@@ -51,6 +54,25 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className }) => {
 
     fetchData();
   }, []);
+  const handleButtonClick = () => {
+    if (devolutionData) {
+      if (devolutionData.status.title === "Em Análise") {
+        setModalType("analise"); 
+      }
+      if (devolutionData.status.title === "Negada") {
+        setModalType("devolution"); 
+      }
+      if (devolutionData.status.title === "Reembolso Aprovado") {
+        setModalType("reembolso"); 
+      }
+      if (devolutionData.status.title === "Reembolso Aprovado") {
+        setModalType("reembolso"); 
+      }
+    }
+  };
+  const closeModal = () => {
+    setModalType("");
+  };
   return (
     <>
     {devolutionData && (
@@ -100,6 +122,12 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className }) => {
             </div>
           </div>
         </div>
+        {modalType === "analise" && (
+            <ModalAnalise isOpen={true} onRequestClose={closeModal} />
+          )}
+          {modalType === "devolution" && (
+            <ModalDevolution isOpen={true} onRequestClose={closeModal} />
+          )}
       </Box>
     )}
   </>

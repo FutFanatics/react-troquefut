@@ -1,26 +1,22 @@
 import React from "react";
 
-interface EnvioProps {
+interface SolicitacaoProps {
   className?: string;
   width?: number;
   fill?: string;
+  style?: React.CSSProperties;
   height?: number;
 }
-const IconEnvio: React.FC<EnvioProps> = ({ className, width, height }) => (
+const IconSolicitacao: React.FC<SolicitacaoProps> = ({ className, width, height,style }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     width={width}
     height={height}
-    viewBox="0 0 24 24"
-    fill="none"
+    viewBox="0 0 18 20"
+    style={style}
   >
-<mask id="mask0_658_2508" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
-<rect width="24" height="24" fill="#D9D9D9"/>
-</mask>
-<g mask="url(#mask0_658_2508)">
-<path d="M11 21.725V12.575L3 7.95V15.975C3 16.3417 3.0875 16.675 3.2625 16.975C3.4375 17.275 3.68333 17.5167 4 17.7L11 21.725ZM13 21.725L20 17.7C20.3167 17.5167 20.5625 17.275 20.7375 16.975C20.9125 16.675 21 16.3417 21 15.975V7.95L13 12.575V21.725ZM16.975 7.975L19.925 6.25L13 2.275C12.6833 2.09167 12.35 2 12 2C11.65 2 11.3167 2.09167 11 2.275L9.025 3.4L16.975 7.975ZM12 10.85L14.975 9.15L7.05 4.55L4.05 6.275L12 10.85Z" fill="white"/>
-</g>
+<path d="M8 19.725V10.575L0 5.95V13.975C0 14.3417 0.0875 14.675 0.2625 14.975C0.4375 15.275 0.683333 15.5167 1 15.7L8 19.725ZM10 19.725L17 15.7C17.3167 15.5167 17.5625 15.275 17.7375 14.975C17.9125 14.675 18 14.3417 18 13.975V5.95L10 10.575V19.725ZM13.975 5.975L16.925 4.25L10 0.275C9.68333 0.0916667 9.35 0 9 0C8.65 0 8.31667 0.0916667 8 0.275L6.025 1.4L13.975 5.975ZM9 8.85L11.975 7.15L4.05 2.55L1.05 4.275L9 8.85Z" />
 </svg>
 );
-export default IconEnvio;
+export default IconSolicitacao;

@@ -3,9 +3,10 @@ import Modal from "react-modal";
 import { SH1, STextParagraph } from "../componentsStyled/Text";
 import Button from "../componentsStyled/Button";
 import axios from "axios";
-import IconNegada from "../componentsStyled/icon/Iconnegada";
 
-interface ModalDevolutionProps extends ModalProps {
+import IconDevreembolso from "../componentsStyled/icon/Icondevreembolso";
+
+interface ModalReembolsoProps extends ModalProps {
   isOpen: boolean;
   children?: React.ReactNode;
   onRequestClose: () => void;
@@ -19,7 +20,7 @@ interface ModalProps {
   className?: string;
 }
 
-const ModalDevolution: React.FC<ModalDevolutionProps> = ({
+const ModalReembolso: React.FC<ModalReembolsoProps> = ({
   isOpen,
   onRequestClose,
   title,
@@ -33,29 +34,24 @@ const ModalDevolution: React.FC<ModalDevolutionProps> = ({
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       className={`c-modal_devolution ${className}`}
-      
     >
       <div className="container d-flex flex-column align-items-center">
-      <IconNegada width={60}></IconNegada>
+        <IconDevreembolso width={60}></IconDevreembolso>
         <SH1 typeTitle="devolution-modal">
-            Poxa,Craque!
+          <strong className="green">Reembolso</strong> em Progresso!
         </SH1>
-        <STextParagraph typeParagraph="paragraphdevolution">
-              Sua solicitação de devolução foi
-              <strong> negada.</strong>
-            </STextParagraph>
-            <STextParagraph typeParagraph="paragraphdescribe">
-              Caso tenha alguma dúvida, entre em contato pelo <strong>site</strong>, pelo nosso
-              <strong> SAC: (11)4858-3500</strong> ou email de contato: <strong>contato@futfanatics.com.br</strong>
 
-            </STextParagraph>
-        
+        <STextParagraph typeParagraph="paragraphdescribe">
+          Sua solicitação de Devolução foi aprovada! Já estamos processando a
+          sua opção de recebimento.
+        </STextParagraph>
       </div>
 
-
-      <Button typeButton="back" onClick={onRequestClose}>Voltar</Button>
+      <Button typeButton="back" onClick={onRequestClose}>
+        Voltar
+      </Button>
     </Modal>
   );
 };
 
-export default ModalDevolution;
+export default ModalReembolso;

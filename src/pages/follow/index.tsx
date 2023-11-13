@@ -12,7 +12,7 @@ export default function Follow() {
         <>
         <Header></Header>
         <Menu typeOption="active"></Menu>
-        <SH1 textTransform="uppercase">Acompanhe sua devolução</SH1>
+        <SH1 textTransform="uppercase" margin="16px 0px 32px 0px">Acompanhe sua devolução</SH1>
         <div className="container">
             <div className="row mt-4 mb-4 justify-content-between">
             <FollowData></FollowData>
