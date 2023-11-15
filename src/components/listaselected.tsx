@@ -9,7 +9,7 @@ interface ListaSelectedProps<T> {
   function ListaSelected<T extends string | number>({ options, onChange, selectedValue }: ListaSelectedProps<T>) {
     return(
         <select onChange={(e) => onChange(e.target.value as T)} value={selectedValue} className="list-select">
-        <option value={undefined} disabled>Selecione uma opção</option>
+        <option value="" disabled>Selecione uma opção</option>
         {options.map((option, index) => (
             <option key={index} value={option}>
             {option}

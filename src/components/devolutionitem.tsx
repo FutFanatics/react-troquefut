@@ -40,7 +40,7 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
     ],
   };
   const getStatusStyle = () => {
-    return devolucao.result === "pending" ? "acompanhar" : "concluida";
+    return devolucao.result === "pending" ? "acompanhar" : "concluída";
   };
   const getIcon = () => {
     

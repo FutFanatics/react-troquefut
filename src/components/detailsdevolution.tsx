@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import Button from "../componentsStyled/Button";
 import ModalAnalise from "./modalAnalise";
 import ModalDevolution from "./modaldevolution";
-
+import axios from "axios";
 interface DetailsDevolutionProps {
   className?: string;
 }
@@ -37,22 +37,41 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className }) => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:5001/acompanhe");
-        if (response.ok) {
-          const data = await response.json();
-          
-          setDevolutionData(data[0]);
-        } else {
-          console.error("Error fetching data:", response.statusText);
+    let auth = localStorage.getItem('auth');
+    if(auth) {
+        const authObj = JSON.parse(auth);
+        console.log(authObj)
+  
+        const username = authObj.email;
+        const password = authObj.token;
+        const buffer = Buffer.from(username + ':' + password);
+        const basicAuth = buffer.toString('base64');
+        
+        const fetchData = async () => {
+        try {
+            const response = await axios.get("https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/335",
+            {
+                timeout: 10000,
+                headers: {
+                  'Authorization': 'Basic ' + basicAuth
+                }
+            }
+            
+            );
+            
+            if (response.status === 200) {
+            const data = response.data;
+            setDevolutionData(data[0]);
+            } else {
+            console.error("Error fetching data:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Error fetching data:");
         }
-      } catch (error) {
-        console.error("Error fetching data:");
-      }
-    };
+        };
+        fetchData();
+    }
 
-    fetchData();
   }, []);
   const handleButtonClick = () => {
     if (devolutionData) {
@@ -65,8 +84,11 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className }) => {
       if (devolutionData.status.title === "Reembolso Aprovado") {
         setModalType("reembolso"); 
       }
-      if (devolutionData.status.title === "Reembolso Aprovado") {
-        setModalType("reembolso"); 
+      if (devolutionData.status.title === "Devolução FInalizada ") {
+        setModalType("concluido"); 
+      }
+      if (devolutionData.status.title === "Envio") {
+        setModalType("envio"); 
       }
     }
   };
@@ -88,7 +110,7 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className }) => {
                 </div>
               ))}
             </Slider>
-            <Button typeButton="followdevolution">{devolutionData.status.title}</Button>
+            <Button typeButton="followdevolution" onClick={handleButtonClick}>{devolutionData.status.title}</Button>
           </div>
           <div className="content-product_describe">
             <h3>{devolutionData.name}</h3>
@@ -126,6 +148,15 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className }) => {
             <ModalAnalise isOpen={true} onRequestClose={closeModal} />
           )}
           {modalType === "devolution" && (
+            <ModalDevolution isOpen={true} onRequestClose={closeModal} />
+          )}
+          {modalType === "reembolso" && (
+            <ModalDevolution isOpen={true} onRequestClose={closeModal} />
+          )}
+          {modalType === "concluido" && (
+            <ModalDevolution isOpen={true} onRequestClose={closeModal} />
+          )}
+          {modalType === "envio" && (
             <ModalDevolution isOpen={true} onRequestClose={closeModal} />
           )}
       </Box>

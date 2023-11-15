@@ -82,9 +82,7 @@ export default function Order() {
                     className="c-lista-suspensa"  
                 ></ListaSuspensa>
 
-                <ListaProdutos selectedId={selectedId}></ListaProdutos>  
-
-                <Button margin="0px auto 32px auto" path="/data" typeButton="next" >Avançar</Button>                
+                <ListaProdutos selectedId={selectedId}></ListaProdutos>        
             </div>
         </section>
         <Footer></Footer>

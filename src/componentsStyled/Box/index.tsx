@@ -140,6 +140,10 @@ export const Box = styled.div<Box>`
         &:last-child{
             margin: 32px 0px 16px 0px;
         }
+
+        .content-select{
+            width:45%
+        }
         @media screen and (max-width: 768px) {
             padding:10px;
             border:none;
@@ -155,7 +159,9 @@ export const Box = styled.div<Box>`
         margin:0px 8px 0px 0px;
         cursor:pointer;
         background:#192c53;
-    `}
+        padding:0px;
+        
+        `}
     ${props => props.typeBox === 'termos' && `
         border:1px solid rgba(0,0,0,0.5);
         padding:40px 30px;

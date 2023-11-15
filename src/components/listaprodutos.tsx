@@ -103,7 +103,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
               </div>
             </div>
           )}
-          <div className="row justify-content-center lista-content">
+          <div className="row justify-content-center lista-content flex-column align-items-center">
             <Produtos produtos={pedido?.Products || []}
               selectedId={selectedId || ''} 
               onSelect={() => {}}

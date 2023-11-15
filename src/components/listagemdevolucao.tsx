@@ -7,6 +7,7 @@ import { Box } from "../componentsStyled/Box";
 import DevolutionItem from "./devolutionitem";
 import Button from "../componentsStyled/Button";
 import IconSearch from "../componentsStyled/icon/iconsearch";
+import { Buffer } from 'buffer';
 
 type Devolution = {
   id: string;
@@ -20,16 +21,35 @@ const ListagemDevolucoes: React.FC = () => {
   const [devolucoes, setDevolucoes] = useState<Devolution[]>([]);
 
   useEffect(() => {
-    const fetchDevolucoes = async () => {
-      try {
-        const response = await axios.get("http://localhost:5001/devolucoes");
-        setDevolucoes(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar devoluções", error);
-      }
-    };
+    let auth = localStorage.getItem('auth');
+    if(auth) {
+        const authObj = JSON.parse(auth);
+        console.log(authObj)
+  
+        const username = authObj.email;
+        const password = authObj.token;
+        const buffer = Buffer.from(username + ':' + password);
+        const basicAuth = buffer.toString('base64');
+        
+        const fetchDevolucoes = async () => {
+        try {
+            const response = await axios.get("https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/335",
+            {
+                timeout: 10000,
+                headers: {
+                  'Authorization': 'Basic ' + basicAuth
+                }
+            }
+            
+            );
+            setDevolucoes(response.data);
+          }catch (error) {
+            console.error("Error fetching data:");
+          }
+        };
+        fetchDevolucoes();
+    }
 
-    fetchDevolucoes();
   }, [selectedDate, currentDate]);
 
   const handleSearch = () => {
