@@ -7,7 +7,6 @@ import ListaProdutos from "../../components/listaprodutos";
 import ListaSuspensa from "../../components/listasuspensa";
 import axios from "axios";
 import Menu from "../../components/menu";
-import { Buffer } from "buffer";
 import { Box } from "../../componentsStyled/Box";
 
 interface Pedido {
@@ -28,8 +27,16 @@ export default function Order() {
 
       const username = authObj.email;
       const password = authObj.token;
-      const buffer = Buffer.from(username + ":" + password);
-      const basicAuth = buffer.toString("base64");
+      const text: string = username + ':' + password;
+      const encoder: TextEncoder = new TextEncoder();
+      const data: Uint8Array = encoder.encode(text);
+
+      // Convert the Uint8Array to a regular array of numbers
+      const dataArray: number[] = Array.from(data);
+
+      // Convert the regular array of numbers to a base64 string
+      const binaryString: string = String.fromCharCode.apply(null, dataArray);
+      const basicAuth: string = btoa(binaryString);
 
       axios
         .get(

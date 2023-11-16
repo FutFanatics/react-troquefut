@@ -7,6 +7,7 @@ import Data from "./pages/Data";
 import Shipping from "./pages/Shipping";
 import Devolution from "./pages/Devolution";
 import Login from "./pages/Login";
+import LoginAcompany from "./pages/Login/index-acompany";
 import Follow from "./pages/follow";
 
 function AppRoutes() {
@@ -15,6 +16,7 @@ function AppRoutes() {
             <Routes>
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/login" element={<Login/>}></Route>
+                <Route path="/login-acompany" element={<LoginAcompany/>}></Route>
                 <Route path="/order" element={<Order />}></Route>
                 <Route path="/data" element={<Data />}></Route>
                 <Route path="/shipping" element={<Shipping />}></Route>

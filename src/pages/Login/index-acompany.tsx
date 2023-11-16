@@ -13,7 +13,7 @@ interface LoginProps {
   alternarElemento?: () => void;
 }
 
-const Login: React.FC<LoginProps> = ({ className }) => {
+const LoginAcompany: React.FC<LoginProps> = ({ className }) => {
 
   return (
     <>
@@ -24,7 +24,7 @@ const Login: React.FC<LoginProps> = ({ className }) => {
             <STextParagraph margin="64px 0px 0px 0px" fontSize="16px" fontWeight={400}>
             Para acessar a plataforma, faça o login abaixo:
             </STextParagraph>
-            <Validation></Validation>
+            <ValidationAcompany></ValidationAcompany>
         </div>
         
     </div>
@@ -32,4 +32,4 @@ const Login: React.FC<LoginProps> = ({ className }) => {
   );
 };
 
-export default Login;
+export default LoginAcompany;

@@ -37,7 +37,7 @@ export default function Home() {
                                 <SspanText>ou</SspanText>
                             <hr/>
                         </div>
-                        <Button typeButton="devolucao" path="/login"><IconAcompanhe width={25}/> 
+                        <Button typeButton="devolucao" path="/login-acompany"><IconAcompanhe width={25}/> 
                         <span>
                         Acompanhar sua Devolução
                         </span> </Button> 

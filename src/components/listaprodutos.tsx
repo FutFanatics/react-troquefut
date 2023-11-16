@@ -4,7 +4,6 @@ import Produtos from "./produtos";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import ProductSelected from "./produtoselected";
-import { Buffer } from 'buffer';
 
 interface ListaProdutosProps {
   className?: string;
@@ -41,8 +40,16 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
 
       const username = authObj.email;
       const password = authObj.token;
-      const buffer = Buffer.from(username + ':' + password);
-      const basicAuth = buffer.toString('base64');
+      const text: string = username + ':' + password;
+      const encoder: TextEncoder = new TextEncoder();
+      const data: Uint8Array = encoder.encode(text);
+
+      // Convert the Uint8Array to a regular array of numbers
+      const dataArray: number[] = Array.from(data);
+
+      // Convert the regular array of numbers to a base64 string
+      const binaryString: string = String.fromCharCode.apply(null, dataArray);
+      const basicAuth: string = btoa(binaryString);
 
       axios.get(
         `https://api.troquefuthomologacao.futfanatics.com.br/api/order/get/${selectedId}`,

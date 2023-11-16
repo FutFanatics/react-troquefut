@@ -44,30 +44,39 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className }) => {
   
         const username = authObj.email;
         const password = authObj.token;
-        const buffer = Buffer.from(username + ':' + password);
-        const basicAuth = buffer.toString('base64');
-        
+        const customerId = authObj.id;
+        const text: string = username + ':' + password;
+        const encoder: TextEncoder = new TextEncoder();
+        const data: Uint8Array = encoder.encode(text);
+
+        // Convert the Uint8Array to a regular array of numbers
+        const dataArray: number[] = Array.from(data);
+
+        // Convert the regular array of numbers to a base64 string
+        const binaryString: string = String.fromCharCode.apply(null, dataArray);
+        const basicAuth: string = btoa(binaryString);
+          
         const fetchData = async () => {
-        try {
-            const response = await axios.get("https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/335",
-            {
-                timeout: 10000,
-                headers: {
-                  'Authorization': 'Basic ' + basicAuth
-                }
-            }
-            
-            );
-            
-            if (response.status === 200) {
-            const data = response.data;
-            setDevolutionData(data[0]);
-            } else {
-            console.error("Error fetching data:", response.statusText);
-            }
-        } catch (error) {
-            console.error("Error fetching data:");
-        }
+          try {
+              const response = await axios.get("https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/"+customerId,
+              {
+                  timeout: 10000,
+                  headers: {
+                    'Authorization': 'Basic ' + basicAuth
+                  }
+              }
+              
+              );
+              
+              if (response.status === 200) {
+              const data = response.data;
+              setDevolutionData(data[0]);
+              } else {
+              console.error("Error fetching data:", response.statusText);
+              }
+          } catch (error) {
+              console.error("Error fetching data:");
+          }
         };
         fetchData();
     }

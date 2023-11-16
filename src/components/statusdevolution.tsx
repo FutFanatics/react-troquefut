@@ -7,6 +7,7 @@ import IconAnaliseDevolucao from "../componentsStyled/icon/Iconanalisedev";
 import IconAcompanhe from "../componentsStyled/icon/Iconacompanhe";
 import IconReembolso from "../componentsStyled/icon/Iconreembolso";
 import IconCheck from "../componentsStyled/icon/Iconcheck";
+import axios from "axios";
 
 interface StatusDevolutionProps {
   className?: string;
@@ -16,25 +17,48 @@ const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className }) => {
   const [data, setData] = useState<DataFollow[] | undefined>(undefined);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:5001/acompanhe");
-        if (response.ok) {
-          const data = await response.json();
-          setData(data);
-        } else {
-          console.error("Error fetching data:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+    let auth = localStorage.getItem('auth');
 
-    fetchData();
+    if(auth) {
+      const authObj = JSON.parse(auth);
+      console.log(authObj)
+
+      const username = authObj.email;
+      const password = authObj.token;
+      const customerId = authObj.customerId;
+      const text: string = username + ':' + password;
+      const encoder: TextEncoder = new TextEncoder();
+      const data: Uint8Array = encoder.encode(text);
+
+      // Convert the Uint8Array to a regular array of numbers
+      const dataArray: number[] = Array.from(data);
+
+      // Convert the regular array of numbers to a base64 string
+      const binaryString: string = String.fromCharCode.apply(null, dataArray);
+      const basicAuth: string = btoa(binaryString);
+
+      axios.get(
+        `https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}/27`,
+        {
+          timeout: 10000,
+          headers: {
+            'Authorization': 'Basic ' + basicAuth
+          }
+        }
+      )
+      .then(function (response) {
+        setData(response.data);
+        console.log(response.data, "Dados do pedido recebidos com sucesso");
+      })
+      .catch(function (error) {
+        console.log(error, "Erro ao obter dados do pedido");
+      });
+    }
   }, []);
 
   return (
     <>
+      {console.log(data)}
       {data?.map((item) => (
         <Box
           key={item.id}
