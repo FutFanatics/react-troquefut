@@ -15,6 +15,7 @@ interface IButton {
     borderRadius?:string;   
     width?:string;
     height?: string;
+    disabled?: boolean;
     type?: string; 
 }
 
@@ -28,6 +29,7 @@ interface SButtonProps {
     width?:string;
     className?:string;
     height?: string; 
+    disabled?: boolean;
 }
 
 const SButton = styled.button<SButtonProps>`

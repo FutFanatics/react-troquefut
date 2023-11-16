@@ -11,6 +11,7 @@ import Slider from "react-slick";
 interface ModalCameraProps {
   isOpen: boolean;
   children?: React.ReactNode;
+  onPhotoAdded: () => void;
   onRequestClose: () => void;
 }
 

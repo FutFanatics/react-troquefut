@@ -18,6 +18,9 @@ import IconDevreembolso from "../../componentsStyled/icon/Icondevreembolso";
 
 export default function Data() {
   const [IsOpen, setModalIsOpen] = useState(false);
+  const [tipoReembolso, setTipoReembolso] = useState<string>(
+    localStorage.getItem("tipoReembolso") || ""
+  );
   const openModal = () => {
     setModalIsOpen(true);
   };
@@ -57,7 +60,11 @@ export default function Data() {
           <div className="row justify-content-center">
             <Box typeBox="estorno" className="col-md-10">
               <IconFinance width={64}></IconFinance>
-              <ValeEstorno></ValeEstorno>
+              {tipoReembolso === "Vale-Compras" ? (
+            <ValeCompras />
+              ) : (
+                <ValeEstorno />
+              )}
               <div className="d-flex mt-5 justify-content-start col-md-10">
                 <input type="checkbox" required></input>
                 <STextParagraph fontSize="14px" padding="0px 0px 0px 8px">

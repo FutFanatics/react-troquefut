@@ -73,7 +73,3 @@ const Validation: React.FC = () => {
 
 export default Validation;
 
-/**
- * 
- * 
- */

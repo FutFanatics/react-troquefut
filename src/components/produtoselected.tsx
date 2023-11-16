@@ -1,36 +1,55 @@
 import React, { useState, useEffect } from "react";
 import ModalCamera from "./modalfoto";
-import Modal from "react-modal";
 import { Box } from "../componentsStyled/Box";
 import { SH1, STextParagraph, SspanText } from "../componentsStyled/Text";
 import IconCamera from "../componentsStyled/icon/Iconcamera";
-import sp from "../img/img-camisa_sp.png";
-import { Produto } from "./Types";
 import ListaSelected from "./listaselected";
 import Button from "../componentsStyled/Button";
+import { Produto } from "./Types";
 
 interface ProductSelectedProps {
   className?: string;
   produto?: Produto | null;
   produtosSelecionados?: Produto[];
   onDataUpdate?: (data: any) => void;
+  onSaveTipoReembolso?: (tipoReembolso: string) => void;
+
 }
 
 const ProductSelected: React.FC<ProductSelectedProps> = ({
   produto,
   produtosSelecionados,
   onDataUpdate,
+  onSaveTipoReembolso,
 }) => {
   const [tipoReembolso, setTipoReembolso] = useState<string>("");
   const [motivoDevolucao, setMotivoDevolucao] = useState<string>("");
   const [subDevolucao, setSubDevolucao] = useState<string>("");
   const [quantidade, setQuantidade] = useState<number | "">("");
+  const [reasons, setReasons] = useState<any[]>([]); 
+  const [subReasons, setSubReasons] = useState<any[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [fotoAdicionada, setFotoAdicionada] = useState(false);
 
   useEffect(() => {
+    fetch("https://api.troquefuthomologacao.futfanatics.com.br/api/reasons")
+      .then((response) => response.json())
+      .then((data) => setReasons(data))
+      .catch((error) => console.error("Error fetching reasons:", error));
+
     console.log("produto:", produto);
     console.log("produtosSelecionados:", produtosSelecionados);
   }, [produto, produtosSelecionados]);
+
+  useEffect(() => {
+    const selectedReason = reasons.find((reason) => reason.description === motivoDevolucao);
+
+    if (selectedReason && selectedReason.subReasons) {
+      setSubReasons(selectedReason.subReasons);
+    } else {
+      setSubReasons([]);
+    }
+  }, [motivoDevolucao, reasons]);
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -46,19 +65,28 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       });
     }
   };
+
   const closeModal = () => {
     setModalIsOpen(false);
-
     updateData();
   };
+
+  const motivoDevolucaoOptions = reasons.map((reason) => reason.description);
+  const subDevolucaoOptions = subReasons.map((subReason) => subReason.description);
 
   if (!produto) {
     return null;
   }
 
+  const isFotoAdicaoValida = fotoAdicionada || motivoDevolucao !== "";
+  localStorage.setItem("tipoReembolso", tipoReembolso);
+
+    if (onSaveTipoReembolso) {
+      onSaveTipoReembolso(tipoReembolso);
+    }
   return (
     <>
-    <SH1>Preencha as informações do(s) produto(s) selecionado(s)</SH1>
+      <SH1>Preencha as informações do(s) produto(s) selecionado(s)</SH1>
       <Box typeBox="productselected" className="col-md-9 product-selected">
         <div className="row w-100">
           <Box
@@ -86,71 +114,74 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                   *Tipo de Reembolso
                 </STextParagraph>
                 <ListaSelected
-                  options={["Cupom", "Estorno"]}
+                  options={["Vale-Compras", "Reembolso"]}
                   onChange={(selectedValue) => setTipoReembolso(selectedValue)}
                   selectedValue={tipoReembolso}
                 ></ListaSelected>
               </div>
               <div className="d-flex flex-column justify-content-center content-select">
                 <STextParagraph typeParagraph="select">*Quantidade</STextParagraph>
-              <ListaSelected
-                options={[1, 2, 3, 4, 5]}
-                onChange={(selectedValue) =>
-                  setQuantidade(selectedValue as number | "")
-                }
-                selectedValue={quantidade}
-              ></ListaSelected>
-                </div>
-            </div>
-            <div className="d-md-flex justify-content-between">
-              <div className="d-flex flex-column justify-content-center content-select">
-              <STextParagraph typeParagraph="select">
-              *Por que quer devolver?
-            </STextParagraph>
-            <ListaSelected
-              options={["Motivo A", "Motivo B", "Motivo C"]}
-              onChange={(selectedValue) => setMotivoDevolucao(selectedValue)}
-              selectedValue={motivoDevolucao}
-            ></ListaSelected>
-              </div>
-              <div className="d-flex flex-column justify-content-center content-select">
-                <STextParagraph typeParagraph="select">*O que aconteceu?</STextParagraph>
                 <ListaSelected
-              options={["Motivo A", "Motivo B", "Motivo C"]}
-              onChange={(selectedValue) => setSubDevolucao(selectedValue)}
-              selectedValue={subDevolucao}
-            ></ListaSelected>
-                </div>
+                  options={[1, 2, 3, 4, 5]}
+                  onChange={(selectedValue) =>
+                    setQuantidade(selectedValue as number | "")
+                  }
+                  selectedValue={quantidade}
+                ></ListaSelected>
+              </div>
             </div>
             <div className="d-md-flex justify-content-between">
               <div className="d-flex flex-column justify-content-center content-select">
-              <STextParagraph typeParagraph="select">Observações</STextParagraph>
-            <input type="text"></input>
+                <STextParagraph typeParagraph="select">
+                  *Por que quer devolver?
+                </STextParagraph>
+                <ListaSelected
+                  options={motivoDevolucaoOptions}
+                  onChange={(selectedValue) => setMotivoDevolucao(selectedValue)}
+                  selectedValue={motivoDevolucao}
+                ></ListaSelected>
               </div>
               <div className="d-flex flex-column justify-content-center content-select">
-              <Box
-              className="d-flex align-items-center"
-              margin="12px 0px 0px 0px"
-            >
-              <a onClick={openModal}>
-                <Box typeBox="cam">
-                  <IconCamera fill="#fff" width={25} ></IconCamera>
-                </Box>
-              </a>
-              <STextParagraph typeParagraph="select">
-                Anexar fotos
-              </STextParagraph>
-            </Box>
+                <STextParagraph typeParagraph="select">
+                  *O que aconteceu?
+                </STextParagraph>
+                <ListaSelected
+                  options={subDevolucaoOptions}
+                  onChange={(selectedValue) => setSubDevolucao(selectedValue)}
+                  selectedValue={subDevolucao}
+                ></ListaSelected>
               </div>
             </div>
-            <ModalCamera isOpen={modalIsOpen} onRequestClose={closeModal} />
+            <div className="d-md-flex justify-content-between">
+              <div className="d-flex flex-column justify-content-center content-select">
+                <STextParagraph typeParagraph="select">Observações</STextParagraph>
+                <input type="text"></input>
+              </div>
+              <div className="d-flex flex-column justify-content-center content-select">
+                <Box
+                  className="d-flex align-items-center"
+                  margin="12px 0px 0px 0px"
+                >
+                  <a onClick={openModal}>
+                    <Box typeBox="cam">
+                      <IconCamera fill="#fff" width={25}></IconCamera>
+                    </Box>
+                  </a>
+                  <STextParagraph typeParagraph="select">
+                    Anexar fotos
+                  </STextParagraph>
+                </Box>
+              </div>
+            </div>
+            <ModalCamera isOpen={modalIsOpen} onRequestClose={closeModal} onPhotoAdded={() => setFotoAdicionada(true)} />
           </Box>
         </div>
       </Box>
 
-      <Button path="/data" margin="32px 0px">Confirmar</Button>
+      <Button path="/data" margin="32px 0px" disabled={!isFotoAdicaoValida}>
+        Confirmar
+      </Button>
     </>
-
   );
 };
 

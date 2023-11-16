@@ -11,9 +11,9 @@ interface ProdutosProps {
   selectedId?: string;
   onSelect?: () => void;
   selected?: boolean;
+  shipmentDate?: string;
 }
-
-const Produtos: React.FC<ProdutosProps> = ({ produtos, className, selected }) => {
+const Produtos: React.FC<ProdutosProps> = ({ produtos, className, shipmentDate }) => {
   const [buttonText, setButtonText] = useState("Selecionar");
   const [produtosSelecionados, setProdutosSelecionados] = useState<Produto[]>([]);
   const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(null);
@@ -34,7 +34,7 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, selected }) =>
     if (produtosSelecionados.some((p) => p.product_id === produto.product_id)) {
       const updatedProdutos = produtosSelecionados.filter((p) => p.product_id !== produto.product_id);
       setProdutosSelecionados(updatedProdutos);
-      setButtonText("Selecionar"); // Adicionado para redefinir o texto ao desselecionar
+      setButtonText("Selecionar");
     } else {
       setProdutosSelecionados([...produtosSelecionados, produto]);
       setProdutoSelecionado(produto);
@@ -59,10 +59,7 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, selected }) =>
         />
       ) : (
         <>
-          
           {produtos.map((produto, index) => (
-            <>
-          <SH1 margin="0px 0px 32px 0px">Selecione os produtos a serem devolvidos</SH1>
             <Box typeBox="product" key={index}>
               <div className="produto-box_img">
                 <a href={produto.url} target="_blank">
@@ -84,6 +81,7 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, selected }) =>
                 <SspanText typeSpan="namProduct">
                   Código:{" "}
                   <SspanText typeSpan="namProduct">{produto.product_id}</SspanText>
+                  
                 </SspanText>
 
                 <SspanText typeSpan="namProduct">
@@ -103,7 +101,6 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, selected }) =>
                 {buttonText}
               </Button>
             </Box>
-            </>
           ))}
           {produtosSelecionados.length > 0 && (
             <Button onClick={handleButtonClick} className="mt-5">Continuar</Button>
