@@ -1,5 +1,4 @@
 import TroqueFut from "../componentsStyled/icon/LogoTroqueFut";
-import Options from "./options";
 import React from 'react';
 
 interface MenuProps {

@@ -16,7 +16,7 @@ interface PixProps {
 const Pix: React.FC<PixProps> = ({ className }) => {    
   return (
     <>
-      <div className="col-md-8 d-flex flex-column mt-4">
+      <div className="col-md-8 col-12 d-flex flex-column mt-5">
         <Box typeBox="login" margin="0px">
           <label>Tipo de Pix</label>
           <select className="w-100">

@@ -142,7 +142,12 @@ export const Box = styled.div<Box>`
         }
 
         .content-select{
-            width:45%
+            width:45%;
+
+            @media screen and (max-width: 768px) {
+                width:100%;
+                margin-top:16px;
+            }
         }
         @media screen and (max-width: 768px) {
             padding:10px;
@@ -188,7 +193,7 @@ export const Box = styled.div<Box>`
             }
               
              
-            &::-webkit-scrollbar-thumb:hover {
+            &::-webkit-scrollbar-thumb:hover {  
                 background: #192C53;
             }
             @media screen and (max-width: 768px) {
@@ -254,12 +259,31 @@ export const Box = styled.div<Box>`
             display:none;
         }
     `}
+    ${props => props.typeBox === 'active' && `
+        margin:0px 8px;
+
+
+    `}
     ${props => props.typeBox === 'active-number' && `
         width: 35px;
         background:#192c53;
+        margin:0px 8px;
         height:35px;
         border-radius:50px;
+        display:flex;
+        justify-content:center;
+        alignt-items:center;
     `}
+    ${props => props.typeBox === 'inative-number' && `
+    width: 35px;
+    background:#777;
+    height:35px;
+    border-radius:50px;
+    display:flex;
+    margin:0px 8px;
+    justify-content:center;
+    alignt-items:center;
+`}
     ${props => props.typeBox === 'upload' && `
         background: #EBEBEB;
         border-radius:8px;
@@ -286,10 +310,11 @@ export const Box = styled.div<Box>`
             border:none;
             border-bottom:1px solid #000;
             width:100%;
+            opacity:0.6;
 
             &::placeholder{
                 color:#192c53;
-                opacity:0.5;
+                opacity:1;
                 font-size:15px;
                 font-weight:500;
             }
@@ -438,12 +463,24 @@ export const Box = styled.div<Box>`
             border:none;
             padding:32px 8px;
             margin-top:0px;
+            margin-bottom:0px;
         `}
         ${props => props.typeBox === 'termos' && `
             @media screen and (max-width: 768px) {
                 padding:40px 10px;
                 margin:12px 0px 0px 0px;
             }
+        `}
+        ${props => props.typeBox === 'active' && `
+                margin:0px;
+                padding:0px;
+            
+        `}
+        ${props => props.typeBox === 'inative-number' && `
+            margin-bottom: 8px;
+        `}
+        ${props => props.typeBox === 'active-number' && `
+            margin-bottom: 8px;
         `}
     }
 `

@@ -10,6 +10,8 @@ interface SH1Props{
    fontWeight?: number;
    textAlign?:string;
    color?:string;
+   fontSizesm?:string;
+    marginsm?:string;
 }
 
 interface STextParagraph{
@@ -19,6 +21,7 @@ interface STextParagraph{
    margin?: string;
    fontSize?: string;
    padding?: string;
+   paddingsm?:string;
 }
 
 interface SspanText{
@@ -39,7 +42,8 @@ export const SH1 =styled.h1<SH1Props>`
     text-transform: ${(props) => props.textTransform || 'none'};
 
     @media screen and (max-width: 768px) {
-        font-size:18px
+        font-size: ${(props) => props.fontSizesm || '18px'};
+        margin: ${(props) => props.marginsm || '16px 0px'};
      }
 
 
@@ -105,7 +109,7 @@ export const SH1 =styled.h1<SH1Props>`
         color:#000
     }
         @media screen and (max-width: 768px) {
-            padding:0px
+            padding: ${(props) => props.paddingsm || '0px'};
          }
     
     ${props => props.typeParagraph === 'select' && `
@@ -192,6 +196,13 @@ export const SH1 =styled.h1<SH1Props>`
     `}
         ${props => props.typeSpan === 'active' && `
         color:#000;
+        font-weight:500;
+        font-size:17px;
+        `}
+        ${props => props.typeSpan === 'inative' && `
+            color:#777;
+            font-weight:500;
+            font-size:17px;
         `}
         
         ${props => props.typeSpan === 'namProduct' && `
@@ -199,4 +210,12 @@ export const SH1 =styled.h1<SH1Props>`
             font-size:15px;
 
         `}
+        @media screen and (max-width: 768px) {
+            ${props => props.typeSpan === 'active' && `
+                font-size:13px;
+            `}
+            ${props => props.typeSpan === 'inative' && `
+                font-size:13px;
+            `}
+        }
  `

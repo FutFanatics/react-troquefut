@@ -1,7 +1,6 @@
 import Footer from "../../components/footer";
-import { SH1 } from "../../componentsStyled/Text";
+import { SH1, SspanText } from "../../componentsStyled/Text";
 import React, { useState } from "react";
-import Options from "../../components/options";
 import CliqueRetire from "../../components/cliqueretire";
 import Header from "../../components/header";
 import Correios from "../../components/correios";
@@ -9,6 +8,7 @@ import Button from "../../componentsStyled/Button";
 import ModalAceite from "../../components/modalaceite";
 import Slider from "react-slick";
 import Menu from "../../components/menu";
+import { Box } from "../../componentsStyled/Box";
 
 export default function Shipping() {
   const [cliqueRetireSelected, setCliqueRetireSelected] = useState(false);
@@ -56,6 +56,23 @@ export default function Shipping() {
     <>
       <Header></Header>
       <Menu typeOption="active"></Menu>
+      <div className="c-container-options d-flex justify-content-center options">
+      <Box typeBox="active" className="d-flex flex-md-row flex-column align-items-center justify-content-center">
+        <Box typeBox="active-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>1</SspanText></Box>
+        <SspanText typeSpan="active">Pedido</SspanText>
+      </Box>
+      <div className="line-options"></div>
+      <Box typeBox="active" className="d-flex align-items-center justify-content-center flex-md-row flex-column">
+        <Box typeBox="active-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>2</SspanText></Box>
+        <SspanText typeSpan="active">Reembolso</SspanText>
+      </Box>
+      <div className="line-options"></div>
+      <Box typeBox="active" className="d-flex align-items-center justify-content-center flex-md-row flex-column">
+        <Box
+         typeBox="active-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>3</SspanText></Box>
+        <SspanText typeSpan="active">Envio do Produto</SspanText>
+      </Box>
+      </div >
       <section className="c-shipping">
         <div className="container">
           <SH1>FORMA DE ENVIO</SH1>

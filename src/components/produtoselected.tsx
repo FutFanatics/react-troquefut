@@ -7,6 +7,7 @@ import IconCamera from "../componentsStyled/icon/Iconcamera";
 import sp from "../img/img-camisa_sp.png";
 import { Produto } from "./Types";
 import ListaSelected from "./listaselected";
+import Button from "../componentsStyled/Button";
 
 interface ProductSelectedProps {
   className?: string;
@@ -79,7 +80,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
             </SspanText>
           </Box>
           <Box className="col-md-8" margin="0px">
-            <div className="d-flex justify-content-between">
+            <div className="d-md-flex justify-content-between">
               <div className="d-flex flex-column justify-content-center content-select">
                 <STextParagraph typeParagraph="select">
                   *Tipo de Reembolso
@@ -101,7 +102,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
               ></ListaSelected>
                 </div>
             </div>
-            <div className="d-flex justify-content-between">
+            <div className="d-md-flex justify-content-between">
               <div className="d-flex flex-column justify-content-center content-select">
               <STextParagraph typeParagraph="select">
               *Por que quer devolver?
@@ -121,7 +122,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
             ></ListaSelected>
                 </div>
             </div>
-            <div className="d-flex justify-content-between">
+            <div className="d-md-flex justify-content-between">
               <div className="d-flex flex-column justify-content-center content-select">
               <STextParagraph typeParagraph="select">Observações</STextParagraph>
             <input type="text"></input>
@@ -146,7 +147,10 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
           </Box>
         </div>
       </Box>
+
+      <Button path="/data" margin="32px 0px">Confirmar</Button>
     </>
+
   );
 };
 

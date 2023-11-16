@@ -4,8 +4,6 @@ import Footer from "../../components/footer";
 import { SH1, STextParagraph, SspanText } from "../../componentsStyled/Text";
 import React, { useState } from "react";
 import Header from "../../components/header";
-
-import Options from "../../components/options";
 import CampoTexto from "../../components/campotexto";
 import IconFinance from "../../componentsStyled/icon/IconFinance";
 import Estorno from "../../components/estorno";
@@ -36,6 +34,23 @@ export default function Data() {
     <>
       <Header></Header>
       <Menu typeOption="active"></Menu>
+      <div className="c-container-options d-flex justify-content-center options">
+      <Box typeBox="active" className="d-flex flex-md-row flex-column align-items-center justify-content-center">
+        <Box typeBox="active-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>1</SspanText></Box>
+        <SspanText typeSpan="active">Pedido</SspanText>
+      </Box>
+      <div className="line-options"></div>
+      <Box typeBox="active" className="d-flex align-items-center justify-content-center flex-md-row flex-column">
+        <Box typeBox="active-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>2</SspanText></Box>
+        <SspanText typeSpan="active">Reembolso</SspanText>
+      </Box>
+      <div className="line-options"></div>
+      <Box typeBox="active" className="d-flex align-items-center justify-content-center flex-md-row flex-column">
+        <Box
+         typeBox="inative-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>3</SspanText></Box>
+        <SspanText typeSpan="inative">Envio do Produto</SspanText>
+      </Box>
+      </div >
       <section className="c-data">
         <div className="container">
           <SH1 textTransform="uppercase">Informações de reembolso</SH1>

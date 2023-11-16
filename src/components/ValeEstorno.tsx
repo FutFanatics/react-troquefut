@@ -24,7 +24,7 @@ const ValeEstorno: React.FC<ValeEstornoProps> = ({ className }) => {
 
  return (
     <>
-      <div className="col-md-12 d-flex flex-column align-items-center">
+      <div className="w-100 d-flex flex-column align-items-center">
         <div className="col-md-10 d-flex justify-content-center">
           <Button typeButton="select-estorno" className={activeTab === "pix" ? "active" : ""} onClick={() => handleClick("pix")}>Pix</Button>
           <Button typeButton="select-estorno" className={activeTab === "bankData" ? "active" : ""} onClick={() => handleClick("bankData")}>Dados Bancários</Button>

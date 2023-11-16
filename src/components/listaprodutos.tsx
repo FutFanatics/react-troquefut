@@ -77,6 +77,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
               color="#777777"
               fontWeight={350}
               fontSize="16px"
+              fontSizesm="14px"
             >
               Lista de Produtos do Pedido:# {selectedId}
             </SH1>
@@ -87,6 +88,8 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
               color="#777777"
               fontWeight={350}
               fontSize="16px"
+              marginsm="16px 0px 64px 0px"
+              fontSizesm="14px"
             >
               Lista de Produtos do Pedido:# {selectedId}
             </SH1>

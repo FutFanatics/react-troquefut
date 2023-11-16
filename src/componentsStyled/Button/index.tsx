@@ -132,6 +132,9 @@ const SButton = styled.button<SButtonProps>`
                 font-weight:600;
                 border-bottom:#192c53 solid  1px
             }
+            @media screen and (max-width: 768px) {
+                width:auto;
+            }
     `}
     ${props => props.typeButton === 'devolution-status' && `
             width:100%;

@@ -18,23 +18,23 @@ const BankData: React.FC<BankDataProps> = ({ className }) => {
     <>
       <div className="col-md-8 d-flex flex-column mt-1">
         <div className="row mt-3">
-            <Box typeBox="login" margin="0px" className="col-md-6">
+            <Box typeBox="login" margin="5px 0px 16px 0px" className="col-md-6">
             <label>Banco</label>
             <select className="w-100">
               <option>Selecione o tipo</option>
             </select>
           </Box>
-          <Box typeBox="login" margin="5px 0px 0px 0px" className="col-md-6">
+          <Box typeBox="login" margin="5px 0px 16px 0px" className="col-md-6">
             <label>CPF ou CNPJ</label>
             <input type="text" placeholder="Ex: 000.000.000-00"></input>
           </Box>
         </div>
-        <div className="row mt-3">
-            <Box typeBox="login" margin="0px" className="col-md-6">
+        <div className="row">
+            <Box typeBox="login" margin="5px 0px 16px 0px" className="col-md-6">
             <label>Agência</label>
             <input type="text" placeholder="000-00"></input>
           </Box>
-          <Box typeBox="login" margin="5px 0px 0px 0px" className="col-md-6">
+          <Box typeBox="login" margin="5px 0px 16px 0px" className="col-md-6">
             <label>Conta</label>
             <input type="text" placeholder="00.000-00"></input>
           </Box>

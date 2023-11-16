@@ -1,92 +1,135 @@
-
 import Button from "../../componentsStyled/Button";
 import Footer from "../../components/footer";
-import { SH1 } from "../../componentsStyled/Text";
-import { useState, useEffect } from 'react';
+import { SH1, SspanText } from "../../componentsStyled/Text";
+import { useState, useEffect } from "react";
 import Header from "../../components/header";
-import Options from "../../components/options";
 import ListaProdutos from "../../components/listaprodutos";
 import ListaSuspensa from "../../components/listasuspensa";
-import axios from 'axios'; 
+import axios from "axios";
 import Menu from "../../components/menu";
-import { Buffer } from 'buffer';
+import { Buffer } from "buffer";
+import { Box } from "../../componentsStyled/Box";
 
 interface Pedido {
-    id: string;
-    date: string;
-  }
+  id: string;
+  date: string;
+}
 
 export default function Order() {
-    const [data, setData] = useState<Pedido[]>([]);
-    const [selectedId, setSelectedId] = useState('');
-    
-    useEffect(()=>
-    {
-        let auth = localStorage.getItem('auth');
-    
-        if(auth) {
-            const authObj = JSON.parse(auth);
-            console.log(authObj)
+  const [data, setData] = useState<Pedido[]>([]);
+  const [selectedId, setSelectedId] = useState("");
 
-            const username = authObj.email;
-            const password = authObj.token;
-            const buffer = Buffer.from(username + ':' + password);
-            const basicAuth = buffer.toString('base64');
+  useEffect(() => {
+    let auth = localStorage.getItem("auth");
 
-            axios.get('https://api.troquefuthomologacao.futfanatics.com.br/api/order/list/' + authObj.customerId, {
-                timeout: 10000,
-                headers: {
-                    'Authorization': 'Basic ' + basicAuth
-                }
-            })
-            .then(function(response){
-                setData(response.data);
-                console.log(response.data)    
-            })
-            .catch(function(error){
-                console.log(error)    
-            })
-        }
-    }, []);
+    if (auth) {
+      const authObj = JSON.parse(auth);
+      console.log(authObj);
 
-    
-    const [selectedOption, setSelectedOption] = useState('');
-    
-    const [isProductSelectedVisible, setIsProductSelectedVisible] = useState(true);
-      
-    const pedidoOptions = data.map((pedido) => ({
+      const username = authObj.email;
+      const password = authObj.token;
+      const buffer = Buffer.from(username + ":" + password);
+      const basicAuth = buffer.toString("base64");
+
+      axios
+        .get(
+          "https://api.troquefuthomologacao.futfanatics.com.br/api/order/list/" +
+            authObj.customerId,
+          {
+            timeout: 10000,
+            headers: {
+              Authorization: "Basic " + basicAuth,
+            },
+          }
+        )
+        .then(function (response) {
+          setData(response.data);
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }, []);
+
+  const [selectedOption, setSelectedOption] = useState("");
+
+  const [isProductSelectedVisible, setIsProductSelectedVisible] =
+    useState(true);
+
+  const pedidoOptions = data.map((pedido) => ({
     value: pedido.id,
     label: pedido.id,
-    }));
-    
-    const handleOptionChange = (selectedValue : string) => {
-        setSelectedId(selectedValue);
-        setIsProductSelectedVisible(false);
-      };
+  }));
 
-    return (
-        <>
-        <Header></Header>
-        <Menu typeOption="active"></Menu>
-        <section className="c-order">
-           <div className="container">
-                <SH1 textTransform="uppercase" fontSize="22px" margin="16px 0px 0px 0px">
-                    Selecione O pedido 
-                </SH1>
-                <ListaSuspensa
-                    label="Selecione uma opção"
-                    valor={selectedId}
-                    items={pedidoOptions} 
-                    obrigatorio={true}
-                    onChange={handleOptionChange}
-                    className="c-lista-suspensa"  
-                ></ListaSuspensa>
+  const handleOptionChange = (selectedValue: string) => {
+    setSelectedId(selectedValue);
+    setIsProductSelectedVisible(false);
+  };
 
-                <ListaProdutos selectedId={selectedId}></ListaProdutos>        
-            </div>
-        </section>
-        <Footer></Footer>
-        </>
-    )
+  return (
+    <>
+      <Header></Header>
+      <Menu typeOption="active"></Menu>
+      <div className="c-container-options d-flex justify-content-center options">
+        <Box
+          typeBox="active"
+          className="d-flex flex-md-row flex-column align-items-center justify-content-center"
+        >
+          <Box typeBox="active-number">
+            <SspanText color="#fff" fontSize="24px" fontWeight={600}>
+              1
+            </SspanText>
+          </Box>
+          <SspanText typeSpan="active">Pedido</SspanText>
+        </Box>
+        <div className="line-options"></div>
+        <Box
+          typeBox="active"
+          className="d-flex align-items-center justify-content-center flex-md-row flex-column"
+        >
+          <Box typeBox="inative-number">
+            <SspanText color="#fff" fontSize="24px" fontWeight={600}>
+              2
+            </SspanText>
+          </Box>
+          <SspanText typeSpan="inative">Reembolso</SspanText>
+        </Box>
+        <div className="line-options"></div>
+        <Box
+          typeBox="active"
+          className="d-flex align-items-center justify-content-center flex-md-row flex-column"
+        >
+          <Box typeBox="inative-number">
+            <SspanText color="#fff" fontSize="24px" fontWeight={600}>
+              3
+            </SspanText>
+          </Box>
+          <SspanText typeSpan="inative">Envio do Produto</SspanText>
+        </Box>
+      </div>
+      <section className="c-order">
+        <div className="container">
+          <SH1
+            textTransform="uppercase"
+            fontSize="22px"
+            margin="16px 0px 0px 0px"
+          >
+            Selecione O pedido
+          </SH1>
+          <ListaSuspensa
+            label="Selecione uma opção"
+            valor={selectedId}
+            items={pedidoOptions}
+            obrigatorio={true}
+            onChange={handleOptionChange}
+            className="c-lista-suspensa"
+          ></ListaSuspensa>
 
+          <ListaProdutos selectedId={selectedId}></ListaProdutos>
+        </div>
+      </section>
+      <Footer></Footer>
+    </>
+  );
 }
