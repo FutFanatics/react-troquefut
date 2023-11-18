@@ -1,17 +1,39 @@
-import React, { useState } from "react";
+// Pix.tsx
+import React, { useState , useEffect } from "react";
 import { Box } from "../componentsStyled/Box";
 
 interface PixProps {
-  className?: string;
+  onDataUpdate: (data: any) => void;
+  
 }
 
-const Pix: React.FC<PixProps> = ({ className }) => {
+const Pix: React.FC<PixProps> = ({ onDataUpdate }) => {
   const [tipoPix, setTipoPix] = useState<string | null>(null);
   const [chavePix, setChavePix] = useState("");
 
   const handleTipoPixChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setTipoPix(event.target.value);
+    const selectedTipoPix = event.target.value;
+    setTipoPix(selectedTipoPix);
     setChavePix("");
+
+    onDataUpdate({
+      pixData: {
+        tipoPix: selectedTipoPix,
+        chavePix: "",
+      },
+    });
+  };
+
+  const handleChavePixChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const novaChavePix = event.target.value;
+    setChavePix(novaChavePix);
+
+    onDataUpdate({
+      pixData: {
+        tipoPix,
+        chavePix: novaChavePix,
+      },
+    });
   };
 
   const renderInputField = () => {
@@ -22,18 +44,18 @@ const Pix: React.FC<PixProps> = ({ className }) => {
             type="text"
             placeholder="(00) 00000-0000"
             value={chavePix}
-            onChange={(e) => setChavePix(e.target.value)}
-            maxLength={14} 
+            onChange={handleChavePixChange}
+            maxLength={14}
           />
         );
       case "CPF ou CNPJ":
         return (
           <input
             type="text"
-            placeholder="000.000.000-00 ou 00.000.000/0000-00"
+            placeholder="Insira CPF ou CNPJ"
             value={chavePix}
-            onChange={(e) => setChavePix(e.target.value)}
-            maxLength={18} 
+            onChange={handleChavePixChange}
+            maxLength={18}
           />
         );
       case "Chave Aleatória":
@@ -42,7 +64,7 @@ const Pix: React.FC<PixProps> = ({ className }) => {
             type="text"
             placeholder="Insira a Chave Aleatória"
             value={chavePix}
-            onChange={(e) => setChavePix(e.target.value)}
+            onChange={handleChavePixChange}
           />
         );
       case "E-mail":
@@ -51,7 +73,7 @@ const Pix: React.FC<PixProps> = ({ className }) => {
             type="email"
             placeholder="Insira o endereço de e-mail"
             value={chavePix}
-            onChange={(e) => setChavePix(e.target.value)}
+            onChange={handleChavePixChange}
           />
         );
       default:
@@ -60,14 +82,15 @@ const Pix: React.FC<PixProps> = ({ className }) => {
             type="text"
             placeholder="Insira a Chave PIX"
             value={chavePix}
-            onChange={(e) => setChavePix(e.target.value)}
+            onChange={handleChavePixChange}
           />
         );
     }
   };
 
+
   return (
-    <div className={`col-md-8 col-12 d-flex flex-column mt-5 ${className}`}>
+    <div className={`col-md-8 col-12 d-flex flex-column mt-5`}>
       <Box typeBox="login" margin="0px">
         <label>Tipo de Pix</label>
         <select className="w-100" onChange={handleTipoPixChange}>

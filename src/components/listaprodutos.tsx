@@ -30,6 +30,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
 }) => {
   const [pedido, setPedido] = useState<Pedido | null>(null);
   const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(null);
+  const [delivery_date, setDelivery_date] =useState("");
   
   useEffect(() => {
     let auth = localStorage.getItem('auth');
@@ -44,10 +45,10 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
       const encoder: TextEncoder = new TextEncoder();
       const data: Uint8Array = encoder.encode(text);
 
-      // Convert the Uint8Array to a regular array of numbers
+    
       const dataArray: number[] = Array.from(data);
 
-      // Convert the regular array of numbers to a base64 string
+      
       const binaryString: string = String.fromCharCode.apply(null, dataArray);
       const basicAuth: string = btoa(binaryString);
 
@@ -62,7 +63,8 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
       )
       .then(function (response) {
         setPedido(response.data);
-        console.log(response.data, "Dados do pedido recebidos com sucesso");
+        setDelivery_date(response.data.delivery_date|| "");
+        console.log("Shipment Date:", response.data);
       })
       .catch(function (error) {
         console.log(error, "Erro ao obter dados do pedido");
@@ -118,6 +120,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
               selectedId={selectedId || ''} 
               onSelect={() => {}}
               key={1}
+              delivery_date={delivery_date}
             />
           </div>
 

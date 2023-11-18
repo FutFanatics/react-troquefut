@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ModalCamera from "./modalfoto";
 import { Box } from "../componentsStyled/Box";
 import { SH1, STextParagraph, SspanText } from "../componentsStyled/Text";
@@ -13,7 +14,7 @@ interface ProductSelectedProps {
   produtosSelecionados?: Produto[];
   onDataUpdate?: (data: any) => void;
   onSaveTipoReembolso?: (tipoReembolso: string) => void;
-
+  produtoSelecionadoData?: any;
 }
 
 const ProductSelected: React.FC<ProductSelectedProps> = ({
@@ -21,28 +22,39 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   produtosSelecionados,
   onDataUpdate,
   onSaveTipoReembolso,
+  produtoSelecionadoData,
 }) => {
   const [tipoReembolso, setTipoReembolso] = useState<string>("");
   const [motivoDevolucao, setMotivoDevolucao] = useState<string>("");
   const [subDevolucao, setSubDevolucao] = useState<string>("");
   const [quantidade, setQuantidade] = useState<number | "">("");
-  const [reasons, setReasons] = useState<any[]>([]); 
+  const [reasons, setReasons] = useState<any[]>([]);
   const [subReasons, setSubReasons] = useState<any[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [fotoAdicionada, setFotoAdicionada] = useState(false);
+  const [mediaRequired, setMediaRequired] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("https://api.troquefuthomologacao.futfanatics.com.br/api/reasons")
       .then((response) => response.json())
-      .then((data) => setReasons(data))
+      .then((data) => {
+        setReasons(data);
+      })
       .catch((error) => console.error("Error fetching reasons:", error));
-
-    console.log("produto:", produto);
-    console.log("produtosSelecionados:", produtosSelecionados);
-  }, [produto, produtosSelecionados]);
+  }, []);
 
   useEffect(() => {
-    const selectedReason = reasons.find((reason) => reason.description === motivoDevolucao);
+    const selectedReason = reasons.find(
+      (reason) => reason.description === motivoDevolucao
+    );
+
+    if (selectedReason?.media_required === 1) {
+      setMediaRequired(true);
+    } else {
+      setMediaRequired(false);
+    }
 
     if (selectedReason && selectedReason.subReasons) {
       setSubReasons(selectedReason.subReasons);
@@ -56,13 +68,15 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   };
 
   const updateData = () => {
+    const newData = {
+      tipoReembolso,
+      motivoDevolucao,
+      quantidade,
+      subDevolucao,
+      ...produtoSelecionadoData,
+    };
     if (onDataUpdate) {
-      onDataUpdate({
-        tipoReembolso,
-        motivoDevolucao,
-        quantidade,
-        subDevolucao,
-      });
+      onDataUpdate(newData);
     }
   };
 
@@ -81,9 +95,37 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   const isFotoAdicaoValida = fotoAdicionada || motivoDevolucao !== "";
   localStorage.setItem("tipoReembolso", tipoReembolso);
 
-    if (onSaveTipoReembolso) {
-      onSaveTipoReembolso(tipoReembolso);
+  if (onSaveTipoReembolso) {
+    onSaveTipoReembolso(tipoReembolso);
+  }
+
+  const handleConfirmar = () => {
+    const dadosSelecionados = {
+      tipoReembolso,
+      motivoDevolucao,
+      quantidade,
+      subDevolucao,
+      ...produtoSelecionadoData,
+    };
+
+    console.log("Dados selecionados:", dadosSelecionados);
+    const todosCamposPreenchidos = Object.values(dadosSelecionados).every(
+      (value) => value !== ""
+    );
+
+    if (todosCamposPreenchidos) {
+      navigate("/data", {
+        state: {
+          ...dadosSelecionados,
+          produto,
+        },
+      });
+    } else {
+      console.error("Preencha todos os campos antes de confirmar");
     }
+  };
+
+  
   return (
     <>
       <SH1>Preencha as informações do(s) produto(s) selecionado(s)</SH1>
@@ -162,11 +204,11 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                   className="d-flex align-items-center"
                   margin="12px 0px 0px 0px"
                 >
-                  <a onClick={openModal}>
+                  {mediaRequired && <a onClick={openModal}>
                     <Box typeBox="cam">
                       <IconCamera fill="#fff" width={25}></IconCamera>
                     </Box>
-                  </a>
+                  </a>}
                   <STextParagraph typeParagraph="select">
                     Anexar fotos
                   </STextParagraph>
@@ -178,11 +220,22 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
         </div>
       </Box>
 
-      <Button path="/data" margin="32px 0px" disabled={!isFotoAdicaoValida}>
+      <button onClick={handleConfirmar} disabled={!isFotoAdicaoValida}>
         Confirmar
-      </Button>
+      </button>
     </>
   );
 };
 
 export default ProductSelected;
+
+
+
+
+
+
+
+
+
+
+

@@ -1,8 +1,8 @@
+// BankData.tsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ListaSelected from "./listaselected";
 import { Box } from "../componentsStyled/Box";
-
 
 interface Bank {
   id: number;
@@ -15,7 +15,6 @@ interface BankType {
 }
 
 interface BankDataProps {
-  className?: string;
   onDataUpdate?: (data: any) => void;
 }
 
@@ -71,51 +70,61 @@ const BankData: React.FC<BankDataProps> = ({ onDataUpdate }) => {
     if (onDataUpdate) {
       onDataUpdate({
         bank,
+        // Adicione outros campos conforme necessário
       });
     }
   };
 
   return (
     <>
-    <div className="col-md-8 d-flex flex-column mt-1">
-      <div className="row mt-3">
-        <Box typeBox="login" margin="5px 0px 16px 0px" className="col-md-6">
-          <label>Banco</label>
-          <ListaSelected
-            options={data.banks.map((bank) => bank.name)}
-            onChange={(selectedValue) => setBank(selectedValue)}
-            selectedValue={bank}
-          />
-        </Box>
-        <Box typeBox="login" margin="5px 0px 16px 0px" className="col-md-6">
-          <label>CPF ou CNPJ</label>
-          <input type="text" placeholder="Ex: 000.000.000-00"></input>
-        </Box>
-      </div>
-      <div className="row">
-        <Box typeBox="login" margin="5px 0px 16px 0px" className="col-md-6">
-          <label>Agência</label>
-          <input type="text" placeholder="000-00"></input>
-        </Box>
-        <Box typeBox="login" margin="5px 0px 16px 0px" className="col-md-6">
-          <label>Conta</label>
-          <input type="text" placeholder="00.000-00"></input>
-        </Box>
-      </div>
-      <Box typeBox="login" className="d-flex flex-column" margin="32px 0px 0px 0px">
-        <label>Tipo de Conta</label>
-        <div className="d-flex">
-          {data.banks_types.map((bankType) => (
-            <div key={bankType.id} className="d-flex box-radios">
-              <input type="radio"></input>
-              <label>{bankType.name}</label>
-            </div>
-          ))}
+      <div className="col-md-8 d-flex flex-column mt-1">
+        <div className="row mt-3">
+          <Box typeBox="login" margin="5px 0px 16px 0px" className="col-md-6">
+            <label>Banco</label>
+            <ListaSelected
+              options={data.banks.map((bank) => bank.name)}
+              onChange={(selectedValue) => setBank(selectedValue)}
+              selectedValue={bank}
+            />
+          </Box>
+          <Box typeBox="login" margin="5px 0px 16px 0px" className="col-md-6">
+            <label>CPF ou CNPJ</label>
+            <input
+              type="text"
+              placeholder="Ex: 000.000.000-00"
+              value={cpfValue}
+              onChange={(e) => setCpfValue(e.target.value)}
+            />
+          </Box>
         </div>
-      </Box>
-    </div>
-  </>
-);
+        <div className="row">
+          <Box typeBox="login" margin="5px 0px 16px 0px" className="col-md-6">
+            <label>Agência</label>
+            <input type="text" placeholder="000-00" />
+          </Box>
+          <Box typeBox="login" margin="5px 0px 16px 0px" className="col-md-6">
+            <label>Conta</label>
+            <input type="text" placeholder="00.000-00" />
+          </Box>
+        </div>
+        <Box
+          typeBox="login"
+          className="d-flex flex-column"
+          margin="32px 0px 0px 0px"
+        >
+          <label>Tipo de Conta</label>
+          <div className="d-flex">
+            {data.banks_types.map((bankType) => (
+              <div key={bankType.id} className="d-flex box-radios">
+                <input type="radio" />
+                <label>{bankType.name}</label>
+              </div>
+            ))}
+          </div>
+        </Box>
+      </div>
+    </>
+  );
 };
 
 export default BankData;

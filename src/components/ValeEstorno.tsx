@@ -1,40 +1,55 @@
+
 import React, { useState } from "react";
-import CampoTexto from "./campotexto";
-import Button from "../componentsStyled/Button";
-import { STextParagraph, SspanText } from "../componentsStyled/Text";
-import CardVale from "./cardvale";
-import CardEstorno from "./cardestorno";
-import { Box } from "../componentsStyled/Box";
 import Pix from "./pix";
 import BankData from "./BankData";
 
 interface ValeEstornoProps {
- className?: string;
- children?: React.ReactNode;
- onSubmit?: (evento: React.FormEvent<HTMLFormElement>) => void;
- alternarElemento?: () => void;
+  updateData: (data: any) => void; 
 }
 
-const ValeEstorno: React.FC<ValeEstornoProps> = ({ className }) => {    
- const [activeTab, setActiveTab] = useState("pix");
+const ValeEstorno: React.FC<ValeEstornoProps> = ({ updateData }) => {
+  const [activeTab, setActiveTab] = useState<string>("pix");
+  const [pixData, setPixData] = useState<any>(null);
+  const [bankData, setBankData] = useState<any>(null);
 
- const handleClick = (tab: string) => {
+  const handleTabChange = (tab: string) => {
     setActiveTab(tab);
- };
+  };
 
- return (
+  const handlePixDataUpdate = (data: any) => {
+    setPixData(data.pixData);
+    updateData(data); 
+  };
+
+  const handleBankDataUpdate = (data: any) => {
+    setBankData(data.bankData);
+    updateData(data); 
+  };
+
+  return (
     <>
       <div className="w-100 d-flex flex-column align-items-center">
         <div className="col-md-10 d-flex justify-content-center">
-          <Button typeButton="select-estorno" className={activeTab === "pix" ? "active" : ""} onClick={() => handleClick("pix")}>Pix</Button>
-          <Button typeButton="select-estorno" className={activeTab === "bankData" ? "active" : ""} onClick={() => handleClick("bankData")}>Dados Bancários</Button>
-         
-        </div> 
-        {activeTab === "pix" && <Pix></Pix>}
-        {activeTab === "bankData" && <BankData></BankData>}
+          <button
+            className={activeTab === "pix" ? "active" : ""}
+            onClick={() => handleTabChange("pix")}
+          >
+            Pix
+          </button>
+          <button
+            className={activeTab === "bankData" ? "active" : ""}
+            onClick={() => handleTabChange("bankData")}
+          >
+            Dados Bancários
+          </button>
+        </div>
+        {activeTab === "pix" && <Pix onDataUpdate={handlePixDataUpdate} />}
+        {activeTab === "bankData" && (
+          <BankData onDataUpdate={handleBankDataUpdate} />
+        )}
       </div>
     </>
- );
+  );
 };
 
 export default ValeEstorno;

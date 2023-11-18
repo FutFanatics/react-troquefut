@@ -13,12 +13,13 @@ import { Box } from "../../componentsStyled/Box";
 export default function Shipping() {
   const [cliqueRetireSelected, setCliqueRetireSelected] = useState(false);
   const [correiosSelected, setCorreiosSelected] = useState(false);
-
+  const [dadosSelecionados, setDadosSelecionados] = useState<any>({});
   const handleCliqueRetireSelect = () => {
     setCliqueRetireSelected(true);
     setCorreiosSelected(false);
   };
 
+  
   const handleCorreiosSelect = () => {
     setCorreiosSelected(true);
     setCliqueRetireSelected(false);

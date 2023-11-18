@@ -4,6 +4,7 @@ import { Box } from "../componentsStyled/Box";
 import Button from "../componentsStyled/Button";
 import ProductSelected from "./produtoselected";
 import { Produto } from "./Types";
+import { useNavigate } from "react-router-dom";
 
 interface ProdutosProps {
   produtos: Produto[];
@@ -11,14 +12,15 @@ interface ProdutosProps {
   selectedId?: string;
   onSelect?: () => void;
   selected?: boolean;
-  shipmentDate?: string;
+  delivery_date?: string;
 }
-const Produtos: React.FC<ProdutosProps> = ({ produtos, className, shipmentDate }) => {
+const Produtos: React.FC<ProdutosProps> = ({ produtos, className, delivery_date }) => {
   const [buttonText, setButtonText] = useState("Selecionar");
   const [produtosSelecionados, setProdutosSelecionados] = useState<Produto[]>([]);
   const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(null);
   const [showProductSelected, setShowProductSelected] = useState(false);
-
+  const [produtoSelecionadoData, setProdutoSelecionadoData] = useState<any>(null);
+  const navigate = useNavigate();
   useEffect(() => {
     const storedSelectedProducts = localStorage.getItem('selectedProducts');
     if (storedSelectedProducts) {
@@ -42,20 +44,28 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, shipmentDate }
     }
   };
 
-  const handleButtonClick = () => {
-    setShowProductSelected(true);
-  };
+
 
   const handleDataUpdate = (data: any) => {
     console.log('Updated data from ProductSelected:', data);
   };
-
+  const handleConfirmar = () => {
+    const dadosSelecionados = {
+      delivery_date: delivery_date,
+      productId: produtosSelecionados[0]?.product_id,
+    };
+  
+    console.log("Dados selecionados:", dadosSelecionados);
+    setShowProductSelected(true);
+    setProdutoSelecionadoData(dadosSelecionados);
+  };
   return (
     <>
       {showProductSelected ? (
         <ProductSelected
           produto={produtosSelecionados[0]}
           onDataUpdate={handleDataUpdate}
+          produtoSelecionadoData={produtoSelecionadoData}
         />
       ) : (
         <>
@@ -91,6 +101,7 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, shipmentDate }
                 <SspanText typeSpan="namProduct">
                   Variação:{" "}
                   <SspanText typeSpan="namProduct"> {produto.variant_value}</SspanText>
+
                 </SspanText>
               </div>
               <Button
@@ -103,7 +114,7 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, shipmentDate }
             </Box>
           ))}
           {produtosSelecionados.length > 0 && (
-            <Button onClick={handleButtonClick} className="mt-5">Continuar</Button>
+            <button onClick={handleConfirmar} className="mt-5">Continuar</button>
           )}
         </>
       )}

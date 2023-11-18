@@ -14,7 +14,9 @@ interface Dados {
  }
 
 const Validation: React.FC = () => {
- const [user, setUser] = useState<User>({ email: 'silvio_cbsj@hotmail.com', password: 'Ambul@ncia001' });
+ const [user, setUser] = useState<User>({
+  email:"", password:""
+ });
  const [success, setSuccess] = useState(false);
  const navigate = useNavigate();
 
@@ -28,18 +30,21 @@ const Validation: React.FC = () => {
          'Content-Type': 'application/json',
        },
        body: JSON.stringify(user),
+       
      });
- 
-    if (response.ok) {
-      const responseApi = await response.json();
+
+     const responseApi = await response.json();
+
+     if(responseApi.error){    
+      return alert('Não foi possível realizar o login. Por favor, verifique seus dados.');
+     }else {
 
       localStorage.setItem('auth', JSON.stringify(responseApi));
 
       setSuccess(true);
       navigate('/order');
-     } else {
-       alert('Não foi possível realizar o login. Por favor, verifique seus dados.');
-     }
+      
+     } 
   } catch (error) {
      console.error('Ocorreu um erro:', error);
   }
@@ -55,11 +60,11 @@ const Validation: React.FC = () => {
     <form onSubmit={handleSubmit} className="col-md-6">
       <Box margin="32px 0px " typeBox="login" className="d-flex flex-column">
         <label>Login</label>
-        <input type="text" placeholder="Insira seu e-mail ou CPF"  onChange={handleChange} />
+        <input name="email" type="text" placeholder="Insira seu e-mail ou CPF"  onChange={handleChange} />
       </Box>
       <Box margin="32px 0px" typeBox="login" className="d-flex flex-column">
         <label>Senha</label>
-        <input type="password" placeholder="Insira sua senha"  onChange={handleChange}></input>
+        <input name='password' type="password" placeholder="Insira sua senha"  onChange={handleChange}></input>
       </Box>
       <div className="d-flex justify-content-end">
         <SspanText fontSize="14px" color="#192c53" fontWeight={600} >Esqueci a senha</SspanText>

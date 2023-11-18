@@ -1,59 +1,77 @@
-import { Box } from "../../componentsStyled/Box";
-import Button from "../../componentsStyled/Button";
-import Footer from "../../components/footer";
-import { SH1, STextParagraph, SspanText } from "../../componentsStyled/Text";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Box } from "../../componentsStyled/Box";
 import Header from "../../components/header";
-import CampoTexto from "../../components/campotexto";
+import Menu from "../../components/menu";
+import { SH1, STextParagraph, SspanText } from "../../componentsStyled/Text";
 import IconFinance from "../../componentsStyled/icon/IconFinance";
-import Estorno from "../../components/estorno";
 import ValeCompras from "../../components/vale-compras";
 import ValeEstorno from "../../components/ValeEstorno";
-import Menu from "../../components/menu";
-import ModalDevolution from "../../components/modaldevolution";
-import IconNegada from "../../componentsStyled/icon/Iconnegada";
-import IconAnalise from "../../componentsStyled/icon/Iconanalise";
-import IconEnviado from "../../componentsStyled/icon/Iconenviado";
-import IconDevreembolso from "../../componentsStyled/icon/Icondevreembolso";
-
-export default function Data() {
-  const [IsOpen, setModalIsOpen] = useState(false);
+import Footer from "../../components/footer";
+import { useLocation } from "react-router-dom";
+const Data: React.FC = () => {
+  const [dadosSelecionados, setDadosSelecionados] = useState<any>({});
   const [tipoReembolso, setTipoReembolso] = useState<string>(
     localStorage.getItem("tipoReembolso") || ""
   );
-  const openModal = () => {
-    setModalIsOpen(true);
+  console.log("me mostra",dadosSelecionados)
+  const navigate = useNavigate();
+  const updateData = (data: any) => {
+    setDadosSelecionados((prevData: any) => ({
+      ...prevData,
+      ...data,
+    }));
   };
 
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
+  const handleConfirmar = () => {
+    console.log("Dados selecionados:", dadosSelecionados);
+    const dadosData = {
+      tipoReembolso,
+    };
 
-  const onSubmit = (evento: React.FormEvent<HTMLFormElement>) => {
-    evento.preventDefault();
+    const todosCamposPreenchidosData = Object.values(dadosData).every(
+      (value) => value !== ""
+    );
+
+    if (!todosCamposPreenchidosData) {
+      console.error("Preencha todos os campos do componente Data antes de confirmar");
+      return;
+    }
+    const dadosFinais = {
+      ...dadosSelecionados,
+      ...dadosData,
+      produtoSelecionadoData: {
+        ...dadosSelecionados.produtoSelecionadoData,
+      },
+    };
+
+    console.log("Dados finais:", dadosFinais);
+    navigate("/shipping", {
+      state: dadosFinais,
+    });
   };
 
   return (
     <>
-      <Header></Header>
-      <Menu typeOption="active"></Menu>
+      <Header />
+      <Menu typeOption="active" />
       <div className="c-container-options d-flex justify-content-center options">
-      <Box typeBox="active" className="d-flex flex-md-row flex-column align-items-center justify-content-center">
-        <Box typeBox="active-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>1</SspanText></Box>
-        <SspanText typeSpan="active">Pedido</SspanText>
-      </Box>
-      <div className="line-options"></div>
-      <Box typeBox="active" className="d-flex align-items-center justify-content-center flex-md-row flex-column">
-        <Box typeBox="active-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>2</SspanText></Box>
-        <SspanText typeSpan="active">Reembolso</SspanText>
-      </Box>
-      <div className="line-options"></div>
-      <Box typeBox="active" className="d-flex align-items-center justify-content-center flex-md-row flex-column">
-        <Box
-         typeBox="inative-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>3</SspanText></Box>
-        <SspanText typeSpan="inative">Envio do Produto</SspanText>
-      </Box>
-      </div >
+        <Box typeBox="active" className="d-flex flex-md-row flex-column align-items-center justify-content-center">
+          <Box typeBox="active-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>1</SspanText></Box>
+          <SspanText typeSpan="active">Pedido</SspanText>
+        </Box>
+        <div className="line-options"></div>
+        <Box typeBox="active" className="d-flex align-items-center justify-content-center flex-md-row flex-column">
+          <Box typeBox="active-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>2</SspanText></Box>
+          <SspanText typeSpan="active">Reembolso</SspanText>
+        </Box>
+        <div className="line-options"></div>
+        <Box typeBox="active" className="d-flex align-items-center justify-content-center flex-md-row flex-column">
+          <Box
+            typeBox="inative-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>3</SspanText></Box>
+          <SspanText typeSpan="inative">Envio do Produto</SspanText>
+        </Box>
+      </div>
       <section className="c-data">
         <div className="container">
           <SH1 textTransform="uppercase">Informações de reembolso</SH1>
@@ -61,9 +79,9 @@ export default function Data() {
             <Box typeBox="estorno" className="col-md-10">
               <IconFinance width={64}></IconFinance>
               {tipoReembolso === "Vale-Compras" ? (
-            <ValeCompras />
+                <ValeCompras updateData={updateData} />
               ) : (
-                <ValeEstorno />
+                <ValeEstorno updateData={updateData} />
               )}
               <div className="d-flex mt-5 justify-content-start col-md-10">
                 <input type="checkbox" required></input>
@@ -78,42 +96,21 @@ export default function Data() {
                   </a>
                 </STextParagraph>
               </div>
+              
             </Box>
+            <button
+                
+                onClick={handleConfirmar}
+                
+              >
+                Avançar
+              </button>
           </div>
-          <Button
-            margin="32px auto 32px auto"
-            path="/shipping"
-            typeButton="next"
-          >
-            Avançar
-          </Button>
         </div>
-        {/* <Button margin="32px auto" onClick={openModal}>
-        </Button> */}
-        {/*<ModalDevolution
-          isOpen={IsOpen}
-          onRequestClose={closeModal}
-          icon={
-            <IconDevreembolso width={60}></IconDevreembolso>
-          }
-          title={
-            <SH1 typeTitle="devolution-modal">
-                 Solicitação Concluída!
-                </SH1>
-	        }
-          describe={
-            <STextParagraph typeParagraph="paragraphdescribe">
-              A sua solicitação de Devolução foi concluída. Qualquer problema ou inconsistência, entre em contato pelo <strong>site</strong>, pelo nosso <strong>SAC: (11)4858-3500 </strong>
-ou email de contato: <strong>contato@futfanatics.com.br </strong>
-
-            </STextParagraph>
-          }
-        >
-          {" "}
-        </ModalDevolution>  */}
-        
       </section>
-      <Footer></Footer>
+      <Footer />
     </>
   );
-}
+};
+
+export default Data;

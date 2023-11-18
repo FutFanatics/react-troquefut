@@ -14,67 +14,65 @@ interface StatusDevolutionProps {
 }
 
 const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className }) => {
-  const [data, setData] = useState<DataFollow[] | undefined>(undefined);
+  const [data, setData] = useState<DataFollow[]>([]);
 
   useEffect(() => {
-    let auth = localStorage.getItem('auth');
+    let auth = localStorage.getItem("auth");
 
-    if(auth) {
+    if (auth) {
       const authObj = JSON.parse(auth);
-      console.log(authObj)
-
       const username = authObj.email;
       const password = authObj.token;
       const customerId = authObj.customerId;
-      const text: string = username + ':' + password;
+      const text: string = username + ":" + password;
       const encoder: TextEncoder = new TextEncoder();
       const data: Uint8Array = encoder.encode(text);
 
-      // Convert the Uint8Array to a regular array of numbers
       const dataArray: number[] = Array.from(data);
 
-      // Convert the regular array of numbers to a base64 string
       const binaryString: string = String.fromCharCode.apply(null, dataArray);
       const basicAuth: string = btoa(binaryString);
 
-      axios.get(
-        `https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}/27`,
-        {
-          timeout: 10000,
-          headers: {
-            'Authorization': 'Basic ' + basicAuth
+      axios
+        .get(
+          `https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}`, 
+          {
+            timeout: 10000,
+            headers: {
+              Authorization: "Basic " + basicAuth,
+            },
           }
-        }
-      )
-      .then(function (response) {
-        setData(response.data);
-        console.log(response.data, "Dados do pedido recebidos com sucesso");
-      })
-      .catch(function (error) {
-        console.log(error, "Erro ao obter dados do pedido");
-      });
+        )
+        .then(function (response) {
+          setData(response.data);
+          console.log(response.data, "Dados do pedido recebidos com sucesso");
+        })
+        .catch(function (error) {
+          console.log(error, "Erro ao obter dados do pedido");
+        });
     }
   }, []);
 
   return (
     <>
-      {console.log(data)}
-      {data?.map((item) => (
-        <Box
-          key={item.id}
-          typeBox="datafollow"
-          className={`col-md-12 ${className}`}
-        >
-          <div className="status-icons d-flex align-items-center">
-            {item.history.map((step, index) => {
-              const IconComponent = getIconComponent(step.title);
-              const iconColor = getIconColor(step.status);
+      {data &&
+        data.map((item) => (
+          <Box
+            key={item.id}
+            typeBox="datafollow"
+            className={`col-md-12 ${className}`}
+          >
+            <div className="status-icons d-flex align-items-center">
+              {item.history.map((step, index) => {
+                const IconComponent = getIconComponent(step.title);
+                const iconColor = getIconColor(step.status);
 
-              return (
-                <>
-                  <div className="d-flex flex-column align-items-center container-icon">
+                return (
+                  <div
+                    className="d-flex flex-column align-items-center container-icon"
+                    key={index}
+                  >
                     <div
-                      key={index}
                       className="status-icon"
                       style={{
                         backgroundColor: getStatusColor(step.status),
@@ -90,14 +88,13 @@ const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className }) => {
                     </div>
                     <span className="name-status">{step.title}</span>
                     <span className="name-date">{step.date || ""}</span>
+                    <div className="line"></div>
                   </div>
-                  <div className="line"></div>
-                </>
-              );
-            })}
-          </div>
-        </Box>
-      ))}
+                );
+              })}
+            </div>
+          </Box>
+        ))}
     </>
   );
 };
