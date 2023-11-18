@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import { SH1, STextParagraph } from "../componentsStyled/Text";
 import { Box } from "../componentsStyled/Box";
 import SlidesProducts from "./slidesproducts";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate  } from "react-router-dom";
 import axios from "axios";
 
 
@@ -11,16 +11,16 @@ interface ModalAceiteProps {
   isOpen: boolean;
   children?: React.ReactNode;
   onRequestClose: () => void;
+  dadosSelecionados: any
 }
 
 const ModalAceite: React.FC<ModalAceiteProps> = ({
   isOpen,
   onRequestClose,
-  
+  dadosSelecionados
 }) => {
 
-  const location = useLocation();
-  const [dadosSelecionados, setDadosSelecionados] = useState<any>(location.state || {});
+  const navigate = useNavigate();
 
   console.log('dadosSelecionados - modal aceite', dadosSelecionados);
 
@@ -51,7 +51,8 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
           "products": [{
               //"prodId": dadosSelecionados.productId,
               "prodId": 115301,
-              "variantId": dadosSelecionados.produto.variant_id,
+              //"variantId": dadosSelecionados.produto.variant_id,
+              "variantId": 1708529,
               "method_refund":  dadosSelecionados.tipoReembolso == "Vale-Compras" ? "Cupom" : "Estorno" ,
               "reasonSubId": 9,
               "qty": dadosSelecionados.quantidade,
@@ -79,6 +80,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
         )
         .then(function (response) {
           console.log(response.data, "Dados do pedido recebidos com sucesso");
+          navigate('/devolution');
         })
         .catch(function (error) {
           console.log(error, "Erro ao obter dados do pedido");
