@@ -118,7 +118,6 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       navigate("/data", {
         state: {
           ...dadosSelecionados,
-          produto,
         },
       });
     } else {

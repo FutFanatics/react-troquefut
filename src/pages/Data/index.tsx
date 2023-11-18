@@ -1,4 +1,3 @@
-// Data.tsx
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Box } from "../../componentsStyled/Box";
@@ -22,6 +21,7 @@ const Data: React.FC = () => {
   const updateData = (data: any) => {
     setDadosSelecionados((prevData: any) => ({
       ...prevData,
+      data,
       produtoSelecionadoData: {
         ...prevData.produtoSelecionadoData,
         additionalData: data.additionalData,

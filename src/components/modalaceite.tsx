@@ -14,6 +14,7 @@ interface ModalAceiteProps {
   isOpen: boolean;
   children?: React.ReactNode;
   onRequestClose: () => void;
+  dadosSelecionados: any;
 }
 
 
@@ -21,9 +22,11 @@ interface ModalAceiteProps {
 const ModalAceite: React.FC<ModalAceiteProps> = ({
   isOpen,
   onRequestClose,
+  dadosSelecionados
+  
   
 }) => {
-
+  console.log('cade', dadosSelecionados)
   return (
     <Modal
       isOpen={isOpen}
