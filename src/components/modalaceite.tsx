@@ -1,30 +1,91 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import { SH1, STextParagraph } from "../componentsStyled/Text";
 import { Box } from "../componentsStyled/Box";
-import Button from "../componentsStyled/Button";
-import IconProduct from "../componentsStyled/icon/iconproduct";
-
 import SlidesProducts from "./slidesproducts";
-
-
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 
 interface ModalAceiteProps {
   isOpen: boolean;
   children?: React.ReactNode;
   onRequestClose: () => void;
-  
 }
-
-
 
 const ModalAceite: React.FC<ModalAceiteProps> = ({
   isOpen,
-  onRequestClose,  
+  onRequestClose,
   
 }) => {
-  
+
+  const location = useLocation();
+  const [dadosSelecionados, setDadosSelecionados] = useState<any>(location.state || {});
+
+  console.log('dadosSelecionados - modal aceite', dadosSelecionados);
+
+  const handleConfirmar = async () => {
+
+    let auth = localStorage.getItem("auth");
+
+    if (auth) {
+
+      const authObj = JSON.parse(auth);
+      const username = authObj.email;
+      const password = authObj.token;
+      const customerId = authObj.customerId;
+      const text: string = username + ":" + password;
+      const encoder: TextEncoder = new TextEncoder();
+      const data: Uint8Array = encoder.encode(text);
+
+      const dataArray: number[] = Array.from(data);
+
+      const binaryString: string = String.fromCharCode.apply(null, dataArray);
+      const basicAuth: string = btoa(binaryString);
+
+      const bodyJson = {
+          "cpf" : "42395970808",
+          "email" : "silvio_cbsj@hotmail.com",
+          "orderId": 200009351,
+          "store": 642719,
+          "products": [{
+              //"prodId": dadosSelecionados.productId,
+              "prodId": 115301,
+              "variantId": dadosSelecionados.produto.variant_id,
+              "method_refund":  dadosSelecionados.tipoReembolso == "Vale-Compras" ? "Cupom" : "Estorno" ,
+              "reasonSubId": 9,
+              "qty": dadosSelecionados.quantidade,
+              "obs": "Gostaria de trocar meu produto"
+          }],
+          "pix": {
+              "type": "number",
+              "code": "18997200285"
+          },
+          "shipment_method": "Correios",
+          "acceptTerms": true,
+          "acceptLgpd": true,
+      };
+
+      axios
+        .post(
+          `https://api.troquefuthomologacao.futfanatics.com.br/api/finish-request`, 
+          bodyJson,
+          {
+            timeout: 10000,
+            headers: {
+              Authorization: "Basic " + basicAuth,
+            },
+          }
+        )
+        .then(function (response) {
+          console.log(response.data, "Dados do pedido recebidos com sucesso");
+        })
+        .catch(function (error) {
+          console.log(error, "Erro ao obter dados do pedido");
+        });
+    }
+  }
+
   return (
     <Modal
       isOpen={isOpen}
@@ -204,15 +265,9 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
 
       <button onClick={onRequestClose} className="btn-close"></button>
 
-      <Button
-        path="/Devolution"
-        borderRadius="10px"
-        width="280px"
-        height="40px"
-        margin="16px auto 0px auto"
-      >
+      <button onClick={handleConfirmar} >
         Concluir pedido de Devolução
-      </Button>
+      </button>
     </Modal>
   );
 };
