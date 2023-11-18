@@ -8,6 +8,7 @@ interface ValeEstornoProps {
 }
 
 const ValeEstorno: React.FC<ValeEstornoProps> = ({ updateData }) => {
+  
   const [activeTab, setActiveTab] = useState<string>("pix");
   const [pixData, setPixData] = useState<any>(null);
   const [bankData, setBankData] = useState<any>(null);

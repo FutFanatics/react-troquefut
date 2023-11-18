@@ -107,12 +107,13 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       subDevolucao,
       ...produtoSelecionadoData,
     };
-
+  
     console.log("Dados selecionados:", dadosSelecionados);
+  
     const todosCamposPreenchidos = Object.values(dadosSelecionados).every(
       (value) => value !== ""
     );
-
+  
     if (todosCamposPreenchidos) {
       navigate("/data", {
         state: {

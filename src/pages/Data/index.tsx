@@ -1,5 +1,6 @@
+// Data.tsx
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Box } from "../../componentsStyled/Box";
 import Header from "../../components/header";
 import Menu from "../../components/menu";
@@ -8,18 +9,23 @@ import IconFinance from "../../componentsStyled/icon/IconFinance";
 import ValeCompras from "../../components/vale-compras";
 import ValeEstorno from "../../components/ValeEstorno";
 import Footer from "../../components/footer";
-import { useLocation } from "react-router-dom";
+
 const Data: React.FC = () => {
-  const [dadosSelecionados, setDadosSelecionados] = useState<any>({});
+  const location = useLocation();
+  const [dadosSelecionados, setDadosSelecionados] = useState<any>(location.state || {});
   const [tipoReembolso, setTipoReembolso] = useState<string>(
     localStorage.getItem("tipoReembolso") || ""
   );
-  console.log("me mostra",dadosSelecionados)
+
   const navigate = useNavigate();
+
   const updateData = (data: any) => {
     setDadosSelecionados((prevData: any) => ({
       ...prevData,
-      ...data,
+      produtoSelecionadoData: {
+        ...prevData.produtoSelecionadoData,
+        additionalData: data.additionalData,
+      },
     }));
   };
 
@@ -37,12 +43,10 @@ const Data: React.FC = () => {
       console.error("Preencha todos os campos do componente Data antes de confirmar");
       return;
     }
+
     const dadosFinais = {
       ...dadosSelecionados,
       ...dadosData,
-      produtoSelecionadoData: {
-        ...dadosSelecionados.produtoSelecionadoData,
-      },
     };
 
     console.log("Dados finais:", dadosFinais);
@@ -98,13 +102,9 @@ const Data: React.FC = () => {
               </div>
               
             </Box>
-            <button
-                
-                onClick={handleConfirmar}
-                
-              >
-                Avançar
-              </button>
+            <button onClick={handleConfirmar}>
+              Avançar
+            </button>
           </div>
         </div>
       </section>
