@@ -9,6 +9,7 @@ import ValeCompras from "../../components/vale-compras";
 import ValeEstorno from "../../components/ValeEstorno";
 import Footer from "../../components/footer";
 import Button from "../../componentsStyled/Button";
+import IconHelp from "../../componentsStyled/icon/Iconhelp";
 
 const Data: React.FC = () => {
   const location = useLocation();
@@ -77,7 +78,14 @@ const Data: React.FC = () => {
           <SspanText typeSpan="inative">Envio do Produto</SspanText>
         </Box>
       </div>
-      <section className="c-data">
+      <section className="c-data position-relative">
+        <Box typeBox="icon-help">
+          <div className="informação">
+            Dúvidas de como funciona?
+            Acesse nossa <a href="">Central de ajuda</a>
+          </div>
+          <IconHelp width={30}/>
+        </Box>
         <div className="container">
           <SH1 textTransform="uppercase">Informações de reembolso</SH1>
           <div className="row justify-content-center">

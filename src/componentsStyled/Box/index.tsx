@@ -261,8 +261,6 @@ export const Box = styled.div<Box>`
     `}
     ${props => props.typeBox === 'active' && `
         margin:0px 8px;
-
-
     `}
     ${props => props.typeBox === 'active-number' && `
         width: 35px;
@@ -457,6 +455,46 @@ export const Box = styled.div<Box>`
     ${props => props.typeBox === 'container-devolution' && `
         padding-left:32px;
         margin:0px;
+    `}
+    ${props => props.typeBox === 'icon-help' && `
+        
+        height:45px;
+        width:45px;
+        border-radius:100px;
+        background:#00DF5E;
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        padding:0px;
+        display:flex;
+        justify-content: center;
+        align-items:center;
+        margin:0px;
+        filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.25));
+        .informação{
+            display:none
+        }
+        &:hover{
+            .informação{
+                position:absolute;
+                right:50px;
+                top:-10px;
+                display:block;
+                background:rgba(00, 00 ,00 ,0.4);
+                color:#fff;
+                padding:8px 8px;
+                font-weight:350;
+                font-size:13px;
+                border-radius:2px;
+                width:200px;
+                height:55px;
+                
+                a{
+                    color:#fff;
+                    text-decoration:underline;
+                }
+            }
+        }
     `}
     @media screen and (max-width: 768px) {
         ${props => props.typeBox === 'estorno' && `
