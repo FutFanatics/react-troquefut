@@ -14,9 +14,10 @@ interface ProdutosProps {
   selected?: boolean;
   delivery_date?: string;
   payment_method?:string;
+  orderId?: any;
 
 }
-const Produtos: React.FC<ProdutosProps> = ({ produtos, className, delivery_date, payment_method}) => {
+const Produtos: React.FC<ProdutosProps> = ({ produtos, className, delivery_date, payment_method, orderId}) => {
   const [buttonText, setButtonText] = useState("Selecionar");
   const [produtosSelecionados, setProdutosSelecionados] = useState<Produto[]>([]);
   const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(null);
@@ -56,7 +57,8 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, delivery_date,
     const dadosSelecionados = {
       delivery_date: delivery_date,
       payment_method:payment_method,
-      productId: produtosSelecionados[0]?.product_id,
+      products: produtosSelecionados,
+      order_id: orderId,
     };
   
     console.log("Dados selecionados:", dadosSelecionados);

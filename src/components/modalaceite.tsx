@@ -44,25 +44,30 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
       const binaryString: string = String.fromCharCode.apply(null, dataArray);
       const basicAuth: string = btoa(binaryString);
 
+      console.log(dadosSelecionados);
+
+      let products = [];
+
+      dadosSelecionados.products.map((product) => {
+        products.push({
+          prodId: product.product_id,
+          variantId: product.variant_id,
+          method_refund: dadosSelecionados.tipoReembolso,
+          reasonSubId: 9,
+          qty: product.quantity,
+          obs: "",
+        });
+      });
+
       const bodyJson = {
-          "cpf" : "42395970808",
-          "email" : "silvio_cbsj@hotmail.com",
-          "orderId": 200009351,
+          "email" : username,
+          "orderId": dadosSelecionados.order_id,
           "store": 642719,
-          "products": [{
-              //"prodId": dadosSelecionados.productId,
-              "prodId": dadosSelecionados.productId,
-              //"variantId": dadosSelecionados.produto.variant_id,
-              "variantId": 1708529,
-              "method_refund":  dadosSelecionados.tipoReembolso == "Vale-Compras" ? "Cupom" : "Estorno" ,
-              "reasonSubId": 9,
-              "qty": dadosSelecionados.quantidade,
-              "obs": "Gostaria de trocar meu produto"
-          }],
-          "pix": {
-              "type": dadosSelecionados.data.pixData.type,
-              "code": dadosSelecionados.data.pixData.code
-          },
+          "products": products,
+          // "pix": {
+          //     "type": dadosSelecionados.data.pixData.tipoPix,
+          //     "code": dadosSelecionados.data.pixData.chavePix
+          // },
           "shipment_method":dadosSelecionados.formaEnvio,
           "acceptTerms": true,
           "acceptLgpd": true,

@@ -15,6 +15,7 @@ interface ProductSelectedProps {
   onDataUpdate?: (data: any) => void;
   onSaveTipoReembolso?: (tipoReembolso: string) => void;
   produtoSelecionadoData?: any;
+  orderId?: any;
 }
 
 const ProductSelected: React.FC<ProductSelectedProps> = ({
@@ -23,6 +24,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   onDataUpdate,
   onSaveTipoReembolso,
   produtoSelecionadoData,
+  orderId
 }) => {
   const [tipoReembolso, setTipoReembolso] = useState<string>("");
   const [motivoDevolucao, setMotivoDevolucao] = useState<string>("");
@@ -73,6 +75,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       motivoDevolucao,
       quantidade,
       subDevolucao,
+      orderId,
       ...produtoSelecionadoData,
     };
     if (onDataUpdate) {
@@ -100,6 +103,11 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   }
 
   const handleConfirmar = () => {
+
+    produtoSelecionadoData.tipoReembolso = tipoReembolso;
+    produtoSelecionadoData.motivoDevolucao = motivoDevolucao;
+    produtoSelecionadoData.subDevolucao = subDevolucao;
+
     const dadosSelecionados = {
       tipoReembolso,
       motivoDevolucao,

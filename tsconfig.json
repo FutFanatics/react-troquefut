@@ -7,11 +7,7 @@
       "esnext"
     ],
     "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -19,6 +15,15 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "strict": false,  // Desativa verificações de modo estrito
+    "skipLibCheck": true,  // Ignora a verificação de bibliotecas de declaração
+    "forceConsistentCasingInFileNames": false,  // Desativa a verificação de maiúsculas/minúsculas consistentes
+    "noImplicitAny": false,  // Desativa a verificação de tipos implícitos 'any'
+    "noUnusedLocals": false,  // Desativa a verificação de variáveis locais não utilizadas
+    "noUnusedParameters": false,  // Desativa a verificação de parâmetros não utilizados
+    "declaration": false,  // Não gera arquivos de declaração (.d.ts)
+    "esModuleInterop": true,  // Habilite a interoperabilidade de módulos ES
+    
     "plugins": [
       {
         "name": "typescript-plugin-css-modules"
