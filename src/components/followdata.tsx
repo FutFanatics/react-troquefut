@@ -26,6 +26,47 @@ const FollowData: React.FC<FollowDataProps> = ({ className }) => {
 
     fetchData();
   }, []);
+
+  /*
+  useEffect(() => {
+
+    let auth = localStorage.getItem('auth');
+
+    if(auth) {
+      const authObj = JSON.parse(auth);
+      console.log(authObj)
+
+      const username = authObj.email;
+      const password = authObj.token;
+      const customerId = authObj.customerId;
+      const text: string = username + ':' + password;
+      const encoder: TextEncoder = new TextEncoder();
+      const data: Uint8Array = encoder.encode(text);
+      const dataArray: number[] = Array.from(data);
+      const binaryString: string = String.fromCharCode.apply(null, dataArray);
+      const basicAuth: string = btoa(binaryString);
+
+      console.log(customerId);
+
+      axios.get(
+        `https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}/27`,
+        {
+          timeout: 10000,
+          headers: {
+            'Authorization': 'Basic ' + basicAuth
+          }
+        }
+      )
+      .then(function (response) {
+        setFollowData(response.data);
+      })
+      .catch(function (error) {
+        console.log(error, "Erro ao obter dados do pedido");
+      });
+    }
+  }, []);
+  */
+
     return (
         <>{followData && followData.length > 0 && (
             <Box typeBox="datafollow" className="col-md-4">
