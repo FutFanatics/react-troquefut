@@ -104,6 +104,8 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className }) => {
   const closeModal = () => {
     setModalType("");
   };
+
+  console.log('devolutionData', devolutionData)
   return (
     <>
     {devolutionData && (
