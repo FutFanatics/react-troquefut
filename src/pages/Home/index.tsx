@@ -43,7 +43,7 @@ export default function Home() {
                         </span> </Button> 
                     </div>
                     <div className="col-md-5 col-img d-none d-md-flex justify-content-end align-items-end ">
-                        <a href="www.futfanatics.com.br">
+                        <a href="https://www.futfanatics.com.br">
                             <SBoxIconFut>
                             <IconFut></IconFut>
                             </SBoxIconFut>
