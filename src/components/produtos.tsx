@@ -114,7 +114,7 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, delivery_date 
             </Box>
           ))}
           {produtosSelecionados.length > 0 && (
-            <button onClick={handleConfirmar} className="mt-5">Continuar</button>
+            <Button onClick={handleConfirmar} className="mt-5">Continuar</Button>
           )}
         </>
       )}

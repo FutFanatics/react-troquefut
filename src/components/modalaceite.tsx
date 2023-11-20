@@ -50,7 +50,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
           "store": 642719,
           "products": [{
               //"prodId": dadosSelecionados.productId,
-              "prodId": 115301,
+              "prodId": dadosSelecionados.productId,
               //"variantId": dadosSelecionados.produto.variant_id,
               "variantId": 1708529,
               "method_refund":  dadosSelecionados.tipoReembolso == "Vale-Compras" ? "Cupom" : "Estorno" ,
@@ -59,14 +59,14 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
               "obs": "Gostaria de trocar meu produto"
           }],
           "pix": {
-              "type": "number",
-              "code": "18997200285"
+              "type": dadosSelecionados.data.pixData.type,
+              "code": dadosSelecionados.data.pixData.code
           },
-          "shipment_method": "Correios",
+          "shipment_method":dadosSelecionados.formaEnvio,
           "acceptTerms": true,
           "acceptLgpd": true,
       };
-
+      console.log('Conteúdo do objeto bodyJson:', bodyJson);
       axios
         .post(
           `https://api.troquefuthomologacao.futfanatics.com.br/api/finish-request`, 
@@ -87,7 +87,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
         });
     }
   }
-
+  
   return (
     <Modal
       isOpen={isOpen}
@@ -109,9 +109,9 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
                 typeParagraph="termos"
                 fontSize="18px"
               >
-                Sobre a nossa{" "}
-                <a href="https://www.futfanatics.com.br/politica-de-trocas-e-devolucoes">
-                  Política de Trocas e devolução{" "}
+                Sobre a nossa
+                <a href="https://www.futfanatics.com.br/politica-de-trocas-e-devolucoes" target="_blank">
+                  Política de Trocas e devolução
                 </a>
               </STextParagraph>
               <STextParagraph typeParagraph="termos">
@@ -126,7 +126,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
                 typeParagraph="termos"
                 fontSize="18px"
               >
-                <a href="https://www.futfanatics.com.br/portal-de-ajuda">
+                <a href="https://www.futfanatics.com.br/portal-de-ajuda" target="_blank">
                   Central de Atendimento
                 </a>
               </STextParagraph>
@@ -144,7 +144,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
                 typeParagraph="termos"
                 fontSize="18px"
               >
-                <a href="https://www.futfanatics.com.br/politica-de-privacidade">
+                <a href="https://www.futfanatics.com.br/politica-de-privacidade" target="_blank">
                   Política de Privacidade
                 </a>
               </STextParagraph>
@@ -260,7 +260,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
         <div className="d-flex align-items-center mt-4 check">
           <input type="checkbox" required></input>
           <STextParagraph fontSize="14px" padding="0px 0px 0px 8px">
-            Eu declaro que li e concordo com os Termos e Condições{" "}
+            Eu declaro que li e concordo com os Termos e Condições
           </STextParagraph>
         </div>
       </div>

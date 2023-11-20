@@ -220,7 +220,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
         </div>
       </Box>
 
-      <button onClick={handleConfirmar} disabled={!isFotoAdicaoValida}>
+      <button onClick={handleConfirmar} disabled={!isFotoAdicaoValida} className="button-fut">
         Confirmar
       </button>
     </>

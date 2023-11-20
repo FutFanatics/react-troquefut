@@ -8,6 +8,7 @@ import IconFinance from "../../componentsStyled/icon/IconFinance";
 import ValeCompras from "../../components/vale-compras";
 import ValeEstorno from "../../components/ValeEstorno";
 import Footer from "../../components/footer";
+import Button from "../../componentsStyled/Button";
 
 const Data: React.FC = () => {
   const location = useLocation();
@@ -102,9 +103,9 @@ const Data: React.FC = () => {
               </div>
               
             </Box>
-            <button onClick={handleConfirmar}>
+            <Button onClick={handleConfirmar}>
               Avançar
-            </button>
+            </Button>
           </div>
         </div>
       </section>

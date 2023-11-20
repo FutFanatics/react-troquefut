@@ -379,15 +379,56 @@ input[type="text"] {
   border-color: #192c53;
 }
 
-.options{
+.options {
   margin: 16px 0px 48px 0px;
   align-items: center;
-  .line-options{
+  .line-options {
     height: 2px;
     background-color: #000;
     width: 50px;
-    @include md{
+    @include md {
       width: 50px;
     }
+  }
+}
+
+.button-fut {
+  background: #192c53;
+  width: 380px;
+  font-size: 16px;
+  justify-content: center;
+  display: flex;
+  font-family: "gotham";
+  align-items: center;
+  font-weight: 350;
+  border-radius:50px;
+  color:#FFF;
+  border:none;
+  height:45px;
+  margin:0px 0px 16px 0px;
+
+  a{
+    color: #fff;
+    text-decoration: none;
+    width: 100%;
+    
+    text-align: center;
+
+    &:hover{
+        color: #fff;
+    }
+  }
+
+  span{
+      padding-left: 8px;
+  }
+
+  &:disabled{
+    background-color: #d9d9d9;
+    color: #b5b5b5;
+}
+
+  @media screen and (max-width: 768px) {
+    width: 300px;
   }
 }
