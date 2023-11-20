@@ -13,6 +13,7 @@ interface ProdutosProps {
   onSelect?: () => void;
   selected?: boolean;
   delivery_date?: string;
+
 }
 const Produtos: React.FC<ProdutosProps> = ({ produtos, className, delivery_date }) => {
   const [buttonText, setButtonText] = useState("Selecionar");
@@ -42,6 +43,7 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, delivery_date 
       setProdutoSelecionado(produto);
       setButtonText("Selecionado");
     }
+
   };
 
 
@@ -59,6 +61,7 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, delivery_date 
     setShowProductSelected(true);
     setProdutoSelecionadoData(dadosSelecionados);
   };
+
   return (
     <>
       {showProductSelected ? (
@@ -89,17 +92,17 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, delivery_date 
                 </SH1>
 
                 <SspanText typeSpan="namProduct">
-                  Código:{" "}
+                  Código:
                   <SspanText typeSpan="namProduct">{produto.product_id}</SspanText>
                   
                 </SspanText>
 
                 <SspanText typeSpan="namProduct">
-                  Preço: <SspanText typeSpan="namProduct">{produto.price}</SspanText>
+                  Preço: <SspanText typeSpan="namProduct">{produto.price ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(produto.price)) : 'N/A'}</SspanText>
                 </SspanText>
 
                 <SspanText typeSpan="namProduct">
-                  Variação:{" "}
+                  Variação:
                   <SspanText typeSpan="namProduct"> {produto.variant_value}</SspanText>
 
                 </SspanText>

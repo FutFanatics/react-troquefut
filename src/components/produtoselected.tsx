@@ -156,7 +156,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                   *Tipo de Reembolso
                 </STextParagraph>
                 <ListaSelected
-                  options={["Vale-Compras", "Reembolso"]}
+                  options={["Vale-Compras", "Estorno"]}
                   onChange={(selectedValue) => setTipoReembolso(selectedValue)}
                   selectedValue={tipoReembolso}
                 ></ListaSelected>

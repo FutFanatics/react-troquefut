@@ -2,7 +2,7 @@ export interface Produto {
   product_id: string; 
   name?: string;
   variant_value?: string;
-  price?: string;
+  price?: number;
   img?: string;
   url?: string;
   shipment_date?:string;
