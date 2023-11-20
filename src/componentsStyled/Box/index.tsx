@@ -496,6 +496,13 @@ export const Box = styled.div<Box>`
             }
         }
     `}
+    ${props => props.typeBox === 'not-dev' && `
+        margin:0px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:70px 0px;        
+    `}
     @media screen and (max-width: 768px) {
         ${props => props.typeBox === 'estorno' && `
             border:none;

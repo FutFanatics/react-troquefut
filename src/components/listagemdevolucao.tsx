@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { SH1 } from "../componentsStyled/Text";
-
+import { SH1, STextParagraph } from "../componentsStyled/Text";
 import DatePicker from "./datepicker";
 import { Box } from "../componentsStyled/Box";
 import DevolutionItem from "./devolutionitem";
 import Button from "../componentsStyled/Button";
 import IconSearch from "../componentsStyled/icon/iconsearch";
+import IconNull from "../componentsStyled/icon/iconNull";
 
 type Devolution = {
   id: string;
@@ -21,46 +21,42 @@ const ListagemDevolucoes: React.FC = () => {
 
   useEffect(() => {
     let auth = localStorage.getItem('auth');
-    if(auth) {
-        const authObj = JSON.parse(auth);
-        console.log(authObj)
-  
-        const username = authObj.email;
-        const password = authObj.token;
-        const text: string = username + ':' + password;
-        const encoder: TextEncoder = new TextEncoder();
-        const data: Uint8Array = encoder.encode(text);
+    if (auth) {
+      const authObj = JSON.parse(auth);
 
-        
-        const dataArray: number[] = Array.from(data);
+      const username = authObj.email;
+      const password = authObj.token;
+      const text: string = username + ':' + password;
+      const encoder: TextEncoder = new TextEncoder();
+      const data: Uint8Array = encoder.encode(text);
 
-        
-        const binaryString: string = String.fromCharCode.apply(null, dataArray);
-        const basicAuth: string = btoa(binaryString);
-        
-        const fetchDevolucoes = async () => {
+      const customerId = authObj.customerId;
+      const dataArray: number[] = Array.from(data);
+
+      const binaryString: string = String.fromCharCode.apply(null, dataArray);
+      const basicAuth: string = btoa(binaryString);
+
+      const fetchDevolucoes = async () => {
         try {
-            const response = await axios.get("https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/335",
+          const response = await axios.get(`https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}`,
             {
-                timeout: 10000,
-                headers: {
-                  'Authorization': 'Basic ' + basicAuth
-                }
+              timeout: 10000,
+              headers: {
+                'Authorization': 'Basic ' + basicAuth
+              }
             }
-            
-            );
-            setDevolucoes(response.data);
-          }catch (error) {
-            console.error("Error fetching data:");
-          }
-        };
-        fetchDevolucoes();
+          );
+          setDevolucoes(response.data);
+        } catch (error) {
+          console.error("Error fetching data:");
+        }
+      };
+      fetchDevolucoes();
     }
 
   }, [selectedDate, currentDate]);
 
   const handleSearch = () => {
-    
     const filteredDevolucoes = devolucoes.filter((devolucao) => {
       const createdAtDate = new Date(devolucao.created_at);
       return (
@@ -75,22 +71,35 @@ const ListagemDevolucoes: React.FC = () => {
   return (
     <div>
       <div className="d-flex justify-content-center mt-3 align-items-center box-date">
-      <SH1 typeTitle="acompanhe">Selecione um período:</SH1>
-      <div className="d-flex flex-column container-date"> 
-        <label>Data início:</label>
-        <DatePicker onSelectDate={setSelectedDate} placeholder="Selecione uma data" onChange={setSelectedDate}/>
-
-      </div>
-      <div className="d-flex flex-column container-date"> 
-        <label>Data Final:</label>
-      <DatePicker onSelectDate={setCurrentDate} selected={currentDate} placeholder="Data Atual" onChange={setSelectedDate} />
-      </div>
-      <Button onClick={handleSearch} typeButton="search"><IconSearch width={18}></IconSearch></Button>
+        <SH1 typeTitle="acompanhe">Selecione um período:</SH1>
+        <div className="d-flex flex-column container-date">
+          <label>Data início:</label>
+          <DatePicker onSelectDate={setSelectedDate} placeholder="Selecione uma data" onChange={setSelectedDate} />
+        </div>
+        <div className="d-flex flex-column container-date">
+          <label>Data Final:</label>
+          <DatePicker onSelectDate={setCurrentDate} selected={currentDate} placeholder="Data Atual" onChange={setSelectedDate} />
+        </div>
+        <Button onClick={handleSearch} typeButton="search"><IconSearch width={18}></IconSearch></Button>
       </div>
       <SH1 color='#777' fontSize='16px' fontWeight={350} textAlign='start'>Lista de devoluções</SH1>
-      {devolucoes.map((devolucao) => (
-        <DevolutionItem key={devolucao.id} devolucao={devolucao} />
-      ))}
+      {devolucoes.length === 0 ? (
+        <Box typeBox="not-dev">
+            <div className="content d-flex flex-column align-items-center">
+            <IconNull width={50}></IconNull>
+            <STextParagraph fontSize="14px" color="#777">
+              Nenhuma devolução encontrada
+            </STextParagraph>
+            <STextParagraph fontSize="14px" color="#777">
+              no período selecionado.
+            </STextParagraph>
+            </div>
+        </Box>
+      ) : (
+        devolucoes.map((devolucao) => (
+          <DevolutionItem key={devolucao.id} devolucao={devolucao} />
+        ))
+      )}
     </div>
   );
 };

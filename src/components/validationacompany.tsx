@@ -11,11 +11,14 @@ interface User {
 
 interface Dados {
   customerId: number;
- }
+}
 
-const ValidationAcompany: React.FC = () => {
- const [user, setUser] = useState<User>({ email: 'silvio_cbsj@hotmail.com', password: 'Ambul@ncia001' });
+const Validation: React.FC = () => {
+ const [user, setUser] = useState<User>({
+  email:"", password:""
+ });
  const [success, setSuccess] = useState(false);
+ const [error, setError] = useState<string | null>(null); 
  const navigate = useNavigate();
 
  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -28,18 +31,18 @@ const ValidationAcompany: React.FC = () => {
          'Content-Type': 'application/json',
        },
        body: JSON.stringify(user),
+       
      });
- 
-    if (response.ok) {
-      const responseApi = await response.json();
 
+     const responseApi = await response.json();
+
+     if(responseApi.error){    
+      setError('Senha incorreta. Por favor, verifique seus dados.');
+     } else {
       localStorage.setItem('auth', JSON.stringify(responseApi));
-
       setSuccess(true);
       navigate('/devolution');
-     } else {
-       alert('Não foi possível realizar o login. Por favor, verifique seus dados.');
-     }
+     } 
   } catch (error) {
      console.error('Ocorreu um erro:', error);
   }
@@ -48,32 +51,28 @@ const ValidationAcompany: React.FC = () => {
  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
+    setError(null);
  };
-
 
  return (
     <form onSubmit={handleSubmit} className="col-md-6">
       <Box margin="32px 0px " typeBox="login" className="d-flex flex-column">
         <label>Login</label>
-        <input type="text" placeholder="Insira seu e-mail ou CPF"  onChange={handleChange} />
+        <input name="email" type="text" placeholder="Insira seu e-mail ou CPF"  onChange={handleChange} />
       </Box>
       <Box margin="32px 0px" typeBox="login" className="d-flex flex-column">
         <label>Senha</label>
-        <input type="password" placeholder="Insira sua senha"  onChange={handleChange}></input>
+        <input name='password' type="password" placeholder="Insira sua senha"  onChange={handleChange}></input>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
       </Box>
       <div className="d-flex justify-content-end">
-        <SspanText fontSize="14px" color="#192c53" fontWeight={600} >Esqueci a senha</SspanText>
+      <SspanText fontSize="14px" color="#192c53" fontWeight={600} ><a className='link-senha' href='https://www.futfanatics.com.br/loja/recuperar_senha.php'>
+        Esqueci a senha</a></SspanText>
       </div>
       
       <Button margin="32px auto 0px auto" type="submit">Confirmar</Button>
-
     </form>
  );
 };
 
-export default ValidationAcompany;
-
-/**
- * 
- * 
- */
+export default Validation;

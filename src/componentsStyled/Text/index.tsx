@@ -183,6 +183,12 @@ export const SH1 =styled.h1<SH1Props>`
       padding: ${(props) => props.padding || '0px'};
       font-weight: ${(props) => props.fontWeight || 350};
       color:${(props) => props.color || '#000'};
+      
+      .link-senha{
+        color:#192c53;
+        text-decoration:none;
+    }
+
 
       ${props => props.typeSpan === 'inative' && `
         color:#777777;
@@ -197,12 +203,14 @@ export const SH1 =styled.h1<SH1Props>`
         ${props => props.typeSpan === 'active' && `
         color:#000;
         font-weight:500;
+        text-align:center;
         font-size:17px;
         `}
         ${props => props.typeSpan === 'inative' && `
             color:#777;
             font-weight:500;
             font-size:17px;
+            text-align:center;
         `}
         
         ${props => props.typeSpan === 'namProduct' && `

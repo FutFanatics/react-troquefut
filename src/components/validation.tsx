@@ -66,7 +66,8 @@ const Validation: React.FC = () => {
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </Box>
       <div className="d-flex justify-content-end">
-        <SspanText fontSize="14px" color="#192c53" fontWeight={600} >Esqueci a senha</SspanText>
+        <SspanText fontSize="14px" color="#192c53" fontWeight={600} ><a className='link-senha' href='https://www.futfanatics.com.br/loja/recuperar_senha.php'>
+        Esqueci a senha</a></SspanText>
       </div>
       
       <Button margin="32px auto 0px auto" type="submit">Confirmar</Button>

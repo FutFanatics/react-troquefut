@@ -9,13 +9,13 @@ interface ProgressDevolutionProps {
  className?:string;
 }
 
-const ProgressDevolution: React.FC<ProgressDevolutionProps> = ({ data , className}) => {    
+const ProgressDevolution: React.FC<ProgressDevolutionProps & { devolutionId?: string }> = ({ data, className, devolutionId }) => {   
 
  return (
     <>
         <Box typeBox="container-devolution" className="col-md-8">
-            <StatusDevolution></StatusDevolution>
-            <DetailsDevolution></DetailsDevolution>
+            <StatusDevolution devolutionId={devolutionId} ></StatusDevolution>
+            <DetailsDevolution devolutionId={devolutionId}></DetailsDevolution>
         </Box>
     </>
  );

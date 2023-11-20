@@ -5,6 +5,7 @@ import { Box } from "../componentsStyled/Box";
 import SlidesProducts from "./slidesproducts";
 import { useLocation, useNavigate  } from "react-router-dom";
 import axios from "axios";
+import Button from "../componentsStyled/Button";
 
 
 interface ModalAceiteProps {
@@ -267,9 +268,9 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
 
       <button onClick={onRequestClose} className="btn-close"></button>
 
-      <button onClick={handleConfirmar} >
+      <Button onClick={handleConfirmar}  margin="16px auto 0px auto">
         Concluir pedido de Devolução
-      </button>
+      </Button>
     </Modal>
   );
 };

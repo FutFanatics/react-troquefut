@@ -1,17 +1,72 @@
 import React, { useState, useEffect } from "react";
-import { DataFollow } from "./Types";
-import { Box } from "../componentsStyled/Box";
+import axios from "axios";
 import Slider from "react-slick";
+import { Box } from "../componentsStyled/Box";
 import Button from "../componentsStyled/Button";
 import ModalAnalise from "./modalAnalise";
 import ModalDevolution from "./modaldevolution";
-import axios from "axios";
+
+
 interface DetailsDevolutionProps {
   className?: string;
+  devolutionId?: string;
 }
 
-const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className }) => {
-  const [devolutionData, setDevolutionData] = useState<DataFollow | undefined>(undefined);
+interface Product {
+  quant: number;
+  price: string;
+  refundType: string;
+  reasonSub: string;
+  reasonMain: string;
+  obs: string;
+  variant: string;
+}
+
+interface HistoryItem {
+  title: string;
+  date: string;
+  fileIcon: string;
+  status: string;
+}
+
+interface Status {
+  title: string;
+  status: string;
+  msg: string;
+  color: string;
+}
+
+interface LDN {
+  status: boolean;
+  url: string;
+}
+
+export interface DataFollow {
+  id: number;
+  order_id: number;
+  method_shipment: string | null;
+  dateCreatedReturn: string;
+  customer: {
+    fullname: string;
+    fone: string;
+    cellphone: string;
+    cep: string;
+    state: string;
+    city: string;
+    neigborhood: string;
+    street: string;
+    number: string;
+    complement: string;
+  };
+  products: Product[];
+  history: HistoryItem[];
+  status: Status;
+  coupon: string;
+  ldn: LDN;
+}
+
+const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolutionId }) => {
+  const [devolutionData, setDevolutionData] = useState<DataFollow[]>([]);
   const [modalType, setModalType] = useState("");
 
   const settings = {
@@ -37,11 +92,11 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className }) => {
   };
 
   useEffect(() => {
-    let auth = localStorage.getItem('auth');
-    if(auth) {
+    if (devolutionId) {
+      const auth = localStorage.getItem('auth');
+      if (auth) {
         const authObj = JSON.parse(auth);
-        console.log(authObj)
-  
+
         const username = authObj.email;
         const password = authObj.token;
         const customerId = authObj.id;
@@ -49,55 +104,53 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className }) => {
         const encoder: TextEncoder = new TextEncoder();
         const data: Uint8Array = encoder.encode(text);
 
-        
         const dataArray: number[] = Array.from(data);
-
-        
         const binaryString: string = String.fromCharCode.apply(null, dataArray);
         const basicAuth: string = btoa(binaryString);
-          
+
         const fetchData = async () => {
           try {
-              const response = await axios.get("https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/"+customerId,
-              {
-                  timeout: 10000,
-                  headers: {
-                    'Authorization': 'Basic ' + basicAuth
-                  }
+            const response = await axios.get<DataFollow[]>(`https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}/${devolutionId}`, {
+              timeout: 10000,
+              headers: {
+                'Authorization': 'Basic ' + basicAuth
               }
-              
-              );
-              
-              if (response.status === 200) {
+            });
+
+            if (response.status === 200) {
               const data = response.data;
-              setDevolutionData(data[0]);
-              } else {
+              setDevolutionData(data);
+            } else {
               console.error("Error fetching data:", response.statusText);
-              }
+            }
           } catch (error) {
-              console.error("Error fetching data:");
+            console.error("Error fetching data:", error);
           }
         };
-        fetchData();
-    }
 
-  }, []);
+        fetchData();
+      }
+    }
+  }, [devolutionId]);
+
   const handleButtonClick = () => {
-    if (devolutionData) {
-      if (devolutionData.status.title === "Em Análise") {
-        setModalType("analise"); 
+    if (devolutionData.length > 0) {
+      const devolution = devolutionData[0];
+
+      if (devolution.status.title === "Em Análise") {
+        setModalType("analise");
       }
-      if (devolutionData.status.title === "Negada") {
-        setModalType("devolution"); 
+      if (devolution.status.title === "Negada") {
+        setModalType("devolution");
       }
-      if (devolutionData.status.title === "Reembolso Aprovado") {
-        setModalType("reembolso"); 
+      if (devolution.status.title === "Reembolso Aprovado") {
+        setModalType("reembolso");
       }
-      if (devolutionData.status.title === "Devolução FInalizada ") {
-        setModalType("concluido"); 
+      if (devolution.status.title === "Devolução Finalizada") {
+        setModalType("concluido");
       }
-      if (devolutionData.status.title === "Envio") {
-        setModalType("envio"); 
+      if (devolution.status.title === "Envio") {
+        setModalType("envio");
       }
     }
   };
@@ -105,57 +158,60 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className }) => {
     setModalType("");
   };
 
-  console.log('devolutionData', devolutionData)
+
   return (
     <>
-    {devolutionData && (
-      <Box typeBox="datafollow" className="col-md-12 mt-4">
-        <h1>Sua Solicitação</h1>
-        <h4>Solicitação: #{devolutionData.orderId}</h4>
-        <div className="d-flex justify-content-between">
-          <div className="content-img">
-            <Slider {...settings} className="slide">
-                {Array.isArray(devolutionData.imgs)&& devolutionData.imgs.map((img,index)=> (
-                <div key={index}>
-                  <img src={img.url} alt={`Product Image ${index + 1}`} />
+      {devolutionData.map((devolution, index) => (
+        <Box key={index} typeBox="datafollow" className="col-md-12 mt-4">
+          <h1>Sua Solicitação</h1>
+          <h4>Solicitação: #{devolution.order_id}</h4>
+          <div className="d-flex justify-content-between">
+            <div className="content-img">
+              <Slider {...settings} className="slide">
+                {Array.isArray(devolution.products) &&
+                  devolution.products.map((product, productIndex) => (
+                    <div key={productIndex}>
+                      <img src={product.variant} alt={`Product Image ${productIndex + 1}`} />
+                    </div>
+                  ))}
+              </Slider>
+              <Button typeButton="followdevolution" onClick={handleButtonClick}>
+              {devolutionData.length > 0 && devolutionData[0].status.title}
+            </Button>
+            </div>
+            <div className="content-product_describe">
+              <h3>{devolution.products[0].variant}</h3>
+              <div className="d-flex justify-content-between">
+                <div className="d-flex flex-column content">
+                  <label>Tamanho</label>
+                  <p>{devolution.products[0].variant}</p>
                 </div>
-              ))}
-            </Slider>
-            <Button typeButton="followdevolution" onClick={handleButtonClick}>{devolutionData.status.title}</Button>
-          </div>
-          <div className="content-product_describe">
-            <h3>{devolutionData.name}</h3>
-            <div className="d-flex justify-content-between">
-              <div className="d-flex flex-column content">
-                <label>Tamanho</label>
-                <p>{devolutionData.variant.value}</p>
+                <div className="d-flex flex-column content">
+                  <label>Preço</label>
+                  <p>R${parseFloat(devolution.products[0].price).toFixed(2)}</p>
+                </div>
               </div>
               <div className="d-flex flex-column content">
-                <label>Preço</label>
-                <p>R${devolutionData.price.toFixed(2)}</p>
+                <label>Quantidade</label>
+                <p>{devolution.products[0].quant}</p>
               </div>
-            </div>
-            <div className="d-flex flex-column content">
-              <label>Quantidade</label>
-              <p>{devolutionData.quant}</p>
-            </div>
-            <div className="d-flex justify-content-between">
-              <div className="d-flex flex-column content">
-                <label>Motivo da Devolução</label>
-                <p>{devolutionData.reasonMain}</p>
+              <div className="d-flex justify-content-between">
+                <div className="d-flex flex-column content">
+                  <label>Motivo da Devolução</label>
+                  <p>{devolution.products[0].reasonMain}</p>
+                </div>
+                <div className="d-flex flex-column content">
+                  <label>Sub-Motivo</label>
+                  <p>{devolution.products[0].reasonSub}</p>
+                </div>
               </div>
-              <div className="d-flex flex-column content">
-                <label>Sub-Motivo</label>
-                <p>{devolutionData.reasonSub}</p>
+              <div className="d-flex flex-column">
+                <label>Observação</label>
+                <p>{devolution.products[0].obs}</p>
               </div>
-            </div>
-            <div className="d-flex flex-column">
-              <label>Observação</label>
-              <p>{devolutionData.obs}</p>
             </div>
           </div>
-        </div>
-        {modalType === "analise" && (
+          {modalType === "analise" && (
             <ModalAnalise isOpen={true} onRequestClose={closeModal} />
           )}
           {modalType === "devolution" && (
@@ -170,9 +226,9 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className }) => {
           {modalType === "envio" && (
             <ModalDevolution isOpen={true} onRequestClose={closeModal} />
           )}
-      </Box>
-    )}
-  </>
+        </Box>
+      ))}
+    </>
   );
 };
 

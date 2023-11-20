@@ -5,11 +5,12 @@ import Button from "../componentsStyled/Button";
 import axios from "axios";
 import IconAnalise from "../componentsStyled/icon/Iconanalise";
 import IconEnviado from "../componentsStyled/icon/Iconenviado";
-
+import { DataFollow } from "./Types";
 interface ModalRealizadoProps extends ModalProps {
-  isOpen: boolean;
+  isOpen?: boolean;
   children?: React.ReactNode;
-  onRequestClose: () => void;
+  onRequestClose?: () => void;
+  data?: DataFollow;
 }
 
 interface ModalProps {
@@ -27,6 +28,7 @@ const ModalRealizado: React.FC<ModalRealizadoProps> = ({
   subtitle,
   icon,
   describe,
+  data,
   className,
 }) => {
   return (

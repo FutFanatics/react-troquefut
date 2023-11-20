@@ -11,48 +11,47 @@ import axios from "axios";
 
 interface StatusDevolutionProps {
   className?: string;
+  devolutionId?: string;
 }
 
-const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className }) => {
+const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className, devolutionId }) => {
   const [data, setData] = useState<DataFollow[]>([]);
 
   useEffect(() => {
-    let auth = localStorage.getItem("auth");
+    if (devolutionId) {
+      let auth = localStorage.getItem("auth");
 
-    if (auth) {
-      const authObj = JSON.parse(auth);
-      const username = authObj.email;
-      const password = authObj.token;
-      const customerId = authObj.customerId;
-      const text: string = username + ":" + password;
-      const encoder: TextEncoder = new TextEncoder();
-      const data: Uint8Array = encoder.encode(text);
+      if (auth) {
+        const authObj = JSON.parse(auth);
+        const username = authObj.email;
+        const password = authObj.token;
+        const customerId = authObj.customerId;
+        const text: string = username + ":" + password;
+        const encoder: TextEncoder = new TextEncoder();
+        const data: Uint8Array = encoder.encode(text);
 
-      const dataArray: number[] = Array.from(data);
+        const dataArray: number[] = Array.from(data);
 
-      const binaryString: string = String.fromCharCode.apply(null, dataArray);
-      const basicAuth: string = btoa(binaryString);
+        const binaryString: string = String.fromCharCode.apply(null, dataArray);
+        const basicAuth: string = btoa(binaryString);
 
-      axios
-        .get(
-          `https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}`, 
-          {
+        axios
+          .get(`https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}/${devolutionId}`, {
             timeout: 10000,
             headers: {
               Authorization: "Basic " + basicAuth,
             },
-          }
-        )
-        .then(function (response) {
-          setData(response.data);
-          console.log(response.data, "Dados do pedido recebidos com sucesso");
-        })
-        .catch(function (error) {
-          console.log(error, "Erro ao obter dados do pedido");
-        });
+          })
+          .then(function (response) {
+            setData(response.data);
+            console.log(response.data, "Dados do pedido recebidos com sucesso");
+          })
+          .catch(function (error) {
+            console.log(error, "Erro ao obter dados do pedido");
+          });
+      }
     }
-  }, []);
-
+  }, [devolutionId]);
   return (
     <>
       {data &&
@@ -109,6 +108,7 @@ const getStatusColor = (status: string): string => {
       return "transparent";
   }
 };
+
 const getBorderColor = (status: string): string => {
   switch (status) {
     case "approved":
@@ -119,6 +119,7 @@ const getBorderColor = (status: string): string => {
       return "#00000080";
   }
 };
+
 const getIconColor = (status: string): string => {
   switch (status) {
     case "approved":
@@ -129,6 +130,7 @@ const getIconColor = (status: string): string => {
       return "#1C1B1F80";
   }
 };
+
 const getIconComponent = (title: string): React.FC => {
   switch (title) {
     case "Solicitação":
@@ -145,4 +147,5 @@ const getIconComponent = (title: string): React.FC => {
       return IconAcompanhe;
   }
 };
+
 export default StatusDevolution;

@@ -9,6 +9,8 @@ import axios from "axios";
 import Menu from "../../components/menu";
 import { Box } from "../../componentsStyled/Box";
 import IconHelp from "../../componentsStyled/icon/Iconhelp";
+import IconBack from "../../componentsStyled/icon/Iconback";
+import { useNavigate } from "react-router-dom";
 
 interface Pedido {
   id: string;
@@ -71,13 +73,22 @@ export default function Order() {
     setSelectedId(selectedValue);
     setIsProductSelectedVisible(false);
   };
-
+  const navigate = useNavigate();
+  const handleBack = () => {
+    console.log("Voltando...");
+    navigate(-1); 
+  };
   return (
     <>
       <Header></Header>
       <Menu typeOption="active"></Menu>
-      <div className="c-container-options d-flex justify-content-center options">
-        <Box
+      <div className="container c-container-options d-flex options flex-column flex-md-row">
+        <Button typeButton="voltar" margin="0px" onClick={handleBack}>
+          <IconBack width={20}></IconBack>
+          Voltar
+        </Button>
+        <div className="box-options d-flex justify-content-center align-items-center">
+          <Box
           typeBox="active"
           className="d-flex flex-md-row flex-column align-items-center justify-content-center"
         >
@@ -112,6 +123,8 @@ export default function Order() {
           </Box>
           <SspanText typeSpan="inative">Envio do Produto</SspanText>
         </Box>
+        </div>
+        
       </div>
       <section className="c-order position-relative">
       <Box typeBox="icon-help">

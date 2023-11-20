@@ -1,4 +1,5 @@
 import DatePicker from "../../components/datepicker";
+import Footer from "../../components/footer";
 import Header from "../../components/header";
 import ListagemDevolucoes from "../../components/listagemdevolucao";
 import Menu from "../../components/menu";
@@ -25,7 +26,7 @@ export default function Devolution() {
           <ListagemDevolucoes></ListagemDevolucoes>  
         </div>
         </section>
-        
+        <Footer></Footer>
         
         </>
     )

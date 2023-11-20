@@ -299,6 +299,10 @@
   width: auto;
 }
 
+.c-devolution {
+  padding: 0px 0px 50px 0px;
+}
+
 .c-menu {
   padding: 20px 0px 0px 0px;
 }
@@ -344,18 +348,30 @@ input[type=text] {
 }
 
 .options {
-  margin: 16px 0px 48px 0px;
-  align-items: center;
+  margin-top: 16px;
+  margin-bottom: 48px;
+  align-items: start;
+}
+@media (min-width: 1200px) {
+  .options {
+    align-items: center;
+  }
 }
 .options .line-options {
   height: 2px;
   background-color: #000;
   width: 50px;
+  position: relative;
+  bottom: 10px;
 }
 @media (min-width: 1200px) {
   .options .line-options {
     width: 50px;
+    position: inherit;
   }
+}
+.options .box-options {
+  margin: 0px auto;
 }
 
 .button-fut {

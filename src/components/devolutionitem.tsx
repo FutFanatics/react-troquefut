@@ -7,7 +7,7 @@ import Slider from "react-slick";
 import Button from "../componentsStyled/Button";
 import IconArrowRight from "../componentsStyled/icon/Iconarrowright";
 import IconSucess from "../componentsStyled/icon/Iconsucess";
-
+import { useNavigate } from "react-router-dom";
 interface DevolutionItemProps {
   devolucao: {
     id: string;
@@ -18,6 +18,12 @@ interface DevolutionItemProps {
 }
 
 const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
+  const navigate = useNavigate();
+
+  const handleFollowClick = () => {
+    console.log("Devolution ID:", devolucao.id);
+    navigate("/follow", { state: { devolutionId: devolucao.id } });
+  };
   const settings = {
     dots: false,
     infinite: false,
@@ -62,7 +68,7 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
             <strong>ID:</strong> {devolucao.id}
           </p>
           <p>{devolucao.created_at}</p>
-          <Button typeButton="devolution-status" className={`${getStatusStyle()}`} path="/follow">
+          <Button typeButton="devolution-status" className={`${getStatusStyle()}`} onClick={handleFollowClick}>
           {devolucao.result === "pending" ? "Acompanhar" : "Concluída"}{getIcon()} 
           </Button>
         </div>

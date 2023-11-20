@@ -10,6 +10,7 @@ import ValeEstorno from "../../components/ValeEstorno";
 import Footer from "../../components/footer";
 import Button from "../../componentsStyled/Button";
 import IconHelp from "../../componentsStyled/icon/Iconhelp";
+import IconBack from "../../componentsStyled/icon/Iconback";
 
 const Data: React.FC = () => {
   const location = useLocation();
@@ -58,12 +59,21 @@ const Data: React.FC = () => {
       state: dadosFinais,
     });
   };
-
+  
+  const handleBack = () => {
+    console.log("Voltando...");
+    navigate(-1); 
+  };
   return (
     <>
       <Header />
       <Menu typeOption="active" />
-      <div className="c-container-options d-flex justify-content-center options">
+      <div className="container c-container-options d-flex options flex-column flex-md-row">
+        <Button typeButton="voltar" margin="0px" onClick={handleBack}>
+          <IconBack width={20}></IconBack>
+          Voltar
+        </Button>
+        <div className="box-options d-flex justify-content-center align-items-center">
         <Box typeBox="active" className="d-flex flex-md-row flex-column align-items-center justify-content-center">
           <Box typeBox="active-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>1</SspanText></Box>
           <SspanText typeSpan="active">Pedido</SspanText>
@@ -79,6 +89,7 @@ const Data: React.FC = () => {
             typeBox="inative-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>3</SspanText></Box>
           <SspanText typeSpan="inative">Envio do Produto</SspanText>
         </Box>
+        </div>
       </div>
       <section className="c-data position-relative">
         <Box typeBox="icon-help">

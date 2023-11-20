@@ -148,7 +148,7 @@ const SButton = styled.button<SButtonProps>`
             margin-top:8px;
             margin-bottom:0px;
 
-            &.concluida{
+            &.concluída{
                 background:transparent;
                 border:1px solid #00DF5E;
                 color:#00DF5E;
@@ -172,6 +172,15 @@ const SButton = styled.button<SButtonProps>`
         margin:0px auto;
         font-size:14px;
     `}
+    ${props => props.typeButton === 'voltar' && `
+        border:none;
+        background:none;
+        width:auto;
+        color:#000;
+        font-weight:400;
+        display:flex;
+        align-items:center;
+    `}
     @media screen and (max-width: 768px) {
         ${props => props.typeButton === 'select' && `
             width:120px;
@@ -192,6 +201,9 @@ const SButton = styled.button<SButtonProps>`
             margin:24px auto 0px auto;
             border:1px #192C53 solid;
             font-weight:400;
+        `}
+        ${props => props.typeButton === 'voltar' && `
+            width:auto;
         `}
         
     }
