@@ -8,6 +8,7 @@ import ListaSuspensa from "../../components/listasuspensa";
 import axios from "axios";
 import Menu from "../../components/menu";
 import { Box } from "../../componentsStyled/Box";
+import IconHelp from "../../componentsStyled/icon/Iconhelp";
 
 interface Pedido {
   id: string;
@@ -112,7 +113,14 @@ export default function Order() {
           <SspanText typeSpan="inative">Envio do Produto</SspanText>
         </Box>
       </div>
-      <section className="c-order">
+      <section className="c-order position-relative">
+      <Box typeBox="icon-help">
+          <div className="informação">
+            Dúvidas de como funciona?
+            Acesse nossa <a href="">Central de ajuda</a>
+          </div>
+          <IconHelp width={30}/>
+        </Box>
         <div className="container">
           <SH1
             textTransform="uppercase"

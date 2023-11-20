@@ -10,6 +10,7 @@ import Footer from "../../components/footer";
 import { SH1, SspanText } from "../../componentsStyled/Text";
 import Header from "../../components/header";
 import Menu from "../../components/menu";
+import IconHelp from "../../componentsStyled/icon/Iconhelp";
 
 export default function Shipping() {
   const location = useLocation();
@@ -89,7 +90,14 @@ export default function Shipping() {
           <SspanText typeSpan="active">Envio do Produto</SspanText>
         </Box>
       </div>
-      <section className="c-shipping">
+      <section className="c-shipping position-relative">
+      <Box typeBox="icon-help">
+          <div className="informação">
+            Dúvidas de como funciona?
+            Acesse nossa <a href="">Central de ajuda</a>
+          </div>
+          <IconHelp width={30}/>
+        </Box>
         <div className="container">
           <SH1>FORMA DE ENVIO</SH1>
           <div className="row justify-content-center">
