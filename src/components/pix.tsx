@@ -1,13 +1,12 @@
-// Pix.tsx
-import React, { useState , useEffect } from "react";
+import React, { useState } from "react";
 import { Box } from "../componentsStyled/Box";
 
 interface PixProps {
   onDataUpdate: (data: any) => void;
-  
+  onValidationChange: (isValid: boolean) => void;
 }
 
-const Pix: React.FC<PixProps> = ({ onDataUpdate }) => {
+const Pix: React.FC<PixProps> = ({ onDataUpdate, onValidationChange }) => {
   const [tipoPix, setTipoPix] = useState<string | null>(null);
   const [chavePix, setChavePix] = useState("");
 
@@ -17,11 +16,11 @@ const Pix: React.FC<PixProps> = ({ onDataUpdate }) => {
     setChavePix("");
 
     onDataUpdate({
-      pixData: {
-        tipoPix: selectedTipoPix,
-        chavePix: "",
-      },
+      tipoPix: selectedTipoPix,
+      chavePix: "",
     });
+
+    validarCamposPreenchidos(selectedTipoPix, "");
   };
 
   const handleChavePixChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,65 +28,17 @@ const Pix: React.FC<PixProps> = ({ onDataUpdate }) => {
     setChavePix(novaChavePix);
 
     onDataUpdate({
-      pixData: {
-        tipoPix,
-        chavePix: novaChavePix,
-      },
+      tipoPix,
+      chavePix: novaChavePix,
     });
+
+    validarCamposPreenchidos(tipoPix, novaChavePix);
   };
 
-  const renderInputField = () => {
-    switch (tipoPix) {
-      case "Celular":
-        return (
-          <input
-            type="text"
-            placeholder="(00) 00000-0000"
-            value={chavePix}
-            onChange={handleChavePixChange}
-            maxLength={14}
-          />
-        );
-      case "CPF ou CNPJ":
-        return (
-          <input
-            type="text"
-            placeholder="Insira CPF ou CNPJ"
-            value={chavePix}
-            onChange={handleChavePixChange}
-            maxLength={18}
-          />
-        );
-      case "Chave Aleatória":
-        return (
-          <input
-            type="text"
-            placeholder="Insira a Chave Aleatória"
-            value={chavePix}
-            onChange={handleChavePixChange}
-          />
-        );
-      case "E-mail":
-        return (
-          <input
-            type="email"
-            placeholder="Insira o endereço de e-mail"
-            value={chavePix}
-            onChange={handleChavePixChange}
-          />
-        );
-      default:
-        return (
-          <input
-            type="text"
-            placeholder="Insira a Chave PIX"
-            value={chavePix}
-            onChange={handleChavePixChange}
-          />
-        );
-    }
+  const validarCamposPreenchidos = (tipoPix: string | null, chavePix: string) => {
+    const camposPreenchidos = tipoPix !== null && chavePix.trim() !== "";
+    onValidationChange(camposPreenchidos);
   };
-
 
   return (
     <div className={`col-md-8 col-12 d-flex flex-column mt-5`}>
@@ -103,7 +54,12 @@ const Pix: React.FC<PixProps> = ({ onDataUpdate }) => {
       </Box>
       <Box typeBox="login" className="d-flex flex-column" margin="32px 0px">
         <label>Chave PIX</label>
-        {renderInputField()}
+        <input
+          type="text"
+          placeholder="Insira a Chave PIX"
+          value={chavePix}
+          onChange={handleChavePixChange}
+        />
       </Box>
     </div>
   );

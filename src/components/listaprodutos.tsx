@@ -31,6 +31,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
   const [pedido, setPedido] = useState<Pedido | null>(null);
   const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(null);
   const [delivery_date, setDelivery_date] =useState("");
+  const [payment_method, setPayment_method] =useState("");
   
   useEffect(() => {
     let auth = localStorage.getItem('auth');
@@ -64,6 +65,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
       .then(function (response) {
         setPedido(response.data);
         setDelivery_date(response.data.delivery_date|| "");
+        setPayment_method(response.data.payment_method|| "");
         console.log("Shipment Date:", response.data);
       })
       .catch(function (error) {
@@ -121,6 +123,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
               onSelect={() => {}}
               key={1}
               delivery_date={delivery_date}
+              payment_method= {payment_method}
             />
           </div>
 

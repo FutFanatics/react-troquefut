@@ -17,6 +17,7 @@ const Data: React.FC = () => {
   const [tipoReembolso, setTipoReembolso] = useState<string>(
     localStorage.getItem("tipoReembolso") || ""
   );
+  const [todosCamposPreenchidosData, setTodosCamposPreenchidosData] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -26,7 +27,7 @@ const Data: React.FC = () => {
       data,
       produtoSelecionadoData: {
         ...prevData.produtoSelecionadoData,
-        additionalData: data.additionalData,
+        additionalData: data.chavePix !== undefined ? data : null,
       },
     }));
   };
@@ -40,6 +41,7 @@ const Data: React.FC = () => {
     const todosCamposPreenchidosData = Object.values(dadosData).every(
       (value) => value !== ""
     );
+    setTodosCamposPreenchidosData(todosCamposPreenchidosData);
 
     if (!todosCamposPreenchidosData) {
       console.error("Preencha todos os campos do componente Data antes de confirmar");
@@ -111,9 +113,9 @@ const Data: React.FC = () => {
               </div>
               
             </Box>
-            <Button onClick={handleConfirmar}>
+            <button onClick={handleConfirmar} className="button-fut">
               Avançar
-            </Button>
+            </button>
           </div>
         </div>
       </section>

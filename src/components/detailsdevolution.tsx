@@ -49,10 +49,10 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className }) => {
         const encoder: TextEncoder = new TextEncoder();
         const data: Uint8Array = encoder.encode(text);
 
-        // Convert the Uint8Array to a regular array of numbers
+        
         const dataArray: number[] = Array.from(data);
 
-        // Convert the regular array of numbers to a base64 string
+        
         const binaryString: string = String.fromCharCode.apply(null, dataArray);
         const basicAuth: string = btoa(binaryString);
           

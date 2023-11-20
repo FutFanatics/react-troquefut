@@ -115,16 +115,21 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     );
   
     if (todosCamposPreenchidos) {
-      navigate("/data", {
-        state: {
-          ...dadosSelecionados,
-        },
-      });
+      if (tipoReembolso === "estorno" && dadosSelecionados.payment_method === "Cartão de Crédito") {
+        
+        
+        navigate("/shipping", {
+          state: dadosSelecionados,
+        });
+      } else {
+        navigate("/data", {
+          state: dadosSelecionados,
+        });
+      }
     } else {
       console.error("Preencha todos os campos antes de confirmar");
     }
   };
-
   
   return (
     <>
