@@ -156,7 +156,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                   *Tipo de Reembolso
                 </STextParagraph>
                 <ListaSelected
-                  options={["Vale-Compras", "Estorno"]}
+                  options={["Cupom", "Estorno"]}
                   onChange={(selectedValue) => setTipoReembolso(selectedValue)}
                   selectedValue={tipoReembolso}
                 ></ListaSelected>
@@ -164,7 +164,8 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
               <div className="d-flex flex-column justify-content-center content-select">
                 <STextParagraph typeParagraph="select">*Quantidade</STextParagraph>
                 <ListaSelected
-                  options={[1, 2, 3, 4, 5]}
+                  options={[]}
+                  quantityNumber={produto.quantity}
                   onChange={(selectedValue) =>
                     setQuantidade(selectedValue as number | "")
                   }

@@ -5,6 +5,7 @@ export interface Produto {
   price?: number;
   img?: string;
   url?: string;
+  quantity?: number;
   shipment_date?:string;
   }
 
