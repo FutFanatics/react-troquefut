@@ -19,7 +19,7 @@ interface Product {
   reasonSub: string;
   reasonMain: string;
   obs: string;
-  variant: string;
+  variant: string | null;
 }
 
 interface HistoryItem {
@@ -47,7 +47,7 @@ export interface DataFollow {
   method_shipment: string | null;
   dateCreatedReturn: string;
   customer: {
-    fullname: string;
+    fullname?: string;
     fone: string;
     cellphone: string;
     cep: string;
@@ -66,9 +66,8 @@ export interface DataFollow {
 }
 
 const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolutionId }) => {
-  const [devolutionData, setDevolutionData] = useState<DataFollow[]>([]);
+  const [data, setData] = useState<DataFollow[]>([]);
   const [modalType, setModalType] = useState("");
-
   const settings = {
     dots: false,
     infinite: false,
@@ -93,75 +92,69 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
 
   useEffect(() => {
     if (devolutionId) {
-      const auth = localStorage.getItem('auth');
+      let auth = localStorage.getItem("auth");
+
       if (auth) {
         const authObj = JSON.parse(auth);
-
         const username = authObj.email;
         const password = authObj.token;
-        const customerId = authObj.id;
-        const text: string = username + ':' + password;
+        const customerId = authObj.customerId;
+        const text: string = username + ":" + password;
         const encoder: TextEncoder = new TextEncoder();
         const data: Uint8Array = encoder.encode(text);
 
         const dataArray: number[] = Array.from(data);
+
         const binaryString: string = String.fromCharCode.apply(null, dataArray);
         const basicAuth: string = btoa(binaryString);
 
-        const fetchData = async () => {
-          try {
-            const response = await axios.get<DataFollow[]>(`https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}/${devolutionId}`, {
-              timeout: 10000,
-              headers: {
-                'Authorization': 'Basic ' + basicAuth
-              }
-            });
-
-            if (response.status === 200) {
-              const data = response.data;
-              setDevolutionData(data);
-            } else {
-              console.error("Error fetching data:", response.statusText);
-            }
-          } catch (error) {
-            console.error("Error fetching data:", error);
-          }
-        };
-
-        fetchData();
+        axios
+          .get(`https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}/${devolutionId}`, {
+            timeout: 10000,
+            headers: {
+              Authorization: "Basic " + basicAuth,
+            },
+          })
+          .then(function (response) {
+            setData(response.data);
+            console.log(response.data, "Dados do pedido recebidos com sucesso");
+          })
+          .catch(function (error) {
+            console.log(error, "Erro ao obter dados do pedido");
+          });
       }
     }
   }, [devolutionId]);
 
   const handleButtonClick = () => {
-    if (devolutionData.length > 0) {
-      const devolution = devolutionData[0];
+    if (data.length > 0) {
+      const devolution = data[0];
 
-      if (devolution.status.title === "Em Análise") {
-        setModalType("analise");
-      }
-      if (devolution.status.title === "Negada") {
-        setModalType("devolution");
-      }
-      if (devolution.status.title === "Reembolso Aprovado") {
-        setModalType("reembolso");
-      }
-      if (devolution.status.title === "Devolução Finalizada") {
-        setModalType("concluido");
-      }
-      if (devolution.status.title === "Envio") {
-        setModalType("envio");
+      if (devolution && devolution.status && devolution.status.title) {
+        if (devolution.status.title === "Em Análise") {
+          setModalType("analise");
+        } else if (devolution.status.title === "Negada") {
+          setModalType("devolution");
+        } else if (devolution.status.title === "Reembolso Aprovado") {
+          setModalType("reembolso");
+        } else if (devolution.status.title === "Devolução Finalizada") {
+          setModalType("concluido");
+        } else if (devolution.status.title === "Envio") {
+          setModalType("envio");
+        }
       }
     }
   };
+
   const closeModal = () => {
     setModalType("");
   };
 
+  console.log("cade", data);
 
   return (
     <>
-      {devolutionData.map((devolution, index) => (
+      {data.map((devolution, index) => (
         <Box key={index} typeBox="datafollow" className="col-md-12 mt-4">
           <h1>Sua Solicitação</h1>
           <h4>Solicitação: #{devolution.order_id}</h4>
@@ -176,8 +169,8 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
                   ))}
               </Slider>
               <Button typeButton="followdevolution" onClick={handleButtonClick}>
-              {devolutionData.length > 0 && devolutionData[0].status.title}
-            </Button>
+                {data.length > 0 && data[0].status.title}
+              </Button>
             </div>
             <div className="content-product_describe">
               <h3>{devolution.products[0].variant}</h3>

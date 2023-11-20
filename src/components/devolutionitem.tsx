@@ -51,18 +51,24 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
   const getIcon = () => {
     
     return devolucao.result === "pending" ? <IconArrowRight width={16} /> : <IconSucess width={16}/>;
+    
   };
+  console.log("devolucao:", devolucao);
+  console.log("devolucao.imgs:", devolucao.imgs);
   return (
     <Box typeBox="product-devolution">
       <div key={devolucao.id}>
-        <Slider {...settings} >
-          {Array.isArray(devolucao.imgs) &&
-            devolucao.imgs.map((img, index) => (
-              <div key={index} className="d-flex justify-content-center">
-                <img src={img.url} alt="Devolução" />
-              </div>
-            ))}
+      {Array.isArray(devolucao.imgs) && devolucao.imgs.length > 0 ? (
+        <Slider {...settings}>
+          {devolucao.imgs.map((img, index) => (
+            <div key={index} className="d-flex justify-content-center">
+              <img src={img.url} alt="Devolução" />
+            </div>
+          ))}
         </Slider>
+      ) : (
+        <p>Sem imagens disponíveis da devolução</p>
+      )}
         <div className="mt-3">
           <p>
             <strong>ID:</strong> {devolucao.id}

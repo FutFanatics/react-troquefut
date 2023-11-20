@@ -64,10 +64,12 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
           "orderId": dadosSelecionados.order_id,
           "store": 642719,
           "products": products,
-          // "pix": {
-          //     "type": dadosSelecionados.data.pixData.tipoPix,
-          //     "code": dadosSelecionados.data.pixData.chavePix
-          // },
+          "pix": dadosSelecionados.data.pixData
+          ? {
+              "type": dadosSelecionados.data.pixData.tipoPix,
+              "code": dadosSelecionados.data.pixData.chavePix,
+            }
+          : null,
           "shipment_method":dadosSelecionados.formaEnvio,
           "acceptTerms": true,
           "acceptLgpd": true,
