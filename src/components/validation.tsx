@@ -11,13 +11,14 @@ interface User {
 
 interface Dados {
   customerId: number;
- }
+}
 
 const Validation: React.FC = () => {
  const [user, setUser] = useState<User>({
   email:"", password:""
  });
  const [success, setSuccess] = useState(false);
+ const [error, setError] = useState<string | null>(null); 
  const navigate = useNavigate();
 
  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -36,14 +37,11 @@ const Validation: React.FC = () => {
      const responseApi = await response.json();
 
      if(responseApi.error){    
-      return alert('Não foi possível realizar o login. Por favor, verifique seus dados.');
-     }else {
-
+      setError('Senha incorreta. Por favor, verifique seus dados.');
+     } else {
       localStorage.setItem('auth', JSON.stringify(responseApi));
-
       setSuccess(true);
       navigate('/order');
-      
      } 
   } catch (error) {
      console.error('Ocorreu um erro:', error);
@@ -53,8 +51,8 @@ const Validation: React.FC = () => {
  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
+    setError(null);
  };
-
 
  return (
     <form onSubmit={handleSubmit} className="col-md-6">
@@ -65,16 +63,15 @@ const Validation: React.FC = () => {
       <Box margin="32px 0px" typeBox="login" className="d-flex flex-column">
         <label>Senha</label>
         <input name='password' type="password" placeholder="Insira sua senha"  onChange={handleChange}></input>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
       </Box>
       <div className="d-flex justify-content-end">
         <SspanText fontSize="14px" color="#192c53" fontWeight={600} >Esqueci a senha</SspanText>
       </div>
       
       <Button margin="32px auto 0px auto" type="submit">Confirmar</Button>
-
     </form>
  );
 };
 
 export default Validation;
-
