@@ -57,7 +57,7 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
   console.log("devolucao.imgs:", devolucao.imgs);
   return (
     <Box typeBox="product-devolution">
-      <div key={devolucao.id}>
+      <div key={devolucao.id} >
       {Array.isArray(devolucao.imgs) && devolucao.imgs.length > 0 ? (
         <Slider {...settings}>
           {devolucao.imgs.map((img, index) => (

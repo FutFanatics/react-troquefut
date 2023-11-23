@@ -20,13 +20,13 @@ const ListagemDevolucoes: React.FC = () => {
   const [devolucoes, setDevolucoes] = useState<Devolution[]>([]);
 
   useEffect(() => {
-    let auth = localStorage.getItem('auth');
+    let auth = localStorage.getItem("auth");
     if (auth) {
       const authObj = JSON.parse(auth);
 
       const username = authObj.email;
       const password = authObj.token;
-      const text: string = username + ':' + password;
+      const text: string = username + ":" + password;
       const encoder: TextEncoder = new TextEncoder();
       const data: Uint8Array = encoder.encode(text);
 
@@ -38,12 +38,13 @@ const ListagemDevolucoes: React.FC = () => {
 
       const fetchDevolucoes = async () => {
         try {
-          const response = await axios.get(`https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}`,
+          const response = await axios.get(
+            `https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}`,
             {
               timeout: 10000,
               headers: {
-                'Authorization': 'Basic ' + basicAuth
-              }
+                Authorization: "Basic " + basicAuth,
+              },
             }
           );
           setDevolucoes(response.data);
@@ -53,7 +54,6 @@ const ListagemDevolucoes: React.FC = () => {
       };
       fetchDevolucoes();
     }
-
   }, [selectedDate, currentDate]);
 
   const handleSearch = () => {
@@ -74,32 +74,47 @@ const ListagemDevolucoes: React.FC = () => {
         <SH1 typeTitle="acompanhe">Selecione um período:</SH1>
         <div className="d-flex flex-column container-date">
           <label>Data início:</label>
-          <DatePicker onSelectDate={setSelectedDate} placeholder="Selecione uma data" onChange={setSelectedDate} />
+          <DatePicker
+            onSelectDate={setSelectedDate}
+            placeholder="Selecione uma data"
+            onChange={setSelectedDate}
+          />
         </div>
         <div className="d-flex flex-column container-date">
           <label>Data Final:</label>
-          <DatePicker onSelectDate={setCurrentDate} selected={currentDate} placeholder="Data Atual" onChange={setSelectedDate} />
+          <DatePicker
+            onSelectDate={setCurrentDate}
+            selected={currentDate}
+            placeholder="Data Atual"
+            onChange={setSelectedDate}
+          />
         </div>
-        <Button onClick={handleSearch} typeButton="search"><IconSearch width={18}></IconSearch></Button>
+        <Button onClick={handleSearch} typeButton="search">
+          <IconSearch width={18}></IconSearch>
+        </Button>
       </div>
-      <SH1 color='#777' fontSize='16px' fontWeight={350} textAlign='start'>Lista de devoluções</SH1>
-      {devolucoes.length === 0 ? (
-        <Box typeBox="not-dev">
+      <SH1 color="#777" fontSize="16px" fontWeight={350} textAlign="start">
+        Lista de devoluções
+      </SH1>
+      <div className="d-flex flex-wrap justify-content-center">
+        {devolucoes.length === 0 ? (
+          <Box typeBox="not-dev">
             <div className="content d-flex flex-column align-items-center">
-            <IconNull width={50}></IconNull>
-            <STextParagraph fontSize="14px" color="#777">
-              Nenhuma devolução encontrada
-            </STextParagraph>
-            <STextParagraph fontSize="14px" color="#777">
-              no período selecionado.
-            </STextParagraph>
+              <IconNull width={50}></IconNull>
+              <STextParagraph fontSize="14px" color="#777">
+                Nenhuma devolução encontrada
+              </STextParagraph>
+              <STextParagraph fontSize="14px" color="#777">
+                no período selecionado.
+              </STextParagraph>
             </div>
-        </Box>
-      ) : (
-        devolucoes.map((devolucao) => (
-          <DevolutionItem key={devolucao.id} devolucao={devolucao} />
-        ))
-      )}
+          </Box>
+        ) : (
+          devolucoes.map((devolucao) => (
+            <DevolutionItem key={devolucao.id} devolucao={devolucao} />
+          ))
+        )}
+      </div>
     </div>
   );
 };

@@ -123,13 +123,12 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
               onSelect={() => {}}
               key={1}
               delivery_date={delivery_date}
-              orderId={selectedId}
               payment_method= {payment_method}
             />
           </div>
 
           {produtoSelecionado && (
-            <ProductSelected produto={produtoSelecionado} orderId={selectedId} produtosSelecionados={pedido?.Products} />
+            <ProductSelected produto={produtoSelecionado} produtosSelecionados={pedido?.Products} />
           )}
         </div>
       </section>

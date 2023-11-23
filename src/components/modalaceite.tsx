@@ -275,9 +275,9 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
 
       <button onClick={onRequestClose} className="btn-close"></button>
 
-      <Button onClick={handleConfirmar}  margin="16px auto 0px auto">
+      <button onClick={handleConfirmar}>
         Concluir pedido de Devolução
-      </Button>
+      </button>
     </Modal>
   );
 };

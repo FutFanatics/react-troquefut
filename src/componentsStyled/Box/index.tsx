@@ -235,6 +235,10 @@ export const Box = styled.div<Box>`
         padding:20px 20px;
         box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.25);
         border-radius:15px;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        margin-top:8px;
 
         img{
             width: 150px;

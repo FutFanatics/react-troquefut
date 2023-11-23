@@ -88,7 +88,30 @@ export const SH1 =styled.h1<SH1Props>`
         .green{
             color:#00DF5E;
         }
+        .red{
+            color:#CE0000;
+        }
+        @media screen and (max-width: 768px) {
+           font-size:18px
+        }
+    `}
+    ${props => props.typeTitle === 'negative-modal' && `
+        font-size:14px;
+        margin:8px 0px 8px 0px;
+        font-weight:550;
 
+        .yellow{
+           color: #E3C10B;
+        }
+        .blue{
+            color:#192c53;
+        }
+        .green{
+            color:#00DF5E;
+        }
+        .red{
+            color:#CE0000;
+        }
         @media screen and (max-width: 768px) {
            font-size:18px
         }

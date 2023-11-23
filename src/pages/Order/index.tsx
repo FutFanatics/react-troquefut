@@ -11,6 +11,7 @@ import { Box } from "../../componentsStyled/Box";
 import IconHelp from "../../componentsStyled/icon/Iconhelp";
 import IconBack from "../../componentsStyled/icon/Iconback";
 import { useNavigate } from "react-router-dom";
+import ModalNotProduct from "../../components/modalnotproduct";
 
 interface Pedido {
   id: string;
@@ -26,7 +27,6 @@ export default function Order() {
 
     if (auth) {
       const authObj = JSON.parse(auth);
-      console.log(authObj);
 
       const username = authObj.email;
       const password = authObj.token;
@@ -51,33 +51,28 @@ export default function Order() {
         )
         .then(function (response) {
           setData(response.data);
-          console.log(response.data);
         })
         .catch(function (error) {
-          console.log(error);
+          
         });
     }
   }, []);
 
-  const [selectedOption, setSelectedOption] = useState("");
-
-  const [isProductSelectedVisible, setIsProductSelectedVisible] =
-    useState(true);
-
-  const pedidoOptions = data.map((pedido) => ({
+  const pedidoOptions = Array.isArray(data) ? data.map((pedido) => ({
     value: pedido.id,
     label: pedido.id,
-  }));
+  })) : [];
 
   const handleOptionChange = (selectedValue: string) => {
     setSelectedId(selectedValue);
-    setIsProductSelectedVisible(false);
   };
+
   const navigate = useNavigate();
   const handleBack = () => {
     console.log("Voltando...");
-    navigate(-1); 
+    navigate(-1);
   };
+
   return (
     <>
       <Header></Header>
@@ -89,48 +84,47 @@ export default function Order() {
         </Button>
         <div className="box-options d-flex justify-content-center align-items-center">
           <Box
-          typeBox="active"
-          className="d-flex flex-md-row flex-column align-items-center justify-content-center"
-        >
-          <Box typeBox="active-number">
-            <SspanText color="#fff" fontSize="24px" fontWeight={600}>
-              1
-            </SspanText>
+            typeBox="active"
+            className="d-flex flex-md-row flex-column align-items-center justify-content-center"
+          >
+            <Box typeBox="active-number">
+              <SspanText color="#fff" fontSize="24px" fontWeight={600}>
+                1
+              </SspanText>
+            </Box>
+            <SspanText typeSpan="active">Pedido</SspanText>
           </Box>
-          <SspanText typeSpan="active">Pedido</SspanText>
-        </Box>
-        <div className="line-options"></div>
-        <Box
-          typeBox="active"
-          className="d-flex align-items-center justify-content-center flex-md-row flex-column"
-        >
-          <Box typeBox="inative-number">
-            <SspanText color="#fff" fontSize="24px" fontWeight={600}>
-              2
-            </SspanText>
+          <div className="line-options"></div>
+          <Box
+            typeBox="active"
+            className="d-flex align-items-center justify-content-center flex-md-row flex-column"
+          >
+            <Box typeBox="inative-number">
+              <SspanText color="#fff" fontSize="24px" fontWeight={600}>
+                2
+              </SspanText>
+            </Box>
+            <SspanText typeSpan="inative">Reembolso</SspanText>
           </Box>
-          <SspanText typeSpan="inative">Reembolso</SspanText>
-        </Box>
-        <div className="line-options"></div>
-        <Box
-          typeBox="active"
-          className="d-flex align-items-center justify-content-center flex-md-row flex-column"
-        >
-          <Box typeBox="inative-number">
-            <SspanText color="#fff" fontSize="24px" fontWeight={600}>
-              3
-            </SspanText>
+          <div className="line-options"></div>
+          <Box
+            typeBox="active"
+            className="d-flex align-items-center justify-content-center flex-md-row flex-column"
+          >
+            <Box typeBox="inative-number">
+              <SspanText color="#fff" fontSize="24px" fontWeight={600}>
+                3
+              </SspanText>
+            </Box>
+            <SspanText typeSpan="inative">Envio do Produto</SspanText>
           </Box>
-          <SspanText typeSpan="inative">Envio do Produto</SspanText>
-        </Box>
         </div>
-        
       </div>
       <section className="c-order position-relative">
-      <Box typeBox="icon-help">
+        <Box typeBox="icon-help">
           <div className="informação">
             Dúvidas de como funciona?
-            Acesse nossa <a href="">Central de ajuda</a>
+            Acesse nossa <a href="YOUR_HELP_CENTER_URL">Central de ajuda</a>
           </div>
           <IconHelp width={30}/>
         </Box>
@@ -142,16 +136,25 @@ export default function Order() {
           >
             Selecione O pedido
           </SH1>
-          <ListaSuspensa
-            label="Selecione uma opção"
-            valor={selectedId}
-            items={pedidoOptions}
-            obrigatorio={true}
-            onChange={handleOptionChange}
-            className="c-lista-suspensa"
-          ></ListaSuspensa>
+          {data.length > 0 ? (
+            <ListaSuspensa
+              label="Selecione uma opção"
+              valor={selectedId}
+              items={pedidoOptions}
+              obrigatorio={true}
+              onChange={handleOptionChange}
+              className="c-lista-suspensa"
+            ></ListaSuspensa>
+          ) : (
+            <ModalNotProduct
+              isOpen={true}
+              onRequestClose={() => {}}
+            ></ModalNotProduct>  
+          )}
 
-          <ListaProdutos selectedId={selectedId}></ListaProdutos>
+          {data.length > 0 && (
+            <ListaProdutos selectedId={selectedId}></ListaProdutos>
+          )}
         </div>
       </section>
       <Footer></Footer>

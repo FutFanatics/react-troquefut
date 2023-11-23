@@ -24,6 +24,7 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, delivery_date,
   const [showProductSelected, setShowProductSelected] = useState(false);
   const [produtoSelecionadoData, setProdutoSelecionadoData] = useState<any>(null);
   const navigate = useNavigate();
+ 
   useEffect(() => {
     const storedSelectedProducts = localStorage.getItem('selectedProducts');
     if (storedSelectedProducts) {
@@ -34,7 +35,7 @@ const Produtos: React.FC<ProdutosProps> = ({ produtos, className, delivery_date,
   useEffect(() => {
     localStorage.setItem('selectedProducts', JSON.stringify(produtosSelecionados));
   }, [produtosSelecionados]);
-
+  
   const handleCheckboxChange = (produto: Produto) => {
     if (produtosSelecionados.some((p) => p.product_id === produto.product_id)) {
       const updatedProdutos = produtosSelecionados.filter((p) => p.product_id !== produto.product_id);

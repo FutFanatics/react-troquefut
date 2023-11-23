@@ -164,7 +164,7 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
                 {Array.isArray(devolution.products) &&
                   devolution.products.map((product, productIndex) => (
                     <div key={productIndex}>
-                      <img src={product.variant} alt={`Product Image ${productIndex + 1}`} />
+                       <img src={product.variant ?? undefined} alt={`Product Image ${productIndex + 1}`} />
                     </div>
                   ))}
               </Slider>
@@ -173,34 +173,34 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
               </Button>
             </div>
             <div className="content-product_describe">
-              <h3>{devolution.products[0].variant}</h3>
+              <h3>{devolution.products[0]?.variant|| "-"}</h3>
               <div className="d-flex justify-content-between">
                 <div className="d-flex flex-column content">
                   <label>Tamanho</label>
-                  <p>{devolution.products[0].variant}</p>
+                  <p>{devolution.products[0]?.variant|| "-"}</p>
                 </div>
                 <div className="d-flex flex-column content">
                   <label>Preço</label>
-                  <p>R${parseFloat(devolution.products[0].price).toFixed(2)}</p>
+                  <p>R${parseFloat(devolution.products[0]?.price).toFixed(2)}</p>
                 </div>
               </div>
               <div className="d-flex flex-column content">
                 <label>Quantidade</label>
-                <p>{devolution.products[0].quant}</p>
+                <p>{devolution.products[0]?.quant|| "-"}</p>
               </div>
               <div className="d-flex justify-content-between">
                 <div className="d-flex flex-column content">
                   <label>Motivo da Devolução</label>
-                  <p>{devolution.products[0].reasonMain}</p>
+                  <p>{devolution.products[0]?.reasonMain}</p>
                 </div>
                 <div className="d-flex flex-column content">
                   <label>Sub-Motivo</label>
-                  <p>{devolution.products[0].reasonSub}</p>
+                  <p>{devolution.products[0]?.reasonSub}</p>
                 </div>
               </div>
               <div className="d-flex flex-column">
                 <label>Observação</label>
-                <p>{devolution.products[0].obs}</p>
+                <p>{devolution.products[0]?.obs || "-"}</p>
               </div>
             </div>
           </div>

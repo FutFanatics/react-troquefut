@@ -307,6 +307,18 @@
   padding: 20px 0px 0px 0px;
 }
 
+.back-site {
+  width: 150px;
+  border-radius: 5px;
+  height: 40px;
+  font-size: 15px;
+  margin: 24px auto 0px auto;
+  border: 1px #192C53 solid;
+  font-weight: 400;
+  color: #fff;
+  background-color: #192c53;
+}
+
 .box-date {
   border-top: 1px solid rgba(19, 28, 53, 0.25);
   border-bottom: 1px solid rgba(19, 28, 53, 0.25);
