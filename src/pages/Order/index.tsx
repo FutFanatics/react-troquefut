@@ -1,16 +1,16 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Button from "../../componentsStyled/Button";
 import Footer from "../../components/footer";
 import { SH1, SspanText } from "../../componentsStyled/Text";
-import { useState, useEffect } from "react";
 import Header from "../../components/header";
 import ListaProdutos from "../../components/listaprodutos";
 import ListaSuspensa from "../../components/listasuspensa";
-import axios from "axios";
 import Menu from "../../components/menu";
 import { Box } from "../../componentsStyled/Box";
 import IconHelp from "../../componentsStyled/icon/Iconhelp";
 import IconBack from "../../componentsStyled/icon/Iconback";
-import { useNavigate } from "react-router-dom";
 import ModalNotProduct from "../../components/modalnotproduct";
 
 interface Pedido {
@@ -21,6 +21,7 @@ interface Pedido {
 export default function Order() {
   const [data, setData] = useState<Pedido[]>([]);
   const [selectedId, setSelectedId] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     let auth = localStorage.getItem("auth");
@@ -51,17 +52,33 @@ export default function Order() {
         )
         .then(function (response) {
           setData(response.data);
+
+
+          if (response.data.length > 0) {
+
+          } else {
+
+            setTimeout(() => {
+              setShowModal(true);
+            });
+          }
         })
         .catch(function (error) {
-          
+      
         });
     }
   }, []);
 
-  const pedidoOptions = Array.isArray(data) ? data.map((pedido) => ({
-    value: pedido.id,
-    label: pedido.id,
-  })) : [];
+  const carregarItensDaListaDeProdutos = (orderId: string) => {
+  
+  };
+
+  const pedidoOptions = Array.isArray(data)
+    ? data.map((pedido) => ({
+        value: pedido.id,
+        label: pedido.id,
+      }))
+    : [];
 
   const handleOptionChange = (selectedValue: string) => {
     setSelectedId(selectedValue);
@@ -70,7 +87,7 @@ export default function Order() {
   const navigate = useNavigate();
   const handleBack = () => {
     console.log("Voltando...");
-    navigate(-1);
+    navigate("/login");
   };
 
   return (
@@ -88,7 +105,7 @@ export default function Order() {
             className="d-flex flex-md-row flex-column align-items-center justify-content-center"
           >
             <Box typeBox="active-number">
-              <SspanText color="#fff" fontSize="24px" fontWeight={600}>
+              <SspanText color="#fff" fontSize="20px" fontWeight={600}>
                 1
               </SspanText>
             </Box>
@@ -100,7 +117,7 @@ export default function Order() {
             className="d-flex align-items-center justify-content-center flex-md-row flex-column"
           >
             <Box typeBox="inative-number">
-              <SspanText color="#fff" fontSize="24px" fontWeight={600}>
+              <SspanText color="#fff" fontSize="20px" fontWeight={600}>
                 2
               </SspanText>
             </Box>
@@ -112,7 +129,7 @@ export default function Order() {
             className="d-flex align-items-center justify-content-center flex-md-row flex-column"
           >
             <Box typeBox="inative-number">
-              <SspanText color="#fff" fontSize="24px" fontWeight={600}>
+              <SspanText color="#fff" fontSize="20px" fontWeight={600}>
                 3
               </SspanText>
             </Box>
@@ -131,7 +148,7 @@ export default function Order() {
         <div className="container">
           <SH1
             textTransform="uppercase"
-            fontSize="22px"
+            fontSize="20px"
             margin="16px 0px 0px 0px"
           >
             Selecione O pedido
@@ -147,7 +164,7 @@ export default function Order() {
             ></ListaSuspensa>
           ) : (
             <ModalNotProduct
-              isOpen={true}
+              isOpen={showModal}
               onRequestClose={() => {}}
             ></ModalNotProduct>  
           )}
@@ -156,6 +173,7 @@ export default function Order() {
             <ListaProdutos selectedId={selectedId}></ListaProdutos>
           )}
         </div>
+        
       </section>
       <Footer></Footer>
     </>

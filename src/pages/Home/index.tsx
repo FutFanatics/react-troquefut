@@ -20,7 +20,7 @@ export default function Home() {
             <div className="container">
                 <div className="row">
                     <div className="col-md-7 col-content">
-                        <TroqueFut width={280} ></TroqueFut>
+                        <TroqueFut width={280} className="logo-troque"></TroqueFut>
                         <STextParagraph padding="48px 0px 48px 0px" fontWeight={350} paddingsm="32px 0px">
                             O TroqueFut é uma plataforma de devoluções da empresa FutFanatics, onde você consegue realizar suas trocas sem  dificuldades e com tecnologias intuitivas.
                         </STextParagraph>
@@ -52,9 +52,9 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            
+            <Footer></Footer>
         </section>
-        <Footer></Footer>
+        
         </>
     )
 

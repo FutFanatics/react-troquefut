@@ -18,15 +18,11 @@ const SlidesProducts: React.FC = () => {
     slidesToScroll: 1,
     responsive: [
       {
-        breakpoint: 768, 
-        settings: {
-          slidesToShow: 2,
-        }
-      },
-      {
         breakpoint: 480, 
         settings: {
           slidesToShow: 2,
+          dots:false,
+          
         }
       }
     ]

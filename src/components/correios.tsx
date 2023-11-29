@@ -3,6 +3,7 @@ import Button from "../componentsStyled/Button";
 import ImgClique from "../img/icon/correios.png";
 import React, { useState } from "react";
 import ModalAceite from "./modalaceite";
+import IconInformative from "../componentsStyled/icon/iconinformative";
 
 interface CorreiosProps {
   className?: string;
@@ -40,6 +41,7 @@ const Correios: React.FC<CorreiosProps> = ({ className,  selected, onSelect }) =
         >
           {buttonText}
         </Button>
+        
       </Box>
     </>
   );

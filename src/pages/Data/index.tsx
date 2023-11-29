@@ -19,6 +19,8 @@ const Data: React.FC = () => {
     localStorage.getItem("tipoReembolso") || ""
   );
   const [todosCamposPreenchidosData, setTodosCamposPreenchidosData] = useState<boolean>(false);
+  const [checkboxMarcado, setCheckboxMarcado] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -62,7 +64,10 @@ const Data: React.FC = () => {
   
   const handleBack = () => {
     console.log("Voltando...");
-    navigate(-1); 
+    navigate("/order"); 
+  };
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckboxMarcado(event.target.checked);
   };
   return (
     <>
@@ -75,18 +80,18 @@ const Data: React.FC = () => {
         </Button>
         <div className="box-options d-flex justify-content-center align-items-center">
         <Box typeBox="active" className="d-flex flex-md-row flex-column align-items-center justify-content-center">
-          <Box typeBox="active-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>1</SspanText></Box>
+          <Box typeBox="active-number"><SspanText color="#fff" fontSize="20px" fontWeight={600}>1</SspanText></Box>
           <SspanText typeSpan="active">Pedido</SspanText>
         </Box>
         <div className="line-options"></div>
         <Box typeBox="active" className="d-flex align-items-center justify-content-center flex-md-row flex-column">
-          <Box typeBox="active-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>2</SspanText></Box>
+          <Box typeBox="active-number"><SspanText color="#fff" fontSize="20px" fontWeight={600}>2</SspanText></Box>
           <SspanText typeSpan="active">Reembolso</SspanText>
         </Box>
         <div className="line-options"></div>
         <Box typeBox="active" className="d-flex align-items-center justify-content-center flex-md-row flex-column">
           <Box
-            typeBox="inative-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>3</SspanText></Box>
+            typeBox="inative-number"><SspanText color="#fff" fontSize="20px" fontWeight={600}>3</SspanText></Box>
           <SspanText typeSpan="inative">Envio do Produto</SspanText>
         </Box>
         </div>
@@ -100,18 +105,18 @@ const Data: React.FC = () => {
           <IconHelp width={30}/>
         </Box>
         <div className="container">
-          <SH1 textTransform="uppercase">Informações de reembolso</SH1>
+          <SH1 textTransform="uppercase" fontSize="20px">Informações de reembolso</SH1>
           <div className="row justify-content-center">
             <Box typeBox="estorno" className="col-md-10">
               <IconFinance width={64}></IconFinance>
-              {tipoReembolso === "Vale-Compras" ? (
+              {tipoReembolso === "Cupom" ? (
                 <ValeCompras updateData={updateData} />
               ) : (
                 <ValeEstorno updateData={updateData} />
               )}
-              <div className="d-flex mt-5 justify-content-start col-md-10">
-                <input type="checkbox" required></input>
-                <STextParagraph fontSize="14px" padding="0px 0px 0px 8px">
+              <div className="d-flex mt-5 justify-content-start align-items-center col-md-10">
+                <input type="checkbox" required onChange={handleCheckboxChange} checked={checkboxMarcado}></input>
+                <STextParagraph fontSize="14px"fontSizesm="12px" padding="0px 0px 0px 8px">
                   Ao continuar, você declara que está de acordo com os termos
                   da&nbsp;
                   <a
@@ -124,7 +129,7 @@ const Data: React.FC = () => {
               </div>
               
             </Box>
-            <button onClick={handleConfirmar} className="button-fut">
+            <button onClick={handleConfirmar} disabled={!checkboxMarcado} className="button-fut">
               Avançar
             </button>
           </div>

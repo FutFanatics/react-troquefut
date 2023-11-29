@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import Modal from "react-modal";
 import { SH1, STextParagraph } from "../componentsStyled/Text";
 import Button from "../componentsStyled/Button";
@@ -10,6 +10,7 @@ interface ModalNotProductProps extends ModalProps {
   isOpen: boolean;
   children?: React.ReactNode;
   onRequestClose: () => void;
+  onInterval?: () => void;
 }
 
 interface ModalProps {
@@ -33,6 +34,13 @@ const ModalNotProduct: React.FC<ModalNotProductProps> = ({
     onRequestClose();
     window.location.href = "https://www.futfanatics.com.br";
   }, [onRequestClose]);
+  useEffect(() => {
+
+    const intervalId = setInterval(() => {
+      console.log('Interval function running...');
+    }, 3000); 
+    return () => clearInterval(intervalId);
+  }, [isOpen]);
   return (
     <Modal
       isOpen={isOpen}

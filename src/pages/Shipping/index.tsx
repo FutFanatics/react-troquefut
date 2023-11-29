@@ -85,17 +85,17 @@ export default function Shipping() {
         </Button>
         <div className="box-options d-flex justify-content-center align-items-center">
         <Box typeBox="active" className="d-flex flex-md-row flex-column align-items-center justify-content-center">
-          <Box typeBox="active-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>1</SspanText></Box>
+          <Box typeBox="active-number"><SspanText color="#fff" fontSize="20px" fontWeight={600}>1</SspanText></Box>
           <SspanText typeSpan="active">Pedido</SspanText>
         </Box>
         <div className="line-options"></div>
         <Box typeBox="active" className="d-flex align-items-center justify-content-center flex-md-row flex-column">
-          <Box typeBox="active-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>2</SspanText></Box>
+          <Box typeBox="active-number"><SspanText color="#fff" fontSize="20px" fontWeight={600}>2</SspanText></Box>
           <SspanText typeSpan="active">Reembolso</SspanText>
         </Box>
         <div className="line-options"></div>
         <Box typeBox="active" className="d-flex align-items-center justify-content-center flex-md-row flex-column">
-          <Box typeBox="active-number"><SspanText color="#fff" fontSize="24px" fontWeight={600}>3</SspanText></Box>
+          <Box typeBox="active-number"><SspanText color="#fff" fontSize="20px" fontWeight={600}>3</SspanText></Box>
           <SspanText typeSpan="active">Envio do Produto</SspanText>
         </Box>
         </div>

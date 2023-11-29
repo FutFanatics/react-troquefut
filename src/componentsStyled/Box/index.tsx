@@ -38,13 +38,13 @@ export const Box = styled.div<Box>`
     ${props => props.typeBox === 'estorno' && `
         border: 1px solid rgba(0, 0, 0, 0.40);
         display:flex;
-        padding:32px 32px;
+        padding:16px 32px 32px 32px;
         flex-direction:column;
         align-items:center;
         justify-content:center;
         border-radius:10px;
         margin-bottom:32px;
-        margin-top:32px;
+        margin-top:16px;
     `}
     ${props => props.typeBox === 'item' && `
         height:210px;
@@ -53,7 +53,8 @@ export const Box = styled.div<Box>`
         border-radius: 16px;
         border: 1px solid rgba(25, 44, 83, 0.30);
         width:180px;
-        height:160px;
+        height:160px; 
+
         position:relative;
         display:flex;
         top:15%;
@@ -64,6 +65,10 @@ export const Box = styled.div<Box>`
         svg{
             position:absolute;
             top:-20%;
+        }
+        @media screen and (max-width: 768px) {
+            width:160px;
+            height:170px; 
         }
     `}
     ${props => props.typeBox === 'estorno-content' && `
@@ -104,7 +109,38 @@ export const Box = styled.div<Box>`
         .icon{
             height:75px;
         }
-
+        .info-clique{
+            right: 20px;
+            top: 20px;
+            .informative{
+                opacity:0.64;
+            }
+            .box-information{
+                display:none;
+            }
+            &:hover{
+                .box-information{
+                    position:absolute;
+                    right:30px;
+                    top:0px;
+                    display:block;
+                    background:rgba(00, 00 ,00 ,0.4);
+                    color:#fff;
+                    padding:8px 8px;
+                    font-weight:350;
+                    font-size:13px;
+                    border-radius:2px;
+                    width:200px;
+                    height:55px;
+                    
+                    a{
+                        color:#fff;
+                        text-decoration:underline;
+                    }
+                }
+            }
+        }
+        
         .box-text{
             padding:40px 0px 30px;
         }
@@ -117,9 +153,76 @@ export const Box = styled.div<Box>`
             background-color:#EFF4FF;
         }
     `}
+    ${props => props.typeBox === 'informative' && `
+        margin:0px;
+        position:relative;
+        
+
+            .informative{
+                opacity:0.64;
+                position:absolute;
+                right:-30px;
+            }
+            .box-informative{
+                display:none;
+            }
+            .text-informative{
+                font-size:12px;
+                font-family:"gotham";
+                color:#000;
+                text-align:center;
+                font-weight:400;
+
+                .italic{
+                    font-style:italic;
+                }
+            }
+            h1{
+                font-family:"gotham";
+                font-size:14px;
+                font-weight:600;
+                margin-top:16px;
+                color:#000;
+
+                .green{
+                    color:#00DF5E;
+                }
+                .blue{
+                    color:#192c53;
+                }
+            }
+            &:hover{
+                .box-informative{
+                    position:absolute;
+                    right:10px;
+                    top:0px;
+                    display:flex;
+                    flex-direction:column;
+                    align-items:center;
+                    background:#fff;
+                    box-shadow: 1px 1px 1px 1px rgba(00,00,00,0.2);
+                    color:#000;
+                    padding:8px 8px;
+                    font-weight:350;
+                    font-size:13px;
+                    border-radius:2px;
+                    width:300px;
+                    padding:20px 30px;
+                    border-radius:16px;
+
+                    
+                    a{
+                        color:#fff;
+                        text-decoration:underline;
+                    }
+                }
+            }
+        
+        
+    `}
     ${props => props.typeBox === 'productselected' && `
-        margin: 32px 12px 16px 0px;
-        padding:40px 40px;
+        margin: 16px 12px 16px 0px;
+        padding:30px 40px;
         display:flex;
         justify-content:center
         align-items:center;
@@ -138,7 +241,7 @@ export const Box = styled.div<Box>`
         }
 
         &:last-child{
-            margin: 32px 0px 16px 0px;
+            margin: 16px 0px 16px 0px;
         }
 
         .content-select{
@@ -152,6 +255,7 @@ export const Box = styled.div<Box>`
         @media screen and (max-width: 768px) {
             padding:10px;
             border:none;
+            flex-direction:column;
         }
     `}
     ${props => props.typeBox === 'cam' && `
@@ -203,19 +307,25 @@ export const Box = styled.div<Box>`
                 
     `}
     ${props => props.typeBox === 'product' && `
-        width:220px;
+        width:200px !important;
         padding:20px 20px;
-        display:flex;
+        display:flex !important;
         flex-direction: column;
         align-items:center; 
+        justify-content:center;
         box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.25);
         border-radius:15px;
+        margin:0px auto;
+        left:50%;
+        position:relative;
+        margin:16px 0px;
+        transform:translateX(-50%);
 
         .produto-box_img{
             border-radius: 10px;
             overflow: hidden;
-            width: 160px;
-            height: 160px;
+            width: 140px;
+            height: 140px;
 
             img{
                 object-fit:cover;
@@ -267,24 +377,24 @@ export const Box = styled.div<Box>`
         margin:0px 8px;
     `}
     ${props => props.typeBox === 'active-number' && `
-        width: 35px;
+        width: 32px;
         background:#192c53;
         margin:0px 8px;
-        height:35px;
+        height:32px;
         border-radius:50px;
         display:flex;
         justify-content:center;
-        alignt-items:center;
+        align-items:center;
     `}
     ${props => props.typeBox === 'inative-number' && `
-    width: 35px;
+    width: 32px;
     background:#777;
-    height:35px;
+    height:32px;
     border-radius:50px;
     display:flex;
     margin:0px 8px;
     justify-content:center;
-    alignt-items:center;
+    align-items:center;
 `}
     ${props => props.typeBox === 'upload' && `
         background: #EBEBEB;
@@ -312,11 +422,11 @@ export const Box = styled.div<Box>`
             border:none;
             border-bottom:1px solid #000;
             width:100%;
-            opacity:0.6;
+            opacity:1;
 
             &::placeholder{
-                color:#192c53;
-                opacity:1;
+                color:#383838;
+                opacity:0.8;
                 font-size:15px;
                 font-weight:500;
             }
@@ -462,12 +572,12 @@ export const Box = styled.div<Box>`
     `}
     ${props => props.typeBox === 'icon-help' && `
         
-        height:45px;
-        width:45px;
+        height:48px;
+        width:48px;
         border-radius:100px;
         background:#00DF5E;
-        position: absolute;
-        bottom: 20px;
+        position: fixed;
+        bottom: 100px;
         right: 20px;
         padding:0px;
         display:flex;
@@ -527,9 +637,31 @@ export const Box = styled.div<Box>`
         `}
         ${props => props.typeBox === 'inative-number' && `
             margin-bottom: 8px;
+            margin-bottom: 8px;
+            padding:0px;
+            width:32px;
+            height:32px;
+            span{
+                font-size:18px;
+                text-align:center;
+                top: 50%;
+                position: relative;
+                transform: translateY(-40%);
+            }
+            
         `}
         ${props => props.typeBox === 'active-number' && `
             margin-bottom: 8px;
+            padding:0px;
+            width:32px;
+            height:32px;
+            span{
+                font-size:18px;
+                text-align:center;
+                top: 50%;
+                position: relative;
+                transform: translateY(-40%);
+            }
         `}
     }
 `

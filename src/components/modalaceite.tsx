@@ -100,7 +100,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      className="c-modal_aceite"
+      className="c-modal_aceite d-flex flex-column align-items-center"
     >
       <div className="container">
         <SH1 fontSize="18px">Atenção!</SH1>
@@ -117,7 +117,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
                 typeParagraph="termos"
                 fontSize="18px"
               >
-                Sobre a nossa
+                Sobre a nossa&nbsp;
                 <a href="https://www.futfanatics.com.br/politica-de-trocas-e-devolucoes" target="_blank">
                   Política de Trocas e devolução
                 </a>
@@ -275,7 +275,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
 
       <button onClick={onRequestClose} className="btn-close"></button>
 
-      <button onClick={handleConfirmar}>
+      <button onClick={handleConfirmar} className="button-finish">
         Concluir pedido de Devolução
       </button>
     </Modal>

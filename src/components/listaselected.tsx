@@ -3,6 +3,7 @@ interface ListaSelectedProps<T> {
     onChange: (selectedValue: T) => void;
     selectedValue?: T;
     quantityNumber?: number;
+    delivery_date?: string;
   }
 
   function ListaSelected<T extends string | number>({ options, onChange, selectedValue, quantityNumber = 0 }: ListaSelectedProps<T>) {

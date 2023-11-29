@@ -22,6 +22,7 @@ interface STextParagraph{
    fontSize?: string;
    padding?: string;
    paddingsm?:string;
+   fontSizesm?:string;
 }
 
 interface SspanText{
@@ -30,6 +31,7 @@ interface SspanText{
    fontSize?:string;
    padding?: string;
    color?:string;
+   fontSizesm?:string;
 }
 
 export const SH1 =styled.h1<SH1Props>`
@@ -42,7 +44,7 @@ export const SH1 =styled.h1<SH1Props>`
     text-transform: ${(props) => props.textTransform || 'none'};
 
     @media screen and (max-width: 768px) {
-        font-size: ${(props) => props.fontSizesm || '18px'};
+        font-size: ${(props) => props.fontSizesm || '16px'};
         margin: ${(props) => props.marginsm || '16px 0px'};
      }
 
@@ -91,6 +93,9 @@ export const SH1 =styled.h1<SH1Props>`
         .red{
             color:#CE0000;
         }
+        .bank{
+            font-size:14px;
+        }
         @media screen and (max-width: 768px) {
            font-size:18px
         }
@@ -133,6 +138,7 @@ export const SH1 =styled.h1<SH1Props>`
     }
         @media screen and (max-width: 768px) {
             padding: ${(props) => props.paddingsm || '0px'};
+            font-size: ${(props) => props.fontSizesm || '16px'};
          }
     
     ${props => props.typeParagraph === 'select' && `
@@ -175,6 +181,7 @@ export const SH1 =styled.h1<SH1Props>`
 
         @media screen and (max-width: 768px) {
             padding-top:20px;
+            font-size:8px;
         }
     `}
     ${props => props.typeParagraph === 'paragraphdevolution' && `
@@ -212,7 +219,9 @@ export const SH1 =styled.h1<SH1Props>`
         text-decoration:none;
     }
 
-
+    @media screen and (max-width: 768px) {
+        font-size: ${(props) => props.fontSizesm || '12px'};
+     }
       ${props => props.typeSpan === 'inative' && `
         color:#777777;
         `}
@@ -227,26 +236,26 @@ export const SH1 =styled.h1<SH1Props>`
         color:#000;
         font-weight:500;
         text-align:center;
-        font-size:17px;
+        font-size:16px;
         `}
         ${props => props.typeSpan === 'inative' && `
             color:#777;
             font-weight:500;
-            font-size:17px;
+            font-size:16px;
             text-align:center;
         `}
         
         ${props => props.typeSpan === 'namProduct' && `
             color:#777777;
-            font-size:15px;
+            font-size:14px;
 
         `}
         @media screen and (max-width: 768px) {
             ${props => props.typeSpan === 'active' && `
-                font-size:13px;
+                font-size:11px;
             `}
             ${props => props.typeSpan === 'inative' && `
-                font-size:13px;
+                font-size:11px;
             `}
         }
  `

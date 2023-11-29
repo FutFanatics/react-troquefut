@@ -1,15 +1,17 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { SH1, STextParagraph } from "../componentsStyled/Text";
 import IconNull from "../componentsStyled/icon/iconNull";
-import Produtos from "./produtos";
-import axios from "axios";
-import { useState, useEffect } from "react";
+
 import ProductSelected from "./produtoselected";
+import Produtos from "./produtos";
 
 interface ListaProdutosProps {
   className?: string;
   selectedOption?: string;
   selectedId?: string;
 }
+
 interface Produto {
   product_id: string;
   name?: string;
@@ -18,6 +20,7 @@ interface Produto {
   img?: string;
   url?: string;
 }
+
 interface Pedido {
   id: string;
   status: string;
@@ -29,59 +32,58 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
   selectedId,
 }) => {
   const [pedido, setPedido] = useState<Pedido | null>(null);
-  const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(null);
-  const [delivery_date, setDelivery_date] =useState("");
-  const [payment_method, setPayment_method] =useState("");
-  
+  const [produtoSelecionado, setProdutoSelecionado] = useState<Produto | null>(
+    null
+  );
+  const [delivery_date, setDelivery_date] = useState("");
+  const [payment_method, setPayment_method] = useState("");
+
   useEffect(() => {
-    let auth = localStorage.getItem('auth');
+    let auth = localStorage.getItem("auth");
 
-    if(auth) {
+    if (auth) {
       const authObj = JSON.parse(auth);
-      console.log(authObj)
-
       const username = authObj.email;
       const password = authObj.token;
-      const text: string = username + ':' + password;
+      const text: string = username + ":" + password;
       const encoder: TextEncoder = new TextEncoder();
       const data: Uint8Array = encoder.encode(text);
 
-    
       const dataArray: number[] = Array.from(data);
 
-      
       const binaryString: string = String.fromCharCode.apply(null, dataArray);
       const basicAuth: string = btoa(binaryString);
 
-      axios.get(
-        `https://api.troquefuthomologacao.futfanatics.com.br/api/order/get/${selectedId}`,
-        {
-          timeout: 10000,
-          headers: {
-            'Authorization': 'Basic ' + basicAuth
+      axios
+        .get(
+          `https://api.troquefuthomologacao.futfanatics.com.br/api/order/get/${selectedId}`,
+          {
+            timeout: 10000,
+            headers: {
+              Authorization: "Basic " + basicAuth,
+            },
           }
-        }
-      )
-      .then(function (response) {
-        setPedido(response.data);
-        setDelivery_date(response.data.delivery_date|| "");
-        setPayment_method(response.data.payment_method|| "");
-        console.log("Shipment Date:", response.data);
-      })
-      .catch(function (error) {
-        console.log(error, "Erro ao obter dados do pedido");
-      });
+        )
+        .then(function (response) {
+          setPedido(response.data);
+          setDelivery_date(response.data.delivery_date || "");
+          setPayment_method(response.data.payment_method || "");
+        })
+        .catch(function (error) {
+          console.log(error, "Erro ao obter dados do pedido");
+        });
     }
   }, [selectedId]);
+
   const onSelectProduto = (produto: Produto) => {
     setProdutoSelecionado(produto);
-  };  
-  
+  };
+
   return (
     <>
       <hr></hr>
       <section className="c-Lista">
-        <div className="container">
+        <div className={`container ${className}`}>
           {selectedId ? (
             <SH1
               textAlign="start"
@@ -93,46 +95,59 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
               Lista de Produtos do Pedido:# {selectedId}
             </SH1>
           ) : (
-            <div>
+            <div style={{ height: "30vh" }}>
               <SH1
-              textAlign="start"
-              color="#777777"
-              fontWeight={350}
-              fontSize="16px"
-              marginsm="16px 0px 64px 0px"
-              fontSizesm="14px"
-            >
-              Lista de Produtos do Pedido:# {selectedId}
-            </SH1>
+                textAlign="start"
+                color="#777777"
+                fontWeight={350}
+                fontSize="16px"
+                marginsm="16px 0px 64px 0px"
+                fontSizesm="14px"
+              >
+                Lista de Produtos do Pedido:# {selectedId}
+              </SH1>
               <div className="d-flex flex-column align-items-center">
                 <IconNull width={50}></IconNull>
                 <div className="">
                   <STextParagraph fontSize="14px" color="#777">
-                  Para visualizar os produtos 
+                    Para visualizar os produtos
                   </STextParagraph>
                   <STextParagraph fontSize="14px" color="#777">
-                  selecione um pedido acima 
+                    selecione um pedido acima
                   </STextParagraph>
                 </div>
               </div>
             </div>
           )}
-          <div className="row justify-content-center lista-content flex-column align-items-center">
-            <Produtos produtos={pedido?.Products || []}
-              selectedId={selectedId || ''} 
+
+          <div
+            className="mt-1 mb-2 justify-content-center align-items-center flex-wrap"
+            style={{ justifyContent: "center" }}
+          >
+            <Produtos
+              produtos={pedido?.Products || []}
+              selectedId={selectedId || ""}
               onSelect={() => {}}
               key={1}
               delivery_date={delivery_date}
-              payment_method= {payment_method}
+              payment_method={payment_method}
             />
+            
           </div>
 
           {produtoSelecionado && (
-            <ProductSelected produto={produtoSelecionado} produtosSelecionados={pedido?.Products} />
+            <div className="">
+             <ProductSelected
+            produtos={[produtoSelecionado]}
+            produtosSelecionados={pedido?.Products}
+            /> 
+            </div>
+            
           )}
         </div>
       </section>
     </>
   );
 };
+
 export default ListaProdutos;

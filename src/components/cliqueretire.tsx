@@ -6,6 +6,7 @@ import MapClique from "./mapclique";
 import ModalAceite from "./modalaceite";
 import React, { useState } from "react";
 import ModalClique from "./modalclique";
+import IconInformative from "../componentsStyled/icon/iconinformative";
 
 interface CliqueRetireProps {
   className?: string;
@@ -26,7 +27,16 @@ const CliqueRetire: React.FC<CliqueRetireProps> = ({ className,  selected, onSel
 
   return (
     <>
-      <Box typeBox="envio" className={`col-11 col-md-7 ${selected ? "selected-box" : ""}`}>
+      <Box typeBox="envio" className={`col-11 col-md-7 position-relative ${selected ? "selected-box" : ""}`}>
+        <div className="info-clique position-absolute  ">
+          <IconInformative width={24} height={24} className="informative">
+        </IconInformative>
+        <div className="box-information">
+            Dúvidas de como funciona?
+            Acesse nossa <a href="https://www.cliqueretire.com.br/perguntas-frequentas-faq/">Central de ajuda</a>
+          </div>
+        </div>
+        
         <img src={ImgClique} className="icon" />
 
         <div className="box-text">

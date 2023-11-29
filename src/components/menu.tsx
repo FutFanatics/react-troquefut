@@ -9,8 +9,8 @@ interface MenuProps {
 const Menu: React.FC<MenuProps> = ({ typeOption , children }) => {
     return(
         <section className="c-menu"> 
-            <div className="container d-flex align-items-center flex-column flex-md-row">
-                <TroqueFut width={160}></TroqueFut>
+            <div className="container">
+                <TroqueFut width={130} className="logo-troque-menu"></TroqueFut>
                 {children}
             </div>
         </section>

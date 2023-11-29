@@ -49,6 +49,7 @@ const ListaSuspensa: React.FC<ListaSuspensaProps> = ({
             </option>
           ))}
         </select>
+        <div className="custom-select-icon">&#9660;</div>
       </div>
     </>
   );
