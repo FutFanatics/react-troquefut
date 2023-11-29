@@ -212,6 +212,10 @@
     margin: 32px 0 16px 0;
     appearance: none; 
     -webkit-appearance: none;    
+
+    &:focus{
+      color: 1px #192c53 solid;
+    }
   }
   .custom-select-icon {
     position: absolute;

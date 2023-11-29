@@ -164,7 +164,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
 
   return (
     <>
-      <SH1>Preencha as informações do(s) produto(s) selecionado(s)</SH1>
+      <SH1 fontSize="18px">Preencha as informações do(s) produto(s) selecionado(s)</SH1>
       <Slider {...settings} className="col-md-10 c-slider-product">
       
         {produtos.map((produto, index) => (

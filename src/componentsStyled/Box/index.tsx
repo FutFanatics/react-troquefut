@@ -646,7 +646,7 @@ export const Box = styled.div<Box>`
                 text-align:center;
                 top: 50%;
                 position: relative;
-                transform: translateY(-40%);
+                transform: translateY(-50%);
             }
             
         `}
@@ -660,7 +660,7 @@ export const Box = styled.div<Box>`
                 text-align:center;
                 top: 50%;
                 position: relative;
-                transform: translateY(-40%);
+                transform: translateY(-50%);
             }
         `}
     }
