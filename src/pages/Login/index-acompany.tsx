@@ -18,7 +18,7 @@ const LoginAcompany: React.FC<LoginProps> = ({ className }) => {
   return (
     <>
     <Header></Header>
-    <div className="container">
+    <div className="container container-login">
         <div className="d-flex justify-content-center align-items-center flex-column mt-5">
             <TroqueFut width={200} className="logo-troque"></TroqueFut>
             <STextParagraph margin="64px 0px 0px 0px" fontSize="16px" fontWeight={400}>
