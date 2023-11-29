@@ -162,6 +162,11 @@ export const Box = styled.div<Box>`
                 opacity:0.64;
                 position:absolute;
                 right:-30px;
+                bottom:0px;
+                @media screen and (max-width: 768px) {
+                    right:0px;
+                    bottom:10px;
+                }
             }
             .box-informative{
                 display:none;
@@ -215,6 +220,7 @@ export const Box = styled.div<Box>`
                         color:#fff;
                         text-decoration:underline;
                     }
+                    
                 }
             }
         
