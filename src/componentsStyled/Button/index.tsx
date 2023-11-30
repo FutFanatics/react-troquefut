@@ -170,6 +170,7 @@ const SButton = styled.button<SButtonProps>`
         background:transparent;
         width:120px;
         height:40px;
+        font-weight:400;
         margin:0px auto;
         font-size:14px;
     `}
@@ -208,7 +209,12 @@ const SButton = styled.button<SButtonProps>`
             font-size:14px;
             margin-bottom:16px;
         `}
-        
+        ${props => props.typeButton === 'devolution-status' && `
+            width:auto;
+            font-size:14px;
+            padding:0px 16px;
+            margin:16px auto 0px auto;
+        `}
     }
     
 `

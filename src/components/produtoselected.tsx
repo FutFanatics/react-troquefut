@@ -4,13 +4,13 @@ import Slider from "react-slick";
 import ModalCamera from "./modalfoto";
 import { Box } from "../componentsStyled/Box";
 import { SH1, STextParagraph, SspanText } from "../componentsStyled/Text";
+import OutOfDateModal from './OutOfDateModal'; // Import the OutOfDateModal component
 import IconCamera from "../componentsStyled/icon/Iconcamera";
 import ListaSelected from "./listaselected";
 import { Produto } from "./Types";
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import IconInformative from "../componentsStyled/icon/iconinformative";
-import IconVale from "../componentsStyled/icon/iconvale";
 import IconInfoVale from "../componentsStyled/icon/iconinfovale";
 import ModalData from "./modaldata";
 
@@ -42,7 +42,11 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   const [fotoAdicionada, setFotoAdicionada] = useState(false);
   const [mediaRequired, setMediaRequired] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isBotaoConfirmarHabilitado, setIsBotaoConfirmarHabilitado] = useState(false);
+  const [isBotaoConfirmarHabilitado, setIsBotaoConfirmarHabilitado] =
+    useState(false);
+  const [produtoData, setProdutoData] = useState<Record<number, any>>({});
+  const [updatedData, setUpdatedData] = useState<any>({})
+  const [outOfDateModalIsOpen, setOutOfDateModalIsOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -51,6 +55,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       .then((response) => response.json())
       .then((data) => {
         setReasons(data);
+        console.log("Fetched reasons:", data);
       })
       .catch((error) => console.error("Error fetching reasons:", error));
   }, []);
@@ -59,6 +64,8 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     const selectedReason = reasons.find(
       (reason) => reason.description === motivoDevolucao
     );
+
+    console.log("Selected Reason:", selectedReason);
 
     if (selectedReason?.media_required === 1) {
       setMediaRequired(true);
@@ -71,8 +78,27 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     } else {
       setSubReasons([]);
     }
-  }, [motivoDevolucao, reasons]);
 
+    
+    if (motivoDevolucao) {
+      const deadlineDate = calculateDeadlineDate();
+
+      
+      const currentDate = new Date();
+
+      if (currentDate > deadlineDate) {
+        
+        setOutOfDateModalIsOpen(true);
+      }
+    }
+  }, [motivoDevolucao, produtoSelecionadoData, reasons]);
+  useEffect(() => {
+    if (onDataUpdate) {
+      onDataUpdate(updatedData);
+    }
+  }, [updatedData, onDataUpdate])
+  ;
+  console.log("vai", updatedData)
   const openModal = () => {
     setModalIsOpen(true);
   };
@@ -96,11 +122,6 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     updateData();
   };
 
-  const motivoDevolucaoOptions = reasons.map((reason) => reason.description);
-  const subDevolucaoOptions = subReasons.map(
-    (subReason) => subReason.description
-  );
-
   if (!produtos || produtos.length === 0) {
     return null;
   }
@@ -111,28 +132,62 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   if (onSaveTipoReembolso) {
     onSaveTipoReembolso(tipoReembolso);
   }
-
-  const handleConfirmar = () => {
-    produtoSelecionadoData.tipoReembolso = tipoReembolso;
-    produtoSelecionadoData.motivoDevolucao = motivoDevolucao;
-    produtoSelecionadoData.subDevolucao = subDevolucao;
-
-    const dadosSelecionados = {
+  const handleSelectChange = (
+    productId: string | number,
+    key: string,
+    selectedValue: any
+  ) => {
+    const updatedData = {
+      ...produtoSelecionadoData,
       tipoReembolso,
       motivoDevolucao,
       quantidade,
       subDevolucao,
-      ...produtoSelecionadoData,
+      [key]: selectedValue,
     };
-
+  
+    switch (key) {
+      case "tipoReembolso":
+        setTipoReembolso(selectedValue);
+        break;
+      case "motivoDevolucao":
+        setMotivoDevolucao(selectedValue);
+        break;
+      case "quantidade":
+        setQuantidade(selectedValue);
+        break;
+      case "subDevolucao":
+        setSubDevolucao(selectedValue);
+        break;
+      default:
+        break;
+    }
+  
+    setUpdatedData(updatedData);
+  };
+  
+  
+  const handleConfirmar = () => {
+  
+    const dadosSelecionados = {
+      ...produtoSelecionadoData,
+      ...updatedData,      
+    };
+  
     console.log("Dados selecionados:", dadosSelecionados);
-
+    
     const todosCamposPreenchidos = Object.values(dadosSelecionados).every(
-      (value) => value !== ""
+      (value) => value !== "" || value == undefined || value == null
     );
-
+    
     if (todosCamposPreenchidos) {
-      if (tipoReembolso == "Estorno") {
+      if (onDataUpdate) {
+        onDataUpdate(dadosSelecionados);
+      }
+  
+      setIsBotaoConfirmarHabilitado(true);
+  
+      if (tipoReembolso === "Estorno") {
         setIsModalOpen(true);
       } else if (
         tipoReembolso === "estorno" &&
@@ -149,26 +204,38 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       }
     } else {
       console.error("Preencha todos os campos antes de confirmar");
-    };
+      setIsBotaoConfirmarHabilitado(false);
+    }
+  };
+
+  const calculateDeadlineDate = () => {
+    const currentDate = new Date();
+    const deadlineDate = new Date(currentDate);
+    deadlineDate.setDate(currentDate.getDate() + 7);
+    return deadlineDate;
   };
 
   const settings = {
     dots: false,
-    arrow:true,
+    arrow: true,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    
   };
 
   return (
     <>
-      <SH1 fontSize="18px">Preencha as informações do(s) produto(s) selecionado(s)</SH1>
+      <SH1 fontSize="18px">
+        Preencha as informações do(s) produto(s) selecionado(s)
+      </SH1>
       <Slider {...settings} className="col-md-10 c-slider-product">
-      
         {produtos.map((produto, index) => (
-          <Box typeBox="productselected" className="product-selected" key={index}>
+          <Box
+            typeBox="productselected"
+            className="product-selected"
+            key={index}
+          >
             <Box
               className="col-md-12 d-flex flex-md-row flex-column"
               style={{ padding: "20px 0px", margin: "0 auto" }}
@@ -186,41 +253,47 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                 </a>
                 <div className="d-flex flex-column align-items-center">
                   <SH1
-                  fontSize="15px"
-                  fontSizesm="12px"
-                  marginsm="0px 8px"
-                  margin="12px 0px 8px 0px"
-                  fontWeight={500}
-                >
-                  {produto.name}
-                </SH1>
-                <SspanText fontSize="16px" fontSizesm="12px">
-                  Variação: {produto.variant_value}
-                </SspanText>
+                    fontSize="15px"
+                    fontSizesm="12px"
+                    marginsm="0px 8px"
+                    margin="12px 0px 8px 0px"
+                    fontWeight={500}
+                  >
+                    {produto.name}
+                  </SH1>
+                  <SspanText fontSize="16px" fontSizesm="12px">
+                    Variação: {produto.variant_value}
+                  </SspanText>
                 </div>
-                
               </Box>
               <Box className="col-md-8" margin="0px" padding="0px">
                 <div className="d-md-flex justify-content-between">
                   <div className="d-flex flex-column justify-content-center content-select">
                     <Box typeBox="informative">
-                    <IconInformative width={24} height={24} className="informative"></IconInformative>
-                    <div className="box-informative">
-                      <IconInfoVale width={48}></IconInfoVale>
-                      <h1>Diferença entre <strong className="green">Cupom
-                        </strong> e <strong className="blue">Estorno</strong></h1>
-                      <p className="text-informative mt-1">
-                      Caso escolha a devolução com <strong>Cupom</strong>, você
-                      receberá um vale compras no valor do seu pedido
-                      na FutFanatics <strong className="italic">em até 5 dias.
-                        </strong>
-                      </p>
-                      <p className="text-informative">
-                      Caso escolha o <strong>Estorno
-                        </strong>, você receberá o valor da sua compra <strong className="italic">em até 15 dias.</strong>
-                      </p>
-                   
-                  </div>
+                      <IconInformative
+                        width={24}
+                        height={24}
+                        className="informative"
+                      ></IconInformative>
+                      <div className="box-informative">
+                        <IconInfoVale width={48}></IconInfoVale>
+                        <h1>
+                          Diferença entre{" "}
+                          <strong className="green">Cupom</strong> e{" "}
+                          <strong className="blue">Estorno</strong>
+                        </h1>
+                        <p className="text-informative mt-1">
+                          Caso escolha a devolução com <strong>Cupom</strong>,
+                          você receberá um vale compras no valor do seu pedido
+                          na FutFanatics{" "}
+                          <strong className="italic">em até 5 dias.</strong>
+                        </p>
+                        <p className="text-informative">
+                          Caso escolha o <strong>Estorno</strong>, você receberá
+                          o valor da sua compra{" "}
+                          <strong className="italic">em até 15 dias.</strong>
+                        </p>
+                      </div>
                     </Box>
                     <STextParagraph typeParagraph="select">
                       *Tipo de Reembolso
@@ -228,9 +301,15 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                     <ListaSelected
                       options={["Cupom", "Estorno"]}
                       onChange={(selectedValue) =>
-                        setTipoReembolso(selectedValue)
+                        handleSelectChange(
+                          produto.product_id,
+                          "tipoReembolso",
+                          selectedValue
+                        )
                       }
-                      selectedValue={tipoReembolso}
+                      selectedValue={
+                        produtoData[produto.product_id]?.tipoReembolso
+                      }
                     ></ListaSelected>
                   </div>
                   <div className="d-flex flex-column justify-content-center content-select">
@@ -241,9 +320,15 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                       options={[]}
                       quantityNumber={produto.quantity}
                       onChange={(selectedValue) =>
-                        setQuantidade(selectedValue as number | "")
+                        handleSelectChange(
+                          produto.product_id,
+                          "quantidade",
+                          selectedValue as number | ""
+                        )
                       }
-                      selectedValue={quantidade}
+                      selectedValue={
+                        produtoData[produto.product_id]?.quantidade
+                      }
                     ></ListaSelected>
                   </div>
                 </div>
@@ -253,11 +338,17 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                       *Por que quer devolver?
                     </STextParagraph>
                     <ListaSelected
-                      options={motivoDevolucaoOptions}
+                      options={reasons.map((reason) => reason.description)}
                       onChange={(selectedValue) =>
-                        setMotivoDevolucao(selectedValue)
+                        handleSelectChange(
+                          produto.product_id,
+                          "motivoDevolucao",
+                          selectedValue
+                        )
                       }
-                      selectedValue={motivoDevolucao}
+                      selectedValue={
+                        produtoData[produto.product_id]?.motivoDevolucao
+                      }
                     ></ListaSelected>
                   </div>
                   <div className="d-flex flex-column justify-content-center content-select">
@@ -265,11 +356,19 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                       *O que aconteceu?
                     </STextParagraph>
                     <ListaSelected
-                      options={subDevolucaoOptions}
+                      options={subReasons.map(
+                        (subReason) => subReason.description
+                      )}
                       onChange={(selectedValue) =>
-                        setSubDevolucao(selectedValue)
+                        handleSelectChange(
+                          produto.product_id,
+                          "subDevolucao",
+                          selectedValue
+                        )
                       }
-                      selectedValue={subDevolucao}
+                      selectedValue={
+                        produtoData[produto.product_id]?.subDevolucao
+                      }
                     ></ListaSelected>
                   </div>
                 </div>
@@ -286,12 +385,9 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                       margin="12px 0px 0px 0px"
                     >
                       {mediaRequired && (
-                        <a onClick={openModal}>
+                        <a onClick={() => setModalIsOpen(true)}>
                           <Box typeBox="cam">
-                            <IconCamera
-                              fill="#fff"
-                              width={25}
-                            ></IconCamera>
+                            <IconCamera fill="#fff" width={25}></IconCamera>
                           </Box>
                         </a>
                       )}
@@ -303,26 +399,28 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                 </div>
                 <ModalCamera
                   isOpen={modalIsOpen}
-                  onRequestClose={closeModal}
+                  onRequestClose={() => setModalIsOpen(false)}
                   onPhotoAdded={() => setFotoAdicionada(true)}
                 />
               </Box>
             </Box>
           </Box>
         ))}
-  
       </Slider>
-      
       <button
         onClick={handleConfirmar}
-        disabled={!isFotoAdicaoValida}
         className="button-fut"
       >
         Confirmar
       </button>
       <ModalData
         isOpen={isModalOpen}
-        onRequestClose={closeModal}
+        onRequestClose={() => setIsModalOpen(false)}
+      />
+      <OutOfDateModal 
+        isOpen={outOfDateModalIsOpen}
+        onRequestClose={() => setOutOfDateModalIsOpen(false)}
+        onClose={() => {}}
       />
     </>
   );

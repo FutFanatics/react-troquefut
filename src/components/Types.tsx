@@ -1,5 +1,5 @@
 export interface Produto {
-  product_id: string; 
+  product_id: number | string; 
   name?: string;
   variant_value?: string;
   price?: number;
@@ -20,7 +20,9 @@ export interface Produto {
 
     interface Product {
       quant: number;
+      name:string;
       price: string;
+      image:string;
       refundType: string;
       reasonSub: string;
       reasonMain: string;
@@ -59,10 +61,10 @@ export interface Produto {
         cep: string;
         state: string;
         city: string;
-        neigborhood: string;
+        neigh_borhood: string;
         street: string;
         number: string;
-        complement: string;
+        complement?: string;
       };
       products: Product[];
       history: HistoryItem[];

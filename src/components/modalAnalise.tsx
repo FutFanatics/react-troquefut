@@ -32,7 +32,7 @@ const ModalAnalise: React.FC<ModalAnaliseProps> = ({
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      className={`c-modal_devolution ${className}`}
+      className={`c-modal_devolution ${className} flex-column`}
     >
       <div className="container d-flex flex-column align-items-center">
         <IconAnalise width={60}></IconAnalise>

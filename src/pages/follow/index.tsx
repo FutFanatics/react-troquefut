@@ -40,13 +40,13 @@ export default function Follow() {
       <div className="c-follow position-relative">
         <Box typeBox="icon-help">
           <div className="informação">
-            Dúvidas de como funciona? Acesse nossa{" "}
+            Dúvidas de como funciona? Acesse nossa
             <a href="">Central de ajuda</a>
           </div>
           <IconHelp width={30} />
         </Box>
         <div className="container">
-          <div className="row mt-4 mb-4 justify-content-between">
+          <div className="row mt-4 mb-4 justify-content-between flex-column-reverse flex-md-row">
             <FollowData devolutionId={devolutionId}></FollowData>
             <ProgressDevolution devolutionId={devolutionId} />
           </div>

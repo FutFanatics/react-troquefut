@@ -13,7 +13,7 @@ export default function Devolution() {
         <>
         <Header></Header>
         <Menu typeOption="active"></Menu>
-        <SH1 textTransform="uppercase">Selecione qual devolução deseja acompanhar</SH1>
+        <SH1 textTransform="uppercase" fontSizesm="16px">Selecione qual devolução deseja acompanhar</SH1>
         <section className="c-devolution position-relative">
         <Box typeBox="icon-help">
           <div className="informação">

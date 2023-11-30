@@ -33,7 +33,7 @@ const ModalConcluido: React.FC<ModalConcluidoProps> = ({
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      className={`c-modal_devolution ${className}`}
+      className={`c-modal_devolution ${className} flex-column`}
     >
       <div className="container d-flex flex-column align-items-center">
         <IconDevreembolso width={60}></IconDevreembolso>

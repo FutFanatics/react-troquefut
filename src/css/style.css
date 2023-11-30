@@ -181,8 +181,8 @@
   appearance: none;
   -webkit-appearance: none;
 }
-.c-lista_suspensa .lista-select:focus {
-  color: 1px #192c53 solid;
+.c-lista_suspensa .lista-select select:focus {
+  border-color: red;
 }
 .c-lista_suspensa .custom-select-icon {
   position: absolute;

@@ -5,6 +5,7 @@ interface AddProps {
   width?: number;
   fill?: string;
   height?: number;
+  onClick?: () => void;
 }
 const IconAdd: React.FC<AddProps> = ({ className, width, height }) => (
   <svg

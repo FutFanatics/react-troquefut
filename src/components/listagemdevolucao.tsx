@@ -70,7 +70,7 @@ const ListagemDevolucoes: React.FC = () => {
 
   return (
     <div>
-      <div className="d-flex justify-content-center mt-3 align-items-center box-date">
+      <div className="d-flex justify-content-center mt-3 align-items-center box-date flex-column flex-md-row">
         <SH1 typeTitle="acompanhe">Selecione um período:</SH1>
         <div className="d-flex flex-column container-date">
           <label>Data início:</label>

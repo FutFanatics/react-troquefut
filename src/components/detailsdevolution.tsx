@@ -5,7 +5,9 @@ import { Box } from "../componentsStyled/Box";
 import Button from "../componentsStyled/Button";
 import ModalAnalise from "./modalAnalise";
 import ModalDevolution from "./modaldevolution";
-
+import { useMediaQuery } from "react-responsive";
+import IconArrowBottom from "../componentsStyled/icon/Iconarrowbottom";
+import IconArrowTop from "../componentsStyled/icon/Iconarrowtop";
 
 interface DetailsDevolutionProps {
   className?: string;
@@ -13,8 +15,10 @@ interface DetailsDevolutionProps {
 }
 
 interface Product {
-  quant: number;
+  quant?: number;
   price: string;
+  image?: string;
+  name?: string;
   refundType: string;
   reasonSub: string;
   reasonMain: string;
@@ -53,7 +57,7 @@ export interface DataFollow {
     cep: string;
     state: string;
     city: string;
-    neigborhood: string;
+    neigh_borhood: string;
     street: string;
     number: string;
     complement: string;
@@ -66,8 +70,11 @@ export interface DataFollow {
 }
 
 const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolutionId }) => {
-  const [data, setData] = useState<DataFollow[]>([]);
+  const [data, setData] = useState<DataFollow | null>(null);
   const [modalType, setModalType] = useState("");
+  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
+  const [isContentOpen, setIsContentOpen] = useState(!isMobile);
+
   const settings = {
     dots: false,
     infinite: false,
@@ -91,46 +98,52 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
   };
 
   useEffect(() => {
-    if (devolutionId) {
-      let auth = localStorage.getItem("auth");
+    const fetchData = async () => {
+      if (devolutionId) {
+        let auth = localStorage.getItem("auth");
 
-      if (auth) {
-        const authObj = JSON.parse(auth);
-        const username = authObj.email;
-        const password = authObj.token;
-        const customerId = authObj.customerId;
-        const text: string = username + ":" + password;
-        const encoder: TextEncoder = new TextEncoder();
-        const data: Uint8Array = encoder.encode(text);
+        if (auth) {
+          const authObj = JSON.parse(auth);
+          const username = authObj.email;
+          const password = authObj.token;
+          const customerId = authObj.customerId;
+          const text: string = username + ":" + password;
+          const encoder: TextEncoder = new TextEncoder();
+          const data: Uint8Array = encoder.encode(text);
 
-        const dataArray: number[] = Array.from(data);
+          const dataArray: number[] = Array.from(data);
 
-        const binaryString: string = String.fromCharCode.apply(null, dataArray);
-        const basicAuth: string = btoa(binaryString);
+          const binaryString: string = String.fromCharCode.apply(null, dataArray);
+          const basicAuth: string = btoa(binaryString);
 
-        axios
-          .get(`https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}/${devolutionId}`, {
-            timeout: 10000,
-            headers: {
-              Authorization: "Basic " + basicAuth,
-            },
-          })
-          .then(function (response) {
+          try {
+            const response = await axios.get(
+              `https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}/${devolutionId}`,
+              {
+                timeout: 10000,
+                headers: {
+                  Authorization: "Basic " + basicAuth,
+                },
+              }
+            );
+
             setData(response.data);
             console.log(response.data, "Dados do pedido recebidos com sucesso");
-          })
-          .catch(function (error) {
+          } catch (error) {
             console.log(error, "Erro ao obter dados do pedido");
-          });
+          }
+        }
       }
-    }
+    };
+
+    fetchData();
   }, [devolutionId]);
 
   const handleButtonClick = () => {
-    if (data.length > 0) {
-      const devolution = data[0];
+    if (data) {
+      const devolution = data;
 
-      if (devolution && devolution.status && devolution.status.title) {
+      if (devolution.status && devolution.status.title) {
         if (devolution.status.title === "Em Análise") {
           setModalType("analise");
         } else if (devolution.status.title === "Negada") {
@@ -150,60 +163,64 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
     setModalType("");
   };
 
-  console.log("cade", data);
-
   return (
     <>
-      {data.map((devolution, index) => (
-        <Box key={index} typeBox="datafollow" className="col-md-12 mt-4">
-          <h1>Sua Solicitação</h1>
-          <h4>Solicitação: #{devolution.order_id}</h4>
-          <div className="d-flex justify-content-between">
-            <div className="content-img">
-              <Slider {...settings} className="slide">
-                {Array.isArray(devolution.products) &&
-                  devolution.products.map((product, productIndex) => (
-                    <div key={productIndex}>
-                       <img src={product.variant ?? undefined} alt={`Product Image ${productIndex + 1}`} />
+      {data && (
+        <Box typeBox="datafollow" className="col-md-12 mt-4">
+          <h1 onClick={() => isMobile && setIsContentOpen(!isContentOpen)}>
+            Sua Solicitação {isMobile && (isContentOpen ? <IconArrowTop width={14}/> : <IconArrowBottom width={14}/>)}
+          </h1>
+          {(isMobile && isContentOpen) || !isMobile ? (
+            <>
+              <h4>Solicitação: #{data.order_id}</h4>
+              <div className="d-flex justify-content-between flex-column flex-md-row">
+                <div className="content-img">
+                  <Slider {...settings} className="slide">
+                    {Array.isArray(data.products) &&
+                      data.products.map((product, productIndex) => (
+                        <div key={productIndex}>
+                          <img src={product.image ?? undefined} alt={`Product Image ${productIndex + 1}`} />
+                        </div>
+                      ))}
+                  </Slider>
+                  <Button typeButton="followdevolution" onClick={handleButtonClick}>
+                    {data.status.title}
+                  </Button>
+                </div>
+                <div className="content-product_describe">
+                  <h3>{data.products[0]?.name || "-"}</h3>
+                  <div className="d-flex justify-content-between">
+                    <div className="d-flex flex-column content">
+                      <label>Tamanho</label>
+                      <p>{data.products[0]?.variant || "-"}</p>
                     </div>
-                  ))}
-              </Slider>
-              <Button typeButton="followdevolution" onClick={handleButtonClick}>
-                {data.length > 0 && data[0].status.title}
-              </Button>
-            </div>
-            <div className="content-product_describe">
-              <h3>{devolution.products[0]?.variant|| "-"}</h3>
-              <div className="d-flex justify-content-between">
-                <div className="d-flex flex-column content">
-                  <label>Tamanho</label>
-                  <p>{devolution.products[0]?.variant|| "-"}</p>
-                </div>
-                <div className="d-flex flex-column content">
-                  <label>Preço</label>
-                  <p>R${parseFloat(devolution.products[0]?.price).toFixed(2)}</p>
-                </div>
-              </div>
-              <div className="d-flex flex-column content">
-                <label>Quantidade</label>
-                <p>{devolution.products[0]?.quant|| "-"}</p>
-              </div>
-              <div className="d-flex justify-content-between">
-                <div className="d-flex flex-column content">
-                  <label>Motivo da Devolução</label>
-                  <p>{devolution.products[0]?.reasonMain}</p>
-                </div>
-                <div className="d-flex flex-column content">
-                  <label>Sub-Motivo</label>
-                  <p>{devolution.products[0]?.reasonSub}</p>
+                    <div className="d-flex flex-column content">
+                      <label>Preço</label>
+                      <p>R${parseFloat(data.products[0]?.price).toFixed(2)}</p>
+                    </div>
+                  </div>
+                  <div className="d-flex flex-column content">
+                    <label>Quantidade</label>
+                    <p>{data.products[0]?.quant || "-"}</p>
+                  </div>
+                  <div className="d-flex justify-content-between">
+                    <div className="d-flex flex-column content">
+                      <label>Motivo da Devolução</label>
+                      <p>{data.products[0]?.reasonMain}</p>
+                    </div>
+                    <div className="d-flex flex-column content">
+                      <label>Sub-Motivo</label>
+                      <p>{data.products[0]?.reasonSub}</p>
+                    </div>
+                  </div>
+                  <div className="d-flex flex-column">
+                    <label>Observação</label>
+                    <p>{data.products[0]?.obs || "-"}</p>
+                  </div>
                 </div>
               </div>
-              <div className="d-flex flex-column">
-                <label>Observação</label>
-                <p>{devolution.products[0]?.obs || "-"}</p>
-              </div>
-            </div>
-          </div>
+            </>
+          ) : null}
           {modalType === "analise" && (
             <ModalAnalise isOpen={true} onRequestClose={closeModal} />
           )}
@@ -220,7 +237,7 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
             <ModalDevolution isOpen={true} onRequestClose={closeModal} />
           )}
         </Box>
-      ))}
+      )}
     </>
   );
 };

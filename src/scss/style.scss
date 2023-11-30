@@ -213,8 +213,8 @@
     appearance: none; 
     -webkit-appearance: none;    
 
-    &:focus{
-      color: 1px #192c53 solid;
+    select:focus{
+      border-color: red;
     }
   }
   .custom-select-icon {

@@ -15,85 +15,91 @@ interface StatusDevolutionProps {
 }
 
 const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className, devolutionId }) => {
-  const [data, setData] = useState<DataFollow[]>([]);
+  const [data, setData] = useState<DataFollow | null>(null);
 
   useEffect(() => {
-    if (devolutionId) {
-      let auth = localStorage.getItem("auth");
+    const fetchData = async () => {
+      if (devolutionId) {
+        let auth = localStorage.getItem("auth");
 
-      if (auth) {
-        const authObj = JSON.parse(auth);
-        const username = authObj.email;
-        const password = authObj.token;
-        const customerId = authObj.customerId;
-        const text: string = username + ":" + password;
-        const encoder: TextEncoder = new TextEncoder();
-        const data: Uint8Array = encoder.encode(text);
+        if (auth) {
+          const authObj = JSON.parse(auth);
+          const username = authObj.email;
+          const password = authObj.token;
+          const customerId = authObj.customerId;
+          const text: string = username + ":" + password;
+          const encoder: TextEncoder = new TextEncoder();
+          const data: Uint8Array = encoder.encode(text);
 
-        const dataArray: number[] = Array.from(data);
+          const dataArray: number[] = Array.from(data);
 
-        const binaryString: string = String.fromCharCode.apply(null, dataArray);
-        const basicAuth: string = btoa(binaryString);
+          const binaryString: string = String.fromCharCode.apply(null, dataArray);
+          const basicAuth: string = btoa(binaryString);
 
-        axios
-          .get(`https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}/${devolutionId}`, {
-            timeout: 10000,
-            headers: {
-              Authorization: "Basic " + basicAuth,
-            },
-          })
-          .then(function (response) {
+          try {
+            const response = await axios.get(
+              `https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}/${devolutionId}`,
+              {
+                timeout: 10000,
+                headers: {
+                  Authorization: "Basic " + basicAuth,
+                },
+              }
+            );
+
             setData(response.data);
-            console.log(response.data, "Dados do pedido recebidos com sucesso");
-          })
-          .catch(function (error) {
+            console.log(response.data, "Dados do pedido recebidos com sucesso do status");
+          } catch (error) {
             console.log(error, "Erro ao obter dados do pedido");
-          });
+          }
+        }
       }
-    }
+    };
+
+    fetchData();
   }, [devolutionId]);
+  
   return (
     <>
-      {data &&
-        data.map((item) => (
-          <Box
-            key={item.id}
-            typeBox="datafollow"
-            className={`col-md-12 ${className}`}
-          >
-            <div className="status-icons d-flex align-items-center">
-              {item.history.map((step, index) => {
-                const IconComponent = getIconComponent(step.title);
-                const iconColor = getIconColor(step.status);
+      {data && (
+        <Box
+          key={data.id}
+          typeBox="datafollow"
+          className={`col-md-12 ${className}`}
+        >
+          <div className="status-icons d-flex align-items-center">
+            {data.history.map((step, index) => {
+              const IconComponent = getIconComponent(step.title);
+              const iconColor = getIconColor(step.status);
 
-                return (
+              return (
+                <div
+                  className="d-flex flex-column align-items-center container-icon"
+                  key={index}
+                >
                   <div
-                    className="d-flex flex-column align-items-center container-icon"
-                    key={index}
+                    className="status-icon"
+                    style={{
+                      backgroundColor: getStatusColor(step.status),
+                      border: `1px solid ${getBorderColor(step.status)}`,
+                    }}
                   >
                     <div
-                      className="status-icon"
-                      style={{
-                        backgroundColor: getStatusColor(step.status),
-                        border: `1px solid ${getBorderColor(step.status)}`,
-                      }}
+                      className="d-flex align-items-center justify-content-center"
+                      style={{ fill: iconColor }}
                     >
-                      <div
-                        className="d-flex align-items-center justify-content-center"
-                        style={{ fill: iconColor }}
-                      >
-                        <IconComponent />
-                      </div>
+                      <IconComponent />
                     </div>
-                    <span className="name-status">{step.title}</span>
-                    <span className="name-date">{step.date || ""}</span>
-                    <div className="line"></div>
                   </div>
-                );
-              })}
-            </div>
-          </Box>
-        ))}
+                  <span className="name-status">{step.title}</span>
+                  <span className="name-date">{step.date || ""}</span>
+                  <div className="line"></div>
+                </div>
+              );
+            })}
+          </div>
+        </Box>
+      )}
     </>
   );
 };

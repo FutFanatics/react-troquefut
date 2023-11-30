@@ -162,7 +162,7 @@ export const Box = styled.div<Box>`
                 opacity:0.64;
                 position:absolute;
                 right:-30px;
-                bottom:0px;
+                bottom:-30px;
                 @media screen and (max-width: 768px) {
                     right:0px;
                     bottom:10px;
@@ -475,13 +475,28 @@ export const Box = styled.div<Box>`
         border-radius:10px;
         padding:40px 30px 20px 30px;
         margin:0px;
+        font-family:"gotham";
+
         
         h1{
             text-align:center;
             font-size:18px;
             font-weight:700;
             color:#000;
+            width:100%;
+            position:relative;
             margin-bottom:16px;
+
+            @media screen and (max-width: 768px) {
+                margin-bottom:0px
+            }
+
+            svg{
+                position:absolute;
+                top:50%;
+                transform:translateY(-50%);
+                right:0px;
+            }
         }
         h2{
             font-size:16px;
@@ -510,15 +525,27 @@ export const Box = styled.div<Box>`
             display:flex;
             flex-direction:column;
             align-items:center;
+
+            @media screen and (max-width: 768px) {
+                width:100%;
+                
+            }
         }
         .content-product_describe{
             width:60%;
+            @media screen and (max-width: 768px) {
+                width:100%;
+                margin-top:16px;
+            }
         }
         h4{
             font-size:16px;
             font-weight:500;
             color:#000;
-
+            font-family:"gotham";
+            @media screen and (max-width: 768px) {
+                margin-top:16px;
+            }
         }
         .slide{
            width: 80%;
@@ -526,7 +553,7 @@ export const Box = styled.div<Box>`
            
             img{
                 width:100%;
-                border-radius:20px;
+                border-radius:10px;
             }
         }
         .status-icons{
@@ -571,13 +598,20 @@ export const Box = styled.div<Box>`
                 display:none;
             }
         }
+        @media screen and (max-width: 768px) {
+            padding:20px 30px;
+            margin-top:16px;
+        }
     `}
     ${props => props.typeBox === 'container-devolution' && `
         padding-left:32px;
         margin:0px;
+        @media screen and (max-width: 768px) {
+            padding:0px;
+        }
     `}
     ${props => props.typeBox === 'icon-help' && `
-        
+        z-index:99999;
         height:48px;
         width:48px;
         border-radius:100px;

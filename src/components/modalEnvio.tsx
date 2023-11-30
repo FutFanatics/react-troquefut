@@ -29,7 +29,7 @@ const ModalEnvio: React.FC<ModalEnvioProps> = ({
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      className={`c-modal_devolution ${className}`}
+      className={`c-modal_devolution ${className} flex-column`}
     >
       <div className="container d-flex flex-column align-items-center">
         <IconEnviado width={60}></IconEnviado>

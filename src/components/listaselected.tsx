@@ -6,36 +6,49 @@ interface ListaSelectedProps<T> {
     delivery_date?: string;
   }
 
-  function ListaSelected<T extends string | number>({ options, onChange, selectedValue, quantityNumber = 0 }: ListaSelectedProps<T>) {
-    
+  function ListaSelected<T extends string | number>({
+    options,
+    onChange,
+    selectedValue,
+    quantityNumber = 0,
+  }: ListaSelectedProps<T>) {
     let quantities = [];
-
+  
     for (let i = 1; i <= quantityNumber; i++) {
-        quantities.push(i);
+      quantities.push(i);
     }
-
-    if(quantityNumber > 0) {
-        return(
-            <select onChange={(e) => onChange(e.target.value as T)} value={selectedValue} className="list-select">
-                <option value="" disabled>Selecione uma opção</option>
-                {quantities.map((option, index) => (
-                    <option key={index} value={option}>
-                    {option}
-                    </option>
-                ))}
-            </select>
-        )
-    }
-
-    return(
-        <select onChange={(e) => onChange(e.target.value as T)} value={selectedValue} className="list-select">
-        <option value="" disabled>Selecione uma opção</option>
-        {options.map((option, index) => (
-            <option key={index} value={option}>
+  
+    const renderOptions = () => {
+      if (quantityNumber > 0) {
+        return quantities.map((option, index) => (
+          <option key={index} value={option}>
             {option}
-            </option>
-        ))}
-        </select>
-    )
-}
-export default ListaSelected
+          </option>
+        ));
+      } else {
+        return options.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ));
+      }
+    };
+  
+    return (
+      <select
+        onChange={(e) => onChange(e.target.value as T)}
+        value={selectedValue}
+        className="list-select"
+      >
+        {!selectedValue && (
+          <option value="">
+            Selecione uma opção
+          </option>
+        )}
+        {renderOptions()}
+      </select>
+    );
+  }
+  
+  export default ListaSelected;
+  

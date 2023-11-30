@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Box } from "../componentsStyled/Box";
 import axios from "axios";
+import { useMediaQuery } from "react-responsive";
+import IconArrowTop from "../componentsStyled/icon/Iconarrowtop";
+import IconArrowBottom from "../componentsStyled/icon/Iconarrowbottom";
 
 interface FollowDataProps {
   className?: string;
@@ -8,12 +11,14 @@ interface FollowDataProps {
 }
 
 interface Product {
-  quant: number;
+  quant?: number;
   price: string;
+  image?: string;
+  name?: string;
   refundType: string;
   reasonSub: string;
   reasonMain: string;
-  obs: string;
+  obs?: string;
   variant: string;
 }
 
@@ -48,10 +53,10 @@ export interface DataFollow {
     cep: string;
     state: string;
     city: string;
-    neigborhood: string;
+    neigh_borhood: string;
     street: string;
     number: string;
-    complement: string;
+    complement?: string;
   };
   products: Product[];
   history: HistoryItem[];
@@ -61,7 +66,10 @@ export interface DataFollow {
 }
 
 const FollowData: React.FC<FollowDataProps> = ({ className, devolutionId }) => {
-  const [data, setData] = useState<DataFollow[]>([]);
+  const [data, setData] = useState<DataFollow | null>(null);
+  const [isContentOpen, setIsContentOpen] = useState(false);
+
+  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
 
   useEffect(() => {
     if (devolutionId) {
@@ -104,74 +112,80 @@ const FollowData: React.FC<FollowDataProps> = ({ className, devolutionId }) => {
 
   return (
     <>
-      {data.map((item) => (
-        <Box typeBox="datafollow" className="col-md-4" key={item.id}>
-          <h1>Seus Dados</h1>
-          <h2>Dados Pessoais</h2>
-          <div className="d-flex flex-column">
-            <label>Nome completo</label>
-            <p>{item.customer.fullname}</p>
-          </div>
-          <div className="d-flex justify-content-between">
-            <div className="d-flex flex-column content">
-              <label>Telefone</label>
-              <p>{item.customer.fone || "-"}</p>
-            </div>
-            <div className="d-flex flex-column content">
-              <label>Celular</label>
-              <p>{item.customer.cellphone}</p>
-            </div>
-          </div>
-          <h2>Endereço</h2>
-          <div className="d-flex justify-content-between">
-            <div className="d-flex flex-column content">
-              <label>CEP</label>
-              <p>{item.customer.cep}</p>
-            </div>
-            <div className="d-flex flex-column content">
-              <label>Estado</label>
-              <p>{item.customer.state}</p>
-            </div>
-          </div>
-          <div className="d-flex justify-content-between">
-            <div className="d-flex flex-column content">
-              <label>Cidade</label>
-              <p>{item.customer.city}</p>
-            </div>
-            <div className="d-flex flex-column content">
-              <label>Bairro</label>
-              <p>{item.customer.neigborhood || "-"}</p>
-            </div>
-          </div>
-          <div className="d-flex flex-column">
-            <label>Endereço</label>
-            <p>{item.customer.street}</p>
-          </div>
-          <div className="d-flex justify-content-between">
-            <div className="d-flex flex-column content">
-              <label>Número</label>
-              <p>{item.customer.number}</p>
-            </div>
-            <div className="d-flex flex-column content">
-              <label>Complemento</label>
-              <p>{item.customer.complement || "-"}</p>
-            </div>
-          </div>
-          <h2>Solicitação</h2>
-          {item.products.map((product: Product, index: number) => (
-            <div className="d-flex justify-content-between" key={index}>
-              <div className="d-flex flex-column content">
-                <label>Tipo de Reembolso</label>
-                <p>{product.refundType}</p>
+      {data && (
+        <Box typeBox="datafollow" className="col-md-4 position-relative">
+          <h1 onClick={() => isMobile && setIsContentOpen(!isContentOpen)}>
+            Seus Dados {isMobile && (isContentOpen ? <IconArrowTop width={14}/> : <IconArrowBottom width={14}/>)}
+          </h1>
+          {(isMobile && isContentOpen) || !isMobile ? (
+            <>
+              <h2>Dados Pessoais</h2>
+              <div className="d-flex flex-column">
+                <label>Nome completo</label>
+                <p>{data.customer.fullname}</p>
               </div>
-              <div className="d-flex flex-column content">
-                <label>Forma de Envio</label>
-                <p>{item.method_shipment}</p>
+              <div className="d-flex justify-content-between">
+                <div className="d-flex flex-column content">
+                  <label>Telefone</label>
+                  <p>{data.customer.fone || "-"}</p>
+                </div>
+                <div className="d-flex flex-column content">
+                  <label>Celular</label>
+                  <p>{data.customer.cellphone}</p>
+                </div>
               </div>
-            </div>
-          ))}
+              <h2>Endereço</h2>
+              <div className="d-flex justify-content-between">
+                <div className="d-flex flex-column content">
+                  <label>CEP</label>
+                  <p>{data.customer.cep}</p>
+                </div>
+                <div className="d-flex flex-column content">
+                  <label>Estado</label>
+                  <p>{data.customer.state}</p>
+                </div>
+              </div>
+              <div className="d-flex justify-content-between">
+                <div className="d-flex flex-column content">
+                  <label>Cidade</label>
+                  <p>{data.customer.city}</p>
+                </div>
+                <div className="d-flex flex-column content">
+                  <label>Bairro</label>
+                  <p>{data.customer.neigh_borhood || "-"}</p>
+                </div>
+              </div>
+              <div className="d-flex flex-column">
+                <label>Endereço</label>
+                <p>{data.customer.street}</p>
+              </div>
+              <div className="d-flex justify-content-between">
+                <div className="d-flex flex-column content">
+                  <label>Número</label>
+                  <p>{data.customer.number}</p>
+                </div>
+                <div className="d-flex flex-column content">
+                  <label>Complemento</label>
+                  <p>{data.customer.complement || "-"}</p>
+                </div>
+              </div>
+              <h2>Solicitação</h2>
+              {data.products.map((product: Product, index: number) => (
+                <div className="d-flex justify-content-between" key={index}>
+                  <div className="d-flex flex-column content">
+                    <label>Tipo de Reembolso</label>
+                    <p>{product.refundType}</p>
+                  </div>
+                  <div className="d-flex flex-column content">
+                    <label>Forma de Envio</label>
+                    <p>{data.method_shipment || "-"}</p>
+                  </div>
+                </div>
+              ))}
+            </>
+          ) : null}
         </Box>
-      ))}
+      )}
     </>
   );
 };
