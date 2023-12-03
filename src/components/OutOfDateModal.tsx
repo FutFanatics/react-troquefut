@@ -1,11 +1,13 @@
 import React from "react";
 import Modal from "react-modal";
-import { SH1, STextParagraph } from "../componentsStyled/Text";
+import { SH1, STextParagraph, SspanText } from "../componentsStyled/Text";
 import { Box } from "../componentsStyled/Box";
 import Button from "../componentsStyled/Button";
 import IconProduct from "../componentsStyled/icon/iconproduct";
 
 import SlidesProducts from "./slidesproducts";
+import IconNegada from "../componentsStyled/icon/Iconnegada";
+
 
 interface OutOfDateModalProps {
   isOpen?: boolean;
@@ -20,19 +22,24 @@ const OutOfDateModal: React.FC<OutOfDateModalProps> = ({
   onClose, 
 }) => {
   return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="c-modal_aceite">
+    <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="c-modal_devolution flex-column"
+    >
       <div className="container d-flex flex-column align-items-center">
-        <SH1 typeTitle="devolution-modal">Solicitação Concluída!</SH1>
+        <IconNegada width={60}></IconNegada>
+        <SH1 typeTitle="devolution-modal">
+          Poxa, Craque! 
+        </SH1>
+        <SspanText typeSpan="negative-modal">
+          Parece que o prazo para essa troca já foi <strong className="red">excedido</strong> 
+        </SspanText>
 
         <STextParagraph typeParagraph="paragraphdescribe">
-          A sua solicitação de Devolução foi concluída. Qualquer problema ou
-          inconsistência, entre em contato pelo <strong>site</strong>, pelo
-          nosso <strong>SAC: (11)4858-3500 </strong>
-          ou email de contato: <strong>contato@futfanatics.com.br </strong>
+        Infelizmente não poderemos prosseguir com a sua solicitação de devolução.
+O prazo de devolução dos produtos dessa categoria é de 30 dias.
         </STextParagraph>
       </div>
 
-      <Button typeButton="back"  onClick={onClose}>
+      <Button typeButton="back" onClick={onRequestClose}>
         Voltar
       </Button>
     </Modal>

@@ -79,7 +79,7 @@ export const SH1 =styled.h1<SH1Props>`
     `}
     ${props => props.typeTitle === 'devolution-modal' && `
         font-size:18px;
-        margin:16px 0px 8px 0px;
+        margin:16px 0px 4px 0px;
 
         .yellow{
            color: #E3C10B;
@@ -96,13 +96,14 @@ export const SH1 =styled.h1<SH1Props>`
         .bank{
             font-size:14px;
         }
+        
         @media screen and (max-width: 768px) {
            font-size:18px
         }
     `}
     ${props => props.typeTitle === 'negative-modal' && `
         font-size:14px;
-        margin:8px 0px 8px 0px;
+        margin:4px 0px 8px 0px;
         font-weight:550;
 
         .yellow{
@@ -218,7 +219,15 @@ export const SH1 =styled.h1<SH1Props>`
         color:#192c53;
         text-decoration:none;
     }
-
+    ${props => props.typeSpan === 'negative-modal' && `
+        font-size:13px;
+        margin:4px 0px 8px 0px;
+        font-weight:500;
+        text-align:center;
+        .red{
+            color:#CE0000;
+        }
+        `}
     @media screen and (max-width: 768px) {
         font-size: ${(props) => props.fontSizesm || '12px'};
      }

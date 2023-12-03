@@ -23,7 +23,7 @@ const Data: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
-
+  console.log("mostra ai garota", dadosSelecionados)
   const updateData = (data: any) => {
     setDadosSelecionados((prevData: any) => ({
       ...prevData,
@@ -69,6 +69,7 @@ const Data: React.FC = () => {
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCheckboxMarcado(event.target.checked);
   };
+  
   return (
     <>
       <Header />

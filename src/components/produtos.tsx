@@ -95,6 +95,7 @@ const Produtos: React.FC<ProdutosProps> = ({
           produtos={produtosSelecionados}
           onDataUpdate={handleDataUpdate}
           produtoSelecionadoData={produtoSelecionadoData}
+          delivery_date={delivery_date}
         />
       ) : (
         <>

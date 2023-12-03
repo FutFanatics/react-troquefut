@@ -37,7 +37,7 @@ const ModalAnalise: React.FC<ModalAnaliseProps> = ({
       <div className="container d-flex flex-column align-items-center">
         <IconAnalise width={60}></IconAnalise>
         <SH1 typeTitle="devolution-modal">
-          Em <strong className="yellow">Análise</strong>
+           Poxa, Craque! 
         </SH1>
 
         <STextParagraph typeParagraph="paragraphdescribe">

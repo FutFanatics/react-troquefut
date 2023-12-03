@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Slider from "react-slick";
 import ModalCamera from "./modalfoto";
 import { Box } from "../componentsStyled/Box";
 import { SH1, STextParagraph, SspanText } from "../componentsStyled/Text";
-import OutOfDateModal from './OutOfDateModal'; // Import the OutOfDateModal component
+import OutOfDateModal from './OutOfDateModal'; 
 import IconCamera from "../componentsStyled/icon/Iconcamera";
 import ListaSelected from "./listaselected";
 import { Produto } from "./Types";
@@ -21,7 +21,8 @@ interface ProductSelectedProps {
   onDataUpdate?: (data: any) => void;
   onSaveTipoReembolso?: (tipoReembolso: string) => void;
   produtoSelecionadoData?: any;
-  orderId?: any;
+  orderId?:string;
+  delivery_date?:string;
 }
 
 const ProductSelected: React.FC<ProductSelectedProps> = ({
@@ -31,6 +32,8 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   onSaveTipoReembolso,
   produtoSelecionadoData,
   orderId,
+  delivery_date,
+  
 }) => {
   const [tipoReembolso, setTipoReembolso] = useState<string>("");
   const [motivoDevolucao, setMotivoDevolucao] = useState<string>("");
@@ -47,58 +50,88 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   const [produtoData, setProdutoData] = useState<Record<number, any>>({});
   const [updatedData, setUpdatedData] = useState<any>({})
   const [outOfDateModalIsOpen, setOutOfDateModalIsOpen] = useState<boolean>(false);
-
+  const [reasonDeadlines, setReasonDeadlines] = useState<Record<string, string>>({});
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const updateProdutoData = (productId, key, value) => {
+    setProdutoData((prevProdutoData) => ({
+      ...prevProdutoData,
+      [productId]: {
+        ...prevProdutoData[productId],
+        [key]: value,
+      },
+    }));
+  };
 
   useEffect(() => {
     fetch("https://api.troquefuthomologacao.futfanatics.com.br/api/reasons")
       .then((response) => response.json())
       .then((data) => {
         setReasons(data);
-        console.log("Fetched reasons:", data);
+  
+        const deadlines = {};
+  
+        data.forEach((reason) => {
+          const currentDate = new Date();
+          const deadlineDate = new Date(currentDate);
+          deadlineDate.setDate(currentDate.getDate() + reason.days_allowed);
+          const formattedDeadlineDate = formatDate(
+            delivery_date,
+            reason.days_allowed
+          );
+          deadlines[reason.description] = formattedDeadlineDate;
+          console.log("vai filho", formattedDeadlineDate, reason);
+        });
+  
+        setReasonDeadlines(deadlines);
       })
       .catch((error) => console.error("Error fetching reasons:", error));
-  }, []);
-
+  }, [delivery_date]);
+  
   useEffect(() => {
     const selectedReason = reasons.find(
       (reason) => reason.description === motivoDevolucao
     );
-
-    console.log("Selected Reason:", selectedReason);
-
+  
     if (selectedReason?.media_required === 1) {
       setMediaRequired(true);
     } else {
       setMediaRequired(false);
     }
-
+  
     if (selectedReason && selectedReason.subReasons) {
       setSubReasons(selectedReason.subReasons);
     } else {
       setSubReasons([]);
     }
-
-    
-    if (motivoDevolucao) {
-      const deadlineDate = calculateDeadlineDate();
-
-      
+  
+    if (selectedReason) {
+      const deadlineDate = new Date(reasonDeadlines[motivoDevolucao]);
       const currentDate = new Date();
-
+  
       if (currentDate > deadlineDate) {
-        
         setOutOfDateModalIsOpen(true);
       }
     }
-  }, [motivoDevolucao, produtoSelecionadoData, reasons]);
+  }, [motivoDevolucao, produtoSelecionadoData, reasons, reasonDeadlines])
+
   useEffect(() => {
     if (onDataUpdate) {
       onDataUpdate(updatedData);
     }
-  }, [updatedData, onDataUpdate])
-  ;
-  console.log("vai", updatedData)
+  }, [updatedData, onDataUpdate]);
+
+  const formatDate = (baseDate, daysToAdd) => {
+    const deadlineDate = new Date(baseDate);
+    deadlineDate.setDate(deadlineDate.getDate() + daysToAdd);
+  
+    const year = deadlineDate.getFullYear();
+    const month = String(deadlineDate.getMonth() + 1).padStart(2, '0');
+    const day = String(deadlineDate.getDate()).padStart(2, '0');
+  
+    return `${year}-${month}-${day} 00:00:00`;
+  };
   const openModal = () => {
     setModalIsOpen(true);
   };
@@ -132,20 +165,14 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   if (onSaveTipoReembolso) {
     onSaveTipoReembolso(tipoReembolso);
   }
+
   const handleSelectChange = (
     productId: string | number,
     key: string,
     selectedValue: any
   ) => {
-    const updatedData = {
-      ...produtoSelecionadoData,
-      tipoReembolso,
-      motivoDevolucao,
-      quantidade,
-      subDevolucao,
-      [key]: selectedValue,
-    };
-  
+    updateProdutoData(productId, key, selectedValue);
+
     switch (key) {
       case "tipoReembolso":
         setTipoReembolso(selectedValue);
@@ -162,38 +189,48 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       default:
         break;
     }
-  
-    setUpdatedData(updatedData);
-  };
-  
-  
-  const handleConfirmar = () => {
-  
-    const dadosSelecionados = {
+
+    setUpdatedData({
       ...produtoSelecionadoData,
-      ...updatedData,      
-    };
-  
+      tipoReembolso,
+      motivoDevolucao,
+      quantidade,
+      subDevolucao,
+      [key]: selectedValue,
+    });
+  };
+
+  const handleConfirmar = () => {
+    const dadosSelecionados = produtos.map((produto) => {
+      const dadosProduto = produtoData[produto.product_id] || {};
+      return {
+        ...produto,
+        ...dadosProduto,
+      };
+    });
+
     console.log("Dados selecionados:", dadosSelecionados);
-    
-    const todosCamposPreenchidos = Object.values(dadosSelecionados).every(
-      (value) => value !== "" || value == undefined || value == null
+
+    const todosCamposPreenchidos = dadosSelecionados.every(
+      (dadosProduto) =>
+        Object.values(dadosProduto).every(
+          (value) => value !== "" && value !== undefined && value !== null
+        )
     );
-    
+
     if (todosCamposPreenchidos) {
       if (onDataUpdate) {
         onDataUpdate(dadosSelecionados);
       }
-  
+
       setIsBotaoConfirmarHabilitado(true);
-  
-      if (tipoReembolso === "Estorno") {
+
+      if (tipoReembolso.toLowerCase() === "estorno") {
+        onDataUpdate(dadosSelecionados);
         setIsModalOpen(true);
-      } else if (
-        tipoReembolso === "estorno" &&
-        dadosSelecionados.payment_method === "Cartão de Crédito"
-      ) {
-        navigate("/shipping", {
+        console.log("vamo fia", dadosSelecionados)
+      } else if (tipoReembolso.toLowerCase() === "cartão de crédito") {
+        navigate("/alguma_rota", {
           state: dadosSelecionados,
         });
       } else {
@@ -202,17 +239,11 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
         });
         setIsModalOpen(true);
       }
+      
     } else {
       console.error("Preencha todos os campos antes de confirmar");
       setIsBotaoConfirmarHabilitado(false);
     }
-  };
-
-  const calculateDeadlineDate = () => {
-    const currentDate = new Date();
-    const deadlineDate = new Date(currentDate);
-    deadlineDate.setDate(currentDate.getDate() + 7);
-    return deadlineDate;
   };
 
   const settings = {
@@ -223,7 +254,6 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-
   return (
     <>
       <SH1 fontSize="18px">
@@ -409,6 +439,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       </Slider>
       <button
         onClick={handleConfirmar}
+        disabled={!isFotoAdicaoValida}
         className="button-fut"
       >
         Confirmar

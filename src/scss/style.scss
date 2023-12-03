@@ -107,7 +107,7 @@
     }
   }
   @media screen and (max-width: 768px) {
-    height: 4rem;
+    height: 50px;
   }
 }
 .c-footer {
@@ -161,7 +161,7 @@
     justify-content: center;
     align-items: center;
     padding: 30px 20px;
-
+    min-height: 90vh;
     hr {
       color: #000;
       height: 3px;
@@ -353,7 +353,7 @@
 
 .c-modal_devolution {
   position: relative;
-  max-width: 350px;
+  max-width: 380px;
   margin: 0px 16px;
   display: flex;
   align-items: center;
@@ -363,12 +363,13 @@
   transform: translateY(-50%);
   background-color: #fff;
   padding: 20px 20px;
-  border-radius: 30px;
+  border-radius: 25px;
   box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.2);
 
   @include md {
     margin: 0px auto;
     height:auto;
+    padding: 25px 15px;
   }
 
   .btn-close {
