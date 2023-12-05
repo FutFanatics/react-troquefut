@@ -37,6 +37,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
   );
   const [delivery_date, setDelivery_date] = useState("");
   const [payment_method, setPayment_method] = useState("");
+  const [allowed_clique_retire, setAllowed_clique_retire] = useState("");
 
   useEffect(() => {
     let auth = localStorage.getItem("auth");
@@ -68,13 +69,13 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
           setPedido(response.data);
           setDelivery_date(response.data.delivery_date || "");
           setPayment_method(response.data.payment_method || "");
+          setAllowed_clique_retire(response.data.allowed_clique_retire);
         })
         .catch(function (error) {
           console.log(error, "Erro ao obter dados do pedido");
         });
     }
   }, [selectedId]);
-
   const onSelectProduto = (produto: Produto) => {
     setProdutoSelecionado(produto);
   };
@@ -131,6 +132,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
               key={1}
               delivery_date={delivery_date}
               payment_method={payment_method}
+              allowed_clique_retire={allowed_clique_retire}
             />
             
           </div>
@@ -140,6 +142,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
              <ProductSelected
             produtos={[produtoSelecionado]}
             produtosSelecionados={pedido?.Products}
+            
             /> 
             </div>
             

@@ -16,6 +16,7 @@ interface BankType {
 
 interface BankDataProps {
   onDataUpdate?: (data: any) => void;
+  updateData?: (data: any) => void;
 }
 
 const BankData: React.FC<BankDataProps> = ({ onDataUpdate }) => {
@@ -70,14 +71,14 @@ const BankData: React.FC<BankDataProps> = ({ onDataUpdate }) => {
     if (onDataUpdate) {
       onDataUpdate({
         bank,
-        // Adicione outros campos conforme necessário
+        
       });
     }
   };
 
   return (
     <>
-      <div className="col-md-8 d-flex flex-column mt-1">
+      <div className="d-flex flex-column mt-1">
         <div className="row mt-3">
           <Box typeBox="login" margin="5px 0px 16px 0px" className="col-md-6">
             <label>Banco</label>
@@ -110,7 +111,7 @@ const BankData: React.FC<BankDataProps> = ({ onDataUpdate }) => {
         <Box
           typeBox="login"
           className="d-flex flex-column"
-          margin="32px 0px 0px 0px"
+          margin="16px 0px 16px 0px"
         >
           <label>Tipo de Conta</label>
           <div className="d-flex">

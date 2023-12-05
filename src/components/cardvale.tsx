@@ -32,6 +32,7 @@ const CardVale: React.FC<CardValeProps> = ({ className }) => {
             <SspanText typeSpan="reembolso" padding="12px 0px 0px 0px">Válido em todo</SspanText>
             <SspanText typeSpan="reembolso">o nosso site</SspanText>
           </Box>
+
       </div>
     </>
   );

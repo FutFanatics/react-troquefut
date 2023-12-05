@@ -38,13 +38,48 @@ export const Box = styled.div<Box>`
     ${props => props.typeBox === 'estorno' && `
         border: 1px solid rgba(0, 0, 0, 0.40);
         display:flex;
-        padding:16px 32px 32px 32px;
-        flex-direction:column;
+        padding:32px 32px 32px 32px;
         align-items:center;
         justify-content:center;
         border-radius:10px;
         margin-bottom:32px;
         margin-top:16px;
+        margin-left:0px;
+        margin-rigth:0px;
+        min-height:512px;
+
+        .c-finance{
+            width:100%;
+            display:flex;
+            justify-content:center;
+        }
+        .container-reembolso{
+            width:100%;
+
+            .c-estorno{
+                width:60%;
+            }
+        }
+        .c-box-product{
+            font-family:"gotham";
+            width:30%;
+            img{
+                width:150px;
+                height:150px;
+                border-radius:10px;
+            }
+            h1{
+                font-size:16px;
+                margin-top:16px;
+                font-weight:600;
+                color:#000;
+                text-align:center;
+            }
+            span{
+                font-weight:350;
+                text-align:center
+            }
+        }
     `}
     ${props => props.typeBox === 'item' && `
         height:210px;

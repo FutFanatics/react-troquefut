@@ -1,12 +1,16 @@
-// Pix.tsx
-import React, { useState , useEffect } from "react";
+import React, { useState } from "react";
 import { Box } from "../componentsStyled/Box";
+import { useDataContext } from '../context/DataContext'; 
 
 interface PixProps {
-  onDataUpdate: (data: any) => void;
+  product_id?: string;
+  tipoReembolso?: string;
+  onDataUpdate?: (data: any) => void;
 }
 
-const Pix: React.FC<PixProps> = ({ onDataUpdate }) => {
+const Pix: React.FC<PixProps> = ({ product_id, tipoReembolso }) => {
+  const { updateData } = useDataContext();
+
   const [tipoPix, setTipoPix] = useState<string | null>(null);
   const [chavePix, setChavePix] = useState("");
 
@@ -15,24 +19,30 @@ const Pix: React.FC<PixProps> = ({ onDataUpdate }) => {
     setTipoPix(selectedTipoPix);
     setChavePix("");
 
-    onDataUpdate({
+    const newData = {
       pixData: {
         tipoPix: selectedTipoPix,
         chavePix: "",
       },
-    });
+    };
+
+    updateData(newData);
   };
 
   const handleChavePixChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const novaChavePix = event.target.value;
     setChavePix(novaChavePix);
 
-    onDataUpdate({
+    const newData = {
+      product_id,
+      tipoReembolso,
       pixData: {
         tipoPix,
         chavePix: novaChavePix,
       },
-    });
+    };
+
+    updateData(newData);
   };
 
   const renderInputField = () => {
@@ -87,9 +97,8 @@ const Pix: React.FC<PixProps> = ({ onDataUpdate }) => {
     }
   };
 
-
   return (
-    <div className={`col-md-8 col-12 d-flex flex-column mt-5`}>
+    <div className={`col-12 d-flex flex-column mt-2 w-100`}>
       <Box typeBox="login" margin="0px">
         <label>Tipo de Pix</label>
         <select className="w-100" onChange={handleTipoPixChange}>

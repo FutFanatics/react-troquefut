@@ -9,30 +9,31 @@ import { Produto } from "./Types";
 interface ModalDataProps {
   isOpen: boolean;
   onRequestClose: () => void;
-  
+  modalData: () => any;
+  dadosSelecionados: any[];
+  onConfirm: () => void;
 }
 
 const ModalData: React.FC<ModalDataProps> = ({
   isOpen,
   onRequestClose,
+  modalData,
+  dadosSelecionados,
+  onConfirm,
 }) => {
-  
   const location = useLocation();
-  const [dadosSelecionados, setDadosSelecionados] = useState(
+  const [dadosSelecionadosState, setDadosSelecionadosState] = useState(
     location.state || {}
   );
   const navigate = useNavigate();
-  console.log("Dados selecionados:", dadosSelecionados);
+
   useEffect(() => {
-    setDadosSelecionados(location.state || {});
-  }, [location.state]);
+    console.log("Dados no ModalData:", dadosSelecionadosState);
+  }, [isOpen, dadosSelecionadosState]);
 
   const handleConfirmar = () => {
-    console.log("Dados selecionados:", dadosSelecionados);
-    navigate("/data", {
-      state: dadosSelecionados,
-    });
-
+    console.log("Dados selecionados no ModalData:", dadosSelecionadosState);
+    onConfirm();
     onRequestClose();
   };
 

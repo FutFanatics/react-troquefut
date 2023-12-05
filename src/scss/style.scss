@@ -496,7 +496,7 @@ input[type="text"] {
   color:#FFF;
   border:none;
   height:45px;
-  margin:0px auto 16px auto;
+  margin:8px auto 16px auto;
 
   a{
     color: #fff;
@@ -552,3 +552,41 @@ input[type="text"] {
   flex-direction: column;
   justify-content: center;
 }
+/* .slick-dots {
+  position: absolute;
+  bottom: -0px !important;
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+} */
+/* .slick-dots li button:before {
+  font-size: 20px;
+  line-height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  text-align: center;
+  opacity: .25;
+  color: #000!important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  
+}
+.slick-active{
+  button{
+    background-color: #00df5e !important;
+    width: 30px !important;
+    border-radius: 20px;
+    height: 15px !important;
+
+    &::before{
+      display: none !important;
+    }
+  }
+}
+ */

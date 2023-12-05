@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Slider from "react-slick";
 import ModalCamera from "./modalfoto";
 import { Box } from "../componentsStyled/Box";
 import { SH1, STextParagraph, SspanText } from "../componentsStyled/Text";
-import OutOfDateModal from './OutOfDateModal'; 
+import OutOfDateModal from './OutOfDateModal';
 import IconCamera from "../componentsStyled/icon/Iconcamera";
 import ListaSelected from "./listaselected";
 import { Produto } from "./Types";
@@ -13,6 +13,7 @@ import "slick-carousel/slick/slick-theme.css";
 import IconInformative from "../componentsStyled/icon/iconinformative";
 import IconInfoVale from "../componentsStyled/icon/iconinfovale";
 import ModalData from "./modaldata";
+import { useDataContext } from '../context/DataContext'; // Import the DataContext
 
 interface ProductSelectedProps {
   className?: string;
@@ -21,8 +22,9 @@ interface ProductSelectedProps {
   onDataUpdate?: (data: any) => void;
   onSaveTipoReembolso?: (tipoReembolso: string) => void;
   produtoSelecionadoData?: any;
-  orderId?:string;
-  delivery_date?:string;
+  orderId?: string;
+  allowed_clique_retire?: string;
+  delivery_date?: string;
 }
 
 const ProductSelected: React.FC<ProductSelectedProps> = ({
@@ -33,8 +35,8 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   produtoSelecionadoData,
   orderId,
   delivery_date,
-  
 }) => {
+  const location = useLocation();
   const [tipoReembolso, setTipoReembolso] = useState<string>("");
   const [motivoDevolucao, setMotivoDevolucao] = useState<string>("");
   const [subDevolucao, setSubDevolucao] = useState<string>("");
@@ -45,14 +47,16 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   const [fotoAdicionada, setFotoAdicionada] = useState(false);
   const [mediaRequired, setMediaRequired] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isBotaoConfirmarHabilitado, setIsBotaoConfirmarHabilitado] =
-    useState(false);
+  const [isBotaoConfirmarHabilitado, setIsBotaoConfirmarHabilitado] = useState(false);
+  const [dadosSelecionados, setDadosSelecionados] = useState(location.state || {});
   const [produtoData, setProdutoData] = useState<Record<number, any>>({});
-  const [updatedData, setUpdatedData] = useState<any>({})
+  const [modalData, setModalData] = useState<any>(null);
+  const [updatedData, setUpdatedData] = useState<any>({});
   const [outOfDateModalIsOpen, setOutOfDateModalIsOpen] = useState<boolean>(false);
-  const [reasonDeadlines, setReasonDeadlines] = useState<Record<string, string>>({});
-  const location = useLocation();
+  const [reasonDeadlines, setReasonDeadlines] = useState<Record<string, string>>({}); // Add this line
   const navigate = useNavigate();
+
+  const { updateData } = useDataContext(); // Use the DataContext
 
   const updateProdutoData = (productId, key, value) => {
     setProdutoData((prevProdutoData) => ({
@@ -69,9 +73,9 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       .then((response) => response.json())
       .then((data) => {
         setReasons(data);
-  
+
         const deadlines = {};
-  
+
         data.forEach((reason) => {
           const currentDate = new Date();
           const deadlineDate = new Date(currentDate);
@@ -81,40 +85,39 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
             reason.days_allowed
           );
           deadlines[reason.description] = formattedDeadlineDate;
-          console.log("vai filho", formattedDeadlineDate, reason);
         });
-  
+
         setReasonDeadlines(deadlines);
       })
       .catch((error) => console.error("Error fetching reasons:", error));
   }, [delivery_date]);
-  
+
   useEffect(() => {
     const selectedReason = reasons.find(
       (reason) => reason.description === motivoDevolucao
     );
-  
+
     if (selectedReason?.media_required === 1) {
       setMediaRequired(true);
     } else {
       setMediaRequired(false);
     }
-  
+
     if (selectedReason && selectedReason.subReasons) {
       setSubReasons(selectedReason.subReasons);
     } else {
       setSubReasons([]);
     }
-  
+
     if (selectedReason) {
       const deadlineDate = new Date(reasonDeadlines[motivoDevolucao]);
       const currentDate = new Date();
-  
+
       if (currentDate > deadlineDate) {
         setOutOfDateModalIsOpen(true);
       }
     }
-  }, [motivoDevolucao, produtoSelecionadoData, reasons, reasonDeadlines])
+  }, [motivoDevolucao, produtoSelecionadoData, reasons, reasonDeadlines]);
 
   useEffect(() => {
     if (onDataUpdate) {
@@ -125,34 +128,21 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   const formatDate = (baseDate, daysToAdd) => {
     const deadlineDate = new Date(baseDate);
     deadlineDate.setDate(deadlineDate.getDate() + daysToAdd);
-  
+
     const year = deadlineDate.getFullYear();
     const month = String(deadlineDate.getMonth() + 1).padStart(2, '0');
     const day = String(deadlineDate.getDate()).padStart(2, '0');
-  
+
     return `${year}-${month}-${day} 00:00:00`;
   };
+
   const openModal = () => {
     setModalIsOpen(true);
   };
 
-  const updateData = () => {
-    const newData = {
-      tipoReembolso,
-      motivoDevolucao,
-      quantidade,
-      subDevolucao,
-      orderId,
-      ...produtoSelecionadoData,
-    };
-    if (onDataUpdate) {
-      onDataUpdate(newData);
-    }
-  };
-
   const closeModal = () => {
     setModalIsOpen(false);
-    updateData();
+  
   };
 
   if (!produtos || produtos.length === 0) {
@@ -201,7 +191,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   };
 
   const handleConfirmar = () => {
-    const dadosSelecionados = produtos.map((produto) => {
+    const dadosSelecionadosAtualizados = produtos.map((produto) => {
       const dadosProduto = produtoData[produto.product_id] || {};
       return {
         ...produto,
@@ -209,9 +199,9 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       };
     });
 
-    console.log("Dados selecionados:", dadosSelecionados);
+    console.log("Dados selecionados produto:", dadosSelecionadosAtualizados);
 
-    const todosCamposPreenchidos = dadosSelecionados.every(
+    const todosCamposPreenchidos = dadosSelecionadosAtualizados.every(
       (dadosProduto) =>
         Object.values(dadosProduto).every(
           (value) => value !== "" && value !== undefined && value !== null
@@ -220,32 +210,32 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
 
     if (todosCamposPreenchidos) {
       if (onDataUpdate) {
-        onDataUpdate(dadosSelecionados);
+        onDataUpdate(dadosSelecionadosAtualizados);
       }
 
       setIsBotaoConfirmarHabilitado(true);
 
       if (tipoReembolso.toLowerCase() === "estorno") {
-        onDataUpdate(dadosSelecionados);
+        updateData(dadosSelecionadosAtualizados);
         setIsModalOpen(true);
-        console.log("vamo fia", dadosSelecionados)
+        setDadosSelecionados(dadosSelecionadosAtualizados);
       } else if (tipoReembolso.toLowerCase() === "cartão de crédito") {
         navigate("/alguma_rota", {
-          state: dadosSelecionados,
+          state: dadosSelecionadosAtualizados,
         });
       } else {
+        updateData(dadosSelecionadosAtualizados);
         navigate("/data", {
-          state: dadosSelecionados,
+          state: dadosSelecionadosAtualizados,
         });
         setIsModalOpen(true);
+        setDadosSelecionados(dadosSelecionadosAtualizados);
       }
-      
     } else {
       console.error("Preencha todos os campos antes de confirmar");
       setIsBotaoConfirmarHabilitado(false);
     }
   };
-
   const settings = {
     dots: false,
     arrow: true,
@@ -379,6 +369,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                       selectedValue={
                         produtoData[produto.product_id]?.motivoDevolucao
                       }
+
                     ></ListaSelected>
                   </div>
                   <div className="d-flex flex-column justify-content-center content-select">
@@ -447,6 +438,9 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       <ModalData
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
+        modalData={modalData}
+        dadosSelecionados={dadosSelecionados} 
+        onConfirm={() => navigate("/data", { state: dadosSelecionados })}
       />
       <OutOfDateModal 
         isOpen={outOfDateModalIsOpen}

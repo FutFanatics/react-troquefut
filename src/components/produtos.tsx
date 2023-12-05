@@ -2,21 +2,22 @@ import React, { useState, useEffect } from "react";
 import { SH1, SspanText } from "../componentsStyled/Text";
 import { Box } from "../componentsStyled/Box";
 import Button from "../componentsStyled/Button";
-import ProductSelected from "./produtoselected";
 import Slider from "react-slick";
 import { Produto } from "./Types";
-import { useNavigate } from "react-router-dom";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { useDataContext } from '../context/DataContext'; 
+import ProductSelected from "./produtoselected";
+
 interface ProdutosProps {
   produtos: Produto[];
   className?: string;
-  selectedId?: string;
-  onSelect?: () => void;
-  selected?: boolean;
   delivery_date?: string;
   payment_method?: string;
+  onSelect?: () => void;
   orderId?: any;
+  selectedId?: string;
+  allowed_clique_retire?: string;
 }
 
 const Produtos: React.FC<ProdutosProps> = ({
@@ -25,7 +26,10 @@ const Produtos: React.FC<ProdutosProps> = ({
   delivery_date,
   payment_method,
   orderId,
+  allowed_clique_retire,
 }) => {
+  const { data, updateData } = useDataContext();
+
   const [produtosSelecionados, setProdutosSelecionados] = useState<Produto[]>([]);
   const [showProductSelected, setShowProductSelected] = useState(false);
   const [produtoSelecionadoData, setProdutoSelecionadoData] = useState<any>(null);
@@ -56,8 +60,8 @@ const Produtos: React.FC<ProdutosProps> = ({
     }
   };
 
-  const handleDataUpdate = (data: any) => {
-    console.log('Updated data from ProductSelected:', data);
+  const handleDataUpdate = (dadosSelecionados: any) => {
+    console.log('Updated data from ProductSelected dados:', dadosSelecionados);
   };
 
   const handleConfirmar = () => {
@@ -66,18 +70,22 @@ const Produtos: React.FC<ProdutosProps> = ({
       payment_method: payment_method,
       products: produtosSelecionados,
       order_id: orderId,
+      allowed_clique_retire: allowed_clique_retire,
     };
 
-    console.log("Dados selecionados:", dadosSelecionados);
+    console.log('Dados selecionados produtos.tsx:', dadosSelecionados);
+    updateData(dadosSelecionados);
+
     setShowProductSelected(true);
     setProdutoSelecionadoData(dadosSelecionados);
   };
+
   const sliderSettings = {
     dots: false,
     arrows: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 2, 
+    slidesToShow: 2,
     slidesToScroll: 1,
     responsive: [
       {

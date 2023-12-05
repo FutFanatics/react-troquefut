@@ -3,13 +3,15 @@ import React, { useState } from "react";
 import Pix from "./pix";
 import BankData from "./BankData";
 import Button from "../componentsStyled/Button";
+import { STextParagraph } from "../componentsStyled/Text";
 
 interface ValeEstornoProps {
-  updateData: (data: any) => void; 
+  updateData: (data: any) => void;
+  onCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const ValeEstorno: React.FC<ValeEstornoProps> = ({ updateData }) => {
-
+const ValeEstorno: React.FC<ValeEstornoProps> = ({ updateData, onCheckboxChange }) => {
+  const [checkboxMarcado, setCheckboxMarcado] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("pix");
   const [pixData, setPixData] = useState<any>(null);
   const [bankData, setBankData] = useState<any>(null);
@@ -27,11 +29,16 @@ const ValeEstorno: React.FC<ValeEstornoProps> = ({ updateData }) => {
     setBankData(data.bankData);
     updateData(data); 
   };
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = event.target.checked;
+    setCheckboxMarcado(checked);
+    onCheckboxChange(event); 
+  };
 
   return (
     <>
-      <div className="w-100 d-flex flex-column align-items-center">
-        <div className="col-md-10 d-flex justify-content-center">
+      <div className="c-estorno d-flex flex-column align-items-center ">
+        <div className="d-flex justify-content-center">
           <Button typeButton="select-estorno"
             className={activeTab === "pix" ? "active" : ""}
             onClick={() => handleTabChange("pix")}
@@ -49,6 +56,26 @@ const ValeEstorno: React.FC<ValeEstornoProps> = ({ updateData }) => {
         {activeTab === "bankData" && (
           <BankData onDataUpdate={handleBankDataUpdate} />
         )}
+        <div className="d-flex mt-3  mb-3 justify-content-start align-items-center">
+          <input
+            type="checkbox"
+            required
+            onChange={handleCheckboxChange}
+          ></input>
+          <STextParagraph
+            fontSize="13px"
+            fontSizesm="12px"
+            padding="0px 0px 0px 8px"
+          >
+            Ao continuar, você declara que está de acordo com os termos da&nbsp;
+            <a
+              href="https://www.futfanatics.com.br/politica-de-privacidade"
+              target="_blank"
+            >
+              Política de Privacidade
+            </a>
+          </STextParagraph>
+        </div>
       </div>
     </>
   );
