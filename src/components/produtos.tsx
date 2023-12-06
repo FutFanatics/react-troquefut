@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { SH1, SspanText } from "../componentsStyled/Text";
 import { Box } from "../componentsStyled/Box";
 import Button from "../componentsStyled/Button";
@@ -26,6 +27,7 @@ const Produtos: React.FC<ProdutosProps> = ({
   delivery_date,
   payment_method,
   orderId,
+  selectedId,
   allowed_clique_retire,
 }) => {
   const { data, updateData } = useDataContext();
@@ -34,6 +36,8 @@ const Produtos: React.FC<ProdutosProps> = ({
   const [showProductSelected, setShowProductSelected] = useState(false);
   const [produtoSelecionadoData, setProdutoSelecionadoData] = useState<any>(null);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const location = useLocation();
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const storedSelectedProducts = localStorage.getItem('selectedProducts');
@@ -47,6 +51,13 @@ const Produtos: React.FC<ProdutosProps> = ({
     localStorage.setItem('selectedProducts', JSON.stringify(produtosSelecionados));
     setIsButtonDisabled(produtosSelecionados.length === 0);
   }, [produtosSelecionados]);
+
+  useEffect(() => {
+    if (location.pathname === '/order') {
+      setProdutosSelecionados([]);
+      setIsButtonDisabled(true);
+    }
+  }, [location, setProdutosSelecionados, setIsButtonDisabled]);
 
   const handleCheckboxChange = (produto: Produto) => {
     const produtoIndex = produtosSelecionados.findIndex((p) => p.product_id === produto.product_id);
@@ -64,21 +75,22 @@ const Produtos: React.FC<ProdutosProps> = ({
     console.log('Updated data from ProductSelected dados:', dadosSelecionados);
   };
 
+
   const handleConfirmar = () => {
     const dadosSelecionados = {
-      delivery_date: delivery_date,
-      payment_method: payment_method,
-      products: produtosSelecionados,
-      order_id: orderId,
-      allowed_clique_retire: allowed_clique_retire,
+        delivery_date: delivery_date,
+        payment_method: payment_method,
+        allowed_clique_retire: allowed_clique_retire,
+        selectedId:selectedId,
+      
     };
 
-    console.log('Dados selecionados produtos.tsx:', dadosSelecionados);
-    updateData(dadosSelecionados);
+  console.log('Dados selecionados produtos.tsx:', dadosSelecionados);
+  updateData(dadosSelecionados);
 
-    setShowProductSelected(true);
-    setProdutoSelecionadoData(dadosSelecionados);
-  };
+  setShowProductSelected(true);
+  setProdutoSelecionadoData(dadosSelecionados);
+};
 
   const sliderSettings = {
     dots: false,
@@ -96,6 +108,7 @@ const Produtos: React.FC<ProdutosProps> = ({
       },
     ],
   };
+
   return (
     <>
       {showProductSelected ? (
@@ -107,50 +120,50 @@ const Produtos: React.FC<ProdutosProps> = ({
         />
       ) : (
         <>
-        <Slider {...sliderSettings} className={`col-md-6 c-slider-product ${className}`}>
-          {produtos.map((produto, index) => (
-            <Box typeBox="product" key={index}>
-              <div className="produto-box_img ">
-                <a href={produto.url} target="_blank" rel="noopener noreferrer">
-                  <img src={produto.img} alt={produto.name} />
-                </a>
-              </div>
-              <div className="produto-box_text d-flex flex-column justify-content-center">
-                <SH1
-                  typeTitle="title-product"
-                  fontSize="16px"
-                  textAlign="start"
-                  fontWeight={600}
-                  margin="8px 0px 8px 0px"
-                  color="#1D1B20"
+          <Slider {...sliderSettings} className={`col-md-6 c-slider-product ${className}`}>
+            {produtos.map((produto, index) => (
+              <Box typeBox="product" key={index}>
+                <div className="produto-box_img ">
+                  <a href={produto.url} target="_blank" rel="noopener noreferrer">
+                    <img src={produto.img} alt={produto.name} />
+                  </a>
+                </div>
+                <div className="produto-box_text d-flex flex-column justify-content-center">
+                  <SH1
+                    typeTitle="title-product"
+                    fontSize="16px"
+                    textAlign="start"
+                    fontWeight={600}
+                    margin="8px 0px 8px 0px"
+                    color="#1D1B20"
+                  >
+                    {produto.name}
+                  </SH1>
+
+                  <SspanText typeSpan="namProduct">
+                    Código:
+                    <SspanText typeSpan="namProduct">{produto.product_id}</SspanText>
+                  </SspanText>
+
+                  <SspanText typeSpan="namProduct">
+                    Preço: <SspanText typeSpan="namProduct">{produto.price ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(produto.price)) : 'N/A'}</SspanText>
+                  </SspanText>
+
+                  <SspanText typeSpan="namProduct">
+                    Variação:
+                    <SspanText typeSpan="namProduct"> {produto.variant_value}</SspanText>
+                  </SspanText>
+                </div>
+                <Button
+                  className={`mt-2 ${produtosSelecionados.some((p) => p.product_id === produto.product_id) ? 'clicked' : ''}`}
+                  typeButton="select"
+                  onClick={() => handleCheckboxChange(produto)}
                 >
-                  {produto.name}
-                </SH1>
-
-                <SspanText typeSpan="namProduct">
-                  Código:
-                  <SspanText typeSpan="namProduct">{produto.product_id}</SspanText>
-                </SspanText>
-
-                <SspanText typeSpan="namProduct">
-                  Preço: <SspanText typeSpan="namProduct">{produto.price ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(produto.price)) : 'N/A'}</SspanText>
-                </SspanText>
-
-                <SspanText typeSpan="namProduct">
-                  Variação:
-                  <SspanText typeSpan="namProduct"> {produto.variant_value}</SspanText>
-                </SspanText>
-              </div>
-              <Button
-                className={`mt-2 ${produtosSelecionados.some((p) => p.product_id === produto.product_id) ? 'clicked' : ''}`}
-                typeButton="select"
-                onClick={() => handleCheckboxChange(produto)}
-              >
-                {produtosSelecionados.some((p) => p.product_id === produto.product_id) ? 'Selecionado' : 'Selecionar'}
-              </Button>
-            </Box>
-          ))}
-        </Slider>
+                  {produtosSelecionados.some((p) => p.product_id === produto.product_id) ? 'Selecionado' : 'Selecionar'}
+                </Button>
+              </Box>
+            ))}
+          </Slider>
           
           {produtosSelecionados.length > 0 && (
             <Button onClick={handleConfirmar} className={`mt- mb-3 ${isButtonDisabled ? 'disabled' : ''}`} disabled={isButtonDisabled} margin="0px auto">

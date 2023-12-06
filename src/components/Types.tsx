@@ -7,7 +7,15 @@ export interface Produto {
   url?: string;
   quantity?: number;
   shipment_date?:string;
-  }
+  selectedProduct?: {
+    tipoReembolso?: string;
+    motivoDevolucao?: string;
+    quantidade?: number | "";
+    subDevolucao?: string;
+  };
+  orderId?: string;
+  
+}
 
 
   export interface Devolution {

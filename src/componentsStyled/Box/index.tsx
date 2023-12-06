@@ -48,6 +48,7 @@ export const Box = styled.div<Box>`
         margin-rigth:0px;
         min-height:512px;
 
+    
         .c-finance{
             width:100%;
             display:flex;
@@ -58,11 +59,19 @@ export const Box = styled.div<Box>`
 
             .c-estorno{
                 width:60%;
+                @media screen and (max-width: 768px) {
+                    width:100%;
+                }
             }
         }
         .c-box-product{
             font-family:"gotham";
             width:30%;
+
+            @media screen and (max-width: 768px) {
+                width:100%;
+                margin-bottom:16px;
+            }
             img{
                 width:150px;
                 height:150px;
@@ -675,9 +684,12 @@ export const Box = styled.div<Box>`
                 font-weight:350;
                 font-size:13px;
                 border-radius:2px;
-                width:200px;
+                min-width:200px;
                 height:55px;
                 
+                @media screen and (max-width: 768px) {
+                    min-width:220px;
+                }
                 a{
                     color:#fff;
                     text-decoration:underline;
@@ -695,9 +707,10 @@ export const Box = styled.div<Box>`
     @media screen and (max-width: 768px) {
         ${props => props.typeBox === 'estorno' && `
             border:none;
-            padding:32px 8px;
+            padding:8px;
             margin-top:0px;
             margin-bottom:0px;
+            margin:0px;
         `}
         ${props => props.typeBox === 'termos' && `
             @media screen and (max-width: 768px) {
@@ -722,6 +735,9 @@ export const Box = styled.div<Box>`
                 top: 50%;
                 position: relative;
                 transform: translateY(-50%);
+                @media screen and (max-width: 768px) {
+                    font-size:19px;
+                }
             }
             
         `}
@@ -736,6 +752,9 @@ export const Box = styled.div<Box>`
                 top: 50%;
                 position: relative;
                 transform: translateY(-50%);
+                @media screen and (max-width: 768px) {
+                    font-size:19px;
+                }
             }
         `}
     }

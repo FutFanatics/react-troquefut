@@ -6,8 +6,8 @@ interface DataProviderProps {
 }
 
 interface DataContextValue {
-  data: any; // Replace 'any' with the type that suits your data structure
-  updateData: (newData: any) => void; // Replace 'any' with the type that suits your data structure
+  data: any; 
+  updateData: (newData: any) => void; 
 }
 
 const DataContext = createContext<DataContextValue | undefined>(undefined);
@@ -16,6 +16,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [data, setData] = useState<any>({}); 
 
   const updateData = (newData: any) => {
+    console.log("VAIII FILHA DA PUTA:", newData);
     setData(newData);
   };
 
@@ -33,6 +34,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
 export const useDataContext = (): DataContextValue => {
   const context = useContext(DataContext);
+  
 
   if (!context) {
     throw new Error('useDataContext must be used within a DataProvider');

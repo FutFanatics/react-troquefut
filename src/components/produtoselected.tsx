@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Slider from "react-slick";
 import ModalCamera from "./modalfoto";
 import { Box } from "../componentsStyled/Box";
 import { SH1, STextParagraph, SspanText } from "../componentsStyled/Text";
-import OutOfDateModal from './OutOfDateModal';
+import OutOfDateModal from "./OutOfDateModal";
 import IconCamera from "../componentsStyled/icon/Iconcamera";
 import ListaSelected from "./listaselected";
 import { Produto } from "./Types";
@@ -13,8 +13,9 @@ import "slick-carousel/slick/slick-theme.css";
 import IconInformative from "../componentsStyled/icon/iconinformative";
 import IconInfoVale from "../componentsStyled/icon/iconinfovale";
 import ModalData from "./modaldata";
-import { useDataContext } from '../context/DataContext'; // Import the DataContext
-
+import { useDataContext } from "../context/DataContext";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 interface ProductSelectedProps {
   className?: string;
   produtos: Produto[];
@@ -22,24 +23,25 @@ interface ProductSelectedProps {
   onDataUpdate?: (data: any) => void;
   onSaveTipoReembolso?: (tipoReembolso: string) => void;
   produtoSelecionadoData?: any;
-  orderId?: string;
+  orderId?:string;
   allowed_clique_retire?: string;
-  delivery_date?: string;
+  delivery_date?:string;
 }
 
 const ProductSelected: React.FC<ProductSelectedProps> = ({
   produtos,
-  produtosSelecionados,
   onDataUpdate,
   onSaveTipoReembolso,
   produtoSelecionadoData,
   orderId,
+  allowed_clique_retire,
   delivery_date,
 }) => {
   const location = useLocation();
-  const [tipoReembolso, setTipoReembolso] = useState<string>("");
-  const [motivoDevolucao, setMotivoDevolucao] = useState<string>("");
-  const [subDevolucao, setSubDevolucao] = useState<string>("");
+  const { data, updateData } = useDataContext();
+  const [tipoReembolso, setTipoReembolso] = useState("");
+  const [motivoDevolucao, setMotivoDevolucao] = useState("");
+  const [subDevolucao, setSubDevolucao] = useState("");
   const [quantidade, setQuantidade] = useState<number | "">("");
   const [reasons, setReasons] = useState<any[]>([]);
   const [subReasons, setSubReasons] = useState<any[]>([]);
@@ -53,10 +55,8 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   const [modalData, setModalData] = useState<any>(null);
   const [updatedData, setUpdatedData] = useState<any>({});
   const [outOfDateModalIsOpen, setOutOfDateModalIsOpen] = useState<boolean>(false);
-  const [reasonDeadlines, setReasonDeadlines] = useState<Record<string, string>>({}); // Add this line
+  const [reasonDeadlines, setReasonDeadlines] = useState<Record<string, string>>({});
   const navigate = useNavigate();
-
-  const { updateData } = useDataContext(); // Use the DataContext
 
   const updateProdutoData = (productId, key, value) => {
     setProdutoData((prevProdutoData) => ({
@@ -140,6 +140,20 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     setModalIsOpen(true);
   };
 
+  const upData = () => {
+    const newData = {
+      tipoReembolso,
+      motivoDevolucao,
+      quantidade,
+      subDevolucao,
+      orderId,
+      ...produtoSelecionadoData,
+    };
+    if (onDataUpdate) {
+      onDataUpdate(newData);
+    }
+  };
+
   const closeModal = () => {
     setModalIsOpen(false);
   
@@ -162,7 +176,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     selectedValue: any
   ) => {
     updateProdutoData(productId, key, selectedValue);
-
+  
     switch (key) {
       case "tipoReembolso":
         setTipoReembolso(selectedValue);
@@ -179,28 +193,57 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       default:
         break;
     }
-
-    setUpdatedData({
+  
+    const updatedProductData = {
       ...produtoSelecionadoData,
       tipoReembolso,
       motivoDevolucao,
       quantidade,
       subDevolucao,
       [key]: selectedValue,
-    });
+    };
+  
+    const selectedProductIndex = produtos.findIndex(
+      (produto) => produto.product_id === productId
+    );
+  
+    if (selectedProductIndex !== -1) {
+      const selectedProduct = produtos[selectedProductIndex];
+  
+      
+      selectedProduct.selectedProduct = {
+        tipoReembolso,
+        motivoDevolucao,
+        quantidade,
+        subDevolucao,
+      };
+  
+      const updatedProducts = [
+        ...produtos.slice(0, selectedProductIndex),
+        selectedProduct,
+        ...produtos.slice(selectedProductIndex + 1),
+      ];
+  
+      updateData({
+        ...updatedProductData,
+        products: updatedProducts,
+      });
+    }
   };
-
+  
   const handleConfirmar = () => {
     const dadosSelecionadosAtualizados = produtos.map((produto) => {
-      const dadosProduto = produtoData[produto.product_id] || {};
+    const dadosProduto = produtoData[produto.product_id] || {};
       return {
+        ...dadosSelecionados,
+        ...produtoSelecionadoData,
         ...produto,
-        ...dadosProduto,
       };
+      
     });
-
-    console.log("Dados selecionados produto:", dadosSelecionadosAtualizados);
-
+    
+    console.log("Dados selecionados poroduct:", dadosSelecionadosAtualizados);
+    
     const todosCamposPreenchidos = dadosSelecionadosAtualizados.every(
       (dadosProduto) =>
         Object.values(dadosProduto).every(
@@ -216,7 +259,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       setIsBotaoConfirmarHabilitado(true);
 
       if (tipoReembolso.toLowerCase() === "estorno") {
-        updateData(dadosSelecionadosAtualizados);
+        onDataUpdate(dadosSelecionadosAtualizados);
         setIsModalOpen(true);
         setDadosSelecionados(dadosSelecionadosAtualizados);
       } else if (tipoReembolso.toLowerCase() === "cartão de crédito") {
@@ -224,11 +267,11 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
           state: dadosSelecionadosAtualizados,
         });
       } else {
-        updateData(dadosSelecionadosAtualizados);
         navigate("/data", {
           state: dadosSelecionadosAtualizados,
         });
         setIsModalOpen(true);
+        
         setDadosSelecionados(dadosSelecionadosAtualizados);
       }
     } else {
@@ -236,6 +279,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       setIsBotaoConfirmarHabilitado(false);
     }
   };
+
   const settings = {
     dots: false,
     arrow: true,
@@ -244,6 +288,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+
   return (
     <>
       <SH1 fontSize="18px">
@@ -369,7 +414,6 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                       selectedValue={
                         produtoData[produto.product_id]?.motivoDevolucao
                       }
-
                     ></ListaSelected>
                   </div>
                   <div className="d-flex flex-column justify-content-center content-select">
