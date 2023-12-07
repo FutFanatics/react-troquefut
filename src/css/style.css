@@ -502,10 +502,14 @@ input[type=text] {
   margin-top: 16px;
   font-family: "gotham";
 }
+.button-finish:disabled {
+  background-color: #d9d9d9;
+  color: #b5b5b5;
+}
 
 .slick-prev:before, .slick-next:before {
   color: #00df5e !important;
-  font-size: 25px !important;
+  font-size: 28px !important;
   opacity: 1 !important;
 }
 

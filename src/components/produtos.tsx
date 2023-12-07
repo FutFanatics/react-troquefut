@@ -124,9 +124,7 @@ const Produtos: React.FC<ProdutosProps> = ({
             {produtos.map((produto, index) => (
               <Box typeBox="product" key={index}>
                 <div className="produto-box_img ">
-                  <a href={produto.url} target="_blank" rel="noopener noreferrer">
                     <img src={produto.img} alt={produto.name} />
-                  </a>
                 </div>
                 <div className="produto-box_text d-flex flex-column justify-content-center">
                   <SH1

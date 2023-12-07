@@ -22,6 +22,11 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
 }) => {
 
   const navigate = useNavigate();
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(event.target.checked);
+  };
 
   console.log('dadosSelecionados - modal aceite', novosDadosSelecionados);
 
@@ -43,8 +48,6 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
 
       const binaryString: string = String.fromCharCode.apply(null, dataArray);
       const basicAuth: string = btoa(binaryString);
-
-      console.log('novosDadosSelecionados',novosDadosSelecionados);
 
       let products = [];
       let pix = {
@@ -173,9 +176,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
                 </a>
               </STextParagraph>
               <STextParagraph typeParagraph="termos">
-                A futFanatics, trabalha para que você fique satisfeito com suas
-                compras, no entanto, caso você precise trocar ou devolver algum
-                produto, conheça nossa Política de Trocas e Devoluções.
+              A FutFanatics, trabalha para que você fique satisfeito com suas compras, no entanto, caso você precise trocar ou devolver algum produto, conheça nossa Política de Trocas e Devoluções.
               </STextParagraph>
 
               <STextParagraph
@@ -189,12 +190,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
                 </a>
               </STextParagraph>
               <STextParagraph typeParagraph="termos">
-                O canal Direto está disponível para te ajudar em caso de trocas
-                e devoluções de suas compras. Entre em contato conosco de
-                segunda a sexta-feira das 7:15 as 19:45 horas pelo telefone
-                (11)4858-3500. você também poderá nos contatar acessando nosso
-                site www.futfanatics.com.br em contato via Chat ou Email:
-                contato@futfanatics.com.br
+                O Canal direto está disponível para te ajudar em caso de trocas e devoluções de suas compras. Entre em contato conosco de segunda a sexta-feira das 7:15 as 19:45 horas pelo telefone (11)4858-3500. Você também poderá nos contatar acessando nosso site <a href="www.futfanatics.com.br">www.futfanatics.com.br</a> em contato via Chat, ou Email: contato@futfanatics.com.br.
               </STextParagraph>
               <STextParagraph
                 fontWeight={700}
@@ -316,7 +312,8 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
         </Box>
 
         <div className="d-flex align-items-center mt-4 check">
-          <input type="checkbox" required></input>
+          <input type="checkbox" checked={isChecked}
+            onChange={handleCheckboxChange}></input>
           <STextParagraph fontSize="14px" padding="0px 0px 0px 8px">
             Eu declaro que li e concordo com os Termos e Condições
           </STextParagraph>
@@ -325,7 +322,10 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
 
       <button onClick={onRequestClose} className="btn-close"></button>
 
-      <button onClick={handleConfirmar} className="button-finish" >
+      <button 
+      onClick={handleConfirmar}
+      className="button-finish"
+      disabled={!isChecked}>
         Concluir pedido de Devolução
       </button>
     </Modal>
