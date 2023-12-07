@@ -1,3 +1,4 @@
+// Data.tsx
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -18,9 +19,8 @@ import { color } from "@mui/system";
 
 const Data: React.FC = () => {
   const location = useLocation();
-  const [dadosSelecionados, setDadosSelecionados] = useState<any>(
-    location.state || {}
-  );
+  const [dadosSelecionados, setDadosSelecionados] = useState(location.state || {});
+  const [dadosSelecionadosAtualizados, setDadosSelecionadosAtualizados] = useState(location.state || {});
   const [tipoReembolso, setTipoReembolso] = useState<string>(
     localStorage.getItem("tipoReembolso") || ""
   );
@@ -28,14 +28,48 @@ const Data: React.FC = () => {
     useState<boolean>(false);
   const [checkboxMarcado, setCheckboxMarcado] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isInformationConfirmed, setIsInformationConfirmed] = useState<boolean>(false);
   const navigate = useNavigate();
   const { data, updateData } = useDataContext();
-  console.log("vamos veerr", Data);
+  const [tipoPix, setTipoPix] = useState<string | null>(null);
+  const [chavePix, setChavePix] = useState("");
+  const [bank, setBank] = useState<string>("");
+  const [cpfcnpj, setCpfcnpj] = useState<string>("");
+  const [accont, setAccont] = useState<string>("");
+  const[agency, setAgency] = useState<string>("")
+  const[typebank, setTypeBank] = useState<string>("")
+
+  const updateTipoPix = (tipoPixValue: string | null) => {
+    setTipoPix(tipoPixValue);
+  };
+  
+  const updateChavePix = (chavePixValue: string) => {
+    setChavePix(chavePixValue);
+  };
+  const updateBank = (bankValue: string) => {
+    setBank(bankValue);
+  };
+  const updateCpfcnpj = (cpfcnpjValue: string) => {
+    setCpfcnpj(cpfcnpjValue);
+  };
+  const updateAccont= (accontValue: string) => {
+    setAccont(accontValue);
+  };
+  const updateAgency = (agencyValue: string) => {
+    setAgency(agencyValue);
+  };
+  const updateTypeBank = (typebankValue: string) => {
+    setTypeBank(typebankValue);
+  };
+
   useEffect(() => {
     console.log("Dados no componente Data:", dadosSelecionados);
-  }, [dadosSelecionados]);
+    console.log("Dados no componente Data:", dadosSelecionadosAtualizados);
+  }, [dadosSelecionadosAtualizados]);
 
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckboxChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setCheckboxMarcado(event.target.checked);
   };
 
@@ -47,8 +81,9 @@ const Data: React.FC = () => {
     slidesToScroll: 1,
   };
 
+  
   const renderReembolsoComponent = () => {
-    const tiposReembolso = dadosSelecionados.map(
+    const tiposReembolso = dadosSelecionadosAtualizados.map(
       (produto: any) => produto.selectedProduct.tipoReembolso
     );
 
@@ -63,8 +98,23 @@ const Data: React.FC = () => {
       } else if (tiposReembolso[0] === "Estorno") {
         return (
           <ValeEstorno
-            updateData={updateData}
+            updateData={(updatedData) => setDadosSelecionadosAtualizados(updatedData)}
             onCheckboxChange={handleCheckboxChange}
+            produtos={dadosSelecionadosAtualizados}
+            onConfirm={() => setIsInformationConfirmed(true)}
+            tipoPix={tipoPix}
+            chavePix={chavePix}
+            bank={bank}
+            cpfcnpj={cpfcnpj}
+            accont={accont}
+            agency={agency}
+            updateTipoPix={updateTipoPix}
+            updateChavePix={updateChavePix}
+            updateBank= {updateBank}
+            updateCpfcnpj={updateCpfcnpj}
+            updateAccont={updateAccont}
+            updateAgency={updateAgency}
+            updateTypeBank={updateTypeBank}
           />
         );
       }
@@ -72,11 +122,14 @@ const Data: React.FC = () => {
 
     return null;
   };
-  const isSameReembolsoType = dadosSelecionados.every(
+
+  const isSameReembolsoType = dadosSelecionadosAtualizados.every(
     (produto: any, index: number, array: any[]) =>
-      produto.selectedProduct.tipoReembolso === array[0].selectedProduct.tipoReembolso
+      produto.selectedProduct.tipoReembolso ===
+      array[0].selectedProduct.tipoReembolso
   );
-  const renderDifferentReembolsoComponent = (tipoReembolso: string) => {
+
+  const renderDifferentReembolsoComponent = (tipoReembolso: string, onConfirm: () => void) => {
     switch (tipoReembolso) {
       case "Cupom":
         return (
@@ -90,24 +143,35 @@ const Data: React.FC = () => {
           <ValeEstorno
             updateData={updateData}
             onCheckboxChange={handleCheckboxChange}
+            produtos={dadosSelecionadosAtualizados}
+            onConfirm={onConfirm}
+            tipoPix={tipoPix}
+            chavePix={chavePix}
+            updateTipoPix={updateTipoPix}
+            updateChavePix={updateChavePix}
+            updateBank= {updateBank}
+            updateCpfcnpj={updateCpfcnpj}
+            updateAccont={updateAccont}
+            updateAgency={updateAgency}
+            updateTypeBank={updateTypeBank}
           />
         );
       default:
         return null;
     }
   };
-  
-  const isDifferentReembolsoType = dadosSelecionados.some(
+
+  const isDifferentReembolsoType = dadosSelecionadosAtualizados.some(
     (produto: any, index: number, array: any[]) =>
-      produto.selectedProduct.tipoReembolso !== array[0].selectedProduct.tipoReembolso
+      produto.selectedProduct.tipoReembolso !==
+      array[0].selectedProduct.tipoReembolso
   );
-  
+
   const handleConfirmar = () => {
-    console.log("Dados selecionados:", dadosSelecionados);
     const dadosData = {
       tipoReembolso,
     };
-    console.log("Dados data:", dadosData);
+
     const todosCamposPreenchidosData = Object.values(dadosData).every(
       (value) => value !== ""
     );
@@ -121,21 +185,41 @@ const Data: React.FC = () => {
     }
 
     const dadosFinais = {
-      ...dadosSelecionados,
-      ...dadosData,
+      pedido: dadosSelecionadosAtualizados.map((produto: any) => {
+        if (produto.selectedProduct?.tipoReembolso?.toLowerCase() === 'estorno') {
+          return {
+            ...produto,
+            BankReembolso: {
+              pixData: {
+                tipoPix:tipoPix ,
+                chavePix:chavePix,
+              },
+              bankData: {
+                bank:bank,
+                cpfcnpj:cpfcnpj,
+                agency:agency,
+                accont:accont,
+                typebank:typebank,
+              },
+            },
+          };
+        }
+        return produto;
+      }),
     };
 
-    console.log("Dados finais:", dadosFinais);
     updateData(dadosFinais);
-    navigate("/shipping", {
-      state: dadosFinais,
-    });
+
+    setIsInformationConfirmed(true);
+    navigate("/shipping", { state: dadosFinais });
+
   };
 
+
   const handleBack = () => {
-    console.log("Voltando...");
     navigate("/order");
   };
+
 
   return (
     <>
@@ -199,28 +283,28 @@ const Data: React.FC = () => {
           <div className="content d-flex flex-column align-items-center">
             {isSameReembolsoType ? (
               <Box
-              typeBox="estorno"
-              className="d-flex flex-column col-md-10"
-            >
-              <IconFinance width={64} className="mb-4"></IconFinance>
-              {renderReembolsoComponent()}
-            </Box>
+                typeBox="estorno"
+                className="d-flex flex-column col-md-10"
+              >
+                <IconFinance width={64} className="mb-4"></IconFinance>
+                {renderReembolsoComponent()}
+              </Box>
             ) : (
               <Slider {...sliderSettings} className="col-md-10 c-slide">
                 {dadosSelecionados.map((produto: any, index: number) => (
                   <React.Fragment key={index}>
-                  <Box typeBox="estorno" className="d-flex flex-column">
-                    <IconFinance width={64}></IconFinance>
-                    <div className="container-reembolso d-flex justify-content-center mt-4 flex-column flex-md-row">
-                      <div className="c-box-product d-flex flex-column justify-content-center align-items-center">
-                        <img src={produto.img} className="picture" alt={`Product ${index}`} />
-                        <h1>{produto.name}</h1>
-                        <span>Variação: {produto.variant_value}</span>
+                    <Box typeBox="estorno" className="d-flex flex-column">
+                      <IconFinance width={64}></IconFinance>
+                      <div className="container-reembolso d-flex justify-content-center mt-4 flex-column flex-md-row">
+                        <div className="c-box-product d-flex flex-column justify-content-center align-items-center">
+                          <img src={produto.img} className="picture" alt={`Product ${index}`} />
+                          <h1>{produto.name}</h1>
+                          <span>Variação: {produto.variant_value}</span>
+                        </div>
+                        {renderDifferentReembolsoComponent(produto.selectedProduct.tipoReembolso, () => setIsInformationConfirmed(true))}
                       </div>
-                      {renderDifferentReembolsoComponent(produto.selectedProduct.tipoReembolso)}
-                    </div>
-                  </Box>
-                </React.Fragment>
+                    </Box>
+                  </React.Fragment>
                 ))}
               </Slider>
             )}

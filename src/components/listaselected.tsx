@@ -1,5 +1,6 @@
 interface ListaSelectedProps<T> {
     options: T[];
+    optionsSubReason?: any;
     onChange: (selectedValue: T) => void;
     selectedValue?: T;
     quantityNumber?: number;
@@ -8,6 +9,7 @@ interface ListaSelectedProps<T> {
 
   function ListaSelected<T extends string | number>({
     options,
+    optionsSubReason,
     onChange,
     selectedValue,
     quantityNumber = 0,
@@ -17,12 +19,19 @@ interface ListaSelectedProps<T> {
     for (let i = 1; i <= quantityNumber; i++) {
       quantities.push(i);
     }
-  
+
     const renderOptions = () => {
       if (quantityNumber > 0) {
         return quantities.map((option, index) => (
           <option key={index} value={option}>
             {option}
+          </option>
+        ));
+      } else if(optionsSubReason !== undefined && optionsSubReason.length > 0 ) {
+        
+        return optionsSubReason.map((option) => (
+          <option key={option.id} value={option.id}>
+            {option.name}
           </option>
         ));
       } else {

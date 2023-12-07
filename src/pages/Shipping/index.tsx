@@ -12,15 +12,22 @@ import Header from "../../components/header";
 import Menu from "../../components/menu";
 import IconHelp from "../../componentsStyled/icon/Iconhelp";
 import IconBack from "../../componentsStyled/icon/Iconback";
+import { Produto } from "../../components/Types";
+import { useDataContext } from "../../context/DataContext";
 
-export default function Shipping() {
+interface ShippingProps {
+  produtos?: Produto[];
+}
+
+const Shipping: React.FC<ShippingProps> = ({}) => {
   const location = useLocation();
   const [cliqueRetireSelected, setCliqueRetireSelected] = useState(false);
   const [correiosSelected, setCorreiosSelected] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [dadosFinais, setDadosFinais] = useState<any>(location.state || {});
-
-  
+  const [dadosFinais, setDadosFinais] = useState(location.state || {});
+  const [novosDadosSelecionados, setNovosDadosSelecionados] = useState({}); 
+  const { data, updateData } = useDataContext();
+  console.log("por favor da certo", dadosFinais);
   const navigate = useNavigate();
 
   const handleCliqueRetireSelect = () => {
@@ -40,9 +47,17 @@ export default function Shipping() {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+  const cliqueRetireComponent = dadosFinais.allowed_clique_retire ? (
+    <div className="item d-flex justify-content-center">
+      <CliqueRetire
+        onSelect={handleCliqueRetireSelect}
+        selected={cliqueRetireSelected}
+      />
+    </div>
+  ) : null;
   const envios = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 1,
@@ -61,19 +76,20 @@ export default function Shipping() {
   const handleConfirmar = () => {
     const novosDadosSelecionados = {
       ...dadosFinais,
-      formaEnvio: cliqueRetireSelected ? "Clique Retire" : correiosSelected ? "Correios" : "",
+      Shipping: cliqueRetireSelected ? "Clique Retire" : correiosSelected ? "Correios" : "",
       
     };
 
-    setDadosFinais(novosDadosSelecionados);
-    console.log("Dados finais:", novosDadosSelecionados);
+    setNovosDadosSelecionados(novosDadosSelecionados);
+    updateData(novosDadosSelecionados);
     openModal();
-
   };
+
   const handleBack = () => {
     console.log("Voltando...");
-    navigate(-1); 
+    navigate("/data");
   };
+  console.log("cade", dadosFinais);
   return (
     <>
       <Header></Header>
@@ -84,42 +100,58 @@ export default function Shipping() {
           Voltar
         </Button>
         <div className="box-options d-flex justify-content-center align-items-center">
-        <Box typeBox="active" className="d-flex flex-md-row flex-column align-items-center justify-content-center">
-          <Box typeBox="active-number"><SspanText color="#fff" fontSize="20px" fontWeight={600}>1</SspanText></Box>
-          <SspanText typeSpan="active">Pedido</SspanText>
-        </Box>
-        <div className="line-options"></div>
-        <Box typeBox="active" className="d-flex align-items-center justify-content-center flex-md-row flex-column">
-          <Box typeBox="active-number"><SspanText color="#fff" fontSize="20px" fontWeight={600}>2</SspanText></Box>
-          <SspanText typeSpan="active">Reembolso</SspanText>
-        </Box>
-        <div className="line-options"></div>
-        <Box typeBox="active" className="d-flex align-items-center justify-content-center flex-md-row flex-column">
-          <Box typeBox="active-number"><SspanText color="#fff" fontSize="20px" fontWeight={600}>3</SspanText></Box>
-          <SspanText typeSpan="active">Envio do Produto</SspanText>
-        </Box>
+          <Box
+            typeBox="active"
+            className="d-flex flex-md-row flex-column align-items-center justify-content-center"
+          >
+            <Box typeBox="active-number">
+              <SspanText color="#fff" fontSize="20px" fontWeight={600}>
+                1
+              </SspanText>
+            </Box>
+            <SspanText typeSpan="active">Pedido</SspanText>
+          </Box>
+          <div className="line-options"></div>
+          <Box
+            typeBox="active"
+            className="d-flex align-items-center justify-content-center flex-md-row flex-column"
+          >
+            <Box typeBox="active-number">
+              <SspanText color="#fff" fontSize="20px" fontWeight={600}>
+                2
+              </SspanText>
+            </Box>
+            <SspanText typeSpan="active">Reembolso</SspanText>
+          </Box>
+          <div className="line-options"></div>
+          <Box
+            typeBox="active"
+            className="d-flex align-items-center justify-content-center flex-md-row flex-column"
+          >
+            <Box typeBox="active-number">
+              <SspanText color="#fff" fontSize="20px" fontWeight={600}>
+                3
+              </SspanText>
+            </Box>
+            <SspanText typeSpan="active">Envio do Produto</SspanText>
+          </Box>
         </div>
       </div>
       <section className="c-shipping position-relative">
-      <Box typeBox="icon-help">
+        <Box typeBox="icon-help">
           <div className="informação">
-            Dúvidas de como funciona?
-            Acesse nossa <a href="">Central de ajuda</a>
+            Dúvidas de como funciona? Acesse nossa{" "}
+            <a href="">Central de ajuda</a>
           </div>
-          <IconHelp width={30}/>
+          <IconHelp width={30} />
         </Box>
         <div className="container">
           <SH1>FORMA DE ENVIO</SH1>
           <div className="row justify-content-center">
             <div className="col-md-10">
               <Slider {...envios}>
-                <div className="item d-flex justify-content-end">
-                  <CliqueRetire
-                    onSelect={handleCliqueRetireSelect}
-                    selected={cliqueRetireSelected}
-                  ></CliqueRetire>
-                </div>
-                <div className="item">
+                {cliqueRetireComponent}
+                <div className="item d-flex justify-content-center">
                   <Correios
                     onSelect={handleCorreiosSelect}
                     selected={correiosSelected}
@@ -128,14 +160,23 @@ export default function Shipping() {
               </Slider>
             </div>
           </div>
-          <Button margin="32px auto" onClick={handleConfirmar}>
+          <button
+            className="button-fut"
+            onClick={handleConfirmar}
+            disabled={!cliqueRetireSelected && !correiosSelected}
+          >
             Confirmar
-          </Button>
-          <ModalAceite isOpen={modalIsOpen} onRequestClose={closeModal} dadosSelecionados={dadosFinais}>
-          </ModalAceite>
+          </button>
+          <ModalAceite
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            novosDadosSelecionados={novosDadosSelecionados}
+          ></ModalAceite>
         </div>
         <Footer></Footer>
       </section>
     </>
   );
-}
+};
+
+export default Shipping;

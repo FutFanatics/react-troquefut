@@ -12,9 +12,23 @@ export interface Produto {
     motivoDevolucao?: string;
     quantidade?: number | "";
     subDevolucao?: string;
+    obsDev?:string;
   };
+  BankRembolso?: {
+    pixData: {
+      tipoPix?:string,
+      chavePix?: string,
+    },
+    bankData:{
+      bank?:string;
+      cpfcnpj?:string;
+      agency?:string;
+      accont?:string;
+      
+    }
+  }
   orderId?: string;
-  
+  shipping?:string;
 }
 
 

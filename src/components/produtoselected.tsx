@@ -41,9 +41,10 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   const { data, updateData } = useDataContext();
   const [tipoReembolso, setTipoReembolso] = useState("");
   const [motivoDevolucao, setMotivoDevolucao] = useState("");
-  const [subDevolucao, setSubDevolucao] = useState("");
+  const [subDevolucao, setSubDevolucao] = useState<number | string>("");
   const [quantidade, setQuantidade] = useState<number | "">("");
   const [reasons, setReasons] = useState<any[]>([]);
+  const [obsDev, setObsDev] = useState<string>("");
   const [subReasons, setSubReasons] = useState<any[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [fotoAdicionada, setFotoAdicionada] = useState(false);
@@ -58,7 +59,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   const [reasonDeadlines, setReasonDeadlines] = useState<Record<string, string>>({});
   const navigate = useNavigate();
 
-  const updateProdutoData = (productId, key, value) => {
+  const updateProdutoData = (productId, key, value, subReasonId) => {
     setProdutoData((prevProdutoData) => ({
       ...prevProdutoData,
       [productId]: {
@@ -172,11 +173,11 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
 
   const handleSelectChange = (
     productId: string | number,
-    key: string,
-    selectedValue: any
+    key: string, // oque está sendo alterado
+    selectedValue: any, // Valor da String
+    subReasonId?: number,
   ) => {
-    updateProdutoData(productId, key, selectedValue);
-  
+    updateProdutoData(productId, key, selectedValue, subReasonId);
     switch (key) {
       case "tipoReembolso":
         setTipoReembolso(selectedValue);
@@ -189,7 +190,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
         break;
       case "subDevolucao":
         setSubDevolucao(selectedValue);
-        break;
+        break;  
       default:
         break;
     }
@@ -200,9 +201,11 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       motivoDevolucao,
       quantidade,
       subDevolucao,
+      subReasonId,
+      obsDev: obsDev,
       [key]: selectedValue,
     };
-  
+    console.log("obsDevInput:", obsDev);
     const selectedProductIndex = produtos.findIndex(
       (produto) => produto.product_id === productId
     );
@@ -210,12 +213,9 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     if (selectedProductIndex !== -1) {
       const selectedProduct = produtos[selectedProductIndex];
   
-      
       selectedProduct.selectedProduct = {
-        tipoReembolso,
-        motivoDevolucao,
-        quantidade,
-        subDevolucao,
+        ...selectedProduct.selectedProduct,
+        [key]: selectedValue,
       };
   
       const updatedProducts = [
@@ -408,7 +408,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                         handleSelectChange(
                           produto.product_id,
                           "motivoDevolucao",
-                          selectedValue
+                          selectedValue,
                         )
                       }
                       selectedValue={
@@ -421,10 +421,14 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                       *O que aconteceu?
                     </STextParagraph>
                     <ListaSelected
-                      options={subReasons.map(
-                        (subReason) => subReason.description
-                      )}
-                      onChange={(selectedValue) =>
+                      options={subReasons.map((subReason) => subReason.description)}
+                      optionsSubReason={subReasons.map((subReason) => {
+                        return {
+                          id: subReason.id,
+                          name: subReason.description,
+                        }
+                      })}
+                      onChange={(selectedValue) => 
                         handleSelectChange(
                           produto.product_id,
                           "subDevolucao",
@@ -442,7 +446,11 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                     <STextParagraph typeParagraph="select">
                       Observações
                     </STextParagraph>
-                    <input type="text"></input>
+                    <input 
+                     type="text"
+                     value={obsDev}
+                     onChange={(e) => setObsDev(e.target.value)}
+                    ></input>
                   </div>
                   <div className="d-flex flex-column justify-content-center content-select">
                     <Box

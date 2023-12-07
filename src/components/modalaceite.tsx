@@ -12,18 +12,18 @@ interface ModalAceiteProps {
   isOpen: boolean;
   children?: React.ReactNode;
   onRequestClose: () => void;
-  dadosSelecionados: any
+  novosDadosSelecionados: any
 }
 
 const ModalAceite: React.FC<ModalAceiteProps> = ({
   isOpen,
   onRequestClose,
-  dadosSelecionados
+  novosDadosSelecionados
 }) => {
 
   const navigate = useNavigate();
 
-  console.log('dadosSelecionados - modal aceite', dadosSelecionados);
+  console.log('dadosSelecionados - modal aceite', novosDadosSelecionados);
 
   const handleConfirmar = async () => {
 
@@ -44,37 +44,87 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
       const binaryString: string = String.fromCharCode.apply(null, dataArray);
       const basicAuth: string = btoa(binaryString);
 
-      console.log(dadosSelecionados);
+      console.log('novosDadosSelecionados',novosDadosSelecionados);
 
       let products = [];
+      let pix = {
+        code: "",
+        type: ""
+      };
+      let banks = {};
+      let orderId = {};
 
-      dadosSelecionados.products.map((product) => {
+      novosDadosSelecionados.pedido.map((item) => {
+        
         products.push({
-          prodId: product.product_id,
-          variantId: product.variant_id,
-          method_refund: dadosSelecionados.tipoReembolso,
+          prodId: item.product_id,
+          variantId: item.variant_id,
+          method_refund: item.selectedProduct.tipoReembolso,
           reasonSubId: 9,
-          qty: product.quantity,
+          qty: item.selectedProduct.quantidade,
           obs: "",
         });
+
+        orderId = item.selectedId;
+
+        if(item.hasOwnProperty('BankReembolso') && item.BankReembolso.bankData) {
+          banks = item.BankReembolso.bankData;
+        }
+
+        /**
+         * Celular = number
+         * CPF ou CNPJ = cpf-cnpj
+         * Chave Aleatória = random-key
+         * E-mail = email
+         */
+
+        if(item.hasOwnProperty('BankReembolso') && item.BankReembolso.pixData != null) {
+
+          let type;
+
+          console.log('tipo', item.BankReembolso.pixData.tipoPix)
+          switch (item.BankReembolso.pixData.tipoPix) {
+            case "Celular":
+              type = "number";
+              break;
+            case "CPF ou CNPJ":
+              type = "cpf-cnpj";
+              break;
+            case "Chave Aleatória":
+              type = "random-key";
+              break;
+            case "E-mail":
+              type = "email";
+              break;
+          }
+          pix = {
+            code: item.BankReembolso.pixData.chavePix,
+            type: type,
+          };
+        }
       });
 
-      const bodyJson = {
-          "email" : username,
-          "orderId": dadosSelecionados.order_id,
-          "store": 642719,
-          "products": products,
-          "pix": dadosSelecionados.data.pixData
-          ? {
-              "type": dadosSelecionados.data.pixData.tipoPix,
-              "code": dadosSelecionados.data.pixData.chavePix,
-            }
-          : null,
-          "shipment_method":dadosSelecionados.formaEnvio,
-          "acceptTerms": true,
-          "acceptLgpd": true,
+      let bodyJson = {
+          email : username,
+          orderId: orderId,
+          store: 642719,
+          products: products,
+          shipment_method: novosDadosSelecionados.Shipping,
+          acceptTerms: true,
+          acceptLgpd: true,
       };
+
+      if(pix.hasOwnProperty('code') && pix.code !== "") {
+        bodyJson['pix'] = pix
+      }
+
+      if(banks) {
+        bodyJson['banks'] = banks
+      }
+
       console.log('Conteúdo do objeto bodyJson:', bodyJson);
+
+
       axios
         .post(
           `https://api.troquefuthomologacao.futfanatics.com.br/api/finish-request`, 
@@ -275,7 +325,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
 
       <button onClick={onRequestClose} className="btn-close"></button>
 
-      <button onClick={handleConfirmar} className="button-finish">
+      <button onClick={handleConfirmar} className="button-finish" >
         Concluir pedido de Devolução
       </button>
     </Modal>

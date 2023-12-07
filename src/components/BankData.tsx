@@ -117,7 +117,7 @@ const BankData: React.FC<BankDataProps> = ({ onDataUpdate }) => {
           <div className="d-flex">
             {data.banks_types.map((bankType) => (
               <div key={bankType.id} className="d-flex box-radios">
-                <input type="radio" />
+                <input type="radio" name={`${bankType.name}`}/>
                 <label>{bankType.name}</label>
               </div>
             ))}
