@@ -63,10 +63,8 @@ const Data: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log("Dados no componente Data:", dadosSelecionados);
     console.log("Dados no componente Data:", dadosSelecionadosAtualizados);
   }, [dadosSelecionadosAtualizados]);
-
   const handleCheckboxChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -86,16 +84,24 @@ const Data: React.FC = () => {
     const tiposReembolso = dadosSelecionadosAtualizados.map(
       (produto: any) => produto.selectedProduct.tipoReembolso
     );
-
+  
     if (tiposReembolso.every((tipo, index, array) => tipo === array[0])) {
-      if (tiposReembolso[0] === "Cupom") {
+      return renderReembolsoByType(tiposReembolso[0]);
+    }
+  
+    return null;
+  };
+  
+  const renderReembolsoByType = (tipoReembolso: string) => {
+    switch (tipoReembolso) {
+      case "Cupom":
         return (
           <ValeCompras
             updateData={updateData}
             onCheckboxChange={handleCheckboxChange}
           />
         );
-      } else if (tiposReembolso[0] === "Estorno") {
+      case "Estorno":
         return (
           <ValeEstorno
             updateData={(updatedData) => setDadosSelecionadosAtualizados(updatedData)}
@@ -110,46 +116,7 @@ const Data: React.FC = () => {
             agency={agency}
             updateTipoPix={updateTipoPix}
             updateChavePix={updateChavePix}
-            updateBank= {updateBank}
-            updateCpfcnpj={updateCpfcnpj}
-            updateAccont={updateAccont}
-            updateAgency={updateAgency}
-            updateTypeBank={updateTypeBank}
-          />
-        );
-      }
-    }
-
-    return null;
-  };
-
-  const isSameReembolsoType = dadosSelecionadosAtualizados.every(
-    (produto: any, index: number, array: any[]) =>
-      produto.selectedProduct.tipoReembolso ===
-      array[0].selectedProduct.tipoReembolso
-  );
-
-  const renderDifferentReembolsoComponent = (tipoReembolso: string, onConfirm: () => void) => {
-    switch (tipoReembolso) {
-      case "Cupom":
-        return (
-          <ValeCompras
-            updateData={updateData}
-            onCheckboxChange={handleCheckboxChange}
-          />
-        );
-      case "Estorno":
-        return (
-          <ValeEstorno
-            updateData={updateData}
-            onCheckboxChange={handleCheckboxChange}
-            produtos={dadosSelecionadosAtualizados}
-            onConfirm={onConfirm}
-            tipoPix={tipoPix}
-            chavePix={chavePix}
-            updateTipoPix={updateTipoPix}
-            updateChavePix={updateChavePix}
-            updateBank= {updateBank}
+            updateBank={updateBank}
             updateCpfcnpj={updateCpfcnpj}
             updateAccont={updateAccont}
             updateAgency={updateAgency}
@@ -160,12 +127,16 @@ const Data: React.FC = () => {
         return null;
     }
   };
-
-  const isDifferentReembolsoType = dadosSelecionadosAtualizados.some(
+  
+  const isSameReembolsoType = dadosSelecionadosAtualizados.every(
     (produto: any, index: number, array: any[]) =>
-      produto.selectedProduct.tipoReembolso !==
-      array[0].selectedProduct.tipoReembolso
+      produto.selectedProduct.tipoReembolso === array[0].selectedProduct.tipoReembolso
   );
+  
+  const renderDifferentReembolsoComponent = (tipoReembolso: string, onConfirm: () => void) => {
+    return renderReembolsoByType(tipoReembolso);
+  };
+  
 
   const handleConfirmar = () => {
     const dadosData = {
@@ -209,10 +180,7 @@ const Data: React.FC = () => {
     };
 
     updateData(dadosFinais);
-
-    setIsInformationConfirmed(true);
-    navigate("/shipping", { state: dadosFinais });
-
+  navigate("/shipping", { state: dadosFinais });
   };
 
 
@@ -292,7 +260,7 @@ const Data: React.FC = () => {
             ) : (
               <Slider {...sliderSettings} className="col-md-10 c-slide">
                 {dadosSelecionados.map((produto: any, index: number) => (
-                  <React.Fragment key={index}>
+                  <React.Fragment key={produto.id}>
                     <Box typeBox="estorno" className="d-flex flex-column">
                       <IconFinance width={64}></IconFinance>
                       <div className="container-reembolso d-flex justify-content-center mt-4 flex-column flex-md-row">

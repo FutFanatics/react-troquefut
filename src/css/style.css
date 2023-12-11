@@ -122,7 +122,11 @@
 
 .c-home {
   position: relative;
-  min-height: 100vh;
+}
+@media (max-width: 768px) {
+  .c-home {
+    min-height: 100vh;
+  }
 }
 .c-home .container {
   max-width: 100%;

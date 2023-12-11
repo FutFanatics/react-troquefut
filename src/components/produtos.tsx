@@ -60,16 +60,22 @@ const Produtos: React.FC<ProdutosProps> = ({
   }, [location, setProdutosSelecionados, setIsButtonDisabled]);
 
   const handleCheckboxChange = (produto: Produto) => {
-    const produtoIndex = produtosSelecionados.findIndex((p) => p.product_id === produto.product_id);
-
-    if (produtoIndex !== -1) {
-      const updatedProdutos = [...produtosSelecionados];
-      updatedProdutos.splice(produtoIndex, 1);
+    const isProductSelected = produtosSelecionados.some((p) => (
+      p.product_id === produto.product_id && p.variant_value === produto.variant_value
+    ));
+  
+    if (isProductSelected) {
+      const updatedProdutos = produtosSelecionados.filter((p) => (
+        p.product_id !== produto.product_id || p.variant_value !== produto.variant_value
+      ));
       setProdutosSelecionados(updatedProdutos);
     } else {
       setProdutosSelecionados([...produtosSelecionados, produto]);
     }
+  
+    setShowProductSelected(false);
   };
+  
 
   const handleDataUpdate = (dadosSelecionados: any) => {
     console.log('Updated data from ProductSelected dados:', dadosSelecionados);
@@ -78,19 +84,18 @@ const Produtos: React.FC<ProdutosProps> = ({
 
   const handleConfirmar = () => {
     const dadosSelecionados = {
-        delivery_date: delivery_date,
-        payment_method: payment_method,
-        allowed_clique_retire: allowed_clique_retire,
-        selectedId:selectedId,
-      
+      delivery_date: delivery_date,
+      payment_method: payment_method,
+      allowed_clique_retire: allowed_clique_retire,
+      selectedId: selectedId,
     };
+  
+    console.log('Dados selecionados produtos.tsx:', dadosSelecionados);
+    updateData(dadosSelecionados);
 
-  console.log('Dados selecionados produtos.tsx:', dadosSelecionados);
-  updateData(dadosSelecionados);
-
-  setShowProductSelected(true);
-  setProdutoSelecionadoData(dadosSelecionados);
-};
+    setShowProductSelected(true);
+    setProdutoSelecionadoData(dadosSelecionados);
+  };
 
   const sliderSettings = {
     dots: false,
@@ -104,23 +109,24 @@ const Produtos: React.FC<ProdutosProps> = ({
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
+          arrows: false,
         },
       },
     ],
   };
 
   return (
-    <>
-      {showProductSelected ? (
-        <ProductSelected
-          produtos={produtosSelecionados}
-          onDataUpdate={handleDataUpdate}
-          produtoSelecionadoData={produtoSelecionadoData}
-          delivery_date={delivery_date}
-        />
-      ) : (
+<>
+    {showProductSelected ? (
+      <ProductSelected
+        produtos={produtosSelecionados}
+        onDataUpdate={handleDataUpdate}
+        produtoSelecionadoData={produtoSelecionadoData}
+        delivery_date={delivery_date}
+      />
+    ) : (
         <>
-          <Slider {...sliderSettings} className={`col-md-6 c-slider-product ${className}`}>
+          <Slider {...sliderSettings} className={`col-md-5 c-slider-product ${className}`}>
             {produtos.map((produto, index) => (
               <Box typeBox="product" key={index}>
                 <div className="produto-box_img ">
@@ -153,12 +159,17 @@ const Produtos: React.FC<ProdutosProps> = ({
                   </SspanText>
                 </div>
                 <Button
-                  className={`mt-2 ${produtosSelecionados.some((p) => p.product_id === produto.product_id) ? 'clicked' : ''}`}
-                  typeButton="select"
-                  onClick={() => handleCheckboxChange(produto)}
-                >
-                  {produtosSelecionados.some((p) => p.product_id === produto.product_id) ? 'Selecionado' : 'Selecionar'}
-                </Button>
+                className={`mt-2 ${produtosSelecionados.some((p) => (
+                  p.product_id === produto.product_id && p.variant_value === produto.variant_value
+                )) ? 'clicked' : ''}`}
+                typeButton="select"
+                onClick={() => handleCheckboxChange(produto)}
+                disabled={produtosSelecionados.some((p) => p.variant_value !== produto.variant_value)}
+              >
+                {produtosSelecionados.some((p) => (
+                  p.product_id === produto.product_id && p.variant_value === produto.variant_value
+                )) ? 'Selecionado' : 'Selecionar'}
+              </Button>
               </Box>
             ))}
           </Slider>
@@ -167,6 +178,7 @@ const Produtos: React.FC<ProdutosProps> = ({
             <Button onClick={handleConfirmar} className={`mt- mb-3 ${isButtonDisabled ? 'disabled' : ''}`} disabled={isButtonDisabled} margin="0px auto">
               Continuar
             </Button>
+
           )}
         </>
       )}

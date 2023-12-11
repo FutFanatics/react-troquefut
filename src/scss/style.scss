@@ -150,7 +150,11 @@
 }
 .c-home {
   position: relative;
-  min-height: 100vh;
+
+  @include sm{
+    min-height: 100vh;
+
+  }
   .container {
     max-width: 100%;
   }

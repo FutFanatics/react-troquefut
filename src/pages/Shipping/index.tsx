@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import CliqueRetire from "../../components/cliqueretire";
@@ -79,14 +79,11 @@ const Shipping: React.FC<ShippingProps> = ({}) => {
       Shipping: cliqueRetireSelected ? "Clique Retire" : correiosSelected ? "Correios" : "",
       
     };
-
-    setNovosDadosSelecionados(novosDadosSelecionados);
-    updateData(novosDadosSelecionados);
+      setNovosDadosSelecionados(novosDadosSelecionados);  
     openModal();
   };
 
   const handleBack = () => {
-    console.log("Voltando...");
     navigate("/data");
   };
   console.log("cade", dadosFinais);

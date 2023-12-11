@@ -451,6 +451,7 @@ export const Box = styled.div<Box>`
         border-radius:8px;
         height:100px;
         width:100px;
+        padding:0px 8px;
         display:flex;
         justify-content:center;
         align-items:center;
@@ -458,6 +459,7 @@ export const Box = styled.div<Box>`
         img{
             object-fit:cover;
             width:100%;
+            height:100%;
         }
     `}
     ${props => props.typeBox === 'login' && `

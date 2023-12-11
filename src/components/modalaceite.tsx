@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { SH1, STextParagraph } from "../componentsStyled/Text";
 import { Box } from "../componentsStyled/Box";
@@ -63,9 +63,9 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
           prodId: item.product_id,
           variantId: item.variant_id,
           method_refund: item.selectedProduct.tipoReembolso,
-          reasonSubId: 9,
+          reasonSubId: item.selectedProduct.subDevolucao,
           qty: item.selectedProduct.quantidade,
-          obs: "",
+          obs: item.selectedProduct.obsDev,
         });
 
         orderId = item.selectedId;

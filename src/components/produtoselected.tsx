@@ -23,9 +23,9 @@ interface ProductSelectedProps {
   onDataUpdate?: (data: any) => void;
   onSaveTipoReembolso?: (tipoReembolso: string) => void;
   produtoSelecionadoData?: any;
-  orderId?:string;
+  orderId?: string;
   allowed_clique_retire?: string;
-  delivery_date?:string;
+  delivery_date?: string;
 }
 
 const ProductSelected: React.FC<ProductSelectedProps> = ({
@@ -50,16 +50,21 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   const [fotoAdicionada, setFotoAdicionada] = useState(false);
   const [mediaRequired, setMediaRequired] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isBotaoConfirmarHabilitado, setIsBotaoConfirmarHabilitado] = useState(false);
-  const [dadosSelecionados, setDadosSelecionados] = useState(location.state || {});
+  const [isBotaoConfirmarHabilitado, setIsBotaoConfirmarHabilitado] =
+    useState(false);
+  const [dadosSelecionados, setDadosSelecionados] = useState(
+    location.state || {}
+  );
   const [produtoData, setProdutoData] = useState<Record<number, any>>({});
   const [modalData, setModalData] = useState<any>(null);
   const [updatedData, setUpdatedData] = useState<any>({});
-  const [outOfDateModalIsOpen, setOutOfDateModalIsOpen] = useState<boolean>(false);
-  const [reasonDeadlines, setReasonDeadlines] = useState<Record<string, string>>({});
+  const [outOfDateModalIsOpen, setOutOfDateModalIsOpen] =
+    useState<boolean>(false);
+  const [reasonDeadlines, setReasonDeadlines] = useState<
+    Record<string, string>
+  >({});
   const navigate = useNavigate();
-
-  const updateProdutoData = (productId, key, value, subReasonId) => {
+  const updateProdutoData = (productId, key, value, subReasonId, name, selectedValue?) => {
     setProdutoData((prevProdutoData) => ({
       ...prevProdutoData,
       [productId]: {
@@ -131,8 +136,8 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     deadlineDate.setDate(deadlineDate.getDate() + daysToAdd);
 
     const year = deadlineDate.getFullYear();
-    const month = String(deadlineDate.getMonth() + 1).padStart(2, '0');
-    const day = String(deadlineDate.getDate()).padStart(2, '0');
+    const month = String(deadlineDate.getMonth() + 1).padStart(2, "0");
+    const day = String(deadlineDate.getDate()).padStart(2, "0");
 
     return `${year}-${month}-${day} 00:00:00`;
   };
@@ -157,7 +162,6 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
 
   const closeModal = () => {
     setModalIsOpen(false);
-  
   };
 
   if (!produtos || produtos.length === 0) {
@@ -173,28 +177,35 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
 
   const handleSelectChange = (
     productId: string | number,
-    key: string, // oque está sendo alterado
-    selectedValue: any, // Valor da String
+    key: string,
+    selectedValue: any,
     subReasonId?: number,
+    e?: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    updateProdutoData(productId, key, selectedValue, subReasonId);
-    switch (key) {
-      case "tipoReembolso":
-        setTipoReembolso(selectedValue);
-        break;
-      case "motivoDevolucao":
-        setMotivoDevolucao(selectedValue);
-        break;
-      case "quantidade":
-        setQuantidade(selectedValue);
-        break;
-      case "subDevolucao":
-        setSubDevolucao(selectedValue);
-        break;  
-      default:
-        break;
+    if (key === "obsDev" && e) {
+      const { value } = e.target;
+      updateProdutoData(productId, key, value, subReasonId, "inputName");
+      setObsDev(value);
+    } else {
+      updateProdutoData(productId, key, selectedValue, subReasonId, "inputName");
+      switch (key) {
+        case "tipoReembolso":
+          setTipoReembolso(selectedValue);
+          break;
+        case "motivoDevolucao":
+          setMotivoDevolucao(selectedValue);
+          break;
+        case "quantidade":
+          setQuantidade(selectedValue);
+          break;
+        case "subDevolucao":
+          setSubDevolucao(selectedValue);
+          break;
+        default:
+          break;
+      }
     }
-  
+
     const updatedProductData = {
       ...produtoSelecionadoData,
       tipoReembolso,
@@ -202,48 +213,49 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       quantidade,
       subDevolucao,
       subReasonId,
-      obsDev: obsDev,
+      obsDev: key === "obsDev" ? selectedValue : obsDev,
       [key]: selectedValue,
     };
+    setObsDev(key === "obsDev" ? selectedValue : obsDev);
+
     console.log("obsDevInput:", obsDev);
     const selectedProductIndex = produtos.findIndex(
       (produto) => produto.product_id === productId
     );
-  
+
     if (selectedProductIndex !== -1) {
       const selectedProduct = produtos[selectedProductIndex];
-  
+
       selectedProduct.selectedProduct = {
         ...selectedProduct.selectedProduct,
         [key]: selectedValue,
       };
-  
+
       const updatedProducts = [
         ...produtos.slice(0, selectedProductIndex),
         selectedProduct,
         ...produtos.slice(selectedProductIndex + 1),
       ];
-  
+
       updateData({
         ...updatedProductData,
         products: updatedProducts,
       });
     }
   };
-  
+
   const handleConfirmar = () => {
     const dadosSelecionadosAtualizados = produtos.map((produto) => {
-    const dadosProduto = produtoData[produto.product_id] || {};
+      const dadosProduto = produtoData[produto.product_id] || {};
       return {
         ...dadosSelecionados,
         ...produtoSelecionadoData,
         ...produto,
       };
-      
     });
-    
+
     console.log("Dados selecionados poroduct:", dadosSelecionadosAtualizados);
-    
+
     const todosCamposPreenchidos = dadosSelecionadosAtualizados.every(
       (dadosProduto) =>
         Object.values(dadosProduto).every(
@@ -271,7 +283,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
           state: dadosSelecionadosAtualizados,
         });
         setIsModalOpen(true);
-        
+
         setDadosSelecionados(dadosSelecionadosAtualizados);
       }
     } else {
@@ -408,7 +420,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                         handleSelectChange(
                           produto.product_id,
                           "motivoDevolucao",
-                          selectedValue,
+                          selectedValue
                         )
                       }
                       selectedValue={
@@ -421,14 +433,16 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                       *O que aconteceu?
                     </STextParagraph>
                     <ListaSelected
-                      options={subReasons.map((subReason) => subReason.description)}
+                      options={subReasons.map(
+                        (subReason) => subReason.description
+                      )}
                       optionsSubReason={subReasons.map((subReason) => {
                         return {
                           id: subReason.id,
                           name: subReason.description,
-                        }
+                        };
                       })}
-                      onChange={(selectedValue) => 
+                      onChange={(selectedValue) =>
                         handleSelectChange(
                           produto.product_id,
                           "subDevolucao",
@@ -446,11 +460,20 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                     <STextParagraph typeParagraph="select">
                       Observações
                     </STextParagraph>
-                    <input 
-                     type="text"
-                     value={obsDev}
-                     onChange={(e) => setObsDev(e.target.value)}
-                    ></input>
+                    <input
+                    type="text"
+                    name="obsDev"
+                    value={produtoData[produto.product_id]?.obsDev || ""}
+                    onChange={(e) =>
+                      handleSelectChange(
+                        produto.product_id,
+                        'obsDev',
+                        e.target.value,
+                        undefined,       
+                        undefined        
+                      )
+                    }
+                  />
                   </div>
                   <div className="d-flex flex-column justify-content-center content-select">
                     <Box
@@ -474,6 +497,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                   isOpen={modalIsOpen}
                   onRequestClose={() => setModalIsOpen(false)}
                   onPhotoAdded={() => setFotoAdicionada(true)}
+                  dadosSelecionados= {produto}
                 />
               </Box>
             </Box>
@@ -491,10 +515,10 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         modalData={modalData}
-        dadosSelecionados={dadosSelecionados} 
+        dadosSelecionados={dadosSelecionados}
         onConfirm={() => navigate("/data", { state: dadosSelecionados })}
       />
-      <OutOfDateModal 
+      <OutOfDateModal
         isOpen={outOfDateModalIsOpen}
         onRequestClose={() => setOutOfDateModalIsOpen(false)}
         onClose={() => {}}
