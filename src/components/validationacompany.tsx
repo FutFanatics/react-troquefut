@@ -20,11 +20,13 @@ const Validation: React.FC = () => {
  const [success, setSuccess] = useState(false);
  const [error, setError] = useState<string | null>(null); 
  const navigate = useNavigate();
+ const [loading, setLoading] = useState(false);
 
  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault();
  
   try {
+    setLoading(true);
      const response = await fetch('https://api.troquefuthomologacao.futfanatics.com.br/api/login', {
        method: 'POST',
        headers: {
@@ -36,15 +38,17 @@ const Validation: React.FC = () => {
 
      const responseApi = await response.json();
 
-     if(responseApi.error){    
+     if (response.status === 401 || responseApi.error) {
       setError('Senha incorreta. Por favor, verifique seus dados.');
-     } else {
+    } else {
       localStorage.setItem('auth', JSON.stringify(responseApi));
       setSuccess(true);
       navigate('/devolution');
      } 
   } catch (error) {
      console.error('Ocorreu um erro:', error);
+  }finally {
+    setLoading(false);
   }
  };
 
@@ -55,7 +59,7 @@ const Validation: React.FC = () => {
  };
 
  return (
-    <form onSubmit={handleSubmit} className="col-md-6">
+    <form onSubmit={handleSubmit} className="col-md-6 position-relative">
       <Box margin="32px 0px " typeBox="login" className="d-flex flex-column">
         <label>Login</label>
         <input name="email" type="text" placeholder="Insira seu e-mail ou CPF"  onChange={handleChange} />
@@ -69,7 +73,7 @@ const Validation: React.FC = () => {
       <SspanText fontSize="14px" color="#192c53" fontWeight={600} ><a className='link-senha' href='https://www.futfanatics.com.br/loja/recuperar_senha.php'>
         Esqueci a senha</a></SspanText>
       </div>
-      
+      {loading && <div className="loading-spinner"></div>}
       <Button margin="32px auto 0px auto" type="submit">Confirmar</Button>
     </form>
  );

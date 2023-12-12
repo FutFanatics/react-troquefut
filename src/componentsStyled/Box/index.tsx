@@ -411,7 +411,7 @@ export const Box = styled.div<Box>`
             color:#777;
             font-size:13px;
             font-family:"gotham";
-            font-weight:350;
+            font-weight:400;
 
             strong{
                 font-weight:600;                
@@ -557,6 +557,7 @@ export const Box = styled.div<Box>`
         p{
             color:#192c53;
             text-transform:capitalize;
+            font-size:14px;
         }
         .content{
             width:49%;

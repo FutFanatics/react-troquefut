@@ -25,6 +25,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ onSelectDate, onChange, ...prop
       onChange={handleDateChange}
       dateFormat="dd/MM/yyyy"
       locale={ptBR}
+      todayButton="Hoje"
       {...props}
     />
   );

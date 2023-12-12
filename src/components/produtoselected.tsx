@@ -63,13 +63,34 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   const [reasonDeadlines, setReasonDeadlines] = useState<
     Record<string, string>
   >({});
+  const [obsDevByProduct, setObsDevByProduct] = useState<Record<string, string>>(
+    {}
+  );
   const navigate = useNavigate();
-  const updateProdutoData = (productId, key, value, subReasonId, name, selectedValue?) => {
+
+
+  const areAllFieldsFilled = () => {
+    return produtos.every((produto) => {
+      const data = produtoData[produto.product_id]?.[produto.variant_value] || {};
+      return (
+        data.tipoReembolso &&
+        data.quantidade !== "" &&
+        data.motivoDevolucao &&
+        data.subDevolucao !== "" &&
+        data.obsDev !== "" 
+      );
+    });
+  };
+
+  const updateProdutoData = (productId, key, value, variant_value?, subReasonId?, name?, selectedValue?) => {
     setProdutoData((prevProdutoData) => ({
       ...prevProdutoData,
       [productId]: {
         ...prevProdutoData[productId],
-        [key]: value,
+        [variant_value]: {
+          ...prevProdutoData[productId]?.[variant_value],
+          [key]: value,
+        },
       },
     }));
   };
@@ -177,17 +198,38 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
 
   const handleSelectChange = (
     productId: string | number,
+    variant_value: string,
     key: string,
     selectedValue: any,
-    subReasonId?: number,
+    subReasonId?: number | React.ChangeEvent<HTMLInputElement>,
     e?: React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (key === "obsDev" && e) {
       const { value } = e.target;
-      updateProdutoData(productId, key, value, subReasonId, "inputName");
-      setObsDev(value);
+  
+      updateProdutoData(
+        productId,
+        key,
+        value,
+        variant_value,
+        subReasonId,
+        "inputName"
+      );
+  
+      setObsDevByProduct((prevObsDev) => ({
+        ...prevObsDev,
+        [`${productId}-${variant_value}`]: value,
+      }));
     } else {
-      updateProdutoData(productId, key, selectedValue, subReasonId, "inputName");
+      updateProdutoData(
+        productId,
+        key,
+        selectedValue,
+        variant_value,
+        subReasonId,
+        "inputName"
+      );
+  
       switch (key) {
         case "tipoReembolso":
           setTipoReembolso(selectedValue);
@@ -205,7 +247,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
           break;
       }
     }
-
+  
     const updatedProductData = {
       ...produtoSelecionadoData,
       tipoReembolso,
@@ -213,36 +255,41 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       quantidade,
       subDevolucao,
       subReasonId,
+      variant_value,
       obsDev: key === "obsDev" ? selectedValue : obsDev,
       [key]: selectedValue,
     };
     setObsDev(key === "obsDev" ? selectedValue : obsDev);
-
+  
     console.log("obsDevInput:", obsDev);
+  
     const selectedProductIndex = produtos.findIndex(
-      (produto) => produto.product_id === productId
+      (produto) =>
+        produto.product_id === productId &&
+        produto.variant_value === variant_value
     );
-
+  
     if (selectedProductIndex !== -1) {
       const selectedProduct = produtos[selectedProductIndex];
-
+  
       selectedProduct.selectedProduct = {
         ...selectedProduct.selectedProduct,
         [key]: selectedValue,
       };
-
+  
       const updatedProducts = [
         ...produtos.slice(0, selectedProductIndex),
         selectedProduct,
         ...produtos.slice(selectedProductIndex + 1),
       ];
-
+  
       updateData({
         ...updatedProductData,
         products: updatedProducts,
       });
     }
   };
+  
 
   const handleConfirmar = () => {
     const dadosSelecionadosAtualizados = produtos.map((produto) => {
@@ -256,12 +303,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
 
     console.log("Dados selecionados poroduct:", dadosSelecionadosAtualizados);
 
-    const todosCamposPreenchidos = dadosSelecionadosAtualizados.every(
-      (dadosProduto) =>
-        Object.values(dadosProduto).every(
-          (value) => value !== "" && value !== undefined && value !== null
-        )
-    );
+    const todosCamposPreenchidos = areAllFieldsFilled();
 
     if (todosCamposPreenchidos) {
       if (onDataUpdate) {
@@ -380,13 +422,13 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                       onChange={(selectedValue) =>
                         handleSelectChange(
                           produto.product_id,
+                          produto.variant_value,
                           "tipoReembolso",
                           selectedValue
                         )
                       }
-                      selectedValue={
-                        produtoData[produto.product_id]?.tipoReembolso
-                      }
+                      selectedValue={produtoData[produto.product_id]?.[produto.variant_value]?.tipoReembolso}
+
                     ></ListaSelected>
                   </div>
                   <div className="d-flex flex-column justify-content-center content-select">
@@ -399,12 +441,12 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                       onChange={(selectedValue) =>
                         handleSelectChange(
                           produto.product_id,
+                          produto.variant_value,
                           "quantidade",
                           selectedValue as number | ""
                         )
                       }
-                      selectedValue={
-                        produtoData[produto.product_id]?.quantidade
+                      selectedValue={produtoData[produto.product_id]?.[produto.variant_value]?.quantidade
                       }
                     ></ListaSelected>
                   </div>
@@ -419,12 +461,12 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                       onChange={(selectedValue) =>
                         handleSelectChange(
                           produto.product_id,
+                          produto.variant_value,
                           "motivoDevolucao",
                           selectedValue
                         )
                       }
-                      selectedValue={
-                        produtoData[produto.product_id]?.motivoDevolucao
+                      selectedValue={produtoData[produto.product_id]?.[produto.variant_value]?.motivoDevolucao
                       }
                     ></ListaSelected>
                   </div>
@@ -445,12 +487,12 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                       onChange={(selectedValue) =>
                         handleSelectChange(
                           produto.product_id,
+                          produto.variant_value,
                           "subDevolucao",
                           selectedValue
                         )
                       }
-                      selectedValue={
-                        produtoData[produto.product_id]?.subDevolucao
+                      selectedValue={produtoData[produto.product_id]?.[produto.variant_value]?.subDevolucao
                       }
                     ></ListaSelected>
                   </div>
@@ -462,15 +504,16 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                     </STextParagraph>
                     <input
                     type="text"
-                    name="obsDev"
-                    value={produtoData[produto.product_id]?.obsDev || ""}
+                    name={`obsDev-${produto.product_id}-${produto.variant_value}`}
+                    value={obsDevByProduct[`${produto.product_id}-${produto.variant_value}`] || ''}
                     onChange={(e) =>
                       handleSelectChange(
                         produto.product_id,
+                        produto.variant_value,
                         'obsDev',
                         e.target.value,
-                        undefined,       
-                        undefined        
+                        undefined,
+                        e
                       )
                     }
                   />

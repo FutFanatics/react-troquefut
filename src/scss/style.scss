@@ -70,6 +70,26 @@
   }
 }
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #00df5e;
+  border-radius: 50%;
+  width: 56px;
+  height:56px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+  position: absolute;
+  top:30%;
+  left: 45%;
+  transform: translate(-50%);
+}
+
+
 .logo-troque{
   @media screen and (max-width: 768px) {
     width: 180px;

@@ -167,8 +167,11 @@ const SButton = styled.button<SButtonProps>`
         border-radius:5px;
         border:1px solid #192c53;
         color:#193c53;
+        padding:0px 8px;
         background:transparent;
-        width:120px;
+        width:auto;
+        min-width:120px;
+        max-height:150px;
         height:40px;
         font-weight:400;
         margin:0px auto;

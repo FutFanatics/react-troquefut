@@ -8,6 +8,7 @@ import ModalDevolution from "./modaldevolution";
 import { useMediaQuery } from "react-responsive";
 import IconArrowBottom from "../componentsStyled/icon/Iconarrowbottom";
 import IconArrowTop from "../componentsStyled/icon/Iconarrowtop";
+import { SH1, SspanText } from "../componentsStyled/Text";
 
 interface DetailsDevolutionProps {
   className?: string;
@@ -74,13 +75,14 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
   const [modalType, setModalType] = useState("");
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
   const [isContentOpen, setIsContentOpen] = useState(!isMobile);
-
+  const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const settings = {
     dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    beforeChange: (oldIndex, newIndex) => setCurrentProductIndex(newIndex),
     responsive: [
       {
         breakpoint: 768,
@@ -188,34 +190,45 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
                   </Button>
                 </div>
                 <div className="content-product_describe">
-                  <h3>{data.products[0]?.name || "-"}</h3>
+                  <h3>{data.products[currentProductIndex]?.name || "-"}</h3>
                   <div className="d-flex justify-content-between">
                     <div className="d-flex flex-column content">
                       <label>Tamanho</label>
-                      <p>{data.products[0]?.variant || "-"}</p>
+                      <p>{data.products[currentProductIndex]?.variant || "-"}</p>
                     </div>
                     <div className="d-flex flex-column content">
                       <label>Preço</label>
-                      <p>R${parseFloat(data.products[0]?.price).toFixed(2)}</p>
+                      <p>R${parseFloat(data.products[currentProductIndex]?.price).toFixed(2)}</p>
                     </div>
-                  </div>
                   <div className="d-flex flex-column content">
                     <label>Quantidade</label>
-                    <p>{data.products[0]?.quant || "-"}</p>
+                    <p>{data.products[currentProductIndex]?.quant || "-"}</p>
+                  </div>
                   </div>
                   <div className="d-flex justify-content-between">
                     <div className="d-flex flex-column content">
                       <label>Motivo da Devolução</label>
-                      <p>{data.products[0]?.reasonMain}</p>
+                      <p>{data.products[currentProductIndex]?.reasonMain}</p>
                     </div>
                     <div className="d-flex flex-column content">
                       <label>Sub-Motivo</label>
-                      <p>{data.products[0]?.reasonSub}</p>
+                      <p>{data.products[currentProductIndex]?.reasonSub}</p>
                     </div>
-                  </div>
-                  <div className="d-flex flex-column">
+                  <div className="d-flex flex-column content">
                     <label>Observação</label>
-                    <p>{data.products[0]?.obs || "-"}</p>
+                    <p>{data.products[currentProductIndex]?.obs || "-"}</p>
+                  </div>
+                  </div>
+                  <SspanText fontWeight={400} fontSize="14px" color="#474747" padding="0px 0px 16px 0px"> Solicitação</SspanText >
+                  <div className="d-flex justify-content-between mt-2 ">
+                  <div className="d-flex flex-column content">
+                    <label>Tipo de Reembolso</label>
+                    <p>{data.products[currentProductIndex]?.refundType || "-"}</p>
+                  </div>
+                  <div className="d-flex flex-column content">
+                    <label>Forma de Envio</label>
+                    <p>{data[currentProductIndex]?.method_shipment || "-"}</p>
+                  </div>
                   </div>
                 </div>
               </div>

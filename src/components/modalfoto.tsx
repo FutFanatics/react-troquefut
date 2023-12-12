@@ -76,8 +76,7 @@ const ModalCamera: React.FC<ModalCameraProps> = ({
               console.log("Success:", response);
             }
     
-            // Limpar o estado após o upload bem-sucedido
-            setUploadedImages(null);
+            onRequestClose();
           }
         });
   

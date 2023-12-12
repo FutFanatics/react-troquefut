@@ -169,19 +169,6 @@ const FollowData: React.FC<FollowDataProps> = ({ className, devolutionId }) => {
                   <p>{data.customer.complement || "-"}</p>
                 </div>
               </div>
-              <h2>Solicitação</h2>
-              {data.products.map((product: Product, index: number) => (
-                <div className="d-flex justify-content-between" key={index}>
-                  <div className="d-flex flex-column content">
-                    <label>Tipo de Reembolso</label>
-                    <p>{product.refundType}</p>
-                  </div>
-                  <div className="d-flex flex-column content">
-                    <label>Forma de Envio</label>
-                    <p>{data.method_shipment || "-"}</p>
-                  </div>
-                </div>
-              ))}
             </>
           ) : null}
         </Box>
