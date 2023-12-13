@@ -130,9 +130,9 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
             );
 
             setData(response.data);
-            console.log(response.data, "Dados do pedido recebidos com sucesso");
+            
           } catch (error) {
-            console.log(error, "Erro ao obter dados do pedido");
+            
           }
         }
       }

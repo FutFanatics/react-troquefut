@@ -21,7 +21,6 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
   const navigate = useNavigate();
 
   const handleFollowClick = () => {
-    console.log("Devolution ID:", devolucao.id);
     navigate("/follow", { state: { devolutionId: devolucao.id } });
   };
   const settings = {
@@ -53,8 +52,7 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
     return devolucao.result === "pending" ? <IconArrowRight width={16} /> : <IconSucess width={16}/>;
     
   };
-  console.log("devolucao:", devolucao);
-  console.log("devolucao.imgs:", devolucao.imgs);
+
   return (
     <Box typeBox="product-devolution">
       <div key={devolucao.id} >

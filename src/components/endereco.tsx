@@ -14,7 +14,7 @@ const FormularioPessoal: React.FC<FormularioPessoalProps> = ({ className }) => {
 
   const aoSubmeter = (evento: React.FormEvent<HTMLFormElement>) => {
     evento.preventDefault();
-    console.log("form enviado", nome, telefone, celular, email);
+
     
   };
 

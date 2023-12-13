@@ -101,10 +101,10 @@ const FollowData: React.FC<FollowDataProps> = ({ className, devolutionId }) => {
           )
           .then(function (response) {
             setData(response.data);
-            console.log(response.data, "Dados do pedido recebidos com sucesso");
+
           })
           .catch(function (error) {
-            console.log(error, "Erro ao obter dados do pedido");
+
           });
       }
     }
