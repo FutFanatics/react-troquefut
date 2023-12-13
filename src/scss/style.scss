@@ -88,7 +88,16 @@
   left: 45%;
   transform: translate(-50%);
 }
-
+.arrow-top{
+  width: 180px;
+  right: 0;
+  top: -10%;
+}
+.arrow-bottom{
+  width: 130px;
+  left: 0;
+  bottom: 3%;
+}
 
 .logo-troque{
   @media screen and (max-width: 768px) {

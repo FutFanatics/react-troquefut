@@ -16,7 +16,6 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [data, setData] = useState<any>({}); 
 
   const updateData = (newData: any) => {
-    console.log("VAIII FILHA DA PUTA:", newData);
     setData(newData);
   };
 

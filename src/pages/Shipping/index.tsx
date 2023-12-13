@@ -14,6 +14,8 @@ import IconHelp from "../../componentsStyled/icon/Iconhelp";
 import IconBack from "../../componentsStyled/icon/Iconback";
 import { Produto } from "../../components/Types";
 import { useDataContext } from "../../context/DataContext";
+import DevBottom from "../../componentsStyled/icon/devbottom";
+import DevTop from "../../componentsStyled/icon/devtop";
 
 interface ShippingProps {
   produtos?: Produto[];
@@ -27,7 +29,7 @@ const Shipping: React.FC<ShippingProps> = ({}) => {
   const [dadosFinais, setDadosFinais] = useState(location.state || {});
   const [novosDadosSelecionados, setNovosDadosSelecionados] = useState({}); 
   const { data, updateData } = useDataContext();
-  console.log("por favor da certo", dadosFinais);
+
   const navigate = useNavigate();
 
   const handleCliqueRetireSelect = () => {
@@ -135,6 +137,8 @@ const Shipping: React.FC<ShippingProps> = ({}) => {
         </div>
       </div>
       <section className="c-shipping position-relative">
+      <DevTop className="position-absolute arrow-top"></DevTop>
+        <DevBottom className="position-absolute arrow-bottom"></DevBottom>
         <Box typeBox="icon-help">
           <div className="informação">
             Dúvidas de como funciona? Acesse nossa{" "}
@@ -170,8 +174,8 @@ const Shipping: React.FC<ShippingProps> = ({}) => {
             novosDadosSelecionados={novosDadosSelecionados}
           ></ModalAceite>
         </div>
-        <Footer></Footer>
       </section>
+        <Footer></Footer>
     </>
   );
 };

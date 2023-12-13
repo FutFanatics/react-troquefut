@@ -60,6 +60,18 @@
   transform: translate(-50%);
 }
 
+.arrow-top {
+  width: 180px;
+  right: 0;
+  top: -10%;
+}
+
+.arrow-bottom {
+  width: 130px;
+  left: 0;
+  bottom: 3%;
+}
+
 @media screen and (max-width: 768px) {
   .logo-troque {
     width: 180px;

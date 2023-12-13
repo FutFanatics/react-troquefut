@@ -12,6 +12,8 @@ import { Box } from "../../componentsStyled/Box";
 import IconHelp from "../../componentsStyled/icon/Iconhelp";
 import IconBack from "../../componentsStyled/icon/Iconback";
 import ModalNotProduct from "../../components/modalnotproduct";
+import DevBottom from "../../componentsStyled/icon/devbottom";
+import DevTop from "../../componentsStyled/icon/devtop";
 
 interface Pedido {
   id: string;
@@ -138,6 +140,8 @@ export default function Order() {
         </div>
       </div>
       <section className="c-order position-relative">
+      <DevTop className="position-absolute arrow-top"></DevTop>
+        <DevBottom className="position-absolute arrow-bottom"></DevBottom>
         <Box typeBox="icon-help">
           <div className="informação">
             Dúvidas de como funciona?

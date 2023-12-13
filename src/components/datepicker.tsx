@@ -18,16 +18,27 @@ const DatePicker: React.FC<DatePickerProps> = ({ onSelectDate, onChange, ...prop
       onChange(date, event);
     }
   };
-
+  const handleClearDate = () => {
+    setSelectedDate(null);
+    onSelectDate(null);
+  };
+  
   return (
-    <ReactDatePicker
-      selected={selectedDate}
-      onChange={handleDateChange}
-      dateFormat="dd/MM/yyyy"
-      locale={ptBR}
-      todayButton="Hoje"
-      {...props}
-    />
+<div>
+      <ReactDatePicker
+        selected={selectedDate}
+        onChange={handleDateChange}
+        dateFormat="dd/MM/yyyy"
+        locale={ptBR}
+        todayButton="Hoje"
+        {...props}
+      />
+      {selectedDate && (
+        <button type="button" onClick={handleClearDate}>
+          Limpar Data
+        </button>
+      )}
+    </div>
   );
 };
 
