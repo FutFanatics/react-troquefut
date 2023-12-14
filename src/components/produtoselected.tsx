@@ -14,8 +14,8 @@ import IconInformative from "../componentsStyled/icon/iconinformative";
 import IconInfoVale from "../componentsStyled/icon/iconinfovale";
 import ModalData from "./modaldata";
 import { useDataContext } from "../context/DataContext";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+/* import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css"; */
 interface ProductSelectedProps {
   className?: string;
   produtos: Produto[];
@@ -124,6 +124,10 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       (reason) => reason.description === motivoDevolucao
     );
 
+    if (selectedReason && outOfDateModalIsOpen) {
+      setMotivoDevolucao("");
+    }
+
     if (selectedReason?.media_required === 1) {
       setMediaRequired(true);
     } else {
@@ -144,7 +148,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
         setOutOfDateModalIsOpen(true);
       }
     }
-  }, [motivoDevolucao, produtoSelecionadoData, reasons, reasonDeadlines]);
+  }, [motivoDevolucao, produtoSelecionadoData, reasons, reasonDeadlines,outOfDateModalIsOpen]);
 
   useEffect(() => {
     if (onDataUpdate) {
@@ -335,12 +339,24 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   };
 
   const settings = {
-    dots: false,
+    dots: true,
     arrow: true,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          arrow: false,
+        },
+      },
+
+    ],
+    
   };
 
   return (

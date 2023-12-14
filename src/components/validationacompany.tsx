@@ -47,6 +47,7 @@ const Validation: React.FC = () => {
      } 
   } catch (error) {
      console.error('Ocorreu um erro:', error);
+     setError('Senha incorreta. Por favor, verifique seus dados.');
   }finally {
     setLoading(false);
   }

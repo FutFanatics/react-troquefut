@@ -6,6 +6,8 @@ import Menu from "../../components/menu";
 import { Box } from "../../componentsStyled/Box";
 import { SH1 } from "../../componentsStyled/Text";
 import IconHelp from "../../componentsStyled/icon/Iconhelp";
+import DevBottom from "../../componentsStyled/icon/devbottom";
+import DevTop from "../../componentsStyled/icon/devtop";
 
 
 export default function Devolution() {    
@@ -15,6 +17,8 @@ export default function Devolution() {
         <Menu typeOption="active"></Menu>
         <SH1 textTransform="uppercase" fontSizesm="16px">Selecione qual devolução deseja acompanhar</SH1>
         <section className="c-devolution position-relative">
+        <DevTop className="position-absolute arrow-top"></DevTop>
+        <DevBottom className="position-absolute arrow-bottom"></DevBottom>
         <Box typeBox="icon-help">
           <div className="informação">
             Dúvidas de como funciona?

@@ -92,11 +92,19 @@
   width: 180px;
   right: 0;
   top: -10%;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+
 }
 .arrow-bottom{
   width: 130px;
   left: 0;
   bottom: 3%;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .logo-troque{
@@ -529,7 +537,7 @@ input[type="text"] {
   color:#FFF;
   border:none;
   height:45px;
-  margin:8px auto 16px auto;
+  margin:24px auto 16px auto;
 
   a{
     color: #fff;
@@ -572,9 +580,26 @@ input[type="text"] {
     color: #b5b5b5;
 }
 }
+.slick-prev, .slick-next {
+    font-size: 0;
+    line-height: 0;
+    position: absolute;
+    margin: 0px -16px;
+    top: 50%;
+    display: block;
+    width: auto;
+    height: auto;
+    padding: 0;
+    transform: translate(0, -50%);
+    cursor: pointer;
+    color: transparent;
+    border: none;
+    outline: none;
+    background: transparent;
+}
 .slick-prev:before, .slick-next:before {
   color:#00df5e !important ;
-  font-size: 28px  !important;
+  font-size: 22px  !important;
   opacity: 1 !important;
 }
 .slick-prev.slick-disabled:before, .slick-next.slick-disabled:before {
@@ -590,41 +615,50 @@ input[type="text"] {
   flex-direction: column;
   justify-content: center;
 }
-/* .slick-dots {
+ .slick-dots {
   position: absolute;
-  bottom: -0px !important;
+  bottom: -5% !important;
   display: block;
   width: 100%;
   padding: 0;
   margin: 0;
   list-style: none;
   text-align: center;
-} */
-/* .slick-dots li button:before {
-  font-size: 20px;
-  line-height: 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 20px;
-  text-align: center;
-  opacity: .25;
-  color: #000!important;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  
+} 
+.slick-dots li button {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: auto;
+    height: auto; 
+    padding: 5px;
+    cursor: pointer;
+    color: transparent;
+    border: 0;
+    outline: none;
+    background: transparent;
 }
-.slick-active{
-  button{
-    background-color: #00df5e !important;
-    width: 30px !important;
-    border-radius: 20px;
-    height: 15px !important;
-
-    &::before{
-      display: none !important;
-    }
-  }
+.slick-dots li button:before {
+    font-family: '';
+    font-size: 0px;
+    margin: 0px 16px;
+    background: #606267;
+    border-radius: 5px;
+    position: absolute;
+    top: 12%;
+    left: 0;
+    width: 18px !important;
+    height: 6px !important;
+    content: '' !important;
+    text-align: center;
+    opacity: .75;
+    color: black;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
- */
+
+.slick-dots li.slick-active button::before{
+    width: 25px!important;
+    background-color: #00df5e;
+    opacity: 1 !important;
+}

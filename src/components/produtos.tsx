@@ -98,7 +98,7 @@ const Produtos: React.FC<ProdutosProps> = ({
   };
 
   const sliderSettings = {
-    dots: false,
+    dots: true,
     arrows: true,
     infinite: false,
     speed: 500,

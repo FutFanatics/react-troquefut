@@ -70,7 +70,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
 
         orderId = item.selectedId;
 
-        if(item.hasOwnProperty('BankReembolso') && item.BankReembolso.bankData) {
+        if(item.hasOwnProperty('BankReembolso') && item.BankReembolso.bankData.account) {
           banks = item.BankReembolso.bankData;
         }
 
@@ -121,11 +121,13 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
         bodyJson['pix'] = pix
       }
 
-      if(banks) {
+      if(banks.hasOwnProperty('account')) {
         bodyJson['banks'] = banks
       }
 
       console.log('Conteúdo do objeto bodyJson:', bodyJson);
+      //@ts-ignore
+      console.log('Conteúdo do objeto bodyJson:', JSON.stringify(bodyJson));
 
 
       axios

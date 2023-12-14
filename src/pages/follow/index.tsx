@@ -11,6 +11,8 @@ import { SH1 } from "../../componentsStyled/Text";
 import IconBack from "../../componentsStyled/icon/Iconback";
 import IconHelp from "../../componentsStyled/icon/Iconhelp";
 import { useNavigate, useLocation } from "react-router-dom";
+import DevTop from "../../componentsStyled/icon/devtop";
+import DevBottom from "../../componentsStyled/icon/devbottom";
 
 
 export default function Follow() {
@@ -38,6 +40,8 @@ export default function Follow() {
       </div>
 
       <div className="c-follow position-relative">
+      <DevTop className="position-absolute arrow-top"></DevTop>
+        <DevBottom className="position-absolute arrow-bottom"></DevBottom>
         <Box typeBox="icon-help">
           <div className="informação">
             Dúvidas de como funciona? Acesse nossa

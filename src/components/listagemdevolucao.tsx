@@ -47,9 +47,16 @@ const ListagemDevolucoes: React.FC = () => {
               },
             }
           );
-          setDevolucoes(response.data);
+  
+          const fetchedDevolucoes = response.data;
+  
+          if (fetchedDevolucoes.length === 0) {
+            window.location.href = 'https://troque.futfanatics.com.br/acompanhar';
+          } else {
+            setDevolucoes(fetchedDevolucoes);
+          }
         } catch (error) {
-          console.error("Error fetching data:");
+          console.error("Error fetching data:", error);
         }
       };
       fetchDevolucoes();

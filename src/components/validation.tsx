@@ -50,9 +50,11 @@ const Validation: React.FC = () => {
      if (response.status === 401) {
       setError('Senha incorreta. Por favor, verifique seus dados.');
     } 
+    //setError('Senha incorreta. Por favor, verifique seus dados.');
 
   } catch (error) {
      console.error('Ocorreu um erro:', error);
+     setError('Senha incorreta. Por favor, verifique seus dados.');
   }finally {
     setLoading(false);
   }
