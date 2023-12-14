@@ -24,7 +24,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ onSelectDate, onChange, ...prop
   };
   
   return (
-<div>
+
       <ReactDatePicker
         selected={selectedDate}
         onChange={handleDateChange}
@@ -33,12 +33,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ onSelectDate, onChange, ...prop
         todayButton="Hoje"
         {...props}
       />
-      {selectedDate && (
-        <button type="button" onClick={handleClearDate}>
-          Limpar Data
-        </button>
-      )}
-    </div>
+
   );
 };
 
