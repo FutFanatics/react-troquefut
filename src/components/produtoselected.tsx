@@ -66,6 +66,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   const [obsDevByProduct, setObsDevByProduct] = useState<Record<string, string>>(
     {}
   );
+  const [isMediaRequiredError, setIsMediaRequiredError] = useState(false);
   const navigate = useNavigate();
 
 
@@ -77,10 +78,12 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
         data.quantidade !== "" &&
         data.motivoDevolucao &&
         data.subDevolucao !== "" &&
-        data.obsDev !== "" 
+        data.obsDev !== "" &&
+        (data.motivoDevolucao.media_required !== 1 || fotoAdicionada) 
       );
     });
   };
+  
 
   const updateProdutoData = (productId, key, value, variant_value?, subReasonId?, name?, selectedValue?) => {
     setProdutoData((prevProdutoData) => ({
@@ -128,12 +131,13 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       setMotivoDevolucao("");
     }
 
-    if (selectedReason?.media_required === 1) {
+    if (selectedReason && selectedReason.media_required === 1) {
       setMediaRequired(true);
+      setIsMediaRequiredError(!fotoAdicionada);
     } else {
       setMediaRequired(false);
+      setIsMediaRequiredError(false);
     }
-
     if (selectedReason && selectedReason.subReasons) {
       setSubReasons(selectedReason.subReasons);
     } else {
@@ -150,11 +154,16 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     }
   }, [motivoDevolucao, produtoSelecionadoData, reasons, reasonDeadlines,outOfDateModalIsOpen]);
 
+  const handlePhotoUploadComplete = () => {
+    setIsMediaRequiredError(false);
+    setFotoAdicionada(true);
+  };
+
   useEffect(() => {
     if (onDataUpdate) {
       onDataUpdate(updatedData);
     }
-  }, [updatedData, onDataUpdate]);
+  }, [updatedData, onDataUpdate, fotoAdicionada]);
 
   const formatDate = (baseDate, daysToAdd) => {
     const deadlineDate = new Date(baseDate);
@@ -308,6 +317,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     console.log("Dados selecionados poroduct:", dadosSelecionadosAtualizados);
 
     const todosCamposPreenchidos = areAllFieldsFilled();
+    const isMediaRequiredFilled = !isMediaRequiredError;
 
     if (todosCamposPreenchidos) {
       if (onDataUpdate) {
@@ -335,6 +345,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     } else {
       console.error("Preencha todos os campos antes de confirmar");
       setIsBotaoConfirmarHabilitado(false);
+      setIsMediaRequiredError(true);
     }
   };
 
@@ -536,27 +547,36 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                   </div>
                   <div className="d-flex flex-column justify-content-center content-select">
                     <Box
-                      className="d-flex align-items-center"
+                      className="d-flex flex-column justify-content-center"
                       margin="12px 0px 0px 0px"
-                    >
-                      {mediaRequired && (
+                    >   <div className="d-flex align-items-center">
                         <a onClick={() => setModalIsOpen(true)}>
                           <Box typeBox="cam">
                             <IconCamera fill="#fff" width={25}></IconCamera>
                           </Box>
                         </a>
-                      )}
                       <STextParagraph typeParagraph="select">
                         Anexar fotos
                       </STextParagraph>
+                    </div>
+                      {isMediaRequiredError && (
+                      <p style={{ color: "red", fontSize: "12px", marginTop: "4px" }}>
+                        O envio de fotos é obrigatório
+                      </p>
+                    )}
                     </Box>
                   </div>
                 </div>
                 <ModalCamera
                   isOpen={modalIsOpen}
                   onRequestClose={() => setModalIsOpen(false)}
-                  onPhotoAdded={() => setFotoAdicionada(true)}
+                  onPhotoAdded={() => {
+                    setFotoAdicionada(true);
+                    handlePhotoUploadComplete();
+                  }}
                   dadosSelecionados= {produto}
+                  onPhotoUploadComplete={handlePhotoUploadComplete}
+
                 />
               </Box>
             </Box>

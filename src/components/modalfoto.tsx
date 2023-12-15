@@ -14,12 +14,14 @@ interface ModalCameraProps {
   onPhotoAdded: () => void;
   onRequestClose: () => void;
   dadosSelecionados:any
+  onPhotoUploadComplete: () => void;
 }
 
 const ModalCamera: React.FC<ModalCameraProps> = ({
   isOpen,
   onRequestClose,
-  dadosSelecionados
+  dadosSelecionados,
+  onPhotoUploadComplete,
 }) => {
 
   const [uploadedImages, setUploadedImages] = useState<File[]>([]);
@@ -76,6 +78,7 @@ const ModalCamera: React.FC<ModalCameraProps> = ({
               console.log("Success:", response);
             }
     
+            onPhotoUploadComplete();
             onRequestClose();
           }
         });
