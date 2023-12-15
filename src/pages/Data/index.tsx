@@ -75,11 +75,20 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
   };
 
   const sliderSettings = {
-    dots: false,
+    dots: true,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          arrows: false,
+        },
+      },
+    ],
   };
 
   const renderReembolsoComponent = () => {

@@ -89,6 +89,10 @@ export const Box = styled.div<Box>`
                 text-align:center
             }
         }
+        input{
+            width:16px; 
+            height:16Apx;
+        }
     `}
     ${props => props.typeBox === 'item' && `
         height:210px;

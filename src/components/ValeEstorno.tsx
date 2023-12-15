@@ -8,6 +8,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Box } from "../componentsStyled/Box";
 import axios from "axios";
 import ListaSelected from "./listaselected";
+import IconFinance from "../componentsStyled/icon/IconFinance";
 
 interface ValeEstornoProps {
   updateData?: (data: Produto[]) => void;
@@ -197,6 +198,7 @@ const ValeEstorno: React.FC<ValeEstornoProps> = ({
   return (
     <>
       <div className="c-estorno d-flex flex-column align-items-center ">
+    
         <div className="d-flex justify-content-center">
           <Button
             typeButton="select-estorno"

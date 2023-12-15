@@ -19,7 +19,15 @@ interface DevolutionItemProps {
 
 const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
   const navigate = useNavigate();
-  const formattedDate = new Date(devolucao.created_at).toLocaleDateString('pt-BR');
+  const formatDate = (dateTimeString: string) => {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    return new Date(dateTimeString).toLocaleDateString('pt-BR', options);
+  };
+
+  const formatTime = (dateTimeString: string) => {
+    const options: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric' };
+    return new Date(dateTimeString).toLocaleTimeString('pt-BR', options);
+  };
   const handleFollowClick = () => {
     navigate("/follow", { state: { devolutionId: devolucao.id } });
   };
@@ -71,7 +79,7 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
           <p>
             <strong>ID:</strong> {devolucao.id}
           </p>
-          <p>{formattedDate}</p>
+          <p>{formatDate(devolucao.created_at)} {formatTime(devolucao.created_at)}</p>
           <Button typeButton="devolution-status" className={`${getStatusStyle()}`} onClick={handleFollowClick}>
           {devolucao.result === "pending" ? "Acompanhar" : "Concluída"}{getIcon()} 
           </Button>

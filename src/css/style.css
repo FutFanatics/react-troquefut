@@ -520,7 +520,7 @@ input[type=text] {
   color: #FFF;
   border: none;
   height: 45px;
-  margin: 24px auto 24px auto;
+  margin: 32px auto 24px auto;
 }
 .button-fut a {
   color: #fff;
@@ -580,7 +580,7 @@ input[type=text] {
 
 .slick-prev:before, .slick-next:before {
   color: #00df5e !important;
-  font-size: 22px !important;
+  font-size: 24px !important;
   opacity: 1 !important;
 }
 
