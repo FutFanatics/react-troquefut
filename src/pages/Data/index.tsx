@@ -46,6 +46,7 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
   const [accont, setAccont] = useState<string>("");
   const [agency, setAgency] = useState<string>("");
   const [typebank, setTypeBank] = useState<string>("");
+  
   const updateTipoPix = (tipoPixValue: string | null) => {
     setTipoPix(tipoPixValue);
   };
@@ -121,7 +122,10 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
     return reembolsoComponents[tipoReembolso] || null;
   };
 
-  const isSameReembolsoType = dadosSelecionadosAtualizados.every(
+  const isSameReembolsoType =
+  Array.isArray(dadosSelecionadosAtualizados) &&
+  dadosSelecionadosAtualizados.length > 0 &&
+  dadosSelecionadosAtualizados.every(
     (produto: any, index: number, array: any[]) =>
       produto.selectedProduct.tipoReembolso ===
       array[0].selectedProduct.tipoReembolso
@@ -242,8 +246,8 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
               </Box>
             ) : (
               <Slider {...sliderSettings} className="col-md-10 c-slide">
-                {dadosSelecionadosAtualizados.map(
-                  (produto: any, index: number) => (
+                {Array.isArray(dadosSelecionadosAtualizados) && dadosSelecionadosAtualizados.map(
+                (produto: any, index: number) => (
                     <React.Fragment key={produto.id}>
                       <Box typeBox="estorno" className="d-flex flex-column">
                         <IconFinance width={64}></IconFinance>
