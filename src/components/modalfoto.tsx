@@ -8,6 +8,7 @@ import ImageUpload from "./imageupload";
 import Button from "../componentsStyled/Button";
 import Slider from "react-slick";
 
+
 interface ModalCameraProps {
   isOpen: boolean;
   children?: React.ReactNode;

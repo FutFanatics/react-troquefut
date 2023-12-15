@@ -3,6 +3,8 @@ import { SspanText } from '../componentsStyled/Text';
 import Button from '../componentsStyled/Button';
 import { Box } from '../componentsStyled/Box';
 import { useNavigate } from 'react-router-dom';
+import IconVisibility from '../componentsStyled/icon/iconvisibility';
+import IconVisibilityOff from '../componentsStyled/icon/iconvisibilityoff';
 
 interface User {
  email: string;
@@ -17,6 +19,7 @@ const Validation: React.FC = () => {
  const [user, setUser] = useState<User>({
   email:"", password:""
  });
+ const [showPassword, setShowPassword] = useState(false);
  const [success, setSuccess] = useState(false);
  const [error, setError] = useState<string | null>(null); 
  const navigate = useNavigate();
@@ -65,6 +68,9 @@ const Validation: React.FC = () => {
     setUser({ ...user, [name]: value });
     setError(null);
  };
+ const togglePasswordVisibility = () => {
+  setShowPassword(!showPassword);
+};
 
  return (
     <form onSubmit={handleSubmit} className="col-md-6 position-relative">
@@ -72,9 +78,17 @@ const Validation: React.FC = () => {
         <label>Login</label>
         <input name="email" type="text" placeholder="Insira seu e-mail"  onChange={handleChange} />
       </Box>
-      <Box margin="32px 0px" typeBox="login" className="d-flex flex-column">
-        <label>Senha</label>
-        <input name='password' type="password" placeholder="Insira sua senha"  onChange={handleChange}></input>
+      <Box margin="32px 0px" typeBox="login" className="d-flex flex-column position-relative">
+      <label>Senha</label>
+        <input
+          name='password'
+          type={showPassword ? 'text' : 'password'}
+          placeholder="Insira sua senha"
+          onChange={handleChange}
+        />
+        <span onClick={togglePasswordVisibility} className='btn-visibility'>
+          {showPassword ? <IconVisibilityOff width={24}/> : <IconVisibility width={24}></IconVisibility>}
+        </span>
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </Box>
       <div className="d-flex justify-content-end">

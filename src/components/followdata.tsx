@@ -66,6 +66,7 @@ export interface DataFollow {
 }
 
 const FollowData: React.FC<FollowDataProps> = ({ className, devolutionId }) => {
+  
   const [data, setData] = useState<DataFollow | null>(null);
   const [isContentOpen, setIsContentOpen] = useState(false);
 

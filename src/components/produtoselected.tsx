@@ -18,7 +18,7 @@ import { useDataContext } from "../context/DataContext";
 import "slick-carousel/slick/slick-theme.css"; */
 interface ProductSelectedProps {
   className?: string;
-  produtos: Produto[];
+  produtos?: Produto[];
   produtosSelecionados?: Produto[];
   onDataUpdate?: (data: any) => void;
   onSaveTipoReembolso?: (tipoReembolso: string) => void;

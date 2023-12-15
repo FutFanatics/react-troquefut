@@ -289,8 +289,12 @@
 }
 
 .slide_devolution {
-  width: 90%;
-  margin: 0px auto;
+  width: 90% !important;
+  margin: 24px auto !important;
+}
+
+.slide-follow {
+  width: 125%;
 }
 
 .c-slider-product {
@@ -421,6 +425,11 @@
 
 .c-devolution {
   padding: 0px 0px 50px 0px;
+}
+@media (max-width: 768px) {
+  .c-devolution {
+    overflow: hidden;
+  }
 }
 
 .c-menu {
@@ -580,7 +589,7 @@ input[type=text] {
 
 .slick-prev:before, .slick-next:before {
   color: #00df5e !important;
-  font-size: 24px !important;
+  font-size: 28px !important;
   opacity: 1 !important;
 }
 

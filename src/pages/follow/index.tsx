@@ -13,6 +13,7 @@ import IconHelp from "../../componentsStyled/icon/Iconhelp";
 import { useNavigate, useLocation } from "react-router-dom";
 import DevTop from "../../componentsStyled/icon/devtop";
 import DevBottom from "../../componentsStyled/icon/devbottom";
+import TroqueFut from "../../componentsStyled/icon/LogoTroqueFut";
 
 
 export default function Follow() {
@@ -23,10 +24,19 @@ export default function Follow() {
   };
   const { state } = useLocation();
   const devolutionId = state?.devolutionId;
+  const handleHome = () =>{
+    navigate("/");
+  }
   return (
     <>
       <Header></Header>
-      <Menu typeOption="active"></Menu>
+      <section className="c-menu"> 
+            <div className="container">
+                <button onClick={handleHome} style={{border:'none', background:'none'}}>
+                <TroqueFut width={130} className="logo-troque-menu"></TroqueFut>
+                </button>
+            </div>
+        </section>
       <div className="container">
         <div className="d-flex align-items-center mb-3 mt-3 ">
           <Button typeButton="voltar" margin="0px" onClick={handleBack}>

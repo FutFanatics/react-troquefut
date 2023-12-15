@@ -7,7 +7,8 @@ import DevolutionItem from "./devolutionitem";
 import Button from "../componentsStyled/Button";
 import IconSearch from "../componentsStyled/icon/iconsearch";
 import IconNull from "../componentsStyled/icon/iconNull";
-
+import { useMediaQuery } from "react-responsive";
+import Slider from "react-slick";
 type Devolution = {
   id: string;
   imgs: { url: string }[];
@@ -18,7 +19,8 @@ const ListagemDevolucoes: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [currentDate, setCurrentDate] = useState<Date | null>(new Date());
   const [devolucoes, setDevolucoes] = useState<Devolution[]>([]);
-
+  
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   useEffect(() => {
     let auth = localStorage.getItem("auth");
     if (auth) {
@@ -74,7 +76,14 @@ const ListagemDevolucoes: React.FC = () => {
 
     setDevolucoes(filteredDevolucoes);
   };
-
+  const settings = {
+    dots: false,
+    arrows:false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+  };
   return (
     <div>
       <div className="d-flex justify-content-center mt-3 align-items-center box-date flex-column flex-md-row">
@@ -103,9 +112,10 @@ const ListagemDevolucoes: React.FC = () => {
       <SH1 color="#777" fontSize="16px" fontWeight={350} textAlign="start">
         Lista de devoluções
       </SH1>
-      <div className="d-flex flex-wrap justify-content-center">
-        {devolucoes.length === 0 ? (
-          <Box typeBox="not-dev">
+      {isMobile ? (
+        <div className="d-md-flex flex-wrap justify-content-center">
+          {devolucoes.length === 0 ? (
+            <Box typeBox="not-dev">
             <div className="content d-flex flex-column align-items-center">
               <IconNull width={50}></IconNull>
               <STextParagraph fontSize="14px" color="#777">
@@ -116,14 +126,39 @@ const ListagemDevolucoes: React.FC = () => {
               </STextParagraph>
             </div>
           </Box>
-        ) : (
-          devolucoes.map((devolucao) => (
-            <DevolutionItem key={devolucao.id} devolucao={devolucao} />
-          ))
-        )}
-      </div>
+          ) : (
+            <Slider {...settings} className="slide-follow">
+              {devolucoes.map((devolucao) => (
+                <DevolutionItem key={devolucao.id} devolucao={devolucao} />
+              ))}
+            </Slider>
+          )}
+        </div>
+      ) : (
+        <div className="d-flex flex-wrap justify-content-center">
+          {devolucoes.length === 0 ? (
+            <Box typeBox="not-dev">
+            <div className="content d-flex flex-column align-items-center">
+              <IconNull width={50}></IconNull>
+              <STextParagraph fontSize="14px" color="#777">
+                Nenhuma devolução encontrada
+              </STextParagraph>
+              <STextParagraph fontSize="14px" color="#777">
+                no período selecionado.
+              </STextParagraph>
+            </div>
+          </Box>
+          ) : (
+            devolucoes.map((devolucao) => (
+              <DevolutionItem key={devolucao.id} devolucao={devolucao} />
+            ))
+          )}
+        </div>
+      )}
     </div>
   );
 };
+
+
 
 export default ListagemDevolucoes;

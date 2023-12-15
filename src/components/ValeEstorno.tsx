@@ -54,6 +54,7 @@ const ValeEstorno: React.FC<ValeEstornoProps> = ({
   updateAgency,
   updateTypeBank,
 }) => {
+  
   const location = useLocation();
   const [dadosSelecionadosAtualizados, setDadosSelecionadosAtualizados] = useState<Produto[]>(location.state || []);
   const [checkboxMarcado, setCheckboxMarcado] = useState<boolean>(false);

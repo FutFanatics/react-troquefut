@@ -148,38 +148,46 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
   };
 
   const handleConfirmar = () => {
-    const dadosFinais = {
-      pedido: dadosSelecionadosAtualizados.map((produto: any) => {
-        if (
-          produto.selectedProduct?.tipoReembolso?.toLowerCase() === "estorno"
-        ) {
-          return {
-            ...produto,
-            BankReembolso: {
-              pixData: {
-                tipoPix: tipoPix,
-                chavePix: chavePix,
+    const areAllCheckboxesChecked = dadosSelecionadosAtualizados.every(
+      (produto: any) =>
+        produto.selectedProduct.tipoReembolso.toLowerCase() === "estorno"
+          ? checkboxMarcado
+          : true
+    );
+  
+    if (areAllCheckboxesChecked) {
+      const dadosFinais = {
+        pedido: dadosSelecionadosAtualizados.map((produto: any) => {
+          if (produto.selectedProduct?.tipoReembolso?.toLowerCase() === "estorno") {
+            return {
+              ...produto,
+              BankReembolso: {
+                pixData: {
+                  tipoPix: tipoPix,
+                  chavePix: chavePix,
+                },
+                bankData: {
+                  bank: bank,
+                  cpfcnpj: cpfcnpj,
+                  agency: agency,
+                  accont: accont,
+                  typebank: typebank,
+                },
               },
-              bankData: {
-                bank: bank,
-                cpfcnpj: cpfcnpj,
-                agency: agency,
-                accont: accont,
-                typebank: typebank,
-              },
-            },
-          };
-        }
-        return produto;
-      }),
-    };
-    setUpdatedData({ ...dadosFinais });
-
-    if (onDataUpdate) {
-      onDataUpdate(dadosSelecionadosAtualizados);
+            };
+          }
+          return produto;
+        }),
+      };
+  
+      setUpdatedData({ ...dadosFinais });
+  
+      if (onDataUpdate) {
+        onDataUpdate(dadosSelecionadosAtualizados);
+      }
+  
+      navigate("/shipping", { state: dadosFinais });
     }
-
-    navigate("/shipping", { state: dadosFinais });
   };
 
   const handleBack = () => {

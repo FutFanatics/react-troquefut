@@ -24,6 +24,7 @@ export default function Order() {
   const [data, setData] = useState<Pedido[]>([]);
   const [selectedId, setSelectedId] = useState("");
   const [showModal, setShowModal] = useState(false);
+  
 
   useEffect(() => {
     let auth = localStorage.getItem("auth");

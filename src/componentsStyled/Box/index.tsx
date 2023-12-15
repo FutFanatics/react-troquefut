@@ -403,7 +403,17 @@ export const Box = styled.div<Box>`
         flex-direction:column;
         justify-content:center;
         margin-top:8px;
+        margin-bottom:8px;
 
+        @media screen and (max-width: 768px) {
+            margin:8px auto;
+        }
+
+        .devolution-structure{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
         img{
             width: 150px;
             height: 150px;
@@ -477,7 +487,7 @@ export const Box = styled.div<Box>`
         input{
             border:none;
             border-bottom:1px solid #000;
-            width:100%;
+            width:100% !important;
             opacity:1;
 
             &::placeholder{
@@ -498,6 +508,9 @@ export const Box = styled.div<Box>`
 
         
         }
+        input[type="password"]{
+            padding:4px;
+        }
         .box-radios{
             
             input{
@@ -516,6 +529,12 @@ export const Box = styled.div<Box>`
             input[type="radio"]:checked {
                 background:red;
               }
+        }
+        .btn-visibility{
+            position: absolute;
+            right: 20px;
+            top: 30px;
+            cursor:pointer;
         }
 
         
@@ -695,7 +714,7 @@ export const Box = styled.div<Box>`
                 height:55px;
                 
                 @media screen and (max-width: 768px) {
-                    min-width:220px;
+                    min-width:250px;
                 }
                 a{
                     color:#fff;

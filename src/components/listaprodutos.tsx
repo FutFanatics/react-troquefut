@@ -6,6 +6,7 @@ import IconNull from "../componentsStyled/icon/iconNull";
 import ProductSelected from "./produtoselected";
 import Produtos from "./produtos";
 
+
 interface ListaProdutosProps {
   className?: string;
   selectedOption?: string;
@@ -40,7 +41,6 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
   const [allowed_clique_retire, setAllowed_clique_retire] = useState("");
   const [showProductSelected, setShowProductSelected] = useState(false);
 
-
   useEffect(() => {
     let auth = localStorage.getItem("auth");
 
@@ -53,7 +53,6 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
       const data: Uint8Array = encoder.encode(text);
 
       const dataArray: number[] = Array.from(data);
-
       const binaryString: string = String.fromCharCode.apply(null, dataArray);
       const basicAuth: string = btoa(binaryString);
 
@@ -72,6 +71,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
           setDelivery_date(response.data.delivery_date || "");
           setPayment_method(response.data.payment_method || "");
           setAllowed_clique_retire(response.data.allowed_clique_retire);
+          setProdutoSelecionado(null);
           setShowProductSelected(false);
         })
         .catch(function (error) {
@@ -79,6 +79,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
         });
     }
   }, [selectedId]);
+
   const onSelectProduto = (produto: Produto) => {
     setProdutoSelecionado(produto);
   };
@@ -124,20 +125,22 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
             </div>
           )}
 
-          <div
-            className="mt-1 mb-2 justify-content-center align-items-center flex-wrap"
-            style={{ justifyContent: "center" }}
-          >
-            <Produtos
-              produtos={pedido?.Products || []}
-              selectedId={selectedId || ""}
-              onSelect={() => {}}
-              key={1}
-              delivery_date={delivery_date}
-              payment_method={payment_method}
-              allowed_clique_retire={allowed_clique_retire}
-            />
-          </div>
+          {produtoSelecionado === null && (
+            <div
+              className="mt-1 mb-2 justify-content-center align-items-center flex-wrap"
+              style={{ justifyContent: "center" }}
+            >
+              <Produtos
+                produtos={pedido?.Products || []}
+                selectedId={selectedId || ""}
+                handleSelect={onSelectProduto}
+                key={1}
+                delivery_date={delivery_date}
+                payment_method={payment_method}
+                allowed_clique_retire={allowed_clique_retire}
+              />
+            </div>
+          )}
         </div>
       </section>
     </>

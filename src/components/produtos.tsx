@@ -18,6 +18,7 @@ interface ProdutosProps {
   onSelect?: () => void;
   orderId?: any;
   selectedId?: string;
+  handleSelect?: (produto: Produto) => void;
   allowed_clique_retire?: string;
 }
 
@@ -29,6 +30,7 @@ const Produtos: React.FC<ProdutosProps> = ({
   orderId,
   selectedId,
   allowed_clique_retire,
+  handleSelect
 }) => {
   const { data, updateData } = useDataContext();
 
@@ -80,7 +82,11 @@ const Produtos: React.FC<ProdutosProps> = ({
   const handleDataUpdate = (dadosSelecionados: any) => {
     console.log('Updated data from ProductSelected dados:', dadosSelecionados);
   };
-
+  const handleProdutoSelect = (produto: Produto) => {
+    if (handleSelect) {
+      handleSelect(produto);
+    }
+  };
 
   const handleConfirmar = () => {
     const dadosSelecionados = {

@@ -71,13 +71,15 @@ export interface DataFollow {
 }
 
 const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolutionId }) => {
+  
   const [data, setData] = useState<DataFollow | null>(null);
   const [modalType, setModalType] = useState("");
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
   const [isContentOpen, setIsContentOpen] = useState(!isMobile);
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const settings = {
-    dots: false,
+    dots:true,
+    arrow:true,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
@@ -88,12 +90,14 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
+          arrow:false,
         },
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
+          arrow:false,
         },
       },
     ],
@@ -181,6 +185,9 @@ console.log('cade', data)
                       <div className="d-flex justify-content-between flex-column flex-md-row">
                         <div className="content-img">
                           <img src={product.image ?? undefined} alt={`Product Image ${productIndex + 1}`} />
+                          <Button typeButton="followdevolution" onClick={handleButtonClick}>
+                            {data.status.title}
+                          </Button>
                         </div>
                         <div className="content-product_describe">
                           <h3>{product.name || "-"}</h3>
@@ -230,9 +237,7 @@ console.log('cade', data)
                     </div>
                   ))}
               </Slider>
-              <Button typeButton="followdevolution" onClick={handleButtonClick}>
-                {data.status.title}
-              </Button>
+              
             </>
           ) : null}
           {modalType === "analise" && <ModalAnalise isOpen={true} onRequestClose={closeModal} />}

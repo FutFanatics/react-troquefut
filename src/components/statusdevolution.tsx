@@ -8,7 +8,7 @@ import IconAcompanhe from "../componentsStyled/icon/Iconacompanhe";
 import IconReembolso from "../componentsStyled/icon/Iconreembolso";
 import IconCheck from "../componentsStyled/icon/Iconcheck";
 import axios from "axios";
-
+import useSessionTimeoutValidation from '../components/useSessionTimeoutValidation';
 interface StatusDevolutionProps {
   className?: string;
   devolutionId?: string;

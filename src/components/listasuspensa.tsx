@@ -42,7 +42,7 @@ const ListaSuspensa: React.FC<ListaSuspensaProps> = ({
           onChange={handleOptionChange}
           className="col-md-10 lista-select"
         >
-          <option value="">Selecione uma opção</option>
+          <option value="" disabled>Selecione uma opção</option>
           {items.map((item, index) => (
             <option key={index} value={item.value}>
               {item.label}

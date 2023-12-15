@@ -6,6 +6,7 @@ import { Devolution } from "./Types";
 import Slider from "react-slick";
 import Button from "../componentsStyled/Button";
 import IconArrowRight from "../componentsStyled/icon/Iconarrowright";
+import Default from "../img/default-devolution.png"
 import IconSucess from "../componentsStyled/icon/Iconsucess";
 import { useNavigate } from "react-router-dom";
 interface DevolutionItemProps {
@@ -33,6 +34,7 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
   };
   const settings = {
     dots: false,
+    arrows:false,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
@@ -63,7 +65,7 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
 
   return (
     <Box typeBox="product-devolution">
-      <div key={devolucao.id} >
+      <div key={devolucao.id}>
       {Array.isArray(devolucao.imgs) && devolucao.imgs.length > 0 ? (
         <Slider {...settings}>
           {devolucao.imgs.map((img, index) => (
@@ -73,7 +75,9 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
           ))}
         </Slider>
       ) : (
-        <p>Sem imagens disponíveis da devolução</p>
+        <div className="devolution-structure">
+          <img src={Default}/>
+        </div>
       )}
         <div className="mt-3">
           <p>
