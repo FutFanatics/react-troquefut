@@ -288,6 +288,11 @@
   }
 }
 
+.slide_devolution {
+  width: 90%;
+  margin: 0px auto;
+}
+
 .c-slider-product {
   margin: 0px auto;
 }
@@ -515,7 +520,7 @@ input[type=text] {
   color: #FFF;
   border: none;
   height: 45px;
-  margin: 24px auto 16px auto;
+  margin: 24px auto 24px auto;
 }
 .button-fut a {
   color: #fff;

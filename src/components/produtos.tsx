@@ -175,7 +175,7 @@ const Produtos: React.FC<ProdutosProps> = ({
           </Slider>
           
           {produtosSelecionados.length > 0 && (
-            <Button onClick={handleConfirmar} className={`mt- mb-3 ${isButtonDisabled ? 'disabled' : ''}`} disabled={isButtonDisabled} margin="0px auto">
+            <Button onClick={handleConfirmar} className={`mb-3 ${isButtonDisabled ? 'disabled' : ''}`} disabled={isButtonDisabled} margin="24px auto">
               Continuar
             </Button>
 

@@ -146,7 +146,7 @@ export const SH1 =styled.h1<SH1Props>`
         color:rgba(56,56,56, 0.7);
         font-size:14px;
         text-align:start;
-        font-weight:400px;
+        font-weight:400;
     `}
     ${props => props.typeParagraph === 'pedido' && `
         text-align:start;

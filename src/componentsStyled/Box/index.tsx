@@ -42,7 +42,7 @@ export const Box = styled.div<Box>`
         align-items:center;
         justify-content:center;
         border-radius:10px;
-        margin-bottom:32px;
+        margin-bottom:16px;
         margin-top:16px;
         margin-left:0px;
         margin-rigth:0px;

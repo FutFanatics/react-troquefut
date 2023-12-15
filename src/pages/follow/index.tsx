@@ -40,8 +40,6 @@ export default function Follow() {
       </div>
 
       <div className="c-follow position-relative">
-      <DevTop className="position-absolute arrow-top"></DevTop>
-        <DevBottom className="position-absolute arrow-bottom"></DevBottom>
         <Box typeBox="icon-help">
           <div className="informação">
             Dúvidas de como funciona? Acesse nossa

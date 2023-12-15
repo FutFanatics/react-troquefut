@@ -45,7 +45,7 @@ const SButton = styled.button<SButtonProps>`
     display: flex;
     font-family: 'gotham';
     align-items: center;
-    margin: ${(props) => props.margin || '0px 0px 16px 0px'};
+    margin: ${(props) => props.margin || '16px 0px 24px 0px'};
 
     &:disabled{
         opacity:0.5;
