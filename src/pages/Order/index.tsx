@@ -145,7 +145,7 @@ export default function Order() {
         <Box typeBox="icon-help">
           <div className="informação">
             Dúvidas de como funciona?
-            Acesse nossa <a href="YOUR_HELP_CENTER_URL">Central de ajuda</a>
+            Acesse nossa <a href="https://www.futfanatics.com.br/portal-de-ajuda" target="_blank">Central de ajuda</a>
           </div>
           <IconHelp width={30}/>
         </Box>

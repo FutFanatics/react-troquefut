@@ -230,7 +230,7 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
         <Box typeBox="icon-help">
           <div className="informação">
             Dúvidas de como funciona? Acesse nossa{" "}
-            <a href="">Central de ajuda</a>
+            <a href="https://www.futfanatics.com.br/portal-de-ajuda" target="_blank">Central de ajuda</a>
           </div>
           <IconHelp width={30} />
         </Box>

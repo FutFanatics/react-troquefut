@@ -26,6 +26,7 @@ interface ProductSelectedProps {
   orderId?: string;
   allowed_clique_retire?: string;
   delivery_date?: string;
+  payment_method?:string;
 }
 
 const ProductSelected: React.FC<ProductSelectedProps> = ({
@@ -34,6 +35,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   onSaveTipoReembolso,
   produtoSelecionadoData,
   orderId,
+  payment_method,
   allowed_clique_retire,
   delivery_date,
 }) => {
@@ -193,7 +195,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       onDataUpdate(newData);
     }
   };
-
+console.log('iai', payment_method)
   const closeModal = () => {
     setModalIsOpen(false);
   };
@@ -326,14 +328,17 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
 
       setIsBotaoConfirmarHabilitado(true);
 
-      if (tipoReembolso.toLowerCase() === "estorno") {
-        onDataUpdate(dadosSelecionadosAtualizados);
-        setIsModalOpen(true);
-        setDadosSelecionados(dadosSelecionadosAtualizados);
-      } else if (tipoReembolso.toLowerCase() === "cartão de crédito") {
-        navigate("/alguma_rota", {
+      if (payment_method.toLowerCase() === "Cartão") {
+        navigate("/shipping", {
           state: dadosSelecionadosAtualizados,
         });
+        onDataUpdate(dadosSelecionadosAtualizados);
+        
+      } else if (
+      tipoReembolso.toLowerCase() === "estorno") {
+        onDataUpdate(dadosSelecionadosAtualizados);
+        setIsModalOpen(true);
+        setDadosSelecionados(dadosSelecionadosAtualizados); 
       } else {
         navigate("/data", {
           state: dadosSelecionadosAtualizados,

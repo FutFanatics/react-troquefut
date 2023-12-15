@@ -19,7 +19,7 @@ interface DevolutionItemProps {
 
 const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
   const navigate = useNavigate();
-
+  const formattedDate = new Date(devolucao.created_at).toLocaleDateString('pt-BR');
   const handleFollowClick = () => {
     navigate("/follow", { state: { devolutionId: devolucao.id } });
   };
@@ -71,7 +71,7 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
           <p>
             <strong>ID:</strong> {devolucao.id}
           </p>
-          <p>{devolucao.created_at}</p>
+          <p>{formattedDate}</p>
           <Button typeButton="devolution-status" className={`${getStatusStyle()}`} onClick={handleFollowClick}>
           {devolucao.result === "pending" ? "Acompanhar" : "Concluída"}{getIcon()} 
           </Button>
