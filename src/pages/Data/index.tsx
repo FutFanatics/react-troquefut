@@ -46,7 +46,15 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
   const [accont, setAccont] = useState<string>("");
   const [agency, setAgency] = useState<string>("");
   const [typebank, setTypeBank] = useState<string>("");
-  
+  const [areAllCheckboxesChecked, setAreAllCheckboxesChecked] =
+    useState<boolean>(false);
+  const [checkboxStates, setCheckboxStates] = useState<{ [key: string]: boolean }>(
+    dadosSelecionadosAtualizados.reduce((acc, produto, index) => {
+      acc[`${produto.id}_${index}`] = false;
+      return acc;
+    }, {} as { [key: string]: boolean })
+  );
+
   const updateTipoPix = (tipoPixValue: string | null) => {
     setTipoPix(tipoPixValue);
   };
@@ -54,24 +62,44 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
   const updateChavePix = (chavePixValue: string) => {
     setChavePix(chavePixValue);
   };
+
   const updateBank = (bankValue: string) => {
     setBank(bankValue);
   };
+
   const updateCpfcnpj = (cpfcnpjValue: string) => {
     setCpfcnpj(cpfcnpjValue);
   };
+
   const updateAccont = (accontValue: string) => {
     setAccont(accontValue);
   };
+
   const updateAgency = (agencyValue: string) => {
     setAgency(agencyValue);
   };
+
   const updateTypeBank = (typebankValue: string) => {
     setTypeBank(typebankValue);
   };
 
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckboxMarcado(event.target.checked);
+  useEffect(() => {
+    const allCheckboxesChecked = Object.values(checkboxStates).every(
+      (isChecked) => isChecked
+    );
+    setAreAllCheckboxesChecked(allCheckboxesChecked);
+  }, [checkboxStates]);
+
+  const handleCheckboxChange = (productId: number, variantValue: string, index: number) => (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const key = `${productId}_${variantValue}_${index}`;
+    console.log(`Checkbox clicked for key: ${key}, Checked: ${event.target.checked}`);
+
+    setCheckboxStates((states) => ({
+      ...states,
+      [key]: event.target.checked,
+    }));
   };
 
   const sliderSettings = {
@@ -95,20 +123,23 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
     const tiposReembolso = dadosSelecionadosAtualizados.map(
       (produto: any) => produto.selectedProduct.tipoReembolso
     );
-
+  
     if (tiposReembolso.every((tipo, index, array) => tipo === array[0])) {
-      return renderReembolsoByType(tiposReembolso[0]);
+      const firstProduct = dadosSelecionadosAtualizados[0];
+      const { id: productId, variant_value: variantValue } = firstProduct;
+  
+      return renderReembolsoByType(tiposReembolso[0], productId, variantValue);
     }
-
+  
     return null;
   };
 
-  const renderReembolsoByType = (tipoReembolso: string) => {
+  const renderReembolsoByType = (tipoReembolso: string, productId: number, variantValue: string) => {
     const reembolsoComponents = {
-      Cupom: <ValeCompras onCheckboxChange={handleCheckboxChange} />,
+      Cupom: <ValeCompras onCheckboxChange={handleCheckboxChange(productId, variantValue, 0)} />,
       Estorno: (
         <ValeEstorno
-          onCheckboxChange={handleCheckboxChange}
+          onCheckboxChange={handleCheckboxChange(productId, variantValue, 0)}
           produtos={dadosSelecionadosAtualizados}
           onConfirm={() => setIsInformationConfirmed(true)}
           tipoPix={tipoPix}
@@ -132,39 +163,42 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
   };
 
   const isSameReembolsoType =
-  Array.isArray(dadosSelecionadosAtualizados) &&
-  dadosSelecionadosAtualizados.length > 0 &&
-  dadosSelecionadosAtualizados.every(
-    (produto: any, index: number, array: any[]) =>
-      produto.selectedProduct.tipoReembolso ===
-      array[0].selectedProduct.tipoReembolso
-  );
+    Array.isArray(dadosSelecionadosAtualizados) &&
+    dadosSelecionadosAtualizados.length > 0 &&
+    dadosSelecionadosAtualizados.every(
+      (produto: any, index: number, array: any[]) =>
+        produto.selectedProduct.tipoReembolso === array[0].selectedProduct.tipoReembolso
+    );
 
   const renderDifferentReembolsoComponent = (
     tipoReembolso: string,
-    onConfirm: () => void
+    productId: number,
+    variantValue: string,
+    index: number
   ) => {
-    return renderReembolsoByType(tipoReembolso);
+    return renderReembolsoByType(tipoReembolso, productId, variantValue);
   };
 
+  useEffect(() => {
+    const allCheckboxesChecked = Object.values(checkboxStates).every((isChecked) => isChecked);
+    setAreAllCheckboxesChecked(allCheckboxesChecked);
+  }, [checkboxStates]);
+
   const handleConfirmar = () => {
-    let areAllCheckboxesChecked = true;
-  
-    dadosSelecionadosAtualizados.forEach((produto: any) => {
-      if (
-        produto.selectedProduct.tipoReembolso.toLowerCase() === "estorno" &&
-        !checkboxMarcado
-      ) {
+    let areAllCheckboxesChecked = Object.values(checkboxStates).every((isChecked) => isChecked);
+
+    console.log("Are all checkboxes checked?", areAllCheckboxesChecked);
+
+    dadosSelecionadosAtualizados.forEach((produto: any, index: number) => {
+      if (produto.selectedProduct.tipoReembolso.toLowerCase() === "estorno" && !areAllCheckboxesChecked) {
         areAllCheckboxesChecked = false;
       }
     });
-  
+
     if (areAllCheckboxesChecked) {
       const dadosFinais = {
-        pedido: dadosSelecionadosAtualizados.map((produto: any) => {
-          if (
-            produto.selectedProduct?.tipoReembolso?.toLowerCase() === "estorno"
-          ) {
+        pedido: dadosSelecionadosAtualizados.map((produto: any, index: number) => {
+          if (produto.selectedProduct?.tipoReembolso?.toLowerCase() === "estorno") {
             return {
               ...produto,
               BankReembolso: {
@@ -185,16 +219,19 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
           return produto;
         }),
       };
-  
+
       setUpdatedData({ ...dadosFinais });
       if (onDataUpdate) {
         onDataUpdate(dadosSelecionadosAtualizados);
       }
-  
+
       navigate("/shipping", { state: dadosFinais });
     }
   };
-  
+
+  console.log("Checking checkboxes:", checkboxStates);
+  console.log("Final result - Are all checkboxes checked?", areAllCheckboxesChecked);
+
   const handleBack = () => {
     navigate("/order");
   };
@@ -269,34 +306,37 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
             ) : (
               <Slider {...sliderSettings} className="col-md-10 c-slide">
                 {Array.isArray(dadosSelecionadosAtualizados) && dadosSelecionadosAtualizados.map(
-                (produto: any, index: number) => (
-                    <React.Fragment key={produto.id}>
-                      <Box typeBox="estorno" className="d-flex flex-column">
-                        <IconFinance width={64}></IconFinance>
-                        <div className="container-reembolso d-flex justify-content-center mt-4 flex-column flex-md-row">
-                          <div className="c-box-product d-flex flex-column justify-content-center align-items-center">
-                            <img
-                              src={produto.img}
-                              className="picture"
-                              alt={`Product ${index}`}
-                            />
-                            <h1>{produto.name}</h1>
-                            <span>Variação: {produto.variant_value}</span>
-                          </div>
-                          {renderDifferentReembolsoComponent(
-                            produto.selectedProduct.tipoReembolso,
-                            () => setIsInformationConfirmed(true)
-                          )}
-                        </div>
-                      </Box>
-                    </React.Fragment>
-                  )
-                )}
+  (produto: any, index: number) => (
+    <React.Fragment key={produto.id}>
+      <Box typeBox="estorno" className="d-flex flex-column">
+        <IconFinance width={64}></IconFinance>
+        <div className="container-reembolso d-flex justify-content-center mt-4 flex-column flex-md-row">
+          <div className="c-box-product d-flex flex-column justify-content-center align-items-center">
+            <img
+              src={produto.img}
+              className="picture"
+              alt={`Product ${index}`}
+            />
+            <h1>{produto.name}</h1>
+            <span>Variação: {produto.variant_value}</span>
+          </div>
+          {renderDifferentReembolsoComponent(
+            produto.selectedProduct.tipoReembolso,
+            produto.id,
+            produto.variant_value,
+            index,
+          )}
+        </div>
+      </Box>
+    </React.Fragment>
+  )
+)}
+
               </Slider>
             )}
             <button
               onClick={handleConfirmar}
-              disabled={!checkboxMarcado}
+              disabled={!areAllCheckboxesChecked}
               className="button-fut"
             >
               Avançar

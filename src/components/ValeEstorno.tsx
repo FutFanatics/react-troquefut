@@ -29,6 +29,7 @@ interface ValeEstornoProps {
   updateAccont: (accontValue: string | null) => void;
   updateAgency: (agencyValue: string) => void;
   updateTypeBank:(typebankValue: string | null) => void;
+  
 }
 
 interface Bank {
@@ -221,7 +222,7 @@ const ValeEstorno: React.FC<ValeEstornoProps> = ({
             <Box typeBox="login" margin="0px">
               <label>Tipo de Pix</label>
               <select className="w-100" onChange={handleTipoPixChange}>
-                <option>Selecione o tipo</option>
+                <option disabled>Selecione o tipo</option>
                 <option>Celular</option>
                 <option>CPF ou CNPJ</option>
                 <option>Chave Aleatória</option>

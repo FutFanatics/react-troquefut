@@ -84,6 +84,7 @@ const ListagemDevolucoes: React.FC = () => {
     slidesToShow: 2,
     slidesToScroll: 1,
   };
+  console.log("mostra", devolucoes)
   return (
     <div>
       <div className="d-flex justify-content-center mt-3 align-items-center box-date flex-column flex-md-row">

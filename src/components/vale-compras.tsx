@@ -15,7 +15,7 @@ const ValeCompras: React.FC<ValeComprasProps> = ({ className,onCheckboxChange })
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.target.checked;
     setCheckboxMarcado(checked);
-    onCheckboxChange(event); 
+    onCheckboxChange(event);
   };
   const [checkboxMarcado, setCheckboxMarcado] = useState<boolean>(false);
   return (
