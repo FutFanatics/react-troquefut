@@ -97,7 +97,7 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          arrow:false,
+          arrows:false,
         },
       },
     ],

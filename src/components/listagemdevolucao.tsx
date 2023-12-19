@@ -78,7 +78,7 @@ const ListagemDevolucoes: React.FC = () => {
   };
   const settings = {
     dots: false,
-    arrows:false,
+    arrow:false,
     infinite: false,
     speed: 500,
     slidesToShow: 2,

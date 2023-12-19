@@ -148,17 +148,23 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
   };
 
   const handleConfirmar = () => {
-    const areAllCheckboxesChecked = dadosSelecionadosAtualizados.every(
-      (produto: any) =>
-        produto.selectedProduct.tipoReembolso.toLowerCase() === "estorno"
-          ? checkboxMarcado
-          : true
-    );
+    let areAllCheckboxesChecked = true;
+  
+    dadosSelecionadosAtualizados.forEach((produto: any) => {
+      if (
+        produto.selectedProduct.tipoReembolso.toLowerCase() === "estorno" &&
+        !checkboxMarcado
+      ) {
+        areAllCheckboxesChecked = false;
+      }
+    });
   
     if (areAllCheckboxesChecked) {
       const dadosFinais = {
         pedido: dadosSelecionadosAtualizados.map((produto: any) => {
-          if (produto.selectedProduct?.tipoReembolso?.toLowerCase() === "estorno") {
+          if (
+            produto.selectedProduct?.tipoReembolso?.toLowerCase() === "estorno"
+          ) {
             return {
               ...produto,
               BankReembolso: {
@@ -181,7 +187,6 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
       };
   
       setUpdatedData({ ...dadosFinais });
-  
       if (onDataUpdate) {
         onDataUpdate(dadosSelecionadosAtualizados);
       }
@@ -189,7 +194,7 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
       navigate("/shipping", { state: dadosFinais });
     }
   };
-
+  
   const handleBack = () => {
     navigate("/order");
   };

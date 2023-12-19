@@ -105,7 +105,7 @@ const Produtos: React.FC<ProdutosProps> = ({
 
   const sliderSettings = {
     dots: true,
-    arrows: true,
+    arrow: true,
     infinite: false,
     speed: 500,
     slidesToShow: 2,

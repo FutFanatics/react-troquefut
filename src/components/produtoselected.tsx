@@ -70,18 +70,23 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   );
   const [isMediaRequiredError, setIsMediaRequiredError] = useState(false);
   const navigate = useNavigate();
+  
 
 
   const areAllFieldsFilled = () => {
     return produtos.every((produto) => {
       const data = produtoData[produto.product_id]?.[produto.variant_value] || {};
+      const selectedReason = reasons.find(
+        (reason) => reason.description === data.motivoDevolucao
+      );
+  
       return (
         data.tipoReembolso &&
-        data.quantidade !== "" &&
         data.motivoDevolucao &&
+        data.quantidade !== "" &&
         data.subDevolucao !== "" &&
         data.obsDev !== "" &&
-        (data.motivoDevolucao.media_required !== 1 || fotoAdicionada) 
+        (!selectedReason || selectedReason.media_required !== 1 || fotoAdicionada)
       );
     });
   };
@@ -315,44 +320,40 @@ console.log('iai', payment_method)
         ...produto,
       };
     });
-
+  
     console.log("Dados selecionados poroduct:", dadosSelecionadosAtualizados);
-
+  
     const todosCamposPreenchidos = areAllFieldsFilled();
     const isMediaRequiredFilled = !isMediaRequiredError;
-
-    if (todosCamposPreenchidos) {
+  
+    if (todosCamposPreenchidos && isMediaRequiredFilled) {
       if (onDataUpdate) {
         onDataUpdate(dadosSelecionadosAtualizados);
       }
-
+  
       setIsBotaoConfirmarHabilitado(true);
-
-      if (payment_method.toLowerCase() === "Cartão") {
+  
+      if (payment_method.toLowerCase() === "cartão") {
         navigate("/shipping", {
           state: dadosSelecionadosAtualizados,
         });
-        onDataUpdate(dadosSelecionadosAtualizados);
-        
-      } else if (
-      tipoReembolso.toLowerCase() === "estorno") {
-        onDataUpdate(dadosSelecionadosAtualizados);
+      } else if (tipoReembolso.toLowerCase() === "estorno") {
         setIsModalOpen(true);
-        setDadosSelecionados(dadosSelecionadosAtualizados); 
+        setDadosSelecionados(dadosSelecionadosAtualizados);
       } else {
         navigate("/data", {
           state: dadosSelecionadosAtualizados,
         });
         setIsModalOpen(true);
-
         setDadosSelecionados(dadosSelecionadosAtualizados);
       }
     } else {
       console.error("Preencha todos os campos antes de confirmar");
       setIsBotaoConfirmarHabilitado(false);
-      setIsMediaRequiredError(true);
+      setIsMediaRequiredError(!isMediaRequiredFilled);
     }
   };
+  
 
   const settings = {
     dots: true,
@@ -367,7 +368,7 @@ console.log('iai', payment_method)
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
-          arrow: false,
+          arrows: false,
         },
       },
 
@@ -468,19 +469,17 @@ console.log('iai', payment_method)
                       *Quantidade
                     </STextParagraph>
                     <ListaSelected
-                      options={[]}
-                      quantityNumber={produto.quantity}
-                      onChange={(selectedValue) =>
-                        handleSelectChange(
-                          produto.product_id,
-                          produto.variant_value,
-                          "quantidade",
-                          selectedValue as number | ""
-                        )
-                      }
-                      selectedValue={produtoData[produto.product_id]?.[produto.variant_value]?.quantidade
-                      }
-                    ></ListaSelected>
+                    options={Array.from({ length: produto.quantity }, (_, i) => i + 1)}
+                    onChange={(selectedValue) =>
+                      handleSelectChange(
+                        produto.product_id,
+                        produto.variant_value,
+                        "quantidade",
+                        selectedValue as number | ""
+                      )
+                    }
+                    selectedValue={produtoData[produto.product_id]?.[produto.variant_value]?.quantidade}
+                  />
                   </div>
                 </div>
                 <div className="d-md-flex justify-content-between">

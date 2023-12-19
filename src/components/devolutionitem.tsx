@@ -34,7 +34,7 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
   };
   const settings = {
     dots: false,
-    arrows:false,
+    arrow:false,
     infinite: false,
     speed: 500,
     slidesToShow: 1,

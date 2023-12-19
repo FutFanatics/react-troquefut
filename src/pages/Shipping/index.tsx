@@ -28,7 +28,7 @@ const Shipping: React.FC<ShippingProps> = ({}) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [dadosFinais, setDadosFinais] = useState(location.state || {});
   const [novosDadosSelecionados, setNovosDadosSelecionados] = useState({}); 
-  const { data, updateData } = useDataContext();
+  const { data } = useDataContext();
 
   const navigate = useNavigate();
 
@@ -49,6 +49,9 @@ const Shipping: React.FC<ShippingProps> = ({}) => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+  useEffect(() => {
+    setDadosFinais(location.state || {});
+  }, [location.state]);
   const cliqueRetireComponent = dadosFinais.allowed_clique_retire ? (
     <div className="item d-flex justify-content-center">
       <CliqueRetire
@@ -86,7 +89,7 @@ const Shipping: React.FC<ShippingProps> = ({}) => {
   };
 
   const handleBack = () => {
-    navigate("/data");
+    navigate("/data", { state: { pedido: dadosFinais.pedido || [] } });
   };
   console.log("cade", dadosFinais);
   return (
