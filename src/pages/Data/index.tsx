@@ -48,13 +48,9 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
   const [typebank, setTypeBank] = useState<string>("");
   const [areAllCheckboxesChecked, setAreAllCheckboxesChecked] =
     useState<boolean>(false);
-  const [checkboxStates, setCheckboxStates] = useState<{ [key: string]: boolean }>(
-    dadosSelecionadosAtualizados.reduce((acc, produto, index) => {
-      acc[`${produto.id}_${index}`] = false;
-      return acc;
-    }, {} as { [key: string]: boolean })
-  );
+    const [checkboxStates, setCheckboxStates] = useState<{ [key: string]: boolean }>({});
 
+  
   const updateTipoPix = (tipoPixValue: string | null) => {
     setTipoPix(tipoPixValue);
   };
@@ -82,26 +78,47 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
   const updateTypeBank = (typebankValue: string) => {
     setTypeBank(typebankValue);
   };
-
-  useEffect(() => {
-    const allCheckboxesChecked = Object.values(checkboxStates).every(
-      (isChecked) => isChecked
-    );
-    setAreAllCheckboxesChecked(allCheckboxesChecked);
-  }, [checkboxStates]);
-
-  const handleCheckboxChange = (productId: number, variantValue: string, index: number) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const key = `${productId}_${variantValue}_${index}`;
-    console.log(`Checkbox clicked for key: ${key}, Checked: ${event.target.checked}`);
-
-    setCheckboxStates((states) => ({
-      ...states,
-      [key]: event.target.checked,
+  
+  
+  console.log("cade mo", dadosSelecionadosAtualizados)
+  const updateCheckboxState = (key: string, value: boolean) => {
+    setCheckboxStates((prevState) => ({
+      ...prevState,
+      [key]: value,
     }));
   };
-
+  
+  const handleCheckboxChange = (variant_id: number | undefined, variantValue: string, index: number) => (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const key = `${variant_id}_${variantValue}`;
+    console.log(`Checkbox clicked for key: ${key}, Checked: ${event.target.checked}`);
+  
+    updateCheckboxState(key, event.target.checked);
+  
+    if (Array.isArray(dadosSelecionadosAtualizados)) {
+      const updatedData = dadosSelecionadosAtualizados.map((produto: any, idx: number) => {
+        if (idx === index) {
+          return {
+            ...produto,
+            checkbox: event.target.checked,
+          };
+        }
+        return produto;
+      });
+  
+      setDadosSelecionadosAtualizados(updatedData);
+    }
+  };
+  
+  useEffect(() => {
+    console.log('Checkbox States:', checkboxStates);
+  
+    const allCheckboxesChecked = Array.isArray(dadosSelecionadosAtualizados) &&
+      dadosSelecionadosAtualizados.every((produto: any) => checkboxStates[`${produto.id}_${produto.variant_value}`]);
+  
+    setAreAllCheckboxesChecked(allCheckboxesChecked);
+  }, [checkboxStates, dadosSelecionadosAtualizados]);
   const sliderSettings = {
     dots: true,
     infinite: false,
@@ -134,7 +151,7 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
     return null;
   };
 
-  const renderReembolsoByType = (tipoReembolso: string, productId: number, variantValue: string) => {
+  const renderReembolsoByType = (tipoReembolso: string, productId: number, variantValue: string, index?:number) => {
     const reembolsoComponents = {
       Cupom: <ValeCompras onCheckboxChange={handleCheckboxChange(productId, variantValue, 0)} />,
       Estorno: (
@@ -174,15 +191,9 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
     tipoReembolso: string,
     productId: number,
     variantValue: string,
-    index: number
   ) => {
-    return renderReembolsoByType(tipoReembolso, productId, variantValue);
+    return renderReembolsoByType( tipoReembolso, productId, variantValue);
   };
-
-  useEffect(() => {
-    const allCheckboxesChecked = Object.values(checkboxStates).every((isChecked) => isChecked);
-    setAreAllCheckboxesChecked(allCheckboxesChecked);
-  }, [checkboxStates]);
 
   const handleConfirmar = () => {
     let areAllCheckboxesChecked = Object.values(checkboxStates).every((isChecked) => isChecked);
@@ -324,7 +335,6 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
             produto.selectedProduct.tipoReembolso,
             produto.id,
             produto.variant_value,
-            index,
           )}
         </div>
       </Box>
@@ -337,10 +347,13 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
             <button
               onClick={handleConfirmar}
               disabled={!areAllCheckboxesChecked}
-              className="button-fut"
-            >
+              className={`button-fut ${!areAllCheckboxesChecked ? 'disabled' : ''}`}
+              >
               Avançar
             </button>
+              {!areAllCheckboxesChecked && (
+                <p style={{ color: "red", fontSize: "12px", marginTop: "-16px" }}>É necessário preencher todos os campos para prosseguir.</p>
+              )}
           </div>
         </div>
       </section>
