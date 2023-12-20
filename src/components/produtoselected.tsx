@@ -587,9 +587,14 @@ console.log('iai', payment_method)
           </Box>
         ))}
       </Slider>
+      {(!isFotoAdicaoValida || !areAllFieldsFilled()) && (
+        <p style={{ color: "red", fontSize: "12px", marginTop: "8px", textAlign:"center", marginBottom:"-24px" }}>
+          Por favor, preencha todos os campos obrigatórios antes de confirmar.
+        </p>
+      )}
       <button
         onClick={handleConfirmar}
-        disabled={!isFotoAdicaoValida}
+        disabled={!isFotoAdicaoValida || !areAllFieldsFilled()}
         className="button-fut"
       >
         Confirmar

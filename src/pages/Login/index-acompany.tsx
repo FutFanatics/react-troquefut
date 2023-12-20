@@ -4,6 +4,7 @@ import TroqueFut from "../../componentsStyled/icon/LogoTroqueFut";
 import Header from "../../components/header";
 import Validation from "../../components/validation";
 import ValidationAcompany from "../../components/validationacompany";
+import {  useNavigate } from "react-router-dom";
 import { STextParagraph } from "../../componentsStyled/Text";
 
 interface LoginProps {
@@ -14,13 +15,18 @@ interface LoginProps {
 }
 
 const LoginAcompany: React.FC<LoginProps> = ({ className }) => {
-
+  const navigate = useNavigate();
+  const handleHome = () =>{
+    navigate("/");
+  }
   return (
     <>
     <Header></Header>
     <div className="container container-login">
         <div className="d-flex justify-content-center align-items-center flex-column mt-5">
-            <TroqueFut width={200} className="logo-troque"></TroqueFut>
+              <button onClick={handleHome} style={{border:'none', background:'none'}}>
+                <TroqueFut width={200} className="logo-troque"></TroqueFut>
+              </button>
             <STextParagraph margin="64px 0px 0px 0px" fontSize="16px" fontWeight={400}>
             Para acessar a plataforma, faça o login abaixo:
             </STextParagraph>

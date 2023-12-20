@@ -176,7 +176,12 @@ const SButton = styled.button<SButtonProps>`
         font-weight:400;
         margin:0px auto;
         font-size:14px;
-        margin:16px 0px 0px 0px;
+        margin:16px auto 0px auto;
+
+        &.red{
+            color:#CE0000;
+            border:1px solid #CE0000;
+        }
     `}
     ${props => props.typeButton === 'voltar' && `
         border:none;

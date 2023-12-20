@@ -9,6 +9,7 @@ import { useMediaQuery } from "react-responsive";
 import IconArrowBottom from "../componentsStyled/icon/Iconarrowbottom";
 import IconArrowTop from "../componentsStyled/icon/Iconarrowtop";
 import { SH1, SspanText } from "../componentsStyled/Text";
+import { colors } from "@mui/material";
 
 interface DetailsDevolutionProps {
   className?: string;
@@ -84,6 +85,7 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    adaptiveHeight: true,
     beforeChange: (oldIndex, newIndex) => setCurrentProductIndex(newIndex),
     responsive: [
       {
@@ -152,7 +154,7 @@ console.log('cade', data)
       if (devolution.status && devolution.status.title) {
         if (devolution.status.title === "Em Análise") {
           setModalType("analise");
-        } else if (devolution.status.title === "Negada") {
+        } else if (devolution.status.title === "Negado") {
           setModalType("devolution");
         } else if (devolution.status.title === "Reembolso Aprovado") {
           setModalType("reembolso");
@@ -178,14 +180,14 @@ console.log('cade', data)
           </h1>
           {(isMobile && isContentOpen) || !isMobile ? (
             <>
-              <Slider {...settings} className="slide slide_devolution">
+              <Slider {...settings} key={currentProductIndex} className="slide slide_devolution">
                 {Array.isArray(data.products) &&
                   data.products.map((product, productIndex) => (
                     <div key={productIndex}>
                       <div className="d-flex justify-content-between flex-column flex-md-row">
                         <div className="content-img">
                           <img src={product.image ?? undefined} alt={`Product Image ${productIndex + 1}`} />
-                          <Button typeButton="followdevolution" onClick={handleButtonClick}>
+                          <Button typeButton="followdevolution" onClick={handleButtonClick} className= {`${data.status.title === 'Negado' ? 'red' : ''}`}>
                             {data.status.title}
                           </Button>
                         </div>
@@ -200,17 +202,17 @@ console.log('cade', data)
                               <label>Preço</label>
                               <p>R${parseFloat(product.price).toFixed(2)}</p>
                             </div>
-                            <div className="d-flex flex-column content">
+                            <div className="d-flex flex-column">
                               <label>Quantidade</label>
                               <p>{product.quant || "-"}</p>
                             </div>
                           </div>
                           <div className="d-flex justify-content-between">
-                            <div className="d-flex flex-column content">
+                            <div className="d-flex flex-column ">
                               <label>Motivo da Devolução</label>
                               <p>{product.reasonMain}</p>
                             </div>
-                            <div className="d-flex flex-column content">
+                            <div className="d-flex flex-column ">
                               <label>Sub-Motivo</label>
                               <p>{product.reasonSub}</p>
                             </div>
@@ -232,6 +234,16 @@ console.log('cade', data)
                               <p>{data.method_shipment || "-"}</p>
                             </div>
                           </div>
+                          {data.status.title == "Negado" && <div className="mb-5">
+                          <Button typeButton="followdevolution" margin="0px auto">
+                            <a href={data.ldn.url} target="_blank" style={{color:"#192c53", display:"flex", justifyContent:"center"}}>
+                            Baixar Laudo de Reprova</a>
+                          </Button>
+                          </div>}
+                          {data.status.title == "Reembolso Aprovado" &&  product.refundType =='Cupom' && <div className="mt-3 mb-3 d-flex flex-column align-items-center">
+                            <p style={{fontSize:"12px", color:"#000", margin:"0px"}}>Pegue aqui seu Cupom de Vale Compras:</p>
+                            <p style={{fontSize:"14px", color:"#192c53"}}>{data.coupon}</p>
+                          </div>}
                         </div>
                       </div>
                     </div>
