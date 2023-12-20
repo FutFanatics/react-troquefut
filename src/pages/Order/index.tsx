@@ -90,7 +90,7 @@ export default function Order() {
   const navigate = useNavigate();
   const handleBack = () => {
     console.log("Voltando...");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
