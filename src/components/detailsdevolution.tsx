@@ -207,6 +207,7 @@ console.log('cade', data)
                 {Array.isArray(data.products) &&
                   data.products.map((product, productIndex) => (
                     <div key={productIndex}>
+                      <h1 style={{textAlign:"start", fontSize:"17px", margin:"8px 0px 16px 0px", fontWeight:"500"}}>Solicitação #{data.order_id}</h1>
                       <div className="d-flex justify-content-between flex-column flex-md-row">
                         <div className="content-img">
                           <img src={product.image ?? undefined} alt={`Product Image ${productIndex + 1}`} />
