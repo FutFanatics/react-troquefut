@@ -83,8 +83,8 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       return (
         data.tipoReembolso &&
         data.motivoDevolucao &&
-        data.quantidade !== "" &&
-        data.subDevolucao !== "" &&
+        data.quantidade &&
+        data.subDevolucao &&
         data.obsDev !== "" &&
         (!selectedReason || selectedReason.media_required !== 1 || fotoAdicionada)
       );

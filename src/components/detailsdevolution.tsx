@@ -10,6 +10,8 @@ import IconArrowBottom from "../componentsStyled/icon/Iconarrowbottom";
 import IconArrowTop from "../componentsStyled/icon/Iconarrowtop";
 import { SH1, SspanText } from "../componentsStyled/Text";
 import { colors } from "@mui/material";
+import IconAnalise from "../componentsStyled/icon/Iconanalise";
+import IconCopy from "../componentsStyled/icon/Iconcopy";
 
 interface DetailsDevolutionProps {
   className?: string;
@@ -170,6 +172,27 @@ console.log('cade', data)
   const closeModal = () => {
     setModalType("");
   };
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopyCoupon = () => {
+    if (data && data.coupon) {
+      navigator.clipboard.writeText(data.coupon)
+        .then(() => {
+          
+          console.log("Coupon code copied!");
+          setIsCopied(true);
+
+          
+          setTimeout(() => {
+            setIsCopied(false);
+          }, 2000);
+        })
+        .catch((err) => {
+        
+          console.error("Failed to copy coupon code", err);
+        });
+    }
+  };
 
   return (
     <>
@@ -242,9 +265,13 @@ console.log('cade', data)
                           </div>} */}
                           {data.status.title == "Negado" &&  product.refundType =='Cupom' && <div className="mt-3 mb-3 d-flex flex-column align-items-center">
                             <p style={{fontSize:"12px", color:"#000", margin:"0px"}}>Pegue aqui seu Cupom de Vale Compras:</p>
-                            <p style={{fontSize:"14px", color:"#192c53"}}>{data.coupon}</p>
+                            <a className="d-flex justify-content-center align-items-center" style={{textDecoration:"none", cursor:"pointer"}} onClick={handleCopyCoupon}>
+                            <p style={{fontSize:"16px", color:"#192c53", margin:"0px 8px"}}>{data.coupon}</p>
+                            <IconCopy width={20} onClick={handleCopyCoupon}></IconCopy>
+                            </a>
+                            {isCopied && <span style={{ fontSize: "12px", color: "green" }}>Cupom copiado!</span>}
                           </div>}
-                        </div>
+                        </div> 
                       </div>
                     </div>
                   ))}

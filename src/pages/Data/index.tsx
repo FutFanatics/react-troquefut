@@ -26,7 +26,7 @@ interface DataProps {
 const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
   const location = useLocation();
   const [dadosSelecionadosAtualizados, setDadosSelecionadosAtualizados] =
-    useState(location.state || {});
+  useState(location.state?.pedido || location.state || {});
   const [tipoReembolso, setTipoReembolso] = useState<string>(
     localStorage.getItem("tipoReembolso") || ""
   );
