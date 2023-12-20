@@ -186,7 +186,7 @@ export const SH1 =styled.h1<SH1Props>`
         }
     `}
     ${props => props.typeParagraph === 'paragraphdevolution' && `
-        font-size:13px;
+        font-size:14px;
         font-weight:600;
         text-align:center;
 
@@ -196,7 +196,7 @@ export const SH1 =styled.h1<SH1Props>`
     `}
     
     ${props => props.typeParagraph === 'paragraphdescribe' && `
-        font-size:14px;
+        font-size:13px;
         font-weight:400;
         text-align:center;
 

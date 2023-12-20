@@ -147,6 +147,11 @@ const Produtos: React.FC<ProdutosProps> = ({
                     fontWeight={600}
                     margin="8px 0px 8px 0px"
                     color="#1D1B20"
+                    style={{
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
                   >
                     {produto.name}
                   </SH1>

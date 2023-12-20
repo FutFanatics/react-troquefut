@@ -716,6 +716,7 @@ export const Box = styled.div<Box>`
             .informação{
                 position:absolute;
                 right:50px;
+                width:auto;
                 top:-10px;
                 display:block;
                 background:rgba(00, 00 ,00 ,0.4);
@@ -724,7 +725,7 @@ export const Box = styled.div<Box>`
                 font-weight:350;
                 font-size:13px;
                 border-radius:2px;
-                min-width:200px;
+                min-width:220px;
                 height:55px;
                 
                 @media screen and (max-width: 768px) {

@@ -12,6 +12,7 @@ import { SH1, SspanText } from "../componentsStyled/Text";
 import { colors } from "@mui/material";
 import IconAnalise from "../componentsStyled/icon/Iconanalise";
 import IconCopy from "../componentsStyled/icon/Iconcopy";
+import IconLdn from "../componentsStyled/icon/Iconldn";
 
 interface DetailsDevolutionProps {
   className?: string;
@@ -258,9 +259,10 @@ console.log('cade', data)
                               <p>{data.method_shipment || "-"}</p>
                             </div>
                           </div>
-                           {data.status.title == "Negado" && <div className="mb-5">
+                            {data.status.title == "Negado" && <div className="mb-5">
                           <Button typeButton="followdevolution" margin="0px auto">
-                            <a href={data.ldn.url} target="_blank" style={{color:"#192c53", display:"flex", justifyContent:"center"}}>
+                            <a href={data.ldn.url} target="_blank" style={{color:"#192c53", display:"flex", justifyContent:"center", alignItems:"center"}}>
+                              <IconLdn width={24}></IconLdn>
                             Baixar Laudo de Reprova</a>
                           </Button>
                           </div>} 
@@ -271,7 +273,7 @@ console.log('cade', data)
                             <IconCopy width={20} onClick={handleCopyCoupon}></IconCopy>
                             </a>
                             {isCopied && <span style={{ fontSize: "12px", color: "green" }}>Cupom copiado!</span>}
-                          </div>}
+                          </div>} 
                         </div> 
                       </div>
                     </div>

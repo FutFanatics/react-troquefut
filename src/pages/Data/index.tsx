@@ -300,7 +300,7 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
         <Box typeBox="icon-help">
           <div className="informação">
             Dúvidas de como funciona? Acesse nossa{" "}
-            <a href="https://www.futfanatics.com.br/portal-de-ajuda" target="_blank">Central de ajuda</a>
+            <a href="https://www.futfanatics.com.br/portal-de-ajuda" target="_blank">&nbsp;Central de ajuda</a>
           </div>
           <IconHelp width={30} />
         </Box>
@@ -344,6 +344,9 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
 
               </Slider>
             )}
+              {!areAllCheckboxesChecked && (
+                <p style={{ color: "#000", fontSize: "12px", marginBottom: "-16px" }}>É necessário preencher todos os campos para prosseguir.</p>
+              )}
             <button
               onClick={handleConfirmar}
               disabled={!areAllCheckboxesChecked}
@@ -351,9 +354,6 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
               >
               Avançar
             </button>
-              {!areAllCheckboxesChecked && (
-                <p style={{ color: "red", fontSize: "12px", marginTop: "-16px" }}>É necessário preencher todos os campos para prosseguir.</p>
-              )}
           </div>
         </div>
       </section>
