@@ -39,11 +39,11 @@ export default function Follow() {
         </section>
       <div className="container">
         <div className="d-flex align-items-center mb-3 mt-3 ">
-          <Button typeButton="voltar" margin="0px" onClick={handleBack}>
+          <Button typeButton="voltar" margin="0px"  onClick={handleBack}>
             <IconBack width={20}></IconBack>
             Voltar
           </Button>
-          <SH1 textTransform="uppercase" margin="0px auto 0px auto">
+          <SH1 textTransform="uppercase" margin="0px auto 0px auto" marginsm="0px auto 16px auto">
             Acompanhe sua devolução
           </SH1>
         </div>

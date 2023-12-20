@@ -557,7 +557,8 @@ export const Box = styled.div<Box>`
             margin-bottom:16px;
 
             @media screen and (max-width: 768px) {
-                margin-bottom:0px
+                margin-bottom:0px;
+                margin-top:0px !important;
             }
 
             svg{
@@ -633,6 +634,11 @@ export const Box = styled.div<Box>`
             width:200px;
             align-items:start;
             height:120px;
+
+            @media screen and (max-width: 768px) {
+                width:20%;
+            }
+
         }
         .status-icon{
             width:55px;
@@ -652,10 +658,18 @@ export const Box = styled.div<Box>`
             color:#192c53;
             font-family:"gotham";   
             text-align:center;
+
+            @media screen and (max-width: 768px) {
+                font-size:11px;
+            }
         }
         .name-date{
             color:#777;
             font-size:13px;
+
+            @media screen and (max-width: 768px) {
+                font-size:11px;
+            }
         }
         .line{
             width:30px;
@@ -669,7 +683,7 @@ export const Box = styled.div<Box>`
             }
         }
         @media screen and (max-width: 768px) {
-            padding:20px 30px;
+            padding:20px 20px;
             margin-top:16px;
         }
     `}

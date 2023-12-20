@@ -315,6 +315,10 @@
 .slide_devolution{
   width: 90% !important;
   margin: 24px auto !important;
+
+  @include sm{
+    width: 100% !important;
+  }
 }
 .slide-follow{
   width: 125%;
@@ -672,4 +676,10 @@ input[type="text"] {
     width: 25px!important;
     background-color: #00df5e;
     opacity: 1 !important;
+}
+
+.c-follow{
+  @include sm{
+    margin-top: -32px;
+  }
 }

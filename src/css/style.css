@@ -292,6 +292,11 @@
   width: 90% !important;
   margin: 24px auto !important;
 }
+@media (max-width: 768px) {
+  .slide_devolution {
+    width: 100% !important;
+  }
+}
 
 .slide-follow {
   width: 125%;
@@ -657,6 +662,12 @@ input[type=text] {
   width: 25px !important;
   background-color: #00df5e;
   opacity: 1 !important;
+}
+
+@media (max-width: 768px) {
+  .c-follow {
+    margin-top: -32px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
