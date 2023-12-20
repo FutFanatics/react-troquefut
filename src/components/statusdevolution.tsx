@@ -7,6 +7,7 @@ import IconAnaliseDevolucao from "../componentsStyled/icon/Iconanalisedev";
 import IconAcompanhe from "../componentsStyled/icon/Iconacompanhe";
 import IconReembolso from "../componentsStyled/icon/Iconreembolso";
 import IconCheck from "../componentsStyled/icon/Iconcheck";
+import IconDenied from "../componentsStyled/icon/Icondenied";
 import axios from "axios";
 import useSessionTimeoutValidation from '../components/useSessionTimeoutValidation';
 interface StatusDevolutionProps {
@@ -145,6 +146,8 @@ const getIconComponent = (title: string): React.FC => {
       return IconEnvio;
     case "Análise do Produto":
       return IconAnaliseDevolucao;
+    case "Solicitação Negada":
+      return IconDenied;
     case "Reembolso":
       return IconReembolso;
     case "Devolução Financeira":

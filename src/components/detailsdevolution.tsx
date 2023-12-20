@@ -231,16 +231,16 @@ console.log('cade', data)
                               <p>{product.quant || "-"}</p>
                             </div>
                           </div>
-                          <div className="d-flex justify-content-between">
-                            <div className="d-flex flex-column ">
+                          <div className="d-flex justify-content-between" >
+                            <div className="d-flex flex-column " style={{width:"35%"}}>
                               <label>Motivo da Devolução</label>
                               <p>{product.reasonMain}</p>
                             </div>
-                            <div className="d-flex flex-column ">
+                            <div className="d-flex flex-column " style={{width:"30%"}}>
                               <label>Sub-Motivo</label>
                               <p>{product.reasonSub}</p>
                             </div>
-                            <div className="d-flex flex-column content">
+                            <div className="d-flex flex-column content" style={{width:"30%"}}>
                               <label>Observação</label>
                               <p>{product.obs || "-"}</p>
                             </div>

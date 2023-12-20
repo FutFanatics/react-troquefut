@@ -564,8 +564,8 @@ console.log('iai', payment_method)
                       </STextParagraph>
                     </div>
                       {isMediaRequiredError && (
-                      <p style={{ color: "red", fontSize: "12px", marginTop: "4px" }}>
-                        O envio de fotos é obrigatório
+                      <p style={{ color: "#000", fontSize: "12px", marginTop: "4px" }}>
+                        *O envio de fotos é obrigatório
                       </p>
                     )}
                     </Box>
@@ -588,8 +588,8 @@ console.log('iai', payment_method)
         ))}
       </Slider>
       {(!isFotoAdicaoValida || !areAllFieldsFilled()) && (
-        <p style={{ color: "red", fontSize: "12px", marginTop: "8px", textAlign:"center", marginBottom:"-24px" }}>
-          Por favor, preencha todos os campos obrigatórios antes de confirmar.
+        <p style={{ color: "#000", fontSize: "12px", marginTop: "8px", textAlign:"center", marginBottom:"-24px" }}>
+          *Por favor, preencha todos os campos obrigatórios antes de confirmar.
         </p>
       )}
       <button

@@ -81,7 +81,7 @@ const Validation: React.FC = () => {
         <span onClick={togglePasswordVisibility} className='btn-visibility'>
           {showPassword ? <IconVisibilityOff width={24}/> : <IconVisibility width={24}></IconVisibility>}
         </span>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p style={{ color: '#000' }}>*{error}</p>}
       </Box>
       <div className="d-flex justify-content-end">
       <SspanText fontSize="14px" color="#192c53" fontWeight={600} ><a className='link-senha' href='https://www.futfanatics.com.br/loja/recuperar_senha.php'>
