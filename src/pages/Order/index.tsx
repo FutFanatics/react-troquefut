@@ -89,7 +89,6 @@ export default function Order() {
 
   const navigate = useNavigate();
   const handleBack = () => {
-    console.log("Voltando...");
     navigate("/");
   };
 
@@ -100,7 +99,7 @@ export default function Order() {
       <div className="container c-container-options d-flex options flex-column flex-md-row">
         <Button typeButton="voltar" margin="0px" onClick={handleBack}>
           <IconBack width={20}></IconBack>
-          Sair
+          Voltar
         </Button>
         <div className="box-options d-flex justify-content-center align-items-center">
           <Box
