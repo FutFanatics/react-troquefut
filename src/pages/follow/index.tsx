@@ -52,8 +52,8 @@ export default function Follow() {
       <div className="c-follow position-relative">
         <Box typeBox="icon-help">
           <div className="informação">
-            Dúvidas de como funciona? Acesse nossa
-            <a href="https://www.futfanatics.com.br/portal-de-ajuda" target="_blank">&nbsp;Central de ajuda</a>
+            Dúvidas de como funciona? Acesse nossa&nbsp;
+            <a href="https://www.futfanatics.com.br/portal-de-ajuda" target="_blank">Central de ajuda</a>
           </div>
           <IconHelp width={30} />
         </Box>

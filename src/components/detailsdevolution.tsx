@@ -13,6 +13,10 @@ import { colors } from "@mui/material";
 import IconAnalise from "../componentsStyled/icon/Iconanalise";
 import IconCopy from "../componentsStyled/icon/Iconcopy";
 import IconLdn from "../componentsStyled/icon/Iconldn";
+import ModalEnvio from "./modalEnvio";
+import ModalEnvioPendente from "./modalEnvioPendente";
+import ModalConcluido from "./modalconcluido";
+import ModalRealizado from "./modalrealizado";
 
 interface DetailsDevolutionProps {
   className?: string;
@@ -157,14 +161,17 @@ console.log('cade', data)
       if (devolution.status && devolution.status.title) {
         if (devolution.status.title === "Em Análise") {
           setModalType("analise");
-        } else if (devolution.status.title === "Negado") {
-          setModalType("devolution");
-        } else if (devolution.status.title === "Reembolso Aprovado") {
-          setModalType("reembolso");
-        } else if (devolution.status.title === "Devolução Finalizada") {
-          setModalType("concluido");
-        } else if (devolution.status.title === "Envio") {
+        } else if (devolution.status.title === "Negada") {
+          setModalType("negada");
+        } else if (devolution.status.title === "Envio Pendente") {
           setModalType("envio");
+        } else if (devolution.status.title === "Solicitação Realizada") {
+          setModalType("realizada");
+        }
+        else if (devolution.status.title === "Solicitação Concluída") {
+          setModalType("concluido");
+        } else if (devolution.status.title === "Reembolso em Progresso") {
+          setModalType("progresso");
         }
       }
     }
@@ -212,7 +219,7 @@ console.log('cade', data)
                       <div className="d-flex justify-content-between flex-column flex-md-row">
                         <div className="content-img">
                           <img src={product.image ?? undefined} alt={`Product Image ${productIndex + 1}`} />
-                          <Button typeButton="followdevolution" onClick={handleButtonClick} className= {`${data.status.title === 'Negado' ? 'red' : ''}`}>
+                          <Button typeButton="followdevolution" onClick={handleButtonClick} className= {`${data.status.title === 'Negada' ? 'red' : ''}`}>
                             {data.status.title}
                           </Button>
                         </div>
@@ -283,10 +290,11 @@ console.log('cade', data)
             </>
           ) : null}
           {modalType === "analise" && <ModalAnalise isOpen={true} onRequestClose={closeModal} />}
-          {modalType === "devolution" && <ModalDevolution isOpen={true} onRequestClose={closeModal} />}
-          {modalType === "reembolso" && <ModalDevolution isOpen={true} onRequestClose={closeModal} />}
-          {modalType === "concluido" && <ModalDevolution isOpen={true} onRequestClose={closeModal} />}
-          {modalType === "envio" && <ModalDevolution isOpen={true} onRequestClose={closeModal} />}
+          {modalType === "negada" && <ModalDevolution isOpen={true} onRequestClose={closeModal} />}
+          {modalType === "envio" && <ModalEnvioPendente isOpen={true} onRequestClose={closeModal} />}
+          {modalType === "realizada" && <ModalRealizado isOpen={true} onRequestClose={closeModal} />}
+          {modalType === "progresso" && <ModalEnvio isOpen={true} onRequestClose={closeModal} />}
+          {modalType === "concluido" && <ModalConcluido isOpen={true} onRequestClose={closeModal} />}
         </Box>
       )}
     </>

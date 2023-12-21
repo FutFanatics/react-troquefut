@@ -37,7 +37,7 @@ const ModalConcluido: React.FC<ModalConcluidoProps> = ({
     >
       <div className="container d-flex flex-column align-items-center">
         <IconDevreembolso width={60}></IconDevreembolso>
-        <SH1 typeTitle="devolution-modal">Solicitação Concluída!</SH1>
+        <SH1 typeTitle="devolution-modal"><strong className="blue">Solicitação Concluída!</strong></SH1>
 
         <STextParagraph typeParagraph="paragraphdescribe">
           A sua solicitação de Devolução foi concluída. Qualquer problema ou

@@ -631,7 +631,7 @@ export const Box = styled.div<Box>`
             margin-top:-10px ;
         }
         .container-icon{
-            width:200px;
+            width:14%;
             align-items:start;
             height:120px;
 
@@ -672,12 +672,14 @@ export const Box = styled.div<Box>`
             }
         }
         .line{
-            width:30px;
-            height:1px;
-            background:#000;
+            width:80px;
+            height:2px;
+            border-radius:40px;
+            background:#00000080;
             position:relative;
-            top:-20px;
-            margin:0px 8px;
+            top:-30px;
+            margin:0px -8px;
+            
             &:last-child{
                 display:none;
             }

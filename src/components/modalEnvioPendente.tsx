@@ -4,8 +4,10 @@ import { SH1, STextParagraph } from "../componentsStyled/Text";
 import Button from "../componentsStyled/Button";
 import axios from "axios";
 import IconAnalise from "../componentsStyled/icon/Iconanalise";
+import IconEnviado from "../componentsStyled/icon/Iconenviado";
+import IconEnvioPendente from "../componentsStyled/icon/Iconenviopendente";
 
-interface ModalAnaliseProps extends ModalProps {
+interface ModalEnvioPendenteProps extends ModalProps {
   isOpen: boolean;
   children?: React.ReactNode;
   onRequestClose: () => void;
@@ -19,13 +21,9 @@ interface ModalProps {
   className?: string;
 }
 
-const ModalAnalise: React.FC<ModalAnaliseProps> = ({
+const ModalEnvioPendente: React.FC<ModalEnvioPendenteProps> = ({
   isOpen,
   onRequestClose,
-  title,
-  subtitle,
-  icon,
-  describe,
   className,
 }) => {
   return (
@@ -35,15 +33,15 @@ const ModalAnalise: React.FC<ModalAnaliseProps> = ({
       className={`c-modal_devolution ${className} flex-column`}
     >
       <div className="container d-flex flex-column align-items-center">
-        <IconAnalise width={60}></IconAnalise>
+        <IconEnvioPendente width={60}></IconEnvioPendente>
         <SH1 typeTitle="devolution-modal">
-          Em <strong className="yellow">Análise!</strong>
+        <strong className="blue">Envio</strong>
+        <strong className="green">&nbsp;Pendente!</strong>
         </SH1>
 
         <STextParagraph typeParagraph="paragraphdescribe">
-        Seu pedido já chegou  solicitação está em processo
-        de análise pelo nosso SAC.
-        Aguarde por atualizações.
+        Nós já enviamos as informações referentes ao envio do seu pedido. Verifique seu
+e-mail e, caso haja algum problema, entre em contato com o nosso SAC.
         </STextParagraph>
       </div>
 
@@ -54,4 +52,4 @@ const ModalAnalise: React.FC<ModalAnaliseProps> = ({
   );
 };
 
-export default ModalAnalise;
+export default ModalEnvioPendente;

@@ -78,7 +78,7 @@ export const SH1 =styled.h1<SH1Props>`
         }
     `}
     ${props => props.typeTitle === 'devolution-modal' && `
-        font-size:18px;
+        font-size:16px;
         margin:16px 0px 4px 0px;
 
         .yellow{
@@ -98,7 +98,7 @@ export const SH1 =styled.h1<SH1Props>`
         }
         
         @media screen and (max-width: 768px) {
-           font-size:18px
+           font-size:16px
         }
     `}
     ${props => props.typeTitle === 'negative-modal' && `

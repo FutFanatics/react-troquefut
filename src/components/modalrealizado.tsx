@@ -40,12 +40,12 @@ const ModalRealizado: React.FC<ModalRealizadoProps> = ({
       <div className="container d-flex flex-column align-items-center">
         <IconEnviado width={60}></IconEnviado>
         <SH1 typeTitle="devolution-modal">
-          <strong className="blue">Envio</strong> Realizado!
+          <strong className="blue">Solicitação</strong>&nbsp;Realizada!
         </SH1>
 
         <STextParagraph typeParagraph="paragraphdescribe">
-          Seu produto já foi enviado para a nossa loja, e será encaminhada para
-          análise assim que chegar em nossa sede.
+        Sua solicitação já foi enviada e está em análise. Aguarde o retorno do SAC
+para dar continuidade ao processo.
         </STextParagraph>
       </div>
 

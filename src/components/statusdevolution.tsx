@@ -17,6 +17,7 @@ interface StatusDevolutionProps {
 
 const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className, devolutionId }) => {
   const [data, setData] = useState<DataFollow | null>(null);
+  const [lineOpacity, setLineOpacity] = useState<number>(1);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,7 +60,18 @@ const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className, devoluti
 
     fetchData();
   }, [devolutionId]);
-  
+
+    useEffect(() => {
+    if (data) {
+      data.history.forEach((step, index) => {
+        if (index < data.history.length - 1 && data.history[index + 1].status === " ") {
+          setLineOpacity(0.5);
+        } else {
+          setLineOpacity(1);
+        }
+      });
+    }
+  }, [data]);
   return (
     <>
       {data && (
@@ -72,8 +84,8 @@ const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className, devoluti
             {data.history.map((step, index) => {
               const IconComponent = getIconComponent(step.title);
               const iconColor = getIconColor(step.status);
-
-              return (
+              return (<>
+              
                 <div
                   className="d-flex flex-column align-items-center container-icon"
                   key={index}
@@ -94,8 +106,9 @@ const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className, devoluti
                   </div>
                   <span className="name-status">{step.title}</span>
                   <span className="name-date">{step.date || ""}</span>
-                  <div className="line"></div>
                 </div>
+                <div className="line" style={{ opacity: lineOpacity }}></div>
+                  </>
               );
             })}
           </div>

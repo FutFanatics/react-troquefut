@@ -34,12 +34,12 @@ const ModalEnvio: React.FC<ModalEnvioProps> = ({
       <div className="container d-flex flex-column align-items-center">
         <IconEnviado width={60}></IconEnviado>
         <SH1 typeTitle="devolution-modal">
-          Em <strong className="yellow">Análise</strong>
+        <strong className="green">Reembolso</strong><strong className="blue">&nbsp;Em Progresso!</strong>
         </SH1>
 
         <STextParagraph typeParagraph="paragraphdescribe">
-          Sua solicitação está em processo de análise pelo nosso SAC. Aguarde
-          por atualizações.
+        Sua solicitação já foi enviada e está em análise. Aguarde o retorno do SAC
+para dar continuidade ao processo.
         </STextParagraph>
       </div>
 

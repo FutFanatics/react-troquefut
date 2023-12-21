@@ -9,6 +9,7 @@ interface ValeComprasProps {
   alternarElemento?: () => void;
   updateData?: (data: any) => void;
   onCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+
 }
 
 const ValeCompras: React.FC<ValeComprasProps> = ({ className,onCheckboxChange }) => {
