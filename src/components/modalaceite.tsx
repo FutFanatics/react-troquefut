@@ -143,7 +143,8 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
         )
         .then(function (response) {
           console.log(response.data, "Dados do pedido recebidos com sucesso");
-          navigate('/devolution');
+          const devolutionId = response.data.return_id;
+          navigate(`/follow`, { state: { devolutionId } });
         })
         .catch(function (error) {
           console.log(error, "Erro ao obter dados do pedido");

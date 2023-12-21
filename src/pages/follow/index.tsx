@@ -19,8 +19,7 @@ import TroqueFut from "../../componentsStyled/icon/LogoTroqueFut";
 export default function Follow() {
   const navigate = useNavigate();
   const handleBack = () => {
-    console.log("Voltando...");
-    navigate(-1);
+    navigate('/devolution');
   };
   const { state } = useLocation();
   const devolutionId = state?.devolutionId;
