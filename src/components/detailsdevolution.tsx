@@ -170,7 +170,7 @@ console.log('cade', data)
         }
         else if (devolution.status.title === "Solicitação Concluída") {
           setModalType("concluido");
-        } else if (devolution.status.title === "Reembolso em Progresso") {
+        } else if (devolution.status.title === "Reembolso Em Progresso") {
           setModalType("progresso");
         }
       }
