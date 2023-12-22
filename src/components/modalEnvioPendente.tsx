@@ -35,8 +35,7 @@ const ModalEnvioPendente: React.FC<ModalEnvioPendenteProps> = ({
       <div className="container d-flex flex-column align-items-center">
         <IconEnvioPendente width={60}></IconEnvioPendente>
         <SH1 typeTitle="devolution-modal">
-        <strong className="blue">Envio</strong>
-        <strong className="green">&nbsp;Pendente!</strong>
+        <strong className="blue">Envio</strong>&nbsp;Pendente!
         </SH1>
 
         <STextParagraph typeParagraph="paragraphdescribe">

@@ -184,8 +184,9 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
 
               <STextParagraph
                 fontWeight={700}
-                padding="0px 0px 8px 0px"
+                padding="16px 0px 8px 0px"
                 typeParagraph="termos"
+                paddingsm="16px 0px 8px"
                 fontSize="18px"
               >
                 <a href="https://www.futfanatics.com.br/portal-de-ajuda" target="_blank">
@@ -193,11 +194,12 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
                 </a>
               </STextParagraph>
               <STextParagraph typeParagraph="termos">
-                O Canal direto está disponível para te ajudar em caso de trocas e devoluções de suas compras. Entre em contato conosco de segunda a sexta-feira das 7:15 as 19:45 horas pelo telefone (11)4858-3500. Você também poderá nos contatar acessando nosso site <a href="www.futfanatics.com.br">www.futfanatics.com.br</a> em contato via Chat, ou Email: contato@futfanatics.com.br.
+                O Canal direto está disponível para te ajudar em caso de trocas e devoluções de suas compras. Entre em contato conosco de segunda a sexta-feira das 7:15 as 19:45 horas pelo telefone (11)4858-3500. Você também poderá nos contatar acessando nosso site <a href="https://www.futfanatics.com.br" target="_blank">www.futfanatics.com.br</a> em contato via Chat, ou Email: contato@futfanatics.com.br.
               </STextParagraph>
               <STextParagraph
                 fontWeight={700}
-                padding="0px 0px 8px 0px"
+                padding="16px 0px 8px 0px"
+                paddingsm="16px 0px 8px"
                 typeParagraph="termos"
                 fontSize="18px"
               >
@@ -211,7 +213,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
                 essas informações de perda, uso impróprio ou acesso não
                 autorizado. Por isso, apresentamos nossa Política de
                 Privacidade, que tem por objetivo esclarecer o uso dessas
-                informações. Ao visitar a www.futfanatics.com.br e fornecer seus
+                informações. Ao visitar a <a href="https://futfanatics.com.br" target="_blank">www.futfanatics.com.br</a> e fornecer seus
                 dados, o usuário declara conhecer e aceitar os termos da
                 presente política, que encontra-se de acordo com as novas
                 diretrizes trazidas pela Lei Federal nº 13.709/2018 (Lei Geral
@@ -304,7 +306,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
                 site são propriedade da FutFanatics, portanto, não poderão ser
                 alteradas, copiadas, extraídas ou de qualquer forma utilizadas
                 sem a prévia e expressa autorização por escrito. Desta forma, ao
-                acessar o site www.futfanatics.com.br, o usuário fica ciente que
+                acessar o site <a href="https://futfanatics.com.br" target="_blank">www.futfanatics.com.br</a>, o usuário fica ciente que
                 a utilização indevida das informações aqui contidas pode
                 acarretar sanções civis e criminais. Esta Política de
                 Privacidade está sujeita a constantes melhorias e

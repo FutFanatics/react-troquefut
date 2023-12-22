@@ -102,7 +102,6 @@ export const Box = styled.div<Box>`
         border: 1px solid rgba(25, 44, 83, 0.30);
         width:180px;
         height:160px; 
-
         position:relative;
         display:flex;
         top:15%;
@@ -115,8 +114,8 @@ export const Box = styled.div<Box>`
             top:-20%;
         }
         @media screen and (max-width: 768px) {
-            width:160px;
-            height:170px; 
+            width:140px;
+            height:160px; 
         }
     `}
     ${props => props.typeBox === 'estorno-content' && `
@@ -407,6 +406,7 @@ export const Box = styled.div<Box>`
 
         @media screen and (max-width: 768px) {
             margin:8px auto;
+            width:200px;
         }
 
         .devolution-structure{
@@ -546,7 +546,11 @@ export const Box = styled.div<Box>`
         margin:0px;
         font-family:"gotham";
 
-        
+        &.status{
+            @media screen and (max-width: 768px) {
+                padding:30px 20px 10px;
+            }
+        }
         h1{
             text-align:center;
             font-size:18px;
@@ -636,7 +640,8 @@ export const Box = styled.div<Box>`
             height:120px;
 
             @media screen and (max-width: 768px) {
-                width:20%;
+                width:auto;
+                height:100px;
             }
 
         }
@@ -649,8 +654,14 @@ export const Box = styled.div<Box>`
 
             svg{
                 width:30px;
+                @media screen and (max-width: 768px) {
+                    width:25px;
+                }
             }
-            
+            @media screen and (max-width: 768px) {
+                width:45px;
+                height:45px;
+            }
         }
         .name-status{
             font-size:13px;
@@ -682,6 +693,9 @@ export const Box = styled.div<Box>`
             
             &:last-child{
                 display:none;
+            }
+            @media screen and (max-width: 768px) {
+                width:40px;
             }
         }
         @media screen and (max-width: 768px) {
@@ -738,6 +752,10 @@ export const Box = styled.div<Box>`
                     text-decoration:underline;
                 }
             }
+            
+        }
+        @media screen and (max-width: 768px) {
+            bottom:10px;
         }
     `}
     ${props => props.typeBox === 'not-dev' && `

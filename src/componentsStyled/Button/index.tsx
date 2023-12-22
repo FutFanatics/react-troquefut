@@ -176,6 +176,7 @@ const SButton = styled.button<SButtonProps>`
         font-weight:400;
         margin:0px auto;
         font-size:14px;
+        cursor:pointer;
         margin:16px auto 0px auto;
 
         &.red{

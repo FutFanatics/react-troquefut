@@ -78,7 +78,7 @@ const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className, devoluti
         <Box
           key={data.id}
           typeBox="datafollow"
-          className={`col-md-12 ${className}`}
+          className={`col-md-12 status`}
         >
           <div className="status-icons d-flex align-items-center">
             {data.history.map((step, index) => {

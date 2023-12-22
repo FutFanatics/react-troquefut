@@ -10,7 +10,7 @@ interface MenuProps {
   const Menu: React.FC<MenuProps> = ({ typeOption , children }) => {
       const navigate = useNavigate();
     const handleHome = () =>{
-      navigate("/order");
+      navigate("/");
     }
     return(
         <section className="c-menu"> 

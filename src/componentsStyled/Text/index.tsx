@@ -167,7 +167,10 @@ export const SH1 =styled.h1<SH1Props>`
        a{
         text-decoration:underline;
         color:#000;
-        
+        margin-top:16px;
+       }
+       @media screen and (max-width:768px){
+            font-size:13px;
        }
     `}
 

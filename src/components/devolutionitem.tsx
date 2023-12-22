@@ -32,12 +32,13 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
   const handleFollowClick = () => {
     navigate("/follow", { state: { devolutionId: devolucao.id } });
   };
-  const settings = {
-    dots: false,
-    arrow:false,
+  const devolu = {
+    dots: true,
+    arrows:false,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
+    prevarrow:false,
     slidesToScroll: 1,
     responsive: [
       {
@@ -63,11 +64,12 @@ const DevolutionItem: React.FC<DevolutionItemProps> = ({ devolucao }) => {
     
   };
 
+
   return (
     <Box typeBox="product-devolution">
       <div key={devolucao.id}>
       {Array.isArray(devolucao.imgs) && devolucao.imgs.length > 0 ? (
-        <Slider {...settings}>
+        <Slider {...devolu} className="devolution-img-slide">
           {devolucao.imgs.map((img, index) => (
             <div key={index} className="d-flex justify-content-center">
               <img src={img.url} alt="Devolução" />

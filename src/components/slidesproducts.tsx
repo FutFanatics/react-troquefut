@@ -22,7 +22,7 @@ const SlidesProducts: React.FC = () => {
         settings: {
           slidesToShow: 2,
           dots:false,
-          
+          arrows:false,
         }
       }
     ]
@@ -34,7 +34,7 @@ const SlidesProducts: React.FC = () => {
           <Box typeBox='item'>
             <Box typeBox="atention">
               <IconProduct width={60}></IconProduct>
-              <STextParagraph fontSize="14px">
+              <STextParagraph fontSize="14px" fontSizesm='12px'>
                 O Produto não pode apresentar sinais de uso, com manchas,
                 sujeira ou suor.
               </STextParagraph>
@@ -44,7 +44,7 @@ const SlidesProducts: React.FC = () => {
           <Box typeBox='item'>
             <Box typeBox="atention">
               <IconExterno width={60}></IconExterno>
-              <STextParagraph fontSize="14px">
+              <STextParagraph fontSize="14px" fontSizesm='12px'>
                 Preserve as embalagens internas e externas do produto.
               </STextParagraph>
             </Box>
@@ -52,7 +52,7 @@ const SlidesProducts: React.FC = () => {
           <Box typeBox='item'>
             <Box typeBox="atention">
               <IconIntimo width={60}></IconIntimo>
-              <STextParagraph fontSize="14px">
+              <STextParagraph fontSize="14px" fontSizesm='12px'>
               Não é possível realizar a troca de roupas íntimas e de compressão.
               </STextParagraph>
             </Box>
@@ -60,7 +60,7 @@ const SlidesProducts: React.FC = () => {
           <Box typeBox='item'>
             <Box typeBox="atention">
               <IconKits width={60}></IconKits>
-              <STextParagraph fontSize="14px">
+              <STextParagraph fontSize="14px" fontSizesm='12px'>
               Não é possível fazer a troca de itens individuais de kits prontos.
               </STextParagraph>
             </Box>

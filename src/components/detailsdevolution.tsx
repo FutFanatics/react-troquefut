@@ -266,12 +266,14 @@ console.log('cade', data)
                               <p>{data.method_shipment || "-"}</p>
                             </div>
                           </div>
-                            {data.status.title == "Negada" && <div className="mb-5">
+                            {data.status.title == "Negada" && data.ldn.url && <div className="mb-5">
+                            <a href={data.ldn.url} target="_blank" style={{color:"#192c53", display:"flex", justifyContent:"center", alignItems:"center", textDecoration:"none"}}>
                           <Button typeButton="followdevolution" margin="0px auto">
-                            <a href={data.ldn.url} target="_blank" style={{color:"#192c53", display:"flex", justifyContent:"center", alignItems:"center"}}>
+                            
                               <IconLdn width={24}></IconLdn>
-                            Baixar Laudo de Reprova</a>
+                            Baixar Laudo de Reprova
                           </Button>
+                          </a>
                           </div>} 
                           {data.status.title == "Solicitação Concluída " &&  product.refundType =='Cupom' && <div className="mt-3 mb-3 d-flex flex-column align-items-center">
                             <p style={{fontSize:"12px", color:"#000", margin:"0px"}}>Pegue aqui seu Cupom de Vale Compras:</p>
