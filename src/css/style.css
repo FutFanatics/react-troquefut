@@ -390,6 +390,7 @@
 @media (min-width: 1800px) {
   .c-modal_aceite {
     height: 75vh;
+    overflow: auto;
   }
 }
 @media (max-width: 768px) {

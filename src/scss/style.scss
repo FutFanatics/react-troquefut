@@ -417,6 +417,7 @@
   }
   @include exmd{
     height: 75vh;
+    overflow: auto;
   }
   @include sm{
     overflow: auto;
