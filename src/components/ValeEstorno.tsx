@@ -9,6 +9,9 @@ import { Box } from "../componentsStyled/Box";
 import axios from "axios";
 import ListaSelected from "./listaselected";
 import IconFinance from "../componentsStyled/icon/IconFinance";
+import { useMask } from '@react-input/mask';
+import { InputMask } from '@react-input/mask';
+
 
 interface ValeEstornoProps {
   updateData?: (data: Produto[]) => void;
@@ -78,6 +81,7 @@ const ValeEstorno: React.FC<ValeEstornoProps> = ({
     setActiveTab(tab);
   };
 
+
   const handleTipoPixChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedTipoPix = event.target.value;
     updateTipoPix(selectedTipoPix);
@@ -89,6 +93,7 @@ const ValeEstorno: React.FC<ValeEstornoProps> = ({
     setCheckboxMarcado(checked);
     onCheckboxChange(event);
   };
+  console.log('mostra o tipo', tipoPix)
 
   const renderInputField = () => {
     switch (tipoPix) {
@@ -197,6 +202,8 @@ const ValeEstorno: React.FC<ValeEstornoProps> = ({
     return "";
   };
 
+  
+
   return (
     <>
       <div className="c-estorno d-flex flex-column align-items-center ">
@@ -222,8 +229,8 @@ const ValeEstorno: React.FC<ValeEstornoProps> = ({
             <Box typeBox="login" margin="0px">
               <label>Tipo de Pix</label>
               <select className="w-100" onChange={handleTipoPixChange}>
-                <option disabled>Selecione o tipo</option>
-                <option>Celular</option>
+                <option value='' hidden>Selecione o tipo</option>
+                <option >Celular</option>
                 <option>CPF ou CNPJ</option>
                 <option>Chave Aleatória</option>
                 <option>E-mail</option>

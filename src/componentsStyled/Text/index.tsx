@@ -74,7 +74,10 @@ export const SH1 =styled.h1<SH1Props>`
         padding-right:32px;
 
         @media screen and (max-width: 768px) {
-           font-size:16px
+           font-size:14px;
+           margin-top:0px;
+           width:100%;
+           text-align:start;
         }
     `}
     ${props => props.typeTitle === 'devolution-modal' && `

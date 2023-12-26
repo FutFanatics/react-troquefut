@@ -327,6 +327,24 @@
   border-radius: 30px;
   box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.2);
 }
+@media (max-width: 768px) {
+  .c-modal_foto {
+    height: 90vh;
+    overflow: auto;
+    padding: 30px 8px;
+  }
+}
+@media (min-width: 2000px) {
+  .c-modal_foto {
+    height: 65vh;
+    min-height: auto;
+  }
+}
+@media (min-width: 2400px) {
+  .c-modal_foto {
+    height: 48vh;
+  }
+}
 .c-modal_foto .btn-close {
   position: absolute;
   right: 30px;
@@ -338,6 +356,11 @@
   position: relative;
   left: 50%;
   transform: translate(-50%);
+}
+@media (max-width: 768px) {
+  .c-modal_foto .slide-fotos {
+    padding: 32px 0px;
+  }
 }
 
 .c-modal_aceite {
@@ -358,15 +381,31 @@
     width: auto;
     max-width: 1200px;
     min-height: 70vh;
-    height: 98vh;
+    height: 95vh;
     padding: 20px 30px 30px 30px;
     top: 50%;
     transform: translateY(-50%);
   }
 }
+@media (min-width: 1800px) {
+  .c-modal_aceite {
+    height: 75vh;
+  }
+}
 @media (max-width: 768px) {
   .c-modal_aceite {
     overflow: auto;
+  }
+}
+@media (min-width: 2000px) {
+  .c-modal_aceite {
+    height: 65vh;
+    min-height: auto;
+  }
+}
+@media (min-width: 2400px) {
+  .c-modal_aceite {
+    height: 48vh;
   }
 }
 .c-modal_aceite .btn-close {
@@ -490,6 +529,12 @@ label span {
   margin: 0px 32px 8px 32px;
   margin-bottom: 20px;
 }
+@media (max-width: 768px) {
+  .container-date {
+    margin: 0px 16px;
+    width: 120px;
+  }
+}
 
 input[type=text] {
   padding: 8px;
@@ -500,6 +545,11 @@ input[type=text] {
   border-bottom: 1px #000 solid;
   box-shadow: none;
   outline: none;
+}
+@media (max-width: 768px) {
+  input[type=text] {
+    width: 100%;
+  }
 }
 
 .react-datepicker-wrapper input[type=text]:focus {
@@ -593,6 +643,7 @@ input[type=text] {
   position: absolute;
   margin: 0px -16px;
   top: 50%;
+  z-index: 99999999999 !important;
   display: block;
   width: auto;
   height: auto;
@@ -608,6 +659,7 @@ input[type=text] {
 .slick-prev:before, .slick-next:before {
   color: #00df5e !important;
   font-size: 28px !important;
+  z-index: 99999999999 !important;
   opacity: 1 !important;
 }
 

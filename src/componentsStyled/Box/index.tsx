@@ -96,6 +96,11 @@ export const Box = styled.div<Box>`
     `}
     ${props => props.typeBox === 'item' && `
         height:210px;
+        @media screen and (max-width: 768px) {
+            margin:0px;
+            padding:0px;
+        }
+
     `}
     ${props => props.typeBox === 'atention' && `
         border-radius: 16px;

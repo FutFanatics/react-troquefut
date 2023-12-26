@@ -89,6 +89,7 @@ const ListagemDevolucoes: React.FC = () => {
     <div>
       <div className="d-flex justify-content-center mt-3 align-items-center box-date flex-column flex-md-row">
         <SH1 typeTitle="acompanhe">Selecione um período:</SH1>
+        <div className="d-flex">
         <div className="d-flex flex-column container-date">
           <label>Data início:</label>
           <DatePicker
@@ -109,6 +110,7 @@ const ListagemDevolucoes: React.FC = () => {
         <Button onClick={handleSearch} typeButton="search">
           <IconSearch width={18}></IconSearch>
         </Button>
+        </div>
       </div>
       <SH1 color="#777" fontSize="16px" fontWeight={350} textAlign="start">
         Lista de devoluções

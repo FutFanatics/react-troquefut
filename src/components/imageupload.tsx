@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Box } from '../componentsStyled/Box';
 import IconAdd from '../componentsStyled/icon/iconadd';
@@ -9,7 +9,8 @@ interface ImageUploadProps {
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUpload, index }) => {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [imageSrc, setImageSrc] = React.useState<string | null>(null);
+
   const onDrop = (acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
       const selectedFile = acceptedFiles[0];
@@ -23,16 +24,12 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUpload, index }) => {
       reader.readAsDataURL(selectedFile);
     }
   };
+
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     //@ts-ignore
     accept: 'image/*',
   });
-
-  const handleImageClick = () => {
-    const inputElement = document.getElementById(`fileInput-${index}`) as HTMLInputElement;
-    inputElement.click();
-  };
 
   return (
     <Box typeBox="upload">
@@ -41,8 +38,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUpload, index }) => {
           <img src={imageSrc} alt="Uploaded" style={{ height: '100%' }} />
         ) : (
           <>
-            <input {...getInputProps()} id={`fileInput-${index}`} style={{ display: 'none' }} name={`evidences[${index}]`} />
-            <IconAdd width={60} onClick={handleImageClick} />
+            <input {...getInputProps()} style={{ display: 'none' }} name={`evidences[${index}]`} />
+            <IconAdd width={60} onClick={() => {}} />
           </>
         )}
       </div>

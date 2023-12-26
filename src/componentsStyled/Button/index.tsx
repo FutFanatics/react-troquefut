@@ -162,6 +162,11 @@ const SButton = styled.button<SButtonProps>`
             width:40px;
             height:40px;
             border-radius:100px;
+
+            @media screen and (max-width: 768px) {
+                width:35px;
+                height:35px;
+            }
     `}
     ${props => props.typeButton === 'followdevolution' && `
         border-radius:5px;

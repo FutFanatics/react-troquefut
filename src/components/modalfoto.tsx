@@ -24,67 +24,71 @@ const ModalCamera: React.FC<ModalCameraProps> = ({
   dadosSelecionados,
   onPhotoUploadComplete,
 }) => {
-
+  console.log('dados:selecionados', dadosSelecionados)
+  
   const [uploadedImages, setUploadedImages] = useState<File[]>([]);
   const handleImageUpload = (file: File, index: number) => {
     const updatedImages = [...uploadedImages];
     updatedImages[index - 1] = file;
     setUploadedImages(updatedImages);
   };
-  const handleUploadButtonClick = async () => {
 
-    console.log('uploadedImage', uploadedImages);
-    
+
+  const handleUploadButtonClick = async () => {
+    console.log("uploadedImage", uploadedImages);
+
     try {
-      if (uploadedImages.length > 0) {
+      const auth = localStorage.getItem("auth");
+
+      if (auth && uploadedImages.length > 0) {
+        const authObj = JSON.parse(auth);
+        const username = authObj.email;
+        const password = authObj.token;
+        const basicAuth = btoa(`${username}:${password}`);
 
         const formData = new FormData();
-  
-        uploadedImages.forEach(async (file, index) => {
+
+        for (let index = 0; index < uploadedImages.length; index++) {
+          const file = uploadedImages[index];
+
           formData.append(
-            `evidences[${dadosSelecionados.variantId}-${dadosSelecionados.productId}][${index}]`,
+            `evidences[${dadosSelecionados.produtoSelecionadoData.selectedId}-${dadosSelecionados.produto.product_id}][${index}]`,
             file
           );
+        }
 
-          const auth = localStorage.getItem("auth");
-
-          if (auth) {
-            const authObj = JSON.parse(auth);
-            const username = authObj.email;
-            const password = authObj.token;
-            const basicAuth = btoa(`${username}:${password}`);
-    
-            const response = await fetch(
-              "https://api.troquefuthomologacao.futfanatics.com.br/api/evidences",
-              {
-                method: "POST",
-                body: formData,
-                headers: {
-                  Authorization: `Basic ${basicAuth}`,
-                  "Content-Type": "multipart/form-data",
-                },
-              }
-            );
-    
-            if (!response.ok) {
-
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-    
-            const contentType = response.headers.get("content-type");
-            if (contentType && contentType.includes("application/json")) {
-              const data = await response.json();
-              console.log("Success:", data);
-            } else {
-              console.log("Success:", response);
-            }
-    
-            onPhotoUploadComplete();
-            onRequestClose();
+        const response = await fetch(
+          "https://api.troquefuthomologacao.futfanatics.com.br/api/evidences",
+          {
+            method: "POST",
+            body: formData,
+            headers: {
+              Authorization: `Basic ${basicAuth}`,
+            },
           }
-        });
-  
-        
+        );
+
+        console.log(
+          "formData:",
+          `evidences[${dadosSelecionados.produtoSelecionadoData.selectedId}-${dadosSelecionados.produto.product_id}]`
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        console.log("response status:", response.status);
+
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          const data = await response.json();
+          console.log("Success:", data);
+        } else {
+          console.log("Response is not JSON:", await response.text());
+        }
+
+        onPhotoUploadComplete();
+        onRequestClose();
       }
     } catch (error) {
       console.error("Error:", error);
@@ -101,13 +105,8 @@ const ModalCamera: React.FC<ModalCameraProps> = ({
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 2,
+          slidesToShow: 3,
+          arrows:false,
         },
       },
     ],
@@ -139,7 +138,7 @@ const ModalCamera: React.FC<ModalCameraProps> = ({
         <div className="row justify-content-center">
           <TipoFotos></TipoFotos>
           <div className="col-md-8">
-            <Slider {...settings}>
+            <Slider {...settings} className="slide-fotos">
               <div className="item">
                 <ImageUpload onImageUpload={handleImageUpload} index={1} />
               </div>

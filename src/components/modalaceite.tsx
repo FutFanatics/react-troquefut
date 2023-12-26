@@ -184,7 +184,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
 
               <STextParagraph
                 fontWeight={700}
-                padding="16px 0px 8px 0px"
+                padding="32px 0px 8px 0px"
                 typeParagraph="termos"
                 paddingsm="16px 0px 8px"
                 fontSize="18px"
@@ -198,7 +198,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
               </STextParagraph>
               <STextParagraph
                 fontWeight={700}
-                padding="16px 0px 8px 0px"
+                padding="32px 0px 8px 0px"
                 paddingsm="16px 0px 8px"
                 typeParagraph="termos"
                 fontSize="18px"

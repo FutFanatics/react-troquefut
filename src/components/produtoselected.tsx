@@ -72,7 +72,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   const navigate = useNavigate();
   
 
-
+  
   const areAllFieldsFilled = () => {
     return produtos.every((produto) => {
       const data = produtoData[produto.product_id]?.[produto.variant_value] || {};
@@ -578,7 +578,7 @@ console.log('iai', payment_method)
                     setFotoAdicionada(true);
                     handlePhotoUploadComplete();
                   }}
-                  dadosSelecionados= {produto}
+                  dadosSelecionados={{ produto, produtoSelecionadoData }}
                   onPhotoUploadComplete={handlePhotoUploadComplete}
 
                 />

@@ -21,7 +21,8 @@ const SlidesProducts: React.FC = () => {
         breakpoint: 480, 
         settings: {
           slidesToShow: 2,
-          dots:false,
+          dots:true,
+          infinite:true,
           arrows:false,
         }
       }

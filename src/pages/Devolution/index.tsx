@@ -4,7 +4,9 @@ import Header from "../../components/header";
 import ListagemDevolucoes from "../../components/listagemdevolucao";
 import Menu from "../../components/menu";
 import { Box } from "../../componentsStyled/Box";
+import Button from "../../componentsStyled/Button";
 import { SH1 } from "../../componentsStyled/Text";
+import IconBack from "../../componentsStyled/icon/Iconback";
 import IconHelp from "../../componentsStyled/icon/Iconhelp";
 import TroqueFut from "../../componentsStyled/icon/LogoTroqueFut";
 import DevBottom from "../../componentsStyled/icon/devbottom";
@@ -17,6 +19,9 @@ export default function Devolution() {
   const handleHome = () =>{
     navigate("/");
   }
+  const handleBack = () =>{
+    navigate("/");
+  }
     return (
         <>
         <Header></Header>
@@ -25,6 +30,10 @@ export default function Devolution() {
                 <button onClick={handleHome} style={{border:'none', background:'none'}}>
                 <TroqueFut width={130} className="logo-troque-menu"></TroqueFut>
                 </button>
+        <Button typeButton="voltar" margin="0px" onClick={handleBack}>
+          <IconBack width={20}></IconBack>
+          Sair
+        </Button>
             </div>
         </section>
         <SH1 textTransform="uppercase" fontSizesm="16px">Selecione qual devolução deseja acompanhar</SH1>
