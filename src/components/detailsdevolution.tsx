@@ -145,7 +145,7 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
             setData(response.data);
             
           } catch (error) {
-            
+            //navigate('/login');
           }
         }
       }
@@ -153,7 +153,9 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
 
     fetchData();
   }, [devolutionId]);
-console.log('cade', data)
+
+//console.log('cade', data);
+
   const handleButtonClick = () => {
     if (data) {
       const devolution = data;

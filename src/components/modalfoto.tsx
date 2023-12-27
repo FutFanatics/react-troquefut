@@ -19,13 +19,14 @@ interface ModalCameraProps {
   onPhotoUploadComplete: () => void;
 }
 
+
 const ModalCamera: React.FC<ModalCameraProps> = ({
   isOpen,
   onRequestClose,
   dadosSelecionados,
   onPhotoUploadComplete,
 }) => {
-  console.log('dados:selecionadosfotos', dadosSelecionados)
+  //console.log('dados:selecionadosfotos', dadosSelecionados)
   const produto = dadosSelecionados.produto;
   const produtoSelecionadoData = dadosSelecionados.produtoSelecionadoData;
   const [isLoading, setIsLoading] = useState(false); 

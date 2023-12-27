@@ -14,8 +14,7 @@ import IconInformative from "../componentsStyled/icon/iconinformative";
 import IconInfoVale from "../componentsStyled/icon/iconinfovale";
 import ModalData from "./modaldata";
 import { useDataContext } from "../context/DataContext";
-/* import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css"; */
+
 interface ProductSelectedProps {
   className?: string;
   produtos?: Produto[];
@@ -75,50 +74,31 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   useState<Record<string, boolean>>({});
   const [isMediaRequiredError, setIsMediaRequiredError] = useState(false);
   const navigate = useNavigate();
-
-  const areAllFieldsFilled = () => {
-    return produtos.every((produto) => {
-      const data =
-        produtoData[produto.product_id]?.[produto.variant_value] || {};
-      const selectedReason = reasons.find(
-        (reason) => reason.description === data.motivoDevolucao
-      );
+  const isFotoAdicaoValida = fotoAdicionada || motivoDevolucao !== "";
   
-      return (
-        data.tipoReembolso &&
-        data.motivoDevolucao &&
-        data.quantidade &&
-        data.subDevolucao &&
-        data.obsDev !== "" &&
-        (!selectedReason ||
-          selectedReason.media_required !== 1 ||
-          data.fotoAdicionada)
-      );
-    });
-  };
-  const updateProdutoData = (
-    productId,
-    key,
-    value,
-    variant_value?,
-    subReasonId?,
-    name?,
-    selectedValue?
-  ) => {
-    setProdutoData((prevProdutoData) => ({
-      ...prevProdutoData,
-      [productId]: {
-        ...prevProdutoData[productId],
-        [variant_value]: {
-          ...prevProdutoData[productId]?.[variant_value],
-          [key]: value,
+  /** Settings do Slick */
+  const settings = {
+    dots: true,
+    arrow: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          arrows: false,
         },
       },
-    }));
+    ],
   };
 
-  console.log('cade', data)
-  console.log("obsDevInput:", produtoData);
+  //localStorage.setItem("tipoReembolso", tipoReembolso);
+
+  /** Buscar os motivos na API e validações */
   useEffect(() => {
     fetch(`https://api.troquefuthomologacao.futfanatics.com.br/api/reasons`)
       .then((response) => response.json())
@@ -130,6 +110,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
         data.forEach((reason) => {
           const currentDate = new Date();
           const deadlineDate = new Date(currentDate);
+          // Colocando a data de envio + os dias do motivo
           deadlineDate.setDate(currentDate.getDate() + reason.days_allowed);
           const formattedDeadlineDate = formatDate(
             delivery_date,
@@ -143,6 +124,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       .catch((error) => console.error("Error fetching reasons:", error));
   }, [delivery_date]);
 
+  /** Validação dos motivos */
   useEffect(() => {
     const selectedReason = reasons.find(
       (reason) => reason.description === motivoDevolucao
@@ -168,6 +150,8 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
         setIsMediaRequiredError(false);
       }
 
+      console.log('produtoSelecionadoData2',produtoSelecionadoData);
+
       if (selectedReason.subReasons) {
         setSubReasons(selectedReason.subReasons);
       } else {
@@ -176,6 +160,68 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     }
   }, [motivoDevolucao, produtoSelecionadoData, reasons, reasonDeadlines, outOfDateModalIsOpen]);
 
+  /** Colocar os dados selecionados dentro do state */
+  useEffect(() => {
+    if (onDataUpdate) {
+      onDataUpdate(updatedData);
+    }
+  }, [updatedData, onDataUpdate, fotoAdicionada]);
+
+  if (onSaveTipoReembolso) {
+    onSaveTipoReembolso(tipoReembolso);
+  }
+
+  /** Validar se não foi enviado nenhum produto no parâmetro */
+  if (!produtos || produtos.length === 0) {
+    return null;
+  }
+
+  /** Validar se todos os campos obrigatórios foram preenchidos */
+  const areAllFieldsFilled = () => {
+    return produtos.every((produto) => {
+      const data =
+        produtoData[produto.product_id]?.[produto.variant_value] || {};
+      const selectedReason = reasons.find(
+        (reason) => reason.description === data.motivoDevolucao
+      );
+  
+      return (
+        data.tipoReembolso &&
+        data.motivoDevolucao &&
+        data.quantidade &&
+        data.subDevolucao &&
+        data.obsDev !== "" &&
+        (!selectedReason ||
+          selectedReason.media_required !== 1 ||
+          data.fotoAdicionada)
+      );
+    });
+  };
+
+  const updateProdutoData = (
+    productId,
+    key,
+    value,
+    variant_value?,
+    subReasonId?,
+    name?,
+    selectedValue?
+  ) => {
+    setProdutoData((prevProdutoData) => ({
+      ...prevProdutoData,
+      [productId]: {
+        ...prevProdutoData[productId],
+        [variant_value]: {
+          ...prevProdutoData[productId]?.[variant_value],
+          [key]: value,
+        },
+      },
+    }));
+  };
+
+  /********************** ATAAAACKKK ******************** */
+
+  /** Renderizar a foto ao selecionar a evidência */
   const handlePhotoUploadComplete = (productId, variant_value) => {
     setIsMediaRequiredErrorByProduct((prevErrors) => ({
       ...prevErrors,
@@ -186,13 +232,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     updateProdutoData(productId, "fotoAdicionada", true, variant_value);
   };
 
-
-  useEffect(() => {
-    if (onDataUpdate) {
-      onDataUpdate(updatedData);
-    }
-  }, [updatedData, onDataUpdate, fotoAdicionada]);
-
+  /** Função para formatar a data */
   const formatDate = (baseDate, daysToAdd) => {
     const deadlineDate = new Date(baseDate);
     deadlineDate.setDate(deadlineDate.getDate() + daysToAdd);
@@ -203,6 +243,8 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
 
     return `${year}-${month}-${day} 00:00:00`;
   };
+
+  /** Abrir o modal da foto */
   const openModal = (productId, variantValue) => {
     setModalStates((prevModalStates) => {
       const newModalStates = [...prevModalStates];
@@ -218,6 +260,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     });
   };
 
+  /** Fechar o modal da foto */
   const closeModal = (productId, variantValue) => {
     setModalStates((prevModalStates) => {
       const newModalStates = [...prevModalStates];
@@ -233,31 +276,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     });
   };
 
-  const upData = () => {
-    const newData = {
-      tipoReembolso,
-      motivoDevolucao,
-      quantidade,
-      subDevolucao,
-      orderId,
-      ...produtoSelecionadoData,
-    };
-    if (onDataUpdate) {
-      onDataUpdate(newData);
-    }
-  };
-
-  if (!produtos || produtos.length === 0) {
-    return null;
-  }
-
-  const isFotoAdicaoValida = fotoAdicionada || motivoDevolucao !== "";
-  localStorage.setItem("tipoReembolso", tipoReembolso);
-
-  if (onSaveTipoReembolso) {
-    onSaveTipoReembolso(tipoReembolso);
-  }
-
+  /** Setar os valores selecionados */
   const handleSelectChange = (
     productId: string | number,
     variant_value: string,
@@ -292,6 +311,10 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
         "inputName"
       );
 
+    const selectValueSubDevolucao: { [key: string]: any } = {
+      [variant_value]: selectedValue
+    };
+
       switch (key) {
         case "tipoReembolso":
           setTipoReembolso(selectedValue);
@@ -303,6 +326,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
           setQuantidade(selectedValue);
           break;
         case "subDevolucao":
+          //setSubDevolucao(selectValueSubDevolucao);
           setSubDevolucao(selectedValue);
           break;
         default:
@@ -352,8 +376,9 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     }
   };
 
+  /** Enviar para o próxima página */
   const handleConfirmar = () => {
-    console.log('Inside handleConfirmar');
+    //console.log('Inside handleConfirmar');
     
     const dadosSelecionadosAtualizados = produtos.map((produto) => {
       const dadosProduto = produtoData[produto.product_id] || {};
@@ -364,10 +389,10 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       };
     });
   
-    console.log("Dados selecionados produto:", dadosSelecionadosAtualizados);
+    //console.log("Dados selecionados produto:", dadosSelecionadosAtualizados);
   
     const todosCamposPreenchidos = areAllFieldsFilled();
-    const isMediaRequiredFilled = !mediaRequired && fotoAdicionada; 
+    const isMediaRequiredFilled = mediaRequired ; // Alteração aqui
   
     console.log('Todos os campos preenchidos?', todosCamposPreenchidos);
     console.log('É necessário enviar mídia?', mediaRequired);
@@ -399,25 +424,6 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       setIsBotaoConfirmarHabilitado(false);
       setIsMediaRequiredError(!isMediaRequiredFilled);
     }
-  };
-  
-  const settings = {
-    dots: true,
-    arrow: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          arrows: false,
-        },
-      },
-    ],
   };
 
   return (
