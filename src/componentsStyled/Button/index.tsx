@@ -108,6 +108,12 @@ const SButton = styled.button<SButtonProps>`
             background:#192C53;
             color:#fff;
         }
+        &.disabled{
+            background:#d9d9d9;
+            color:#fff;
+            border:none;
+            cursor:auto;
+        }
     `}
     ${props => props.typeButton === 'back' && `
         width:80px;

@@ -6,7 +6,6 @@ import IconNull from "../componentsStyled/icon/iconNull";
 import ProductSelected from "./produtoselected";
 import Produtos from "./produtos";
 
-
 interface ListaProdutosProps {
   className?: string;
   selectedOption?: string;
@@ -40,8 +39,16 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
   const [payment_method, setPayment_method] = useState("");
   const [allowed_clique_retire, setAllowed_clique_retire] = useState("");
   const [showProductSelected, setShowProductSelected] = useState(false);
+  const [produtosSelecionados, setProdutosSelecionados] = useState<Produto[]>([]);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {
+   
+    setProdutosSelecionados([]);
+    setIsButtonDisabled(true);
+    setProdutoSelecionado(null);
+    setShowProductSelected(false);
+
     let auth = localStorage.getItem("auth");
 
     if (auth) {
@@ -71,13 +78,16 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
           setDelivery_date(response.data.delivery_date || "");
           setPayment_method(response.data.payment_method || "");
           setAllowed_clique_retire(response.data.allowed_clique_retire);
-          setProdutoSelecionado(null);
           setShowProductSelected(false);
         })
         .catch(function (error) {
           console.log(error, "Erro ao obter dados do pedido");
         });
     }
+  }, [selectedId]);
+
+  useEffect(() => {
+    setProdutoSelecionado(null);
   }, [selectedId]);
 
   const onSelectProduto = (produto: Produto) => {
@@ -125,13 +135,13 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
             </div>
           )}
 
-          {produtoSelecionado === null && (
+          {produtoSelecionado === null && pedido && (
             <div
               className="mt-1 mb-2 justify-content-center align-items-center flex-wrap"
               style={{ justifyContent: "center" }}
             >
               <Produtos
-                produtos={pedido?.Products || []}
+                produtos={pedido.Products}
                 selectedId={selectedId || ""}
                 handleSelect={onSelectProduto}
                 key={1}
@@ -141,6 +151,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
               />
             </div>
           )}
+          
         </div>
       </section>
     </>
