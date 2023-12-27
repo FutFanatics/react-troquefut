@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - feature/deploy
+      - feat/deploy
 jobs:
   build:
     name: 🛠️ Build Job
