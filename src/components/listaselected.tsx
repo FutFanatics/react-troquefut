@@ -49,11 +49,11 @@ interface ListaSelectedProps<T> {
         value={selectedValue}
         className="list-select"
       >
-        {!selectedValue && (
-          <option value="">
+        
+          <option value="" hidden>
             Selecione uma opção
           </option>
-        )}
+        
         {renderOptions()}
       </select>
     );

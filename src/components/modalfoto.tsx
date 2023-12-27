@@ -9,6 +9,7 @@ import Button from "../componentsStyled/Button";
 import Slider from "react-slick";
 
 
+
 interface ModalCameraProps {
   isOpen: boolean;
   children?: React.ReactNode;
@@ -24,18 +25,23 @@ const ModalCamera: React.FC<ModalCameraProps> = ({
   dadosSelecionados,
   onPhotoUploadComplete,
 }) => {
-  console.log('dados:selecionados', dadosSelecionados)
-  
+  console.log('dados:selecionadosfotos', dadosSelecionados)
+  const produto = dadosSelecionados.produto;
+  const produtoSelecionadoData = dadosSelecionados.produtoSelecionadoData;
+  const [isLoading, setIsLoading] = useState(false); 
+
   const [uploadedImages, setUploadedImages] = useState<File[]>([]);
   const handleImageUpload = (file: File, index: number) => {
     const updatedImages = [...uploadedImages];
     updatedImages[index - 1] = file;
     setUploadedImages(updatedImages);
+    
   };
 
 
   const handleUploadButtonClick = async () => {
     console.log("uploadedImage", uploadedImages);
+    setIsLoading(true);
 
     try {
       const auth = localStorage.getItem("auth");
@@ -92,6 +98,8 @@ const ModalCamera: React.FC<ModalCameraProps> = ({
       }
     } catch (error) {
       console.error("Error:", error);
+    }finally {
+      setIsLoading(false); 
     }
   };
 
@@ -114,9 +122,9 @@ const ModalCamera: React.FC<ModalCameraProps> = ({
 
   return (
     <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      className="c-modal_foto"
+    isOpen={isOpen && dadosSelecionados && dadosSelecionados.produto && dadosSelecionados.produto.product_id}
+    onRequestClose={onRequestClose}
+    className="c-modal_foto"
     >
       <div className="container">
         <IconCamera
@@ -157,7 +165,19 @@ const ModalCamera: React.FC<ModalCameraProps> = ({
             </Slider>
           </div>
         </div>
-        <Button typeButton="upload" onClick={handleUploadButtonClick}>Enviar fotos</Button>
+        {isLoading ? (
+          <div className="position-relative">
+            <Button typeButton="upload" className="disabled">
+            Enviar fotos
+          </Button>
+            <div className="spinner-foto"/>
+          </div>
+
+        ): (
+          <Button typeButton="upload" onClick={handleUploadButtonClick}>
+            Enviar fotos
+          </Button>
+        )}
       </div>
 
       <button onClick={onRequestClose} className="btn-close"></button>

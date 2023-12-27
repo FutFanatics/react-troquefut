@@ -60,6 +60,20 @@
   transform: translate(-50%);
 }
 
+.spinner-foto {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #00df5e;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+  position: absolute;
+  top: 10%;
+  left: 49%;
+  transform: translate(-50%);
+}
+
 .arrow-top {
   width: 180px;
   right: 0;

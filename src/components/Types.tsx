@@ -1,4 +1,5 @@
 export interface Produto {
+  selectedId?:number | string;
   product_id?: number | string; 
   name?: string;
   variant_value?: string;

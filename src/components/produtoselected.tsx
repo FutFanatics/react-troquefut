@@ -26,7 +26,7 @@ interface ProductSelectedProps {
   orderId?: string;
   allowed_clique_retire?: string;
   delivery_date?: string;
-  payment_method?:string;
+  payment_method?: string;
 }
 
 const ProductSelected: React.FC<ProductSelectedProps> = ({
@@ -57,6 +57,9 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   const [dadosSelecionados, setDadosSelecionados] = useState(
     location.state || {}
   );
+  const [modalStates, setModalStates] = useState<boolean[]>(
+    Array(produtos.length).fill(false)
+  );
   const [produtoData, setProdutoData] = useState<Record<number, any>>({});
   const [modalData, setModalData] = useState<any>(null);
   const [updatedData, setUpdatedData] = useState<any>({});
@@ -65,17 +68,18 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   const [reasonDeadlines, setReasonDeadlines] = useState<
     Record<string, string>
   >({});
-  const [obsDevByProduct, setObsDevByProduct] = useState<Record<string, string>>(
-    {}
-  );
+  const [obsDevByProduct, setObsDevByProduct] = useState<
+    Record<string, string>
+  >({});
+  const [isMediaRequiredErrorByProduct, setIsMediaRequiredErrorByProduct] =
+  useState<Record<string, boolean>>({});
   const [isMediaRequiredError, setIsMediaRequiredError] = useState(false);
   const navigate = useNavigate();
-  
 
-  
   const areAllFieldsFilled = () => {
     return produtos.every((produto) => {
-      const data = produtoData[produto.product_id]?.[produto.variant_value] || {};
+      const data =
+        produtoData[produto.product_id]?.[produto.variant_value] || {};
       const selectedReason = reasons.find(
         (reason) => reason.description === data.motivoDevolucao
       );
@@ -86,13 +90,22 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
         data.quantidade &&
         data.subDevolucao &&
         data.obsDev !== "" &&
-        (!selectedReason || selectedReason.media_required !== 1 || fotoAdicionada)
+        (!selectedReason ||
+          selectedReason.media_required !== 1 ||
+          data.fotoAdicionada)
       );
     });
   };
-  
-
-  const updateProdutoData = (productId, key, value, variant_value?, subReasonId?, name?, selectedValue?) => {
+console.log("cade esssa merda", fotoAdicionada)
+  const updateProdutoData = (
+    productId,
+    key,
+    value,
+    variant_value?,
+    subReasonId?,
+    name?,
+    selectedValue?
+  ) => {
     setProdutoData((prevProdutoData) => ({
       ...prevProdutoData,
       [productId]: {
@@ -138,19 +151,6 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       setMotivoDevolucao("");
     }
 
-    if (selectedReason && selectedReason.media_required === 1) {
-      setMediaRequired(true);
-      setIsMediaRequiredError(!fotoAdicionada);
-    } else {
-      setMediaRequired(false);
-      setIsMediaRequiredError(false);
-    }
-    if (selectedReason && selectedReason.subReasons) {
-      setSubReasons(selectedReason.subReasons);
-    } else {
-      setSubReasons([]);
-    }
-
     if (selectedReason) {
       const deadlineDate = new Date(reasonDeadlines[motivoDevolucao]);
       const currentDate = new Date();
@@ -158,13 +158,33 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       if (currentDate > deadlineDate) {
         setOutOfDateModalIsOpen(true);
       }
-    }
-  }, [motivoDevolucao, produtoSelecionadoData, reasons, reasonDeadlines,outOfDateModalIsOpen]);
 
-  const handlePhotoUploadComplete = () => {
-    setIsMediaRequiredError(false);
+      if (selectedReason.media_required === 1) {
+        setMediaRequired(true);
+        setIsMediaRequiredError(!fotoAdicionada);
+      } else {
+        setMediaRequired(false);
+        setIsMediaRequiredError(false);
+      }
+
+      if (selectedReason.subReasons) {
+        setSubReasons(selectedReason.subReasons);
+      } else {
+        setSubReasons([]);
+      }
+    }
+  }, [motivoDevolucao, produtoSelecionadoData, reasons, reasonDeadlines, outOfDateModalIsOpen]);
+
+  const handlePhotoUploadComplete = (productId, variant_value) => {
+    setIsMediaRequiredErrorByProduct((prevErrors) => ({
+      ...prevErrors,
+      [`${productId}-${variant_value}`]: false,
+    }));
     setFotoAdicionada(true);
+
+    updateProdutoData(productId, "fotoAdicionada", true, variant_value);
   };
+
 
   useEffect(() => {
     if (onDataUpdate) {
@@ -182,9 +202,34 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
 
     return `${year}-${month}-${day} 00:00:00`;
   };
+  const openModal = (productId, variantValue) => {
+    setModalStates((prevModalStates) => {
+      const newModalStates = [...prevModalStates];
+      const index = produtos.findIndex(
+        (produto) =>
+          produto.product_id === productId &&
+          produto.variant_value === variantValue
+      );
+      if (index !== -1) {
+        newModalStates[index] = true;
+      }
+      return newModalStates;
+    });
+  };
 
-  const openModal = () => {
-    setModalIsOpen(true);
+  const closeModal = (productId, variantValue) => {
+    setModalStates((prevModalStates) => {
+      const newModalStates = [...prevModalStates];
+      const index = produtos.findIndex(
+        (produto) =>
+          produto.product_id === productId &&
+          produto.variant_value === variantValue
+      );
+      if (index !== -1) {
+        newModalStates[index] = false;
+      }
+      return newModalStates;
+    });
   };
 
   const upData = () => {
@@ -199,10 +244,6 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     if (onDataUpdate) {
       onDataUpdate(newData);
     }
-  };
-console.log('iai', payment_method)
-  const closeModal = () => {
-    setModalIsOpen(false);
   };
 
   if (!produtos || produtos.length === 0) {
@@ -222,11 +263,11 @@ console.log('iai', payment_method)
     key: string,
     selectedValue: any,
     subReasonId?: number | React.ChangeEvent<HTMLInputElement>,
-    e?: React.ChangeEvent<HTMLInputElement>,
+    e?: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (key === "obsDev" && e) {
       const { value } = e.target;
-  
+
       updateProdutoData(
         productId,
         key,
@@ -235,7 +276,7 @@ console.log('iai', payment_method)
         subReasonId,
         "inputName"
       );
-  
+
       setObsDevByProduct((prevObsDev) => ({
         ...prevObsDev,
         [`${productId}-${variant_value}`]: value,
@@ -249,7 +290,7 @@ console.log('iai', payment_method)
         subReasonId,
         "inputName"
       );
-  
+
       switch (key) {
         case "tipoReembolso":
           setTipoReembolso(selectedValue);
@@ -267,7 +308,7 @@ console.log('iai', payment_method)
           break;
       }
     }
-  
+
     const updatedProductData = {
       ...produtoSelecionadoData,
       tipoReembolso,
@@ -280,38 +321,39 @@ console.log('iai', payment_method)
       [key]: selectedValue,
     };
     setObsDev(key === "obsDev" ? selectedValue : obsDev);
-  
+
     console.log("obsDevInput:", obsDev);
-  
+
     const selectedProductIndex = produtos.findIndex(
       (produto) =>
         produto.product_id === productId &&
         produto.variant_value === variant_value
     );
-  
+    
     if (selectedProductIndex !== -1) {
       const selectedProduct = produtos[selectedProductIndex];
-  
+
       selectedProduct.selectedProduct = {
         ...selectedProduct.selectedProduct,
         [key]: selectedValue,
       };
-  
+
       const updatedProducts = [
         ...produtos.slice(0, selectedProductIndex),
         selectedProduct,
         ...produtos.slice(selectedProductIndex + 1),
       ];
-  
+
       updateData({
         ...updatedProductData,
         products: updatedProducts,
       });
     }
   };
-  
 
   const handleConfirmar = () => {
+    console.log('Inside handleConfirmar');
+    
     const dadosSelecionadosAtualizados = produtos.map((produto) => {
       const dadosProduto = produtoData[produto.product_id] || {};
       return {
@@ -321,10 +363,14 @@ console.log('iai', payment_method)
       };
     });
   
-    console.log("Dados selecionados poroduct:", dadosSelecionadosAtualizados);
+    console.log("Dados selecionados produto:", dadosSelecionadosAtualizados);
   
     const todosCamposPreenchidos = areAllFieldsFilled();
-    const isMediaRequiredFilled = !isMediaRequiredError;
+    const isMediaRequiredFilled = !mediaRequired && fotoAdicionada; // Alteração aqui
+  
+    console.log('Todos os campos preenchidos?', todosCamposPreenchidos);
+    console.log('É necessário enviar mídia?', mediaRequired);
+    console.log('É válido adicionar foto?', isMediaRequiredFilled);
   
     if (todosCamposPreenchidos && isMediaRequiredFilled) {
       if (onDataUpdate) {
@@ -354,7 +400,6 @@ console.log('iai', payment_method)
     }
   };
   
-
   const settings = {
     dots: true,
     arrow: true,
@@ -371,9 +416,7 @@ console.log('iai', payment_method)
           arrows: false,
         },
       },
-
     ],
-    
   };
 
   return (
@@ -386,7 +429,7 @@ console.log('iai', payment_method)
           <Box
             typeBox="productselected"
             className="product-selected"
-            key={index}
+            key={produto.product_id && produto.variant_value}
           >
             <Box
               className="col-md-12 d-flex flex-md-row flex-column"
@@ -418,7 +461,7 @@ console.log('iai', payment_method)
                   </SspanText>
                 </div>
               </Box>
-              <Box className="col-md-8" margin="0px" padding="0px">
+              <Box className="col-md-8" margin="0px" padding="0px" key={produto.product_id && produto.variant_value}>
                 <div className="d-md-flex justify-content-between">
                   <div className="d-flex flex-column justify-content-center content-select">
                     <Box typeBox="informative">
@@ -430,19 +473,19 @@ console.log('iai', payment_method)
                       <div className="box-informative">
                         <IconInfoVale width={48}></IconInfoVale>
                         <h1>
-                          Diferença entre{" "}
-                          <strong className="green">Cupom</strong> e{" "}
+                          Diferença entre
+                          <strong className="green">Cupom</strong> e
                           <strong className="blue">Estorno</strong>
                         </h1>
                         <p className="text-informative mt-1">
                           Caso escolha a devolução com <strong>Cupom</strong>,
                           você receberá um vale compras no valor do seu pedido
-                          na FutFanatics{" "}
+                          na FutFanatics
                           <strong className="italic">em até 5 dias.</strong>
                         </p>
                         <p className="text-informative">
                           Caso escolha o <strong>Estorno</strong>, você receberá
-                          o valor da sua compra{" "}
+                          o valor da sua compra
                           <strong className="italic">em até 15 dias.</strong>
                         </p>
                       </div>
@@ -460,8 +503,10 @@ console.log('iai', payment_method)
                           selectedValue
                         )
                       }
-                      selectedValue={produtoData[produto.product_id]?.[produto.variant_value]?.tipoReembolso}
-
+                      selectedValue={
+                        produtoData[produto.product_id]?.[produto.variant_value]
+                          ?.tipoReembolso
+                      }
                     ></ListaSelected>
                   </div>
                   <div className="d-flex flex-column justify-content-center content-select">
@@ -469,17 +514,23 @@ console.log('iai', payment_method)
                       *Quantidade
                     </STextParagraph>
                     <ListaSelected
-                    options={Array.from({ length: produto.quantity }, (_, i) => i + 1)}
-                    onChange={(selectedValue) =>
-                      handleSelectChange(
-                        produto.product_id,
-                        produto.variant_value,
-                        "quantidade",
-                        selectedValue as number | ""
-                      )
-                    }
-                    selectedValue={produtoData[produto.product_id]?.[produto.variant_value]?.quantidade}
-                  />
+                      options={Array.from(
+                        { length: produto.quantity },
+                        (_, i) => i + 1
+                      )}
+                      onChange={(selectedValue) =>
+                        handleSelectChange(
+                          produto.product_id,
+                          produto.variant_value,
+                          "quantidade",
+                          selectedValue as number | ""
+                        )
+                      }
+                      selectedValue={
+                        produtoData[produto.product_id]?.[produto.variant_value]
+                          ?.quantidade
+                      }
+                    />
                   </div>
                 </div>
                 <div className="d-md-flex justify-content-between">
@@ -497,7 +548,9 @@ console.log('iai', payment_method)
                           selectedValue
                         )
                       }
-                      selectedValue={produtoData[produto.product_id]?.[produto.variant_value]?.motivoDevolucao
+                      selectedValue={
+                        produtoData[produto.product_id]?.[produto.variant_value]
+                          ?.motivoDevolucao
                       }
                     ></ListaSelected>
                   </div>
@@ -523,7 +576,9 @@ console.log('iai', payment_method)
                           selectedValue
                         )
                       }
-                      selectedValue={produtoData[produto.product_id]?.[produto.variant_value]?.subDevolucao
+                      selectedValue={
+                        produtoData[produto.product_id]?.[produto.variant_value]
+                          ?.subDevolucao
                       }
                     ></ListaSelected>
                   </div>
@@ -534,53 +589,73 @@ console.log('iai', payment_method)
                       Observações
                     </STextParagraph>
                     <input
-                    type="text"
-                    name={`obsDev-${produto.product_id}-${produto.variant_value}`}
-                    value={obsDevByProduct[`${produto.product_id}-${produto.variant_value}`] || ''}
-                    onChange={(e) =>
-                      handleSelectChange(
-                        produto.product_id,
-                        produto.variant_value,
-                        'obsDev',
-                        e.target.value,
-                        undefined,
-                        e
-                      )
-                    }
-                  />
+                      type="text"
+                      name={`obsDev-${produto.product_id}-${produto.variant_value}`}
+                      value={
+                        obsDevByProduct[
+                          `${produto.product_id}-${produto.variant_value}`
+                        ] || ""
+                      }
+                      onChange={(e) =>
+                        handleSelectChange(
+                          produto.product_id,
+                          produto.variant_value,
+                          "obsDev",
+                          e.target.value,
+                          undefined,
+                          e
+                        )
+                      }
+                    />
                   </div>
                   <div className="d-flex flex-column justify-content-center content-select">
                     <Box
                       className="d-flex flex-column justify-content-center"
                       margin="12px 0px 0px 0px"
-                    >   <div className="d-flex align-items-center">
-                        <a onClick={() => setModalIsOpen(true)}>
+                    >
+                      {" "}
+                      <div className="d-flex align-items-center">
+                        <a
+                          onClick={() =>
+                            openModal(produto.product_id, produto.variant_value)
+                          }
+                        >
                           <Box typeBox="cam">
                             <IconCamera fill="#fff" width={25}></IconCamera>
                           </Box>
                         </a>
-                      <STextParagraph typeParagraph="select">
-                        Anexar fotos
-                      </STextParagraph>
-                    </div>
-                      {isMediaRequiredError && (
-                      <p style={{ color: "#000", fontSize: "12px", marginTop: "4px" }}>
-                        *O envio de fotos é obrigatório
-                      </p>
-                    )}
+                        <STextParagraph typeParagraph="select">
+                          Anexar fotos
+                        </STextParagraph>
+                      </div>
+                      
+                      {mediaRequired && !fotoAdicionada && produtoData[produto.product_id]?.[produto.variant_value]?.motivoDevolucao && (
+                        <p
+                          style={{
+                            color: "#000",
+                            fontSize: "12px",
+                            marginTop: "4px",
+                          }}
+                          key={`media-required-error-${produto.product_id}-${produto.variant_value}`}
+                        >
+                          *O envio de fotos é obrigatório
+                        </p>
+                      )}
+
                     </Box>
                   </div>
                 </div>
                 <ModalCamera
-                  isOpen={modalIsOpen}
-                  onRequestClose={() => setModalIsOpen(false)}
-                  onPhotoAdded={() => {
-                    setFotoAdicionada(true);
-                    handlePhotoUploadComplete();
-                  }}
+                  key={`${produto.product_id}-${produto.variant_value}`}
+                  isOpen={modalStates[index]}
+                  onRequestClose={() => closeModal(produto.product_id, produto.variant_value)}
+                  onPhotoAdded={() =>
+                    handlePhotoUploadComplete(produto.product_id, produto.variant_value)
+                  }
                   dadosSelecionados={{ produto, produtoSelecionadoData }}
-                  onPhotoUploadComplete={handlePhotoUploadComplete}
-
+                  onPhotoUploadComplete={() =>
+                    handlePhotoUploadComplete(produto.product_id, produto.variant_value)
+                  }
                 />
               </Box>
             </Box>
@@ -588,7 +663,15 @@ console.log('iai', payment_method)
         ))}
       </Slider>
       {(!isFotoAdicaoValida || !areAllFieldsFilled()) && (
-        <p style={{ color: "#000", fontSize: "12px", marginTop: "8px", textAlign:"center", marginBottom:"-24px" }}>
+        <p
+          style={{
+            color: "#000",
+            fontSize: "12px",
+            marginTop: "8px",
+            textAlign: "center",
+            marginBottom: "-24px",
+          }}
+        >
           *Por favor, preencha todos os campos obrigatórios antes de confirmar.
         </p>
       )}

@@ -163,7 +163,7 @@ const getIconComponent = (title: string): React.FC => {
       return IconDenied;
     case "Reembolso":
       return IconReembolso;
-    case "Devolução Financeira":
+    case "Devolução Finalizada":
       return IconCheck;
     default:
       return IconAcompanhe;
