@@ -96,7 +96,6 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       );
     });
   };
-console.log("cade esssa merda", fotoAdicionada)
   const updateProdutoData = (
     productId,
     key,
@@ -118,8 +117,10 @@ console.log("cade esssa merda", fotoAdicionada)
     }));
   };
 
+  console.log('cade', data)
+  console.log("obsDevInput:", produtoData);
   useEffect(() => {
-    fetch("https://api.troquefuthomologacao.futfanatics.com.br/api/reasons")
+    fetch(`https://api.troquefuthomologacao.futfanatics.com.br/api/reasons`)
       .then((response) => response.json())
       .then((data) => {
         setReasons(data);
@@ -322,7 +323,7 @@ console.log("cade esssa merda", fotoAdicionada)
     };
     setObsDev(key === "obsDev" ? selectedValue : obsDev);
 
-    console.log("obsDevInput:", obsDev);
+    
 
     const selectedProductIndex = produtos.findIndex(
       (produto) =>
@@ -366,7 +367,7 @@ console.log("cade esssa merda", fotoAdicionada)
     console.log("Dados selecionados produto:", dadosSelecionadosAtualizados);
   
     const todosCamposPreenchidos = areAllFieldsFilled();
-    const isMediaRequiredFilled = !mediaRequired && fotoAdicionada; // Alteração aqui
+    const isMediaRequiredFilled = !mediaRequired && fotoAdicionada; 
   
     console.log('Todos os campos preenchidos?', todosCamposPreenchidos);
     console.log('É necessário enviar mídia?', mediaRequired);
@@ -425,11 +426,11 @@ console.log("cade esssa merda", fotoAdicionada)
         Preencha as informações do(s) produto(s) selecionado(s)
       </SH1>
       <Slider {...settings} className="col-md-10 c-slider-product">
-        {produtos.map((produto, index) => (
+        {produtos.map((produto, index, product_id) => (
           <Box
             typeBox="productselected"
             className="product-selected"
-            key={produto.product_id && produto.variant_value}
+            key={product_id && produto.variant_value}
           >
             <Box
               className="col-md-12 d-flex flex-md-row flex-column"
@@ -559,9 +560,7 @@ console.log("cade esssa merda", fotoAdicionada)
                       *O que aconteceu?
                     </STextParagraph>
                     <ListaSelected
-                      options={subReasons.map(
-                        (subReason) => subReason.description
-                      )}
+                      options={subReasons.map((subReason) => subReason.description)}
                       optionsSubReason={subReasons.map((subReason) => {
                         return {
                           id: subReason.id,
@@ -577,10 +576,9 @@ console.log("cade esssa merda", fotoAdicionada)
                         )
                       }
                       selectedValue={
-                        produtoData[produto.product_id]?.[produto.variant_value]
-                          ?.subDevolucao
+                        produtoData[produto.product_id]?.[produto.variant_value]?.subDevolucao
                       }
-                    ></ListaSelected>
+                    />
                   </div>
                 </div>
                 <div className="d-md-flex justify-content-between">

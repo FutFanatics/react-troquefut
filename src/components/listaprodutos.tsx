@@ -43,11 +43,10 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {
-   
+
     setProdutosSelecionados([]);
     setIsButtonDisabled(true);
     setProdutoSelecionado(null);
-    setShowProductSelected(false);
 
     let auth = localStorage.getItem("auth");
 
@@ -151,7 +150,13 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
               />
             </div>
           )}
-          
+          {showProductSelected && produtoSelecionado !== null && (
+            <ProductSelected
+            produtos={produtosSelecionados}
+            delivery_date={delivery_date}
+            payment_method={payment_method}
+          />
+          )}
         </div>
       </section>
     </>

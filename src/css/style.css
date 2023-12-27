@@ -443,6 +443,7 @@
 .ReactModal__Overlay.ReactModal__Overlay--after-open {
   background-color: rgba(0, 0, 0, 0.5) !important;
   padding: 16px 0px;
+  z-index: 10000000000000000000 !important;
 }
 @media (max-width: 768px) {
   .ReactModal__Overlay.ReactModal__Overlay--after-open {

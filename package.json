@@ -69,7 +69,8 @@
     "@types/react-input-mask": "^3.0.5",
     "@types/react-modal": "^3.16.0",
     "@types/react-slick": "^0.23.10",
-    "@types/styled-components": "^5.1.26"
+    "@types/styled-components": "^5.1.26",
+    "dotenv": "^16.3.1"
   },
   "exports": {
     "./swiper-bundle.min.css": "./dist/css/swiper-bundle.min.css"

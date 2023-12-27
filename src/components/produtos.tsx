@@ -46,8 +46,10 @@ const Produtos: React.FC<ProdutosProps> = ({
     if (storedSelectedProducts) {
       setProdutosSelecionados(JSON.parse(storedSelectedProducts));
       setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
     }
-  }, []);
+  }, [selectedId]);
 
   useEffect(() => {
     localStorage.setItem('selectedProducts', JSON.stringify(produtosSelecionados));
@@ -60,24 +62,15 @@ const Produtos: React.FC<ProdutosProps> = ({
       setIsButtonDisabled(true);
     }
   }, [location, setProdutosSelecionados, setIsButtonDisabled]);
-
+  
   const handleCheckboxChange = (produto: Produto) => {
-    const isProductSelected = produtosSelecionados.some((p) => (
-      p.product_id === produto.product_id && p.variant_value === produto.variant_value
-    ));
-  
-    if (isProductSelected) {
-      const updatedProdutos = produtosSelecionados.filter((p) => (
-        p.product_id !== produto.product_id || p.variant_value !== produto.variant_value
-      ));
-      setProdutosSelecionados(updatedProdutos);
-    } else {
-      setProdutosSelecionados([...produtosSelecionados, produto]);
-    }
-  
+    const updatedProdutos = produtosSelecionados.filter(
+      (p) => p.selectedId === selectedId
+    );
+
+    setProdutosSelecionados([...updatedProdutos, { ...produto, selectedId }]);
     setShowProductSelected(false);
   };
-  
 
   const handleDataUpdate = (dadosSelecionados: any) => {
     console.log('Updated data from ProductSelected dados:', dadosSelecionados);
@@ -120,24 +113,24 @@ const Produtos: React.FC<ProdutosProps> = ({
       },
     ],
   };
-
+  console.log('Dados selecionados produtos.tsx seilaaaaaaa:',produtosSelecionados);
   return (
-<>
-    {showProductSelected ? (
-      <ProductSelected
-        produtos={produtosSelecionados}
-        onDataUpdate={handleDataUpdate}
-        produtoSelecionadoData={produtoSelecionadoData}
-        delivery_date={delivery_date}
-        payment_method={payment_method}
-      />
-    ) : (
+    <>
+      {showProductSelected ? (
+        <ProductSelected
+          produtos={produtosSelecionados}
+          onDataUpdate={handleDataUpdate}
+          produtoSelecionadoData={produtoSelecionadoData}
+          delivery_date={delivery_date}
+          payment_method={payment_method}
+        />
+      ) : (
         <>
           <Slider {...sliderSettings} className={`col-md-5 c-slider-product ${className}`}>
             {produtos.map((produto, index) => (
               <Box typeBox="product" key={index}>
                 <div className="produto-box_img ">
-                    <img src={produto.img} alt={produto.name} />
+                  <img src={produto.img} alt={produto.name} />
                 </div>
                 <div className="produto-box_text d-flex flex-column justify-content-center">
                   <SH1
@@ -171,17 +164,17 @@ const Produtos: React.FC<ProdutosProps> = ({
                   </SspanText>
                 </div>
                 <Button
-                className={`mt-2 ${produtosSelecionados.some((p) => (
-                  p.product_id === produto.product_id && p.variant_value === produto.variant_value
-                )) ? 'clicked' : ''}`}
-                typeButton="select"
-                onClick={() => handleCheckboxChange(produto)}
-                disabled={produtosSelecionados.some((p) => p.variant_value !== produto.variant_value)}
-              >
-                {produtosSelecionados.some((p) => (
-                  p.product_id === produto.product_id && p.variant_value === produto.variant_value
-                )) ? 'Selecionado' : 'Selecionar'}
-              </Button>
+                  className={`mt-2 ${produtosSelecionados.some((p) => (
+                    p.product_id === produto.product_id && p.variant_value === produto.variant_value
+                  )) ? 'clicked' : ''}`}
+                  typeButton="select"
+                  onClick={() => handleCheckboxChange(produto)}
+                  disabled={produtosSelecionados.some((p) => p.variant_value !== produto.variant_value)}
+                >
+                  {produtosSelecionados.some((p) => (
+                    p.product_id === produto.product_id && p.variant_value === produto.variant_value
+                  )) ? 'Selecionado' : 'Selecionar'}
+                </Button>
               </Box>
             ))}
           </Slider>
@@ -190,7 +183,6 @@ const Produtos: React.FC<ProdutosProps> = ({
             <Button onClick={handleConfirmar} className={`mb-3 ${isButtonDisabled ? 'disabled' : ''}`} disabled={isButtonDisabled} margin="24px auto">
               Continuar
             </Button>
-
           )}
         </>
       )}
