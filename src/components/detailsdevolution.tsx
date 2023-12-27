@@ -133,7 +133,7 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
 
           try {
             const response = await axios.get(
-              `https://api.troquefuthomologacao.futfanatics.com.br//api/accompany/${customerId}/${devolutionId}`,
+              `https://api.troquefuthomologacao.futfanatics.com.br/api/accompany/${customerId}/${devolutionId}`,
               {
                 timeout: 10000,
                 headers: {
@@ -145,7 +145,7 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
             setData(response.data);
             
           } catch (error) {
-            //navigate('/login');
+            
           }
         }
       }
@@ -153,9 +153,7 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
 
     fetchData();
   }, [devolutionId]);
-
-//console.log('cade', data);
-
+console.log('cade', data)
   const handleButtonClick = () => {
     if (data) {
       const devolution = data;
