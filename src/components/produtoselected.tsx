@@ -392,7 +392,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     //console.log("Dados selecionados produto:", dadosSelecionadosAtualizados);
   
     const todosCamposPreenchidos = areAllFieldsFilled();
-    const isMediaRequiredFilled = mediaRequired ; // Alteração aqui
+    const isMediaRequiredFilled = isFotoAdicaoValida ; // Alteração aqui
   
     console.log('Todos os campos preenchidos?', todosCamposPreenchidos);
     console.log('É necessário enviar mídia?', mediaRequired);
