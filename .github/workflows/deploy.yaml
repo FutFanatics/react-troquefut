@@ -17,10 +17,10 @@ jobs:
       - name: ⚙️ Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: '18.16.0'
 
       - name: ⬇️ Install Dependencies
-        run: npm ci
+        run: npm install --force
 
       - name: 🏗️ Build the Application
         run: npm run build 
