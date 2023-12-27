@@ -153,7 +153,7 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
 
     fetchData();
   }, [devolutionId]);
-console.log('cade', data)
+
   const handleButtonClick = () => {
     if (data) {
       const devolution = data;
