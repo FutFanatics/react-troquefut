@@ -426,11 +426,11 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
         Preencha as informações do(s) produto(s) selecionado(s)
       </SH1>
       <Slider {...settings} className="col-md-10 c-slider-product">
-        {produtos.map((produto, index, product_id) => (
+        {produtos.map((produto, index) => (
           <Box
             typeBox="productselected"
             className="product-selected"
-            key={product_id && produto.variant_value}
+            key={produto.product_id && produto.variant_value}
           >
             <Box
               className="col-md-12 d-flex flex-md-row flex-column"
