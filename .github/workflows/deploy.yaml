@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: built-artifacts
-          path: ./out
+          path: ./build
   deploy_prod:
     name: 🚀 Deployment to Production
     runs-on: ubuntu-latest
@@ -50,7 +50,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: built-artifacts
-          path: ./out
+          path: ./build
 
       - name: 🚀 Deploy to S3
         uses: jakejarvis/s3-sync-action@master
@@ -60,7 +60,7 @@ jobs:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          SOURCE_DIR: ./out
+          SOURCE_DIR: ./build
 
       - name: 🌩️ Invalidate CloudFront Cache
         run: |
