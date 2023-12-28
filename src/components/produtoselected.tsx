@@ -622,26 +622,24 @@ console.log('socuerro', motivoSelecionado)
                       *O que aconteceu?
                     </STextParagraph>
 
-                    <select
-                    onChange={(e) =>
-                      handleSelectChange(
-                        produto.product_id,
-                        produto.variant_value,
-                        "subDevolucao",
-                        e.target.value
-                      )
-                    }
-                    value={
-                      produtoData[produto.product_id]?.[produto.variant_value]?.subDevolucao || ""
-                    }
-                  >
-                    <option value="">Selecione...</option>
-                    {subReasons[`${produto.product_id}-${produto.variant_value}`]?.map((subReason) => (
-                      <option key={subReason.id} value={subReason.id}>
-                        {subReason.description}
-                      </option>
-                    ))}
-                  </select>
+                    <ListaSelected
+                        options={subReasons[`${produto.product_id}-${produto.variant_value}`]?.map((subReason) => subReason.description) || []}
+                        optionsSubReason={subReasons[`${produto.product_id}-${produto.variant_value}`]?.map((subReason) => ({
+                          id: subReason.id,
+                          name: subReason.description,
+                        })) || []}
+                        onChange={(selectedValue) =>
+                          handleSelectChange(
+                            produto.product_id,
+                            produto.variant_value,
+                            "subDevolucao",
+                            selectedValue
+                          )
+                        }
+                        selectedValue={
+                          produtoData[produto.product_id]?.[produto.variant_value]?.subDevolucao
+                        }
+                      />
 
 
                   </div>
