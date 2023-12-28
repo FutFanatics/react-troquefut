@@ -49,7 +49,10 @@ const Produtos: React.FC<ProdutosProps> = ({
     } else {
       setIsButtonDisabled(true);
     }
-    //setProdutosSelecionados([]);
+
+    
+    setProdutosSelecionados([]);
+    
   }, [selectedId]);
 
   useEffect(() => {
