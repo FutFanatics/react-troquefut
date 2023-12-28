@@ -48,6 +48,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   allowed_clique_retire,
   delivery_date,
 }) => {
+  const [lastProductSelected, setLastProductSelected] = useState<string>("");
   const location = useLocation();
   const { data, updateData } = useDataContext();
   const [tipoReembolso, setTipoReembolso] = useState("");
@@ -139,19 +140,20 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
 
   
 
-  useEffect(() => {
-    produtos.forEach((produto) => {
-      const productIdVariantValue = `${produto.product_id}-${produto.variant_value}`;
-      console.log('productIdVariantValue:', productIdVariantValue);
-      // Verifique se productIdVariantValue é válido
-      if (productIdVariantValue) {
-        setSubReasons((prevSubReasons) => ({
-          ...prevSubReasons,
-          [productIdVariantValue]: [],
-        }));
-      }
-    });
-  }, [produtos]);
+  // useEffect(() => {
+  //   produtos.forEach((produto) => {
+  //     const productIdVariantValue = `${produto.product_id}-${produto.variant_value}`;
+  //     console.log('productIdVariantValue:', productIdVariantValue);
+  //     // Verifique se productIdVariantValue é válido
+  //     if (productIdVariantValue) {
+  //       setSubReasons((prevSubReasons) => ({
+  //         ...prevSubReasons,
+  //         [productIdVariantValue]: [],
+  //       }));
+  //     }
+  //   });
+  // }, [produtos]);
+
   console.log()
   /** Validação dos motivos */
   useEffect(() => {
@@ -179,21 +181,37 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
         setIsMediaRequiredError(false);
       }
 
-      console.log('motivoDevolucao:', motivoDevolucao);
-      console.log('produtoSelecionadoData2:', produtoSelecionadoData);
+      console.log('lastProductSelected:', lastProductSelected);
+      console.log('produtos2:', produtos);
+
+      let partes = lastProductSelected.split('-');
+
+      // Atribuir os valores às variáveis
+      let codProd = partes[0];
+      let codVariant = partes.slice(1).join('-')
       
       if (selectedReason && selectedReason.subReasons) {
-        produtos.forEach((produto) => {
-          const productIdVariantValue = `${produto.product_id}-${produto.variant_value}`;
-    
-          if (motivoDevolucao && productIdVariantValue) {
-            // Update subReasons using the combination of product_id and variant_value as the key
-            setSubReasons((prevSubReasons) => ({
-              ...prevSubReasons,
-              [productIdVariantValue]: selectedReason.subReasons,
-            }));
+
+        const produto = produtos.filter((produto) => {
+          if(produto.variant_value === codVariant) {
+            if(produto.product_id === codProd) {
+              return true;
+            }
           }
+          return false;
         });
+
+        const productIdVariantValue = `${produto[0].product_id}-${produto[0].variant_value}`;
+    
+        if (motivoDevolucao && productIdVariantValue) {
+          // Update subReasons using the combination of product_id and variant_value as the key
+          setSubReasons((prevSubReasons) => ({
+            ...prevSubReasons,
+            [productIdVariantValue]: selectedReason.subReasons,
+          }));
+
+          console.log('subReasons 1:', subReasons);
+        }
       } else {
         // If there are no subReasons, clear the options for each product
         produtos.forEach((produto) => {
@@ -204,11 +222,11 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
               ...prevSubReasons,
               [productIdVariantValue]: [],
             }));
+
+            console.log('subReasons 2:', subReasons);
           }
         });
       }
-      
-      console.log('subReasons:', subReasons);
     }      
     
   }, [motivoDevolucao, produtoSelecionadoData, reasons, reasonDeadlines, outOfDateModalIsOpen, produtos]);
@@ -364,7 +382,9 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
         "inputName"
       );
 
-   
+      const productIdVariantValue = `${productId}-${variant_value}`;
+
+      setLastProductSelected(productIdVariantValue); 
 
       switch (key) {
         case "tipoReembolso":
