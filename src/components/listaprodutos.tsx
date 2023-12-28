@@ -156,7 +156,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
               )}
             </>
           ) : (
-            <div style={{ height: "30vh", display:"flex", justifyContent:"center", alignItems:"center" }}>
+            <div style={{ height: "30vh"}}>
               <SH1
                 textAlign="start"
                 color="#777777"
