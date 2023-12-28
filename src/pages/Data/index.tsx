@@ -159,7 +159,7 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
   
     return null;
   };
-
+console.log('dados', )
   const renderReembolsoByType = (tipoReembolso: string, productId: number, variantValue: string, index?:number) => {
     const reembolsoComponents = {
       Cupom: <ValeCompras onCheckboxChange={handleCheckboxChange(tipoReembolso)(index)} />,
