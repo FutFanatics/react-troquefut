@@ -395,7 +395,9 @@
     width: auto;
     max-width: 1200px;
     min-height: 70vh;
-    height: 95vh;
+    overflow: auto;
+    height: auto;
+    max-height: 97vh;
     padding: 20px 30px 30px 30px;
     top: 50%;
     transform: translateY(-50%);
@@ -403,8 +405,8 @@
 }
 @media (min-width: 1800px) {
   .c-modal_aceite {
-    height: 75vh;
-    overflow: auto;
+    height: auto;
+    max-height: 95vh;
   }
 }
 @media (max-width: 768px) {
@@ -414,13 +416,18 @@
 }
 @media (min-width: 2000px) {
   .c-modal_aceite {
-    height: 65vh;
-    min-height: auto;
+    height: 75vh;
+  }
+}
+@media (min-width: 2200px) {
+  .c-modal_aceite {
+    height: 67vh;
+    min-height: 20vh;
   }
 }
 @media (min-width: 2400px) {
   .c-modal_aceite {
-    height: 48vh;
+    height: 50vh;
   }
 }
 .c-modal_aceite .btn-close {

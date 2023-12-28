@@ -38,8 +38,7 @@ const ModalEnvio: React.FC<ModalEnvioProps> = ({
         </SH1>
 
         <STextParagraph typeParagraph="paragraphdescribe">
-        Sua solicitação já foi enviada e está em análise. Aguarde o retorno do SAC
-para dar continuidade ao processo.
+        Sua solicitação de Devolução foi aprovada! Já estamos processando a sua opção de recebimento.
         </STextParagraph>
       </div>
 

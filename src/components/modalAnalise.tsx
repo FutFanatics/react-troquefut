@@ -42,7 +42,7 @@ const ModalAnalise: React.FC<ModalAnaliseProps> = ({
 
         <STextParagraph typeParagraph="paragraphdescribe">
         Seu pedido já chegou  solicitação está em processo
-        de análise pelo nosso SAC.
+        de análise.
         Aguarde por atualizações.
         </STextParagraph>
       </div>
