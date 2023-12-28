@@ -100,6 +100,12 @@
   100% { transform: rotate(360deg); }
 }
 
+.politica{
+  margin-bottom: 24px;
+  @include sm{
+    margin-bottom: 0px;
+  }
+}
 .loading-spinner {
   border: 4px solid #f3f3f3;
   border-top: 4px solid #00df5e;
@@ -391,6 +397,10 @@
 }
 .c-slider-product{
   margin: 0px auto;
+
+  @include sm{
+    padding: 32px 0px;
+  }
 }
 .col-vale {
   margin-top: 1.5rem;
@@ -766,6 +776,10 @@ input[type="text"] {
   margin: 0;
   list-style: none;
   text-align: center;
+
+  @include sm{
+    bottom: 0% !important;
+  }
 } 
 .slick-dots li button {
     font-size: 0;

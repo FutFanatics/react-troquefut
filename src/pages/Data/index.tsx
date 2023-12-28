@@ -120,6 +120,7 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
 }, [checkboxStates, dadosSelecionadosAtualizados]);
   const sliderSettings = {
     dots: true,
+    arrows: true,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
@@ -129,6 +130,15 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 468,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
           arrows: false,
         },
       },
@@ -304,7 +314,7 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
           <SH1 textTransform="uppercase" fontSize="20px">
             Informações de reembolso
           </SH1>
-          <div className="content d-flex flex-column align-items-center">
+          <div className="content d-md-flex flex-column align-items-center">
             {isSameReembolsoType ? (
               <Box typeBox="estorno" className="d-flex flex-column col-md-10">
                 <IconFinance width={64} className="mb-4"></IconFinance>
@@ -341,7 +351,7 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
               </Slider>
             )}
               {!areAllCheckboxesChecked && (
-                <p style={{ color: "#000", fontSize: "12px", marginTop: "16px", marginBottom:"-16px" }}>É necessário preencher todos os campos para prosseguir.</p>
+                <p style={{ color: "#000", fontSize: "12px", marginTop: "16px", marginBottom:"-16px", textAlign:"center" }}>É necessário preencher todos os campos para prosseguir.</p>
               )}
             <button
               onClick={handleConfirmar}

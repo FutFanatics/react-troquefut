@@ -379,6 +379,8 @@ export const Box = styled.div<Box>`
         margin:16px 0px;
         transform:translateX(-50%);
 
+
+
         .produto-box_img{
             border-radius: 10px;
             overflow: hidden;
@@ -396,6 +398,8 @@ export const Box = styled.div<Box>`
             white-space: nowrap;
             overflow: hidden;
         }
+
+
                 
     `}
     ${props => props.typeBox === 'product-devolution' && `

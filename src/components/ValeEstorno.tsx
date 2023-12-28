@@ -322,7 +322,7 @@ const ValeEstorno: React.FC<ValeEstornoProps> = ({
             </Box>
           </div>
         )}
-        <div className="d-flex mt-3  mb-3 justify-content-start align-items-center">
+        <div className="d-flex mt-3 politica justify-content-start align-items-center">
           <input
             type="checkbox"
             required
