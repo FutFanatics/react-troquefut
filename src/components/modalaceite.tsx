@@ -57,56 +57,54 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
       let banks = {};
       let orderId = {};
 
-      novosDadosSelecionados.pedido.map((item) => {
+      if (novosDadosSelecionados && typeof novosDadosSelecionados === 'object' && !Array.isArray(novosDadosSelecionados)) {
         
-        products.push({
-          prodId: item.product_id,
-          variantId: item.variant_id,
-          method_refund: item.selectedProduct.tipoReembolso,
-          reasonSubId: item.selectedProduct.subDevolucao,
-          qty: item.selectedProduct.quantidade,
-          obs: item.selectedProduct.obsDev,
-        });
-
-        orderId = item.selectedId;
-
-        if(item.hasOwnProperty('BankReembolso') && item.BankReembolso.bankData.account) {
-          banks = item.BankReembolso.bankData;
-        }
-
-        /**
-         * Celular = number
-         * CPF ou CNPJ = cpf-cnpj
-         * Chave Aleatória = random-key
-         * E-mail = email
-         */
-
-        if(item.hasOwnProperty('BankReembolso') && item.BankReembolso.pixData != null) {
-
-          let type;
-
-          console.log('tipo', item.BankReembolso.pixData.tipoPix)
-          switch (item.BankReembolso.pixData.tipoPix) {
-            case "Celular":
-              type = "number";
-              break;
-            case "CPF ou CNPJ":
-              type = "cpf-cnpj";
-              break;
-            case "Chave Aleatória":
-              type = "random-key";
-              break;
-            case "E-mail":
-              type = "email";
-              break;
+        Object.keys(novosDadosSelecionados).forEach((key) => {
+          const item = novosDadosSelecionados[key];
+      
+          if (item && item.selectedProduct) {
+            products.push({
+              prodId: item.product_id,
+              variantId: item.variant_id,
+              method_refund: item.selectedProduct.tipoReembolso,
+              reasonSubId: item.selectedProduct.subDevolucao,
+              qty: item.selectedProduct.quantidade,
+              obs: item.selectedProduct.obsDev,
+            });
+      
+            orderId = item.selectedId;
+      
+            if (item.hasOwnProperty('BankReembolso') && item.BankReembolso.bankData.account) {
+              banks = item.BankReembolso.bankData;
+            }
+      
+            if (item.hasOwnProperty('BankReembolso') && item.BankReembolso.pixData != null) {
+              let type;
+      
+              console.log('tipo', item.BankReembolso.pixData.tipoPix)
+              switch (item.BankReembolso.pixData.tipoPix) {
+                case "Celular":
+                  type = "number";
+                  break;
+                case "CPF ou CNPJ":
+                  type = "cpf-cnpj";
+                  break;
+                case "Chave Aleatória":
+                  type = "random-key";
+                  break;
+                case "E-mail":
+                  type = "email";
+                  break;
+              }
+              pix = {
+                code: item.BankReembolso.pixData.chavePix,
+                type: type,
+              };
+            }
           }
-          pix = {
-            code: item.BankReembolso.pixData.chavePix,
-            type: type,
-          };
-        }
-      });
-
+        });
+      }
+      
       let bodyJson = {
           email : username,
           orderId: orderId,

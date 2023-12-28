@@ -204,38 +204,35 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
         areAllCheckboxesChecked = false;
       }
     });
-
     if (areAllCheckboxesChecked) {
-      const dadosFinais = {
-        pedido: dadosSelecionadosAtualizados.map((produto: any, index: number) => {
-          if (produto.selectedProduct?.tipoReembolso?.toLowerCase() === "estorno") {
-            return {
-              ...produto,
-              BankReembolso: {
-                pixData: {
-                  tipoPix: tipoPix,
-                  chavePix: chavePix,
-                },
-                bankData: {
-                  bank: bank,
-                  cpfcnpj: cpfcnpj,
-                  agency: agency,
-                  accont: accont,
-                  typebank: typebank,
-                },
+      const dadosFinais = dadosSelecionadosAtualizados.map((produto: any, index: number) => {
+        if (produto.selectedProduct?.tipoReembolso?.toLowerCase() === "estorno") {
+          return {
+            ...produto,
+            BankReembolso: {
+              pixData: {
+                tipoPix: tipoPix,
+                chavePix: chavePix,
               },
-            };
-          }
-          return produto;
-        }),
-      };
-
-      setUpdatedData({ ...dadosFinais });
+              bankData: {
+                bank: bank,
+                cpfcnpj: cpfcnpj,
+                agency: agency,
+                accont: accont,
+                typebank: typebank,
+              },
+            },
+          };
+        }
+        return produto;
+      });
+    
+      setUpdatedData([...dadosFinais]); 
       if (onDataUpdate) {
         onDataUpdate(dadosSelecionadosAtualizados);
       }
-
-      navigate("/shipping", { state: dadosFinais });
+    
+      navigate("/shipping", { state: dadosFinais || dadosSelecionadosAtualizados });
     }
   };
 

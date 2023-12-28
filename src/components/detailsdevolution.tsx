@@ -168,7 +168,7 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
         } else if (devolution.status.title === "Solicitação Realizada") {
           setModalType("realizada");
         }
-        else if (devolution.status.title === "Solicitação Concluída") {
+        else if (devolution.status.title === "Devolução Finalizada") {
           setModalType("concluido");
         } else if (devolution.status.title === "Reembolso Em Progresso") {
           setModalType("progresso");
@@ -275,7 +275,7 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
                           </Button>
                           </a>
                           </div>} 
-                          {data.status.title == "Solicitação Concluída " &&  product.refundType =='Cupom' && <div className="mt-3 mb-3 d-flex flex-column align-items-center">
+                          {data.status.title == "Solicitação Finalizada" &&  product.refundType =='Cupom' && <div className="mt-3 mb-3 d-flex flex-column align-items-center">
                             <p style={{fontSize:"12px", color:"#000", margin:"0px"}}>Pegue aqui seu Cupom de Vale Compras:</p>
                             <a className="d-flex justify-content-center align-items-center" style={{textDecoration:"none", cursor:"pointer"}} onClick={handleCopyCoupon}>
                             <p style={{fontSize:"16px", color:"#192c53", margin:"0px 8px"}}>{data.coupon}</p>
