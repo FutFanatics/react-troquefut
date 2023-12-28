@@ -38,7 +38,7 @@ const ModalEnvio: React.FC<ModalEnvioProps> = ({
         </SH1>
 
         <STextParagraph typeParagraph="paragraphdescribe">
-        Sua solicitação de Devolução foi aprovada! Já estamos processando a sua opção de recebimento.
+        Sua solicitação de Devolução foi aprovada! Já estamos processando a sua opção de reembolso.
         </STextParagraph>
       </div>
 

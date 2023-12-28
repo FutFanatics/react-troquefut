@@ -17,6 +17,7 @@ import { useDataContext } from "../context/DataContext";
 
 interface ProductSelectedProps {
   className?: string;
+  selectedId?:string;
   produtos?: Produto[];
   produtosSelecionados?: Produto[];
   onDataUpdate?: (data: any) => void;
@@ -44,6 +45,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   onSaveTipoReembolso,
   produtoSelecionadoData,
   orderId,
+  selectedId,
   payment_method,
   allowed_clique_retire,
   delivery_date,

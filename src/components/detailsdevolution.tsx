@@ -85,6 +85,7 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
   const [isContentOpen, setIsContentOpen] = useState(!isMobile);
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
+
   const settings = {
     dots:true,
     arrow:true,
@@ -93,7 +94,7 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
     slidesToShow: 1,
     slidesToScroll: 1,
     adaptiveHeight: true,
-    beforeChange: (oldIndex, newIndex) => setCurrentProductIndex(newIndex),
+    
     responsive: [
       {
         breakpoint: 768,

@@ -8,6 +8,8 @@ import {  useNavigate } from "react-router-dom";
 import { STextParagraph } from "../../componentsStyled/Text";
 import Button from "../../componentsStyled/Button";
 import IconBack from "../../componentsStyled/icon/Iconback";
+import DevBottom from "../../componentsStyled/icon/devbottom";
+import DevTop from "../../componentsStyled/icon/devtop";
 
 interface LoginProps {
   className?: string;
@@ -27,6 +29,9 @@ const LoginAcompany: React.FC<LoginProps> = ({ className }) => {
   return (
     <>
     <Header></Header>
+    <div className="c-login position-relative">
+    <DevTop className="position-absolute arrow-top arrow-top_login" width={200}></DevTop>
+    <DevBottom className="position-absolute arrow-bottom"/>
     <div className="container container-login">
     <Button typeButton="voltar" margin="16px 0px 0px 0px" onClick={handleBack}>
           <IconBack width={20}></IconBack>
@@ -42,6 +47,7 @@ const LoginAcompany: React.FC<LoginProps> = ({ className }) => {
             <ValidationAcompany></ValidationAcompany>
         </div>
         
+    </div>
     </div>
     </>
   );

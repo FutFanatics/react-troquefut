@@ -93,23 +93,70 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
     setProdutoSelecionado(produto);
   };
 
+  console.log('vai filho', produtoSelecionado)
+  console.log('vai filho2', pedido)
+  console.log('vai filho2', produtoSelecionado === null && pedido && pedido.Products )
+  console.log('mostra o selected id', selectedId)
+
   return (
     <>
       <hr></hr>
       <section className="c-Lista">
         <div className={`container ${className}`}>
           {selectedId ? (
-            <SH1
-              textAlign="start"
-              color="#777777"
-              fontWeight={350}
-              fontSize="16px"
-              fontSizesm="14px"
-            >
-              Lista de Produtos do Pedido:# {selectedId}
-            </SH1>
+            <>
+              <SH1
+                textAlign="start"
+                color="#777777"
+                fontWeight={350}
+                fontSize="16px"
+                fontSizesm="14px"
+              >
+                Lista de Produtos do Pedido:# {selectedId}
+              </SH1>
+
+              {produtoSelecionado === null && pedido && pedido.Products && pedido.Products.length > 0 ? (
+                <div
+                  className="mt-1 mb-2 justify-content-center align-items-center flex-wrap"
+                  style={{ justifyContent: "center" }}
+                >
+                  <Produtos
+                    produtos={pedido.Products}
+                    selectedId={selectedId || ""}
+                    handleSelect={onSelectProduto}
+                    key={1}
+                    delivery_date={delivery_date}
+                    payment_method={payment_method}
+                    allowed_clique_retire={allowed_clique_retire}
+                  />
+                </div>
+              ) : (
+                <div style={{ height: "30vh", display:"flex", justifyContent:"center", alignItems:"center" }}>
+                <div className="d-flex flex-column align-items-center">
+                <IconNull width={50}></IconNull>
+                <div className="">
+                  <STextParagraph fontSize="14px" color="#777">
+                    Não há mais itens
+                  </STextParagraph>
+                  <STextParagraph fontSize="14px" color="#777">
+                    para serem devolvidos nesse pedido.
+                  </STextParagraph>
+                </div>
+              </div>
+
+                </div>
+              )}
+              
+              {showProductSelected && produtoSelecionado !== null && (
+                <ProductSelected
+                  produtos={produtosSelecionados}
+                  delivery_date={delivery_date}
+                  payment_method={payment_method}
+                />
+              )}
+            </>
           ) : (
-            <div style={{ height: "30vh" }}>
+            <div style={{ height: "30vh", display:"flex", justifyContent:"center", alignItems:"center" }}>
               <SH1
                 textAlign="start"
                 color="#777777"
@@ -132,30 +179,6 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
                 </div>
               </div>
             </div>
-          )}
-
-          {produtoSelecionado === null && pedido && (
-            <div
-              className="mt-1 mb-2 justify-content-center align-items-center flex-wrap"
-              style={{ justifyContent: "center" }}
-            >
-              <Produtos
-                produtos={pedido.Products}
-                selectedId={selectedId || ""}
-                handleSelect={onSelectProduto}
-                key={1}
-                delivery_date={delivery_date}
-                payment_method={payment_method}
-                allowed_clique_retire={allowed_clique_retire}
-              />
-            </div>
-          )}
-          {showProductSelected && produtoSelecionado !== null && (
-            <ProductSelected
-            produtos={produtosSelecionados}
-            delivery_date={delivery_date}
-            payment_method={payment_method}
-          />
           )}
         </div>
       </section>

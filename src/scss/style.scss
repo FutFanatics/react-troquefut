@@ -134,7 +134,12 @@
   @media screen and (max-width: 768px) {
     display: none;
   }
-
+  &_home{
+    top: 5%;
+  }
+  &_login{
+    top: 5%;
+  }
 }
 .arrow-bottom{
   width: 130px;
@@ -143,6 +148,12 @@
 
   @media screen and (max-width: 768px) {
     display: none;
+  }
+  &_home{
+    bottom: -10%;
+  }
+  &_login{
+    bottom: -10%;
   }
 }
 
@@ -265,16 +276,32 @@
 
       &:hover {
         transition: ease-in-out 0.3s;
+        &::after{
+          content: '';
+          background: rgba(0, 0, 0, 0.5);
+          position: absolute;
+          height: 20px;
+          transform: rotate(100deg);
+          width: 20px;
+          left: -43.14284%;
+          top:0%;
+          clip-path: polygon(50% 0%, 0% 100%, 70% 90%);
+          z-index: 1;
+          background-clip: border-box;
+
+        }
         &::before {
-          content: "Acesse o site da FutFanatics";
-          left: -250px;
-          background: #606267;
+          content: "Acesse nosso site!";
+          font-weight: 500;
+          left: -200px;
+          background: rgba(0, 0, 0, 0.5);
           position: absolute;
           top: -59%;
           padding: 9px 25px;
           border-radius: 2px;
           color: #d9d9d9;
-          font-weight: 700;
+          z-index: 2;
+          background-clip: padding-box; 
         }
       }
     }

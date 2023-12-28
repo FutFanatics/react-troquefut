@@ -11,6 +11,8 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import TroqueFut from "../../componentsStyled/icon/LogoTroqueFut";
 import IconDoor from "../../componentsStyled/icon/Icondoor";
+import DevTop from "../../componentsStyled/icon/devtop";
+import DevBottom from "../../componentsStyled/icon/devbottom";
 
 export default function Home() {
     return (
@@ -19,7 +21,9 @@ export default function Home() {
         <section className="c-home">
             <div className="container">
                 <div className="row">
-                    <div className="col-md-7 col-content">
+                    <div className="col-md-7 col-content position-relative">
+                        <DevTop className="position-absolute arrow-top arrow-top_home" width={200}></DevTop>
+                        <DevBottom className="position-absolute arrow-bottom arrow-bottom_home"></DevBottom>
                         <TroqueFut width={280} className="logo-troque"></TroqueFut>
                         <STextParagraph padding="48px 0px 48px 0px" fontWeight={350} paddingsm="32px 0px">
                             O TroqueFut é uma plataforma de devoluções da empresa FutFanatics, onde você consegue realizar suas trocas sem  dificuldades e com tecnologias intuitivas.
@@ -52,8 +56,8 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            <Footer></Footer>
         </section>
+            <Footer></Footer>
         
         </>
     )

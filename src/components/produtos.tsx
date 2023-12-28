@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SH1, SspanText } from "../componentsStyled/Text";
 import { Box } from "../componentsStyled/Box";
@@ -28,12 +28,11 @@ const Produtos: React.FC<ProdutosProps> = ({
   delivery_date,
   payment_method,
   orderId,
-  selectedId,
+  selectedId: propSelectedId, // Rename the prop to avoid conflict
   allowed_clique_retire,
   handleSelect
 }) => {
   const { data, updateData } = useDataContext();
-
   const [produtosSelecionados, setProdutosSelecionados] = useState<Produto[]>([]);
   const [showProductSelected, setShowProductSelected] = useState(false);
   const [produtoSelecionadoData, setProdutoSelecionadoData] = useState<any>(null);
@@ -41,6 +40,7 @@ const Produtos: React.FC<ProdutosProps> = ({
   const location = useLocation();
   const navigate = useNavigate(); 
 
+  const prevSelectedId = useRef<string | null>(null); 
   useEffect(() => {
     const storedSelectedProducts = localStorage.getItem('selectedProducts');
     if (storedSelectedProducts) {
@@ -49,56 +49,30 @@ const Produtos: React.FC<ProdutosProps> = ({
     } else {
       setIsButtonDisabled(true);
     }
+    if (propSelectedId !== prevSelectedId.current) {
+      setProdutosSelecionados([]);
+    }
 
-    
-    setProdutosSelecionados([]);
-    
-  }, [selectedId]);
+    // Update the previous selectedId
+    prevSelectedId.current = propSelectedId;
+  }, [propSelectedId]);
+
+  const handleSelectedIdChange = (newSelectedId: string) => {
+    // Add logic to handle the change of selectedId
+    // For example, you can update the state or perform any other actions
+    // setLocalSelectedId(newSelectedId);
+  };
 
   useEffect(() => {
     localStorage.setItem('selectedProducts', JSON.stringify(produtosSelecionados));
     setIsButtonDisabled(produtosSelecionados.length === 0);
   }, [produtosSelecionados]);
 
-  useEffect(() => {
-    if (location.pathname === '/order') {
-      setProdutosSelecionados([]);
-      setIsButtonDisabled(true);
-    }
-  }, [location, setProdutosSelecionados, setIsButtonDisabled]);
-  
-  console.log('cade mo', selectedId);
-  
-  // const handleCheckboxChange = (produto: Produto) => {
-  //   setProdutosSelecionados((prevProdutosSelecionados) => {
-  //     const isAlreadySelected = prevProdutosSelecionados.some(
-  //       (p) => p.product_id === produto.product_id && p.variant_value === produto.variant_value
-  //     );
-  
-  //     if (isAlreadySelected) {
-  //       return prevProdutosSelecionados.filter(
-  //         (p) => !(p.product_id === produto.product_id && p.variant_value === produto.variant_value)
-  //       );
-  //     } else {
-  //       const hasDifferentSelectedId = prevProdutosSelecionados.some(
-  //         (p) => p.selectedId !== produto.selectedId
-  //       );
-  
-  //       if (hasDifferentSelectedId) {
-  //         return [produto];
-  //       } else {
-  //         return [...prevProdutosSelecionados, { ...produto, selectedId }];
-  //       }
-  //     }
-  //   });
-  //   setShowProductSelected(false);
-  // };
-  
   const handleCheckboxChange = (produto: Produto) => {
     const isProductSelected = produtosSelecionados.some((p) => (
       p.product_id === produto.product_id && p.variant_value === produto.variant_value
     ));
-  
+
     if (isProductSelected) {
       const updatedProdutos = produtosSelecionados.filter((p) => (
         p.product_id !== produto.product_id || p.variant_value !== produto.variant_value
@@ -107,14 +81,14 @@ const Produtos: React.FC<ProdutosProps> = ({
     } else {
       setProdutosSelecionados([...produtosSelecionados, produto]);
     }
-  
+
     setShowProductSelected(false);
   };
-  
 
   const handleDataUpdate = (dadosSelecionados: any) => {
     console.log('Updated data from ProductSelected dados:', dadosSelecionados);
   };
+
   const handleProdutoSelect = (produto: Produto) => {
     if (handleSelect) {
       handleSelect(produto);
@@ -126,9 +100,9 @@ const Produtos: React.FC<ProdutosProps> = ({
       delivery_date: delivery_date,
       payment_method: payment_method,
       allowed_clique_retire: allowed_clique_retire,
-      selectedId: selectedId,
+      selectedId: propSelectedId,
     };
-  
+
     console.log('Dados selecionados produtos.tsx:', dadosSelecionados);
     updateData(dadosSelecionados);
 
@@ -153,12 +127,13 @@ const Produtos: React.FC<ProdutosProps> = ({
       },
     ],
   };
-  console.log('Dados selecionados produtos.tsx seilaaaaaaa:',produtosSelecionados);
+
   return (
     <>
       {showProductSelected ? (
         <ProductSelected
           produtos={produtosSelecionados}
+          selectedId={propSelectedId}
           onDataUpdate={handleDataUpdate}
           produtoSelecionadoData={produtoSelecionadoData}
           delivery_date={delivery_date}

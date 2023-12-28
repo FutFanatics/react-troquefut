@@ -79,6 +79,14 @@ const ValeEstorno: React.FC<ValeEstornoProps> = ({
   const[typebank, setTypeBank] = useState<string>("")
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
+
+    setTipoPix("");
+    setChavePix("");
+    setBank("");
+    setCpfcnpj("");
+    setAccont("");
+    setAgency("");
+    setTypeBank("");
   };
 
 

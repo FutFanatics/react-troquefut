@@ -8,6 +8,8 @@ import { STextParagraph } from "../../componentsStyled/Text";
 import {  useNavigate } from "react-router-dom";
 import Button from "../../componentsStyled/Button";
 import IconBack from "../../componentsStyled/icon/Iconback";
+import DevTop from "../../componentsStyled/icon/devtop";
+import DevBottom from "../../componentsStyled/icon/devbottom";
 interface LoginProps {
   className?: string;
   children?: React.ReactNode;
@@ -25,7 +27,10 @@ const Login: React.FC<LoginProps> = ({ className }) => {
   return (
     <>
     <Header></Header>
-    <div className="container container-login">
+    <div className="c-login position-relative">
+    <DevTop className="position-absolute arrow-top arrow-top_login" width={200}></DevTop>
+    <DevBottom className="position-absolute arrow-bottom arrow-bottom_login"></DevBottom>
+    <div className="container container-login position-relative">
     <Button typeButton="voltar" margin="16px 0px 0px 0px" onClick={handleBack}>
           <IconBack width={20}></IconBack>
           Voltar
@@ -40,6 +45,7 @@ const Login: React.FC<LoginProps> = ({ className }) => {
             <Validation></Validation>
         </div>
         
+    </div>
     </div>
     </>
   );
