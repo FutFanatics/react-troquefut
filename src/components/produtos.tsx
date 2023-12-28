@@ -64,13 +64,38 @@ const Produtos: React.FC<ProdutosProps> = ({
   }, [location, setProdutosSelecionados, setIsButtonDisabled]);
   
   const handleCheckboxChange = (produto: Produto) => {
-    const updatedProdutos = produtosSelecionados.filter(
-      (p) => p.selectedId === selectedId
+    const isAlreadySelected = produtosSelecionados.some(
+      (p) => p.product_id === produto.product_id && p.variant_value === produto.variant_value
     );
-
-    setProdutosSelecionados([...updatedProdutos, { ...produto, selectedId }]);
+  
+    if (isAlreadySelected) {
+      // If the product is already selected, remove it from the list
+      const updatedProdutos = produtosSelecionados.filter(
+        (p) => !(p.product_id === produto.product_id && p.variant_value === produto.variant_value)
+      );
+  
+      setProdutosSelecionados(updatedProdutos);
+    } else {
+      // If the product is not selected, check the selectedId of existing selected products
+      const hasDifferentSelectedId = produtosSelecionados.some(
+        (p) => p.selectedId !== produto.selectedId
+      );
+  
+      if (hasDifferentSelectedId) {
+        // If there is a product with a different selectedId, replace the selection with the new product
+        setProdutosSelecionados([produto]);
+      } else {
+        // If all selected products have the same selectedId, add the new product to the selection
+        setProdutosSelecionados([...produtosSelecionados, { ...produto, selectedId }]);
+      }
+    }
+  
     setShowProductSelected(false);
   };
+  
+  
+  
+  
 
   const handleDataUpdate = (dadosSelecionados: any) => {
     console.log('Updated data from ProductSelected dados:', dadosSelecionados);

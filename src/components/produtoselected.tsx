@@ -27,6 +27,16 @@ interface ProductSelectedProps {
   delivery_date?: string;
   payment_method?: string;
 }
+interface SelectedProductType {
+  tipoReembolso?: string;
+  motivoDevolucao?: string;
+  quantidade?: number | "";
+  subDevolucao?: string;
+  obsDev?: string;
+}
+interface SelectedProductTypeWithKey extends SelectedProductType {
+  key: string;
+}
 
 const ProductSelected: React.FC<ProductSelectedProps> = ({
   produtos,
@@ -41,12 +51,13 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   const location = useLocation();
   const { data, updateData } = useDataContext();
   const [tipoReembolso, setTipoReembolso] = useState("");
+  const [subReasonOptions, setSubReasonOptions] = useState<any[]>([]);
   const [motivoDevolucao, setMotivoDevolucao] = useState("");
   const [subDevolucao, setSubDevolucao] = useState<number | string>("");
   const [quantidade, setQuantidade] = useState<number | "">("");
   const [reasons, setReasons] = useState<any[]>([]);
   const [obsDev, setObsDev] = useState<string>("");
-  const [subReasons, setSubReasons] = useState<any[]>([]);
+  const [subReasons, setSubReasons] = useState<Record<string, any[]>>({});
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [fotoAdicionada, setFotoAdicionada] = useState(false);
   const [mediaRequired, setMediaRequired] = useState<boolean>(false);
@@ -56,6 +67,8 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
   const [dadosSelecionados, setDadosSelecionados] = useState(
     location.state || {}
   );
+  const [motivoSelecionado, setMotivoSelecionado] = useState<string>("");
+const [keySelecionada, setKeySelecionada] = useState<string>("");
   const [modalStates, setModalStates] = useState<boolean[]>(
     Array(produtos.length).fill(false)
   );
@@ -124,6 +137,22 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       .catch((error) => console.error("Error fetching reasons:", error));
   }, [delivery_date]);
 
+  
+
+  useEffect(() => {
+    produtos.forEach((produto) => {
+      const productIdVariantValue = `${produto.product_id}-${produto.variant_value}`;
+      console.log('productIdVariantValue:', productIdVariantValue);
+      // Verifique se productIdVariantValue é válido
+      if (productIdVariantValue) {
+        setSubReasons((prevSubReasons) => ({
+          ...prevSubReasons,
+          [productIdVariantValue]: [],
+        }));
+      }
+    });
+  }, [produtos]);
+  console.log()
   /** Validação dos motivos */
   useEffect(() => {
     const selectedReason = reasons.find(
@@ -150,15 +179,39 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
         setIsMediaRequiredError(false);
       }
 
-      console.log('produtoSelecionadoData2',produtoSelecionadoData);
-
-      if (selectedReason.subReasons) {
-        setSubReasons(selectedReason.subReasons);
+      console.log('motivoDevolucao:', motivoDevolucao);
+      console.log('produtoSelecionadoData2:', produtoSelecionadoData);
+      
+      if (selectedReason && selectedReason.subReasons) {
+        produtos.forEach((produto) => {
+          const productIdVariantValue = `${produto.product_id}-${produto.variant_value}`;
+    
+          if (motivoDevolucao && productIdVariantValue) {
+            // Update subReasons using the combination of product_id and variant_value as the key
+            setSubReasons((prevSubReasons) => ({
+              ...prevSubReasons,
+              [productIdVariantValue]: selectedReason.subReasons,
+            }));
+          }
+        });
       } else {
-        setSubReasons([]);
+        // If there are no subReasons, clear the options for each product
+        produtos.forEach((produto) => {
+          const productIdVariantValue = `${produto.product_id}-${produto.variant_value}`;
+    
+          if (productIdVariantValue) {
+            setSubReasons((prevSubReasons) => ({
+              ...prevSubReasons,
+              [productIdVariantValue]: [],
+            }));
+          }
+        });
       }
-    }
-  }, [motivoDevolucao, produtoSelecionadoData, reasons, reasonDeadlines, outOfDateModalIsOpen]);
+      
+      console.log('subReasons:', subReasons);
+    }      
+    
+  }, [motivoDevolucao, produtoSelecionadoData, reasons, reasonDeadlines, outOfDateModalIsOpen, produtos]);
 
   /** Colocar os dados selecionados dentro do state */
   useEffect(() => {
@@ -311,9 +364,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
         "inputName"
       );
 
-    const selectValueSubDevolucao: { [key: string]: any } = {
-      [variant_value]: selectedValue
-    };
+   
 
       switch (key) {
         case "tipoReembolso":
@@ -321,6 +372,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
           break;
         case "motivoDevolucao":
           setMotivoDevolucao(selectedValue);
+          setMotivoSelecionado(selectedValue);
           break;
         case "quantidade":
           setQuantidade(selectedValue);
@@ -333,9 +385,10 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
           break;
       }
     }
-
+    const productKey = `${productId}-${variant_value}`;
     const updatedProductData = {
       ...produtoSelecionadoData,
+      key: productKey,
       tipoReembolso,
       motivoDevolucao,
       quantidade,
@@ -346,9 +399,10 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       [key]: selectedValue,
     };
     setObsDev(key === "obsDev" ? selectedValue : obsDev);
+    console.log('mostra o componente',updatedProductData)
+    updateProdutoData(productId, key, variant_value, subReasonId, "inputName", productKey);
 
-    
-
+    console.log('cade o key', productKey)
     const selectedProductIndex = produtos.findIndex(
       (produto) =>
         produto.product_id === productId &&
@@ -357,11 +411,13 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
     
     if (selectedProductIndex !== -1) {
       const selectedProduct = produtos[selectedProductIndex];
-
+    
       selectedProduct.selectedProduct = {
         ...selectedProduct.selectedProduct,
         [key]: selectedValue,
-      };
+        key: productKey,
+      } as SelectedProductTypeWithKey;
+  
 
       const updatedProducts = [
         ...produtos.slice(0, selectedProductIndex),
@@ -425,7 +481,7 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
       setIsMediaRequiredError(!isMediaRequiredFilled);
     }
   };
-
+console.log('socuerro', motivoSelecionado)
   return (
     <>
       <SH1 fontSize="18px">
@@ -565,26 +621,29 @@ const ProductSelected: React.FC<ProductSelectedProps> = ({
                     <STextParagraph typeParagraph="select">
                       *O que aconteceu?
                     </STextParagraph>
-                    <ListaSelected
-                      options={subReasons.map((subReason) => subReason.description)}
-                      optionsSubReason={subReasons.map((subReason) => {
-                        return {
-                          id: subReason.id,
-                          name: subReason.description,
-                        };
-                      })}
-                      onChange={(selectedValue) =>
-                        handleSelectChange(
-                          produto.product_id,
-                          produto.variant_value,
-                          "subDevolucao",
-                          selectedValue
-                        )
-                      }
-                      selectedValue={
-                        produtoData[produto.product_id]?.[produto.variant_value]?.subDevolucao
-                      }
-                    />
+
+                    <select
+                    onChange={(e) =>
+                      handleSelectChange(
+                        produto.product_id,
+                        produto.variant_value,
+                        "subDevolucao",
+                        e.target.value
+                      )
+                    }
+                    value={
+                      produtoData[produto.product_id]?.[produto.variant_value]?.subDevolucao || ""
+                    }
+                  >
+                    <option value="">Selecione...</option>
+                    {subReasons[`${produto.product_id}-${produto.variant_value}`]?.map((subReason) => (
+                      <option key={subReason.id} value={subReason.id}>
+                        {subReason.description}
+                      </option>
+                    ))}
+                  </select>
+
+
                   </div>
                 </div>
                 <div className="d-md-flex justify-content-between">

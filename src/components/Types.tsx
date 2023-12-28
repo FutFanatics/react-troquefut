@@ -1,6 +1,7 @@
 export interface Produto {
   selectedId?:number | string;
   product_id?: number | string; 
+  key?:string;
   name?: string;
   variant_value?: string;
   price?: number;
@@ -14,6 +15,7 @@ export interface Produto {
     quantidade?: number | "";
     subDevolucao?: string;
     obsDev?:string;
+    key?:string;
   };
   BankRembolso?: {
     pixData: {
