@@ -100,13 +100,14 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-
     responsive: [
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
           arrows: false,
+          infinite: false,
+          slidesToScroll: 1,
         },
       },
     ],
