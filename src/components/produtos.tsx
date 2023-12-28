@@ -49,6 +49,7 @@ const Produtos: React.FC<ProdutosProps> = ({
     } else {
       setIsButtonDisabled(true);
     }
+    //setProdutosSelecionados([]);
   }, [selectedId]);
 
   useEffect(() => {
@@ -63,38 +64,49 @@ const Produtos: React.FC<ProdutosProps> = ({
     }
   }, [location, setProdutosSelecionados, setIsButtonDisabled]);
   
+  console.log('cade mo', selectedId);
+  
+  // const handleCheckboxChange = (produto: Produto) => {
+  //   setProdutosSelecionados((prevProdutosSelecionados) => {
+  //     const isAlreadySelected = prevProdutosSelecionados.some(
+  //       (p) => p.product_id === produto.product_id && p.variant_value === produto.variant_value
+  //     );
+  
+  //     if (isAlreadySelected) {
+  //       return prevProdutosSelecionados.filter(
+  //         (p) => !(p.product_id === produto.product_id && p.variant_value === produto.variant_value)
+  //       );
+  //     } else {
+  //       const hasDifferentSelectedId = prevProdutosSelecionados.some(
+  //         (p) => p.selectedId !== produto.selectedId
+  //       );
+  
+  //       if (hasDifferentSelectedId) {
+  //         return [produto];
+  //       } else {
+  //         return [...prevProdutosSelecionados, { ...produto, selectedId }];
+  //       }
+  //     }
+  //   });
+  //   setShowProductSelected(false);
+  // };
+  
   const handleCheckboxChange = (produto: Produto) => {
-    const isAlreadySelected = produtosSelecionados.some(
-      (p) => p.product_id === produto.product_id && p.variant_value === produto.variant_value
-    );
+    const isProductSelected = produtosSelecionados.some((p) => (
+      p.product_id === produto.product_id && p.variant_value === produto.variant_value
+    ));
   
-    if (isAlreadySelected) {
-      // If the product is already selected, remove it from the list
-      const updatedProdutos = produtosSelecionados.filter(
-        (p) => !(p.product_id === produto.product_id && p.variant_value === produto.variant_value)
-      );
-  
+    if (isProductSelected) {
+      const updatedProdutos = produtosSelecionados.filter((p) => (
+        p.product_id !== produto.product_id || p.variant_value !== produto.variant_value
+      ));
       setProdutosSelecionados(updatedProdutos);
     } else {
-      // If the product is not selected, check the selectedId of existing selected products
-      const hasDifferentSelectedId = produtosSelecionados.some(
-        (p) => p.selectedId !== produto.selectedId
-      );
-  
-      if (hasDifferentSelectedId) {
-        // If there is a product with a different selectedId, replace the selection with the new product
-        setProdutosSelecionados([produto]);
-      } else {
-        // If all selected products have the same selectedId, add the new product to the selection
-        setProdutosSelecionados([...produtosSelecionados, { ...produto, selectedId }]);
-      }
+      setProdutosSelecionados([...produtosSelecionados, produto]);
     }
   
     setShowProductSelected(false);
   };
-  
-  
-  
   
 
   const handleDataUpdate = (dadosSelecionados: any) => {
