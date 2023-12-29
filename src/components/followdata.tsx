@@ -92,7 +92,7 @@ const FollowData: React.FC<FollowDataProps> = ({ className, devolutionId }) => {
 
         axios
           .get(
-            `http://api.troque.futfanatics.com.br/api/accompany/${customerId}/${devolutionId}`,
+            `https://api.troque.futfanatics.com.br/api/accompany/${customerId}/${devolutionId}`,
             {
               timeout: 10000,
               headers: {

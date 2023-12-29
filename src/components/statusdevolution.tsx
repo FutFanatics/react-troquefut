@@ -40,7 +40,7 @@ const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className, devoluti
 
           try {
             const response = await axios.get(
-              `http://api.troque.futfanatics.com.br/api/accompany/${customerId}/${devolutionId}`,
+              `https://api.troque.futfanatics.com.br/api/accompany/${customerId}/${devolutionId}`,
               {
                 timeout: 10000,
                 headers: {
