@@ -44,7 +44,7 @@ export default function Order() {
 
       axios
         .get(
-          `http://api.troquefut.futfanatics.com.br/api/order/list/` +
+          `http://api.troque.futfanatics.com.br/api/order/list/` +
             authObj.customerId,
           {
             timeout: 10000,

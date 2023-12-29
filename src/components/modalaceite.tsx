@@ -130,7 +130,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
 
       axios
         .post(
-          `http://api.troquefut.futfanatics.com.br/api/finish-request`, 
+          `http://api.troque.futfanatics.com.br/api/finish-request`, 
           bodyJson,
           {
             timeout: 10000,
