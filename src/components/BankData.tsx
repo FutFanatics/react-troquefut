@@ -31,7 +31,7 @@ const BankData: React.FC<BankDataProps> = ({ onDataUpdate }) => {
     const fetchBanks = async () => {
       try {
         const response = await axios.get(
-          "https://api.troquefuthomologacao.futfanatics.com.br/api/banks",
+          "http://api.troquefut.futfanatics.com.br/api/banks",
           {
             timeout: 10000,
             headers: {

@@ -108,7 +108,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
       let bodyJson = {
           email : username,
           orderId: orderId,
-          store: 642719,
+          store: 311840,
           products: products,
           shipment_method: novosDadosSelecionados.Shipping,
           acceptTerms: true,
@@ -130,7 +130,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
 
       axios
         .post(
-          `https://api.troquefuthomologacao.futfanatics.com.br/api/finish-request`, 
+          `http://api.troquefut.futfanatics.com.br/api/finish-request`, 
           bodyJson,
           {
             timeout: 10000,
