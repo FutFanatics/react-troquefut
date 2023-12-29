@@ -80,7 +80,7 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
   };
   
   
-  console.log("cade mo", dadosSelecionadosAtualizados)
+  //console.log("cade mo", dadosSelecionadosAtualizados)
   const updateCheckboxState = (key: string, value: boolean) => {
     setCheckboxStates((prevState) => ({
       ...prevState,
@@ -91,7 +91,7 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
   const handleCheckboxChange = (tipoReembolso: string) => (index: number) => (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log(`Checkbox clicked for tipoReembolso: ${tipoReembolso}, Checked: ${event.target.checked}`);
+    //console.log(`Checkbox clicked for tipoReembolso: ${tipoReembolso}, Checked: ${event.target.checked}`);
   
     updateCheckboxState(tipoReembolso, event.target.checked);
   
@@ -111,7 +111,7 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
   };
   
   useEffect(() => {
-    console.log('Checkbox States:', checkboxStates);
+    //console.log('Checkbox States:', checkboxStates);
   
   const allCheckboxesChecked = Array.isArray(dadosSelecionadosAtualizados) &&
     dadosSelecionadosAtualizados.every((produto: any, index: number) => checkboxStates[`${produto.selectedProduct.tipoReembolso}`]);
@@ -159,7 +159,7 @@ const Data: React.FC<DataProps> = ({ onDataUpdate }) => {
   
     return null;
   };
-console.log('dados', )
+//console.log('dados', )
   const renderReembolsoByType = (tipoReembolso: string, productId: number, variantValue: string, index?:number) => {
     const reembolsoComponents = {
       Cupom: <ValeCompras onCheckboxChange={handleCheckboxChange(tipoReembolso)(index)} />,
@@ -207,7 +207,7 @@ console.log('dados', )
   const handleConfirmar = () => {
     let areAllCheckboxesChecked = Object.values(checkboxStates).every((isChecked) => isChecked);
 
-    console.log("Are all checkboxes checked?", areAllCheckboxesChecked);
+    //console.log("Are all checkboxes checked?", areAllCheckboxesChecked);
 
     dadosSelecionadosAtualizados.forEach((produto: any, index: number) => {
       if (produto.selectedProduct.tipoReembolso.toLowerCase() === "estorno" && !areAllCheckboxesChecked) {
@@ -246,8 +246,8 @@ console.log('dados', )
     }
   };
 
-  console.log("Checking checkboxes:", checkboxStates);
-  console.log("Final result - Are all checkboxes checked?", areAllCheckboxesChecked);
+  //console.log("Checking checkboxes:", checkboxStates);
+  //console.log("Final result - Are all checkboxes checked?", areAllCheckboxesChecked);
 
   const handleBack = () => {
     navigate("/order");

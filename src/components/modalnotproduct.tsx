@@ -37,7 +37,6 @@ const ModalNotProduct: React.FC<ModalNotProductProps> = ({
   useEffect(() => {
 
     const intervalId = setInterval(() => {
-      console.log('Interval function running...');
     }, 3000); 
     return () => clearInterval(intervalId);
   }, [isOpen]);

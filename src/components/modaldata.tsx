@@ -28,11 +28,9 @@ const ModalData: React.FC<ModalDataProps> = ({
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Dados no ModalData:", dadosSelecionadosState);
   }, [isOpen, dadosSelecionadosState]);
 
   const handleConfirmar = () => {
-    console.log("Dados selecionados no ModalData:", dadosSelecionadosState);
     onConfirm();
     onRequestClose();
   };

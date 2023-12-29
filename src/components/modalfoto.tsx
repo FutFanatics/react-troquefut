@@ -41,7 +41,6 @@ const ModalCamera: React.FC<ModalCameraProps> = ({
 
 
   const handleUploadButtonClick = async () => {
-    console.log("uploadedImage", uploadedImages);
     setIsLoading(true);
 
     try {
@@ -75,21 +74,14 @@ const ModalCamera: React.FC<ModalCameraProps> = ({
           }
         );
 
-        console.log(
-          "formData:",
-          `evidences[${dadosSelecionados.produtoSelecionadoData.selectedId}-${dadosSelecionados.produto.product_id}]`
-        );
-
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        console.log("response status:", response.status);
 
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {
           const data = await response.json();
-          console.log("Success:", data);
         } else {
           console.log("Response is not JSON:", await response.text());
         }

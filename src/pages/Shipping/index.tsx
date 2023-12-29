@@ -91,7 +91,7 @@ const Shipping: React.FC<ShippingProps> = ({}) => {
   const handleBack = () => {
     navigate("/data", { state: { pedido: dadosFinais || [] } });
   };
-  console.log("cade", dadosFinais);
+  //console.log("cade", dadosFinais);
   return (
     <>
       <Header></Header>

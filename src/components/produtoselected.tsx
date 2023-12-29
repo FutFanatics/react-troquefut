@@ -146,7 +146,7 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
   // useEffect(() => {
   //   produtos.forEach((produto) => {
   //     const productIdVariantValue = `${produto.product_id}-${produto.variant_value}`;
-  //     console.log('productIdVariantValue:', productIdVariantValue);
+  //     //console.log('productIdVariantValue:', productIdVariantValue);
   //     // Verifique se productIdVariantValue é válido
   //     if (productIdVariantValue) {
   //       setSubReasons((prevSubReasons) => ({
@@ -157,7 +157,7 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
   //   });
   // }, [produtos]);
 
-  console.log()
+
   /** Validação dos motivos */
   useEffect(() => {
     const selectedReason = reasons.find(
@@ -184,8 +184,8 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
         setIsMediaRequiredError(false);
       }
 
-      console.log('lastProductSelected:', lastProductSelected);
-      console.log('produtos2:', produtos);
+      //console.log('lastProductSelected:', lastProductSelected);
+      //console.log('produtos2:', produtos);
 
       let partes = lastProductSelected.split('-');
 
@@ -213,7 +213,7 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
             [productIdVariantValue]: selectedReason.subReasons,
           }));
 
-          console.log('subReasons 1:', subReasons);
+          //console.log('subReasons 1:', subReasons);
         }
       } else {
         // If there are no subReasons, clear the options for each product
@@ -226,7 +226,7 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
               [productIdVariantValue]: [],
             }));
 
-            console.log('subReasons 2:', subReasons);
+            //console.log('subReasons 2:', subReasons);
           }
         });
       }
@@ -422,10 +422,10 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
       [key]: selectedValue,
     };
     setObsDev(key === "obsDev" ? selectedValue : obsDev);
-    console.log('mostra o componente',updatedProductData)
+    //console.log('mostra o componente',updatedProductData)
     updateProdutoData(productId, key, variant_value, subReasonId, "inputName", productKey);
 
-    console.log('cade o key', productKey)
+    //console.log('cade o key', productKey)
     const selectedProductIndex = produtos.findIndex(
       (produto) =>
         produto.product_id === productId &&
@@ -457,7 +457,7 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
 
   /** Enviar para o próxima página */
   const handleConfirmar = () => {
-    //console.log('Inside handleConfirmar');
+    ////console.log('Inside handleConfirmar');
     
     const dadosSelecionadosAtualizados = produtos.map((produto) => {
       const dadosProduto = produtoData[produto.product_id] || {};
@@ -468,14 +468,14 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
       };
     });
   
-    //console.log("Dados selecionados produto:", dadosSelecionadosAtualizados);
+    ////console.log("Dados selecionados produto:", dadosSelecionadosAtualizados);
   
     const todosCamposPreenchidos = areAllFieldsFilled();
     const isMediaRequiredFilled = isFotoAdicaoValida ; // Alteração aqui
   
-    console.log('Todos os campos preenchidos?', todosCamposPreenchidos);
-    console.log('É necessário enviar mídia?', mediaRequired);
-    console.log('É válido adicionar foto?', isMediaRequiredFilled);
+    //console.log('Todos os campos preenchidos?', todosCamposPreenchidos);
+    //console.log('É necessário enviar mídia?', mediaRequired);
+    //console.log('É válido adicionar foto?', isMediaRequiredFilled);
   
     if (todosCamposPreenchidos && isMediaRequiredFilled) {
       if (onDataUpdate) {
@@ -504,7 +504,7 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
       setIsMediaRequiredError(!isMediaRequiredFilled);
     }
   };
-console.log('socuerro', motivoSelecionado)
+//console.log('socuerro', motivoSelecionado)
   return (
     <>
       <SH1 fontSize="18px">

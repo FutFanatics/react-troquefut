@@ -86,7 +86,7 @@ const Produtos: React.FC<ProdutosProps> = ({
   };
 
   const handleDataUpdate = (dadosSelecionados: any) => {
-    console.log('Updated data from ProductSelected dados:', dadosSelecionados);
+
   };
 
   const handleProdutoSelect = (produto: Produto) => {
@@ -103,7 +103,6 @@ const Produtos: React.FC<ProdutosProps> = ({
       selectedId: propSelectedId,
     };
 
-    console.log('Dados selecionados produtos.tsx:', dadosSelecionados);
     updateData(dadosSelecionados);
 
     setShowProductSelected(true);

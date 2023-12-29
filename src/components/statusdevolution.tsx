@@ -50,9 +50,9 @@ const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className, devoluti
             );
 
             setData(response.data);
-            console.log(response.data, "Dados do pedido recebidos com sucesso do status");
+            //console.log(response.data, "Dados do pedido recebidos com sucesso do status");
           } catch (error) {
-            console.log(error, "Erro ao obter dados do pedido");
+            //console.log(error, "Erro ao obter dados do pedido");
           }
         }
       }

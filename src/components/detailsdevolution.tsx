@@ -187,8 +187,6 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
     if (data && data.coupon) {
       navigator.clipboard.writeText(data.coupon)
         .then(() => {
-          
-          console.log("Coupon code copied!");
           setIsCopied(true);
 
           

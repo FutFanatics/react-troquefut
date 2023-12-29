@@ -80,7 +80,6 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
           setShowProductSelected(false);
         })
         .catch(function (error) {
-          console.log(error, "Erro ao obter dados do pedido");
         });
     }
   }, [selectedId]);
@@ -93,10 +92,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
     setProdutoSelecionado(produto);
   };
 
-  console.log('vai filho', produtoSelecionado)
-  console.log('vai filho2', pedido)
-  console.log('vai filho2', produtoSelecionado === null && pedido && pedido.Products )
-  console.log('mostra o selected id', selectedId)
+
 
   return (
     <>
@@ -124,7 +120,7 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
                     produtos={pedido.Products}
                     selectedId={selectedId || ""}
                     handleSelect={onSelectProduto}
-                    key={1}
+                    key={selectedId}
                     delivery_date={delivery_date}
                     payment_method={payment_method}
                     allowed_clique_retire={allowed_clique_retire}

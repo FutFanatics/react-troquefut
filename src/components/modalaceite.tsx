@@ -28,8 +28,6 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
     setIsChecked(event.target.checked);
   };
 
-  console.log('dadosSelecionados - modal aceite', novosDadosSelecionados);
-
   const handleConfirmar = async () => {
 
     let auth = localStorage.getItem("auth");
@@ -81,7 +79,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
             if (item.hasOwnProperty('BankReembolso') && item.BankReembolso.pixData != null) {
               let type;
       
-              console.log('tipo', item.BankReembolso.pixData.tipoPix)
+              
               switch (item.BankReembolso.pixData.tipoPix) {
                 case "Celular":
                   type = "number";
@@ -123,10 +121,6 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
         bodyJson['banks'] = banks
       }
 
-      console.log('Conteúdo do objeto bodyJson:', bodyJson);
-      //@ts-ignore
-      console.log('Conteúdo do objeto bodyJson:', JSON.stringify(bodyJson));
-
 
       axios
         .post(
@@ -140,7 +134,6 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
           }
         )
         .then(function (response) {
-          console.log(response.data, "Dados do pedido recebidos com sucesso");
           const devolutionId = response.data.return_id;
           navigate(`/follow`, { state: { devolutionId } });
         })

@@ -101,7 +101,7 @@ const ValeEstorno: React.FC<ValeEstornoProps> = ({
     setCheckboxMarcado(checked);
     onCheckboxChange(event);
   };
-  console.log('mostra o tipo', tipoPix)
+  //console.log('mostra o tipo', tipoPix)
 
   const renderInputField = () => {
     switch (tipoPix) {
