@@ -53,7 +53,7 @@ const ListagemDevolucoes: React.FC = () => {
           const fetchedDevolucoes = response.data;
   
           if (fetchedDevolucoes.length === 0) {
-            window.location.href = 'https://troque.futfanatics.com.br/acompanhar';
+            window.location.href = 'https://troqueold.futfanatics.com.br/acompanhar';
           } else {
             setDevolucoes(fetchedDevolucoes);
           }
