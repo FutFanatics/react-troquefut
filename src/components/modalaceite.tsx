@@ -6,6 +6,7 @@ import SlidesProducts from "./slidesproducts";
 import { useLocation, useNavigate  } from "react-router-dom";
 import axios from "axios";
 import Button from "../componentsStyled/Button";
+import ModalTimeout from "./modaltimeout";
 
 
 interface ModalAceiteProps {
@@ -27,6 +28,14 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
   };
+  const[modalIsOpen, setOpenmodal]= useState(false)
+
+  const openModal =() =>{ 
+    setOpenmodal(true)
+  }
+  const closeModal =() =>{
+    setOpenmodal(false)
+  }
 
   const handleConfirmar = async () => {
 
@@ -138,12 +147,15 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
           navigate(`/follow`, { state: { devolutionId } });
         })
         .catch(function (error) {
-          console.log(error, "Erro ao obter dados do pedido");
+          if (error.response && error.response.status === 401) {
+            openModal()
+          } else {            }
         });
     }
   }
   
-  return (
+  return (<>
+  
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
@@ -325,6 +337,11 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
         Concluir pedido de Devolução
       </button>
     </Modal>
+    <ModalTimeout
+    isOpen={modalIsOpen}
+    onRequestClose={closeModal}
+    ></ModalTimeout>
+    </>
   );
 };
 

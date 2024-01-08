@@ -5,6 +5,7 @@ import IconNull from "../componentsStyled/icon/iconNull";
 
 import ProductSelected from "./produtoselected";
 import Produtos from "./produtos";
+import ModalTimeout from "./modaltimeout";
 
 interface ListaProdutosProps {
   className?: string;
@@ -41,7 +42,14 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
   const [showProductSelected, setShowProductSelected] = useState(false);
   const [produtosSelecionados, setProdutosSelecionados] = useState<Produto[]>([]);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const[modalIsOpen, setOpenmodal]= useState(false)
 
+  const openModal =() =>{ 
+    setOpenmodal(true)
+  }
+  const closeModal =() =>{
+    setOpenmodal(false)
+  }
   useEffect(() => {
 
     setProdutosSelecionados([]);
@@ -80,6 +88,9 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
           setShowProductSelected(false);
         })
         .catch(function (error) {
+          if (error.response && error.response.status === 401) {
+            openModal()
+          } else {            }
         });
     }
   }, [selectedId]);
@@ -178,6 +189,11 @@ const ListaProdutos: React.FC<ListaProdutosProps> = ({
           )}
         </div>
       </section>
+      
+      <ModalTimeout
+      isOpen={modalIsOpen}
+      onRequestClose={closeModal}
+      ></ModalTimeout>
     </>
   );
 };

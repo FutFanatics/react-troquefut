@@ -7,6 +7,7 @@ import TipoFotos from "./tipofotos";
 import ImageUpload from "./imageupload";
 import Button from "../componentsStyled/Button";
 import Slider from "react-slick";
+import ModalTimeout from "./modaltimeout";
 
 
 
@@ -38,7 +39,14 @@ const ModalCamera: React.FC<ModalCameraProps> = ({
     setUploadedImages(updatedImages);
     
   };
+  const[modalIsOpen, setOpenmodal]= useState(false)
 
+  const openModal =() =>{ 
+    setOpenmodal(true)
+  }
+  const closeModal =() =>{
+    setOpenmodal(false)
+  }
 
   const handleUploadButtonClick = async () => {
     setIsLoading(true);
@@ -75,7 +83,11 @@ const ModalCamera: React.FC<ModalCameraProps> = ({
         );
 
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          if (response.status === 401) {
+            openModal(); // Open modal on 401 error
+          } else {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
         }
 
 
@@ -90,7 +102,11 @@ const ModalCamera: React.FC<ModalCameraProps> = ({
         onRequestClose();
       }
     } catch (error) {
-      console.error("Error:", error);
+      if (error.response && error.response.status === 401) {
+        openModal();
+      } else {
+        // Handle other errors if needed
+      }
     }finally {
       setIsLoading(false); 
     }
@@ -114,6 +130,7 @@ const ModalCamera: React.FC<ModalCameraProps> = ({
   };
 
   return (
+    <>
     <Modal
     isOpen={isOpen && dadosSelecionados && dadosSelecionados.produto && dadosSelecionados.produto.product_id}
     onRequestClose={onRequestClose}
@@ -175,6 +192,12 @@ const ModalCamera: React.FC<ModalCameraProps> = ({
 
       <button onClick={onRequestClose} className="btn-close"></button>
     </Modal>
+    <ModalTimeout
+    isOpen={modalIsOpen}
+    onRequestClose={closeModal}
+    ></ModalTimeout>
+    </>
+    
   );
 };
 

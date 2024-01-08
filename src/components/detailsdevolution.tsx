@@ -17,6 +17,7 @@ import ModalEnvio from "./modalEnvio";
 import ModalEnvioPendente from "./modalEnvioPendente";
 import ModalConcluido from "./modalconcluido";
 import ModalRealizado from "./modalrealizado";
+import ModalTimeout from "./modaltimeout";
 
 interface DetailsDevolutionProps {
   className?: string;
@@ -85,6 +86,11 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
   const [isContentOpen, setIsContentOpen] = useState(!isMobile);
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
+  const[modalIsOpen, setOpenmodal]= useState(false)
+
+  const openModal =() =>{ 
+    setOpenmodal(true)
+  }
 
   const settings = {
     dots:true,
@@ -146,7 +152,11 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
             setData(response.data);
             
           } catch (error) {
-            
+            if (error.response && error.response.status === 401) {
+              openModal();
+            } else {
+              // Handle other errors if needed
+            }
           }
         }
       }
@@ -203,7 +213,7 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
 
   return (
     <>
-{data && (
+      {data && (
         <Box typeBox="datafollow" className="col-md-12 mt-4">
           <h1 onClick={() => isMobile && setIsContentOpen(!isContentOpen)}>
             Sua Solicitação {isMobile && (isContentOpen ? <IconArrowTop width={14} /> : <IconArrowBottom width={14} />)}
@@ -298,6 +308,10 @@ const DetailsDevolution: React.FC<DetailsDevolutionProps> = ({ className, devolu
           {modalType === "concluido" && <ModalConcluido isOpen={true} onRequestClose={closeModal} />}
         </Box>
       )}
+            <ModalTimeout
+    isOpen={modalIsOpen}
+    onRequestClose={closeModal}
+    ></ModalTimeout>
     </>
   );
 };
