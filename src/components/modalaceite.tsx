@@ -81,8 +81,14 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
       
             orderId = item.selectedId;
       
-            if (item.hasOwnProperty('BankReembolso') && item.BankReembolso.bankData.account) {
-              banks = item.BankReembolso.bankData;
+            if (item.hasOwnProperty('BankReembolso') && item.BankReembolso.bankData.accont != "") {
+              banks ={
+                number: item.BankReembolso.bankData.accont,
+                agency: item.BankReembolso.bankData.agency,
+                bank: item.BankReembolso.bankData.bank,
+                cpfcnpj: item.BankReembolso.bankData.cpfcnpj,
+                banks_type: item.BankReembolso.bankData.typebank
+              } 
             }
       
             if (item.hasOwnProperty('BankReembolso') && item.BankReembolso.pixData != null) {
@@ -126,7 +132,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
         bodyJson['pix'] = pix
       }
 
-      if(banks.hasOwnProperty('account')) {
+      if(banks.hasOwnProperty('agency')) {
         bodyJson['banks'] = banks
       }
 
