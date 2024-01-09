@@ -24,6 +24,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
 
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
@@ -38,7 +39,7 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
   }
 
   const handleConfirmar = async () => {
-
+    setIsLoading(true)
     let auth = localStorage.getItem("auth");
 
     if (auth) {
@@ -156,6 +157,9 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
           if (error.response && error.response.status === 401) {
             openModal()
           } else {            }
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     }
   }
@@ -336,12 +340,27 @@ const ModalAceite: React.FC<ModalAceiteProps> = ({
 
       <button onClick={onRequestClose} className="btn-close"></button>
 
-      <button 
-      onClick={handleConfirmar}
-      className="button-finish"
-      disabled={!isChecked}>
-        Concluir pedido de Devolução
-      </button>
+      {isLoading ? (
+          <div className="position-relative">
+            <button
+              onClick={handleConfirmar}
+              className="button-finish"
+              disabled={!isChecked}
+            >
+              Concluir pedido de Devolução
+            </button>
+            <div className="spinner-foto spinner-foto_aceite" />
+          </div>
+          
+        ) : (
+          <button
+            onClick={handleConfirmar}
+            className="button-finish"
+            disabled={!isChecked}
+          >
+            Concluir pedido de Devolução
+          </button>
+        )}   
     </Modal>
     <ModalTimeout
     isOpen={modalIsOpen}
