@@ -14,6 +14,7 @@ import IconInformative from "../componentsStyled/icon/iconinformative";
 import IconInfoVale from "../componentsStyled/icon/iconinfovale";
 import ModalData from "./modaldata";
 import { useDataContext } from "../context/DataContext";
+import ModalTimeout from "./modaltimeout";
 
 interface ProductSelectedProps {
   className?: string;
@@ -91,7 +92,8 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
   const [isMediaRequiredError, setIsMediaRequiredError] = useState(false);
   const navigate = useNavigate();
   const isFotoAdicaoValida = fotoAdicionada || motivoDevolucao !== "";
-  
+  const [selectedReasonDaysAllowed, setSelectedReasonDaysAllowed] = useState<number | null>(null);
+
   /** Settings do Slick */
   const settings = {
     dots: true,
@@ -141,7 +143,7 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
       .catch((error) => console.error("Error fetching reasons:", error));
   }, [delivery_date]);
 
-  
+
 
   // useEffect(() => {
   //   produtos.forEach((produto) => {
@@ -169,6 +171,7 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
     }
 
     if (selectedReason) {
+      setSelectedReasonDaysAllowed(selectedReason.days_allowed);
       const deadlineDate = new Date(reasonDeadlines[motivoDevolucao]);
       const currentDate = new Date();
 
@@ -231,7 +234,7 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
         });
       }
     }      
-    
+
   }, [motivoDevolucao, produtoSelecionadoData, reasons, reasonDeadlines, outOfDateModalIsOpen, produtos]);
 
   /** Colocar os dados selecionados dentro do state */
@@ -777,6 +780,7 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
         isOpen={outOfDateModalIsOpen}
         onRequestClose={() => setOutOfDateModalIsOpen(false)}
         onClose={() => {}}
+        daysAllowed={selectedReasonDaysAllowed} 
       />
     </>
   );
