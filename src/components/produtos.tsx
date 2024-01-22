@@ -121,7 +121,7 @@ const Produtos: React.FC<ProdutosProps> = ({
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          arrows: false,
+          arrows: true,
         },
       },
     ],
