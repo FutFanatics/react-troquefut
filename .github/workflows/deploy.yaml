@@ -5,8 +5,20 @@ on:
     branches:
       - main
 jobs:
+  cypress:
+    name: 🛠️ Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          build: npm run build
+          start: npm start
   build:
     name: 🛠️ Build Job
+    needs: cypress
     runs-on: ubuntu-latest
 
     steps:
