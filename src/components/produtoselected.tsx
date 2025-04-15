@@ -397,8 +397,12 @@ const [keySelecionada, setKeySelecionada] = useState<string>("");
           setTipoReembolso(selectedValue);
           break;
         case "motivoDevolucao":
-          setMotivoDevolucao(selectedValue);
-          setMotivoSelecionado(selectedValue);
+          setMotivoDevolucao('');
+          // fix state var
+          setTimeout(() => {
+            setMotivoDevolucao(selectedValue);
+            setMotivoSelecionado(selectedValue);
+          }, 10);
           break;
         case "quantidade":
           setQuantidade(selectedValue);
