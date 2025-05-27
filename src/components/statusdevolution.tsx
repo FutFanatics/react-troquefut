@@ -90,15 +90,7 @@ const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className, devoluti
                         <IconComponent />
                       </div>
                     </div>
-                    {step.title == "Análise do Produto" ? (
-                      <span className="name-status">Análise Qualidade</span>
-                    ) : step.title == "Reembolso" ? (
-                      <span className="name-status">Controladoria Pendente</span>
-                    ) : step.title == "Devolução Finalizada" ? (
-                      <span className="name-status">Concluído</span>
-                    ) : (
-                      <span className="name-date">{step.date || ""}</span>
-                    )}
+                    <span className="name-date">{step.date || ""}</span>
 
                     {/* */}
                   </div>
