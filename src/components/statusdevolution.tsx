@@ -9,7 +9,7 @@ import IconReembolso from "../componentsStyled/icon/Iconreembolso";
 import IconCheck from "../componentsStyled/icon/Iconcheck";
 import IconDenied from "../componentsStyled/icon/Icondenied";
 import axios from "axios";
-import useSessionTimeoutValidation from '../components/useSessionTimeoutValidation';
+import useSessionTimeoutValidation from "../components/useSessionTimeoutValidation";
 interface StatusDevolutionProps {
   className?: string;
   devolutionId?: string;
@@ -39,15 +39,12 @@ const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className, devoluti
           const basicAuth: string = btoa(binaryString);
 
           try {
-            const response = await axios.get(
-              `https://api.troque.futfanatics.com.br/api/accompany/${customerId}/${devolutionId}`,
-              {
-                timeout: 10000,
-                headers: {
-                  Authorization: "Basic " + basicAuth,
-                },
-              }
-            );
+            const response = await axios.get(`https://api.troque.futfanatics.com.br/api/accompany/${customerId}/${devolutionId}`, {
+              timeout: 10000,
+              headers: {
+                Authorization: "Basic " + basicAuth,
+              },
+            });
 
             setData(response.data);
             //console.log(response.data, "Dados do pedido recebidos com sucesso do status");
@@ -61,7 +58,7 @@ const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className, devoluti
     fetchData();
   }, [devolutionId]);
 
-    useEffect(() => {
+  useEffect(() => {
     if (data) {
       data.history.forEach((step, index) => {
         if (index < data.history.length - 1 && data.history[index + 1].status === " ") {
@@ -75,40 +72,38 @@ const StatusDevolution: React.FC<StatusDevolutionProps> = ({ className, devoluti
   return (
     <>
       {data && (
-        <Box
-          key={data.id}
-          typeBox="datafollow"
-          className={`col-md-12 status`}
-        >
+        <Box key={data.id} typeBox="datafollow" className={`col-md-12 status`}>
           <div className="status-icons d-flex align-items-center">
             {data.history.map((step, index) => {
               const IconComponent = getIconComponent(step.title);
               const iconColor = getIconColor(step.status);
-              return (<>
-              
-                <div
-                  className="d-flex flex-column align-items-center container-icon"
-                  key={index}
-                >
-                  <div
-                    className="status-icon"
-                    style={{
-                      backgroundColor: getStatusColor(step.status),
-                      border: `1px solid ${getBorderColor(step.status)}`,
-                    }}
-                  >
+              return (
+                <>
+                  <div className="d-flex flex-column align-items-center container-icon" key={index}>
                     <div
-                      className="d-flex align-items-center justify-content-center"
-                      style={{ fill: iconColor }}
-                    >
-                      <IconComponent />
+                      className="status-icon"
+                      style={{
+                        backgroundColor: getStatusColor(step.status),
+                        border: `1px solid ${getBorderColor(step.status)}`,
+                      }}>
+                      <div className="d-flex align-items-center justify-content-center" style={{ fill: iconColor }}>
+                        <IconComponent />
+                      </div>
                     </div>
+                    {step.title == "Análise do Produto" ? (
+                      <span className="name-status">Análise Qualidade</span>
+                    ) : step.title == "Reembolso" ? (
+                      <span className="name-status">Controladoria Pendente</span>
+                    ) : step.title == "Devolução Finalizada" ? (
+                      <span className="name-status">Concluído</span>
+                    ) : (
+                      <span className="name-date">{step.date || ""}</span>
+                    )}
+
+                    {/* */}
                   </div>
-                  <span className="name-status">{step.title}</span>
-                  <span className="name-date">{step.date || ""}</span>
-                </div>
-                <div className="line" style={{ opacity: lineOpacity }}></div>
-                  </>
+                  <div className="line" style={{ opacity: lineOpacity }}></div>
+                </>
               );
             })}
           </div>
@@ -135,7 +130,7 @@ const getBorderColor = (status: string): string => {
       return "#192c53";
     case "denied":
       return "red";
-      case "pending":
+    case "pending":
       return "#192c53";
     default:
       return "#00000080";
@@ -148,7 +143,7 @@ const getIconColor = (status: string): string => {
       return "white";
     case "denied":
       return "white";
-      case "pending":
+    case "pending":
       return "#192c53";
     default:
       return "#1C1B1F80";
